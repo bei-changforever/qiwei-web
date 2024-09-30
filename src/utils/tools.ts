@@ -1,3 +1,4 @@
+import { inject } from 'vue'
 /**
  * 获取assets/images下面目录， vite
  *
@@ -6,6 +7,47 @@
  */
 export const getAssetsFile = (url) => {
   return new URL(`../assets/images/${url}`, import.meta.url).href
+}
+export const px2vw = (num) => {
+  return (num / 7.5).toFixed(6)
+}
+
+export const px2vwUnit = (num) => {
+  return (num / 7.5).toFixed(6) + 'vw'
+}
+
+export const vw2px = (num) => {
+  return document.documentElement.clientWidth * (num / 750)
+}
+export const vw2pxUnit = (num) => {
+  return document.documentElement.clientWidth * (num / 750) + 'px'
+}
+
+/**
+ * 获得追加statusBarHeight高度之后的值
+ * @param {*} num 输入的值
+ */
+export const superadditionStatusBarHeight = (num) => {
+  let statusBarHeight = (inject('statusBarHeight') as any) || Number
+  let tmpStatusBarHeight = vw2px(statusBarHeight.value)
+  if (typeof num === 'number') {
+    //没带单位当转换前的px处理
+    num = vw2px(num)
+    return `${num + tmpStatusBarHeight}px`
+  }
+  if (num.includes('px')) {
+    //转化后的px
+    num = num.replace(/px/g, '')
+    return +num + tmpStatusBarHeight + 'px'
+  } else if (num.includes('vw')) {
+    //转化后的vw
+    num = num.replace(/vw/g, '')
+    num = document.documentElement.clientWidth * (num / 100)
+    return `${num + tmpStatusBarHeight}px`
+  } else {
+    //其他情况直接返回
+    return num
+  }
 }
 // 防抖
 export const debounce = (fn, delay) => {
