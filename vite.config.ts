@@ -8,6 +8,33 @@ import dayjs from 'dayjs'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import pxtovw from 'postcss-px-to-viewport-8-plugin'
+
+const loder_pxtovw = pxtovw({
+  unitToConvert: 'px',
+  viewportWidth: 1920,
+  unitPrecision: 6,
+  propList: ['*'],
+  viewportUnit: 'vw',
+  fontViewportUnit: 'vw',
+  selectorBlackList: [],
+  minPixelValue: 1,
+  mediaQuery: true,
+  exclude: [/node_modules\/element-plus/i],
+  landscape: false
+})
+const vant_pxtovw = pxtovw({
+  unitToConvert: 'px',
+  viewportWidth: 375,
+  unitPrecision: 6,
+  propList: ['*'],
+  viewportUnit: 'vw',
+  fontViewportUnit: 'vw',
+  selectorBlackList: [],
+  minPixelValue: 1,
+  mediaQuery: true,
+  exclude: [/^(?!.*node_modules\/element-plus)/] //忽略除vant之外的
+})
 
 /** 当前执行node命令时文件夹的地址（工作目录） */
 const root: string = process.cwd()
@@ -39,6 +66,9 @@ export default defineConfig({
     })
   ],
   css: {
+    postcss: {
+      plugins: [loder_pxtovw, vant_pxtovw]
+    },
     // css预处理器
     preprocessorOptions: {
       scss: {
