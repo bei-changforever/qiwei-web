@@ -1,0 +1,44 @@
+//超出显示省略号
+@mixin not-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin ellipsis($w: 100px) {
+  width: $w;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin ellipsis-line($num) {
+  word-break: break-all;
+  /* break-all(允许在单词内换行。) */
+  text-overflow: ellipsis;
+  /* 超出部分省略号 */
+  display: -webkit-box;
+  /** 对象作为伸缩盒子模型显示 **/
+  -webkit-box-orient: vertical;
+  /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+  -webkit-line-clamp: $num;
+  /** 显示的行数 **/
+  overflow: hidden;
+}
+
+@mixin no-scrollbar {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+
+  /* IE 10+ */
+  &::-webkit-scrollbar {
+    display: none;
+    /* Chrome Safari */
+  }
+}
+
+@mixin cus-form-disabled-1 {
+  --el-disabled-bg-color: #ffffff;
+  --el-fill-color-light: #ffffff;
+}
