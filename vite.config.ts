@@ -8,33 +8,9 @@ import dayjs from 'dayjs'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import pxtovw from 'postcss-px-to-viewport-8-plugin'
+//兼容低版本浏览器
+import legacy from '@vitejs/plugin-legacy'
 
-const loder_pxtovw = pxtovw({
-  unitToConvert: 'px',
-  viewportWidth: 1920,
-  unitPrecision: 6,
-  propList: ['*'],
-  viewportUnit: 'vw',
-  fontViewportUnit: 'vw',
-  selectorBlackList: [],
-  minPixelValue: 1,
-  mediaQuery: true,
-  exclude: [/node_modules\/element-plus/i],
-  landscape: false
-})
-const vant_pxtovw = pxtovw({
-  unitToConvert: 'px',
-  viewportWidth: 375,
-  unitPrecision: 6,
-  propList: ['*'],
-  viewportUnit: 'vw',
-  fontViewportUnit: 'vw',
-  selectorBlackList: [],
-  minPixelValue: 1,
-  mediaQuery: true,
-  exclude: [/^(?!.*node_modules\/element-plus)/] //忽略除vant之外的
-})
 
 /** 当前执行node命令时文件夹的地址（工作目录） */
 const root: string = process.cwd()
@@ -63,12 +39,33 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()]
+    }),
+    legacy({
+      targets: ['defaults', 'ios < 14'], //需要兼容的目标列表，可以设置多个
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      renderLegacyChunks: true,
+      polyfills: [
+        'es.symbol',
+        'es.array.filter',
+        'es.promise',
+        'es.promise.finally',
+        'es/map',
+        'es/set',
+        'es.array.for-each',
+        'es.object.define-properties',
+        'es.object.define-property',
+        'es.object.get-own-property-descriptor',
+        'es.object.get-own-property-descriptors',
+        'es.object.keys',
+        'es.object.to-string',
+        'web.dom-collections.for-each',
+        'esnext.global-this',
+        'esnext.string.match-all'
+      ]
     })
   ],
   css: {
-    postcss: {
-      plugins: [loder_pxtovw, vant_pxtovw]
-    },
+  
     // css预处理器
     preprocessorOptions: {
       scss: {

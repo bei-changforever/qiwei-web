@@ -5,8 +5,8 @@ import { inject } from 'vue'
  * @param {*} url 图片地址
  * @returns
  */
-export const getAssetsFile = (url) => {
-  return new URL(`../assets/images/${url}`, import.meta.url).href
+export const getAssetsFile = (type,url) => {
+  return new URL(`../assets/${type}/${url}`, import.meta.url).href
 }
 export const px2vw = (num) => {
   return (num / 7.5).toFixed(6)
