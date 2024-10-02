@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="footer-container">
-      <div class="left">
+      <div class="left-left">
         <div class="topic">妆点生命新色彩</div>
         <div class="detail">一站式OEM/ODM/OBM助力客户产品孵化</div>
         <div class="business">
@@ -37,8 +37,50 @@
           />
         </div>
       </div>
-      <div class="center"></div>
-      <div class="right"></div>
+      <div class="center">
+        <div class="center-container">
+          <div class="container-item">
+            <div class="title">公司</div>
+            <div class="detail">汕头市奇伟实业有限公司</div>
+          </div>
+          <div class="container-item">
+            <div class="title">电话</div>
+            <div class="detail">136-4306-1556</div>
+          </div>
+          <div class="container-item">
+            <div class="title">地址</div>
+            <div class="detail">汕头市潮南区峡山街道 广汕公路308号</div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="right-container">
+          <div class="left">
+            <div class="image-box">
+              <el-image
+                width="100px"
+                height="100px"
+                :src="getAssetsFile('images', '企业微信.png')"
+                :fit="'fill'"
+              />
+              <div class="topic">企业微信</div>
+            </div>
+            <div class="image-box">
+              <el-image
+                width="100px"
+                height="100px"
+                :src="getAssetsFile('images', '微信公众号.png')"
+                :fit="'fill'"
+              />
+              <div class="topic">微信公众号</div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="btn" type="primary">免费<br />打样</div>
+            <div class="btn" type="primary">回到<br />顶部</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -100,10 +142,16 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
   .footer-container {
     width: 100%;
     height: calc(100% - 208px);
-    background-color: pink;
-    .left {
-      width: 33%;
-      background-color: orange;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left-left {
+      width: 35%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
       .topic {
         height: 52px;
         font-weight: 400;
@@ -115,6 +163,82 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         font-weight: 400;
         font-size: 24px;
         color: #ffffff;
+      }
+      .business {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+      }
+    }
+    .center {
+      width: 35%;
+      height: 60%;
+
+      .center-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .container-item {
+          margin-bottom: 40px;
+          .title {
+            font-weight: 400;
+            font-size: 16px;
+            color: #999999;
+          }
+
+          .detail {
+            font-weight: bold;
+            font-size: 20px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    .right {
+      width: 20%;
+      height: 60%;
+
+      .right-container {
+        width: 100%;
+        display: flex;
+        .left {
+          width: 80%;
+          display: flex;
+          gap: 16px;
+          .image-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 400;
+            font-size: 16px;
+            color: #ffffff;
+            .topic {
+              margin-top: 10px;
+            }
+          }
+        }
+        .right {
+          width: 20%;
+          display: flex;
+          align-items: flex-end;
+          flex-direction: column;
+          .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f3a7a4;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 12px;
+            color: #ffffff;
+            margin-bottom: 10px;
+          }
+        }
       }
     }
   }
