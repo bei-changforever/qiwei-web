@@ -18,12 +18,18 @@
 <script setup></script>
 <style lang="scss" scoped>
 .common-layout {
-  border: 1px solid red;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: auto;
   :deep(.el-header) {
-    margin: 0 auto;
-    width: var(--header-width);
     height: var(--header-height);
     padding: 0;
+    background-color: transparent;
+  }
+  :deep(.el-footer) {
+    height: var(--footer-height);
+    padding: 0;
+    background-color: #3a3a3a;
   }
 }
 </style>

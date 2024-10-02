@@ -1,9 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
+</script>
 
 <template>
-  <CusContainer>
-    <template #Header>
-      <CusHeader />
-    </template>
-  </CusContainer>
+  <RouterView />
 </template>

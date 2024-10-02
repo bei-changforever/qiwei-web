@@ -7,7 +7,7 @@
           <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
         </div>
       </el-col>
-      <el-col :span="16"
+      <el-col :span="17"
         ><div class="grid-content text">
           <div
             v-for="(item, index) in HeaderInfo"
@@ -19,7 +19,7 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="4"
+      <el-col :span="3"
         ><div class="grid-content icon">
           <el-image
             width="21px"
@@ -44,18 +44,18 @@ const IconInfo = [
 ]
 const activeIndex = ref(0)
 const handleSelect = (key: number) => {
-  console.log('点击')
-
   if (activeIndex.value == key) return
   activeIndex.value = key
 }
 </script>
 <style lang="scss" scoped>
 .header {
-  width: 100%;
+  width: var(--header-width);
   height: 100%;
+  margin: 0 auto;
+
   // background-image: radial-gradient(transparent 1px, var(--vp-c-bg) 1px);
-  // background-size: 4px 4px;
+  background-size: 4px 4px;
   // backdrop-filter: saturate(50%) blur(4px);
 
   .grid-content {
@@ -67,8 +67,10 @@ const handleSelect = (key: number) => {
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      justify-content: flex-start;
+      :deep(.el-image) {
+        cursor: pointer;
+      }
     }
 
     &.text {
@@ -95,7 +97,7 @@ const handleSelect = (key: number) => {
       display: flex;
       gap: 17px;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
     }
   }
 }
