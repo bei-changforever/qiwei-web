@@ -13,11 +13,17 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "dayjs": "^1.11.13",
     "element-plus": "^2.8.4",
     "mitt": "^3.0.1",
+    "mv-full-page": "^3.1.5",
     "nanoid": "^5.0.7",
     "pinia": "^2.1.7",
+    "swiper": "^11.1.14",
+    "vant": "^4.9.7",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },

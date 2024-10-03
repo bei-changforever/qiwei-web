@@ -1,0 +1,50 @@
+// :root {
+//   --base-width: 1440px;
+//   --header-height: 76px;
+//   --footer-height: 576px;
+//   --vp-c-bg: black;
+// }
+
+@media (min-width: 1520px) and (max-width: 1920px) {
+  :root {
+    --base-width: 1440px;
+    --header-height: 76px;
+    --footer-height: 576px;
+    --vp-c-bg: black;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1520px) {
+  :root {
+    --base-width: 1220px;
+    --header-height: 70px;
+    --footer-height: 550px;
+    --vp-c-bg: black;
+  }
+}
+
+@media (min-width: 1220px) and (max-width: 1440px) {
+  :root {
+    --base-width: 1120px;
+    --header-height: 65px;
+    --footer-height: 520px;
+    --vp-c-bg: black;
+  }
+}
+@media (min-width: 960px) and (max-width: 1220px) {
+  :root {
+    --base-width: 960px;
+    --header-height: 65px;
+    --footer-height: 490px;
+    --vp-c-bg: black;
+  }
+}
+
+@media (max-width: 960px) {
+  :root {
+    --base-width: 100%;
+    --header-height: 65px;
+    --footer-height: 460px;
+    --vp-c-bg: black;
+  }
+}

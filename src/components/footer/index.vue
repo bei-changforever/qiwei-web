@@ -3,7 +3,7 @@
     <div class="footer-navbar">
       <div class="block">
         <div class="logo">
-          <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
+          <el-image :src="getAssetsFile('icon', 'logo.png')" :fit="'fill'" />
         </div>
         <div class="text">
           <div v-for="(item, index) in HeaderInfo" :class="['text-item']" :key="index">
@@ -17,24 +17,9 @@
         <div class="topic">妆点生命新色彩</div>
         <div class="detail">一站式OEM/ODM/OBM助力客户产品孵化</div>
         <div class="business">
-          <el-image
-            width="80px"
-            height="80px"
-            :src="getAssetsFile('images', 'HALAL.png')"
-            :fit="'fill'"
-          />
-          <el-image
-            width="80px"
-            height="80px"
-            :src="getAssetsFile('images', 'ISO.png')"
-            :fit="'fill'"
-          />
-          <el-image
-            width="80px"
-            height="80px"
-            :src="getAssetsFile('images', 'GMPC.png')"
-            :fit="'fill'"
-          />
+          <el-image :src="getAssetsFile('images', 'HALAL.png')" :fit="'fill'" />
+          <el-image :src="getAssetsFile('images', 'ISO.png')" :fit="'fill'" />
+          <el-image :src="getAssetsFile('images', 'GMPC.png')" :fit="'fill'" />
         </div>
       </div>
       <div class="center">
@@ -57,21 +42,11 @@
         <div class="right-container">
           <div class="left">
             <div class="image-box">
-              <el-image
-                width="100px"
-                height="100px"
-                :src="getAssetsFile('images', '企业微信.png')"
-                :fit="'fill'"
-              />
+              <el-image :src="getAssetsFile('images', '企业微信.png')" :fit="'fill'" />
               <div class="topic">企业微信</div>
             </div>
             <div class="image-box">
-              <el-image
-                width="100px"
-                height="100px"
-                :src="getAssetsFile('images', '微信公众号.png')"
-                :fit="'fill'"
-              />
+              <el-image :src="getAssetsFile('images', '微信公众号.png')" :fit="'fill'" />
               <div class="topic">微信公众号</div>
             </div>
           </div>
@@ -85,13 +60,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
 </script>
 <style lang="scss" scoped>
 .footer {
-  width: var(--footer-width);
+  width: var(--base-width);
   height: 100%;
   margin: 0 auto;
   .footer-navbar {
@@ -115,6 +89,8 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         align-items: center;
         justify-content: flex-start;
         :deep(.el-image) {
+          width: 223px;
+          height: 54px;
           cursor: pointer;
         }
       }
@@ -125,7 +101,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        gap: 100px;
+        gap: 10%;
         .text-item {
           font-weight: 400;
           font-size: 14px;
@@ -150,7 +126,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
       height: 60%;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10%;
 
       .topic {
         height: 52px;
@@ -168,7 +144,11 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         width: 100%;
         display: flex;
         align-items: center;
-        gap: 40px;
+        gap: 10%;
+        :deep(.el-image) {
+          width: 80px;
+          height: 80px;
+        }
       }
     }
     .center {
@@ -207,7 +187,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         .left {
           width: 80%;
           display: flex;
-          gap: 16px;
+          gap: 5%;
           .image-box {
             display: flex;
             flex-direction: column;
@@ -215,8 +195,14 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
             font-weight: 400;
             font-size: 16px;
             color: #ffffff;
+            :deep(.el-image) {
+              width: 100px;
+              height: 100px;
+              cursor: pointer;
+            }
             .topic {
               margin-top: 10px;
+              cursor: pointer;
             }
           }
         }
@@ -237,9 +223,516 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
             font-size: 12px;
             color: #ffffff;
             margin-bottom: 10px;
+            cursor: pointer;
+
+            white-space: nowrap;
           }
         }
       }
+    }
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1520px) {
+  .footer {
+    .footer-navbar {
+      .block {
+        .logo {
+          width: 30%;
+        }
+
+        .text {
+          width: 70%;
+        }
+      }
+    }
+    .footer-container {
+      .left-left {
+      width: 32%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 10%;
+
+      .topic {
+        height: 52px;
+        font-weight: 400;
+        font-size: 30px;
+        color: #ffffff;
+      }
+      .detail {
+        height: 31px;
+        font-weight: 400;
+        font-size: 20px;
+        color: #ffffff;
+      }
+      .business {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10%;
+        :deep(.el-image) {
+          width: 70px;
+          height: 70px;
+        }
+      }
+    }
+    .center {
+      width: 35%;
+      height: 60%;
+
+      .center-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .container-item {
+          margin-bottom: 40px;
+          .title {
+            font-weight: 400;
+            font-size: 14px;
+            color: #999999;
+          }
+
+          .detail {
+            font-weight: bold;
+            font-size: 18px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    .right {
+      width: 20%;
+      height: 60%;
+
+      .right-container {
+        width: 100%;
+        display: flex;
+        .left {
+          width: 80%;
+          display: flex;
+          gap: 5%;
+          .image-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 400;
+            font-size: 14px;
+            color: #ffffff;
+            :deep(.el-image) {
+              width: 90px;
+              height: 90px;
+              cursor: pointer;
+            }
+            .topic {
+              margin-top: 10px;
+              cursor: pointer;
+            }
+          }
+        }
+        .right {
+          width: 20%;
+          display: flex;
+          align-items: flex-end;
+          flex-direction: column;
+          .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f3a7a4;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 12px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+    }
+  }
+}
+
+@media (min-width: 1220px) and (max-width: 1440px) {
+  .footer {
+    .footer-navbar {
+      .block {
+        .logo {
+          width: 30%;
+        }
+
+        .text {
+          width: 70%;
+        }
+      }
+    }
+    .footer-container {
+      .left-left {
+      width: 32%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 10%;
+
+      .topic {
+        height: 52px;
+        font-weight: 400;
+        font-size: 26px;
+        color: #ffffff;
+      }
+      .detail {
+        height: 31px;
+        font-weight: 400;
+        font-size: 18px;
+        color: #ffffff;
+      }
+      .business {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10%;
+        :deep(.el-image) {
+          width: 65px;
+          height: 65px;
+        }
+      }
+    }
+    .center {
+      width: 35%;
+      height: 60%;
+
+      .center-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .container-item {
+          margin-bottom: 40px;
+          .title {
+            font-weight: 400;
+            font-size: 14px;
+            color: #999999;
+          }
+
+          .detail {
+            font-weight: bold;
+            font-size: 18px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    .right {
+      width: 22%;
+      height: 60%;
+
+      .right-container {
+        width: 100%;
+        display: flex;
+        .left {
+          width: 80%;
+          display: flex;
+          gap: 5%;
+          .image-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 400;
+            font-size: 14px;
+            color: #ffffff;
+            :deep(.el-image) {
+              width: 90px;
+              height: 90px;
+              cursor: pointer;
+            }
+            .topic {
+              margin-top: 10px;
+              cursor: pointer;
+            }
+          }
+        }
+        .right {
+          width: 20%;
+          display: flex;
+          align-items: flex-end;
+          flex-direction: column;
+          .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f3a7a4;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 12px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+    }
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1220px) {
+  .footer {
+    .footer-navbar {
+      .block {
+        .logo {
+          width: 30%;
+        }
+
+        .text {
+          width: 70%;
+        }
+      }
+    }
+    .footer-container {
+      .left-left {
+      width: 32%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 10%;
+
+      .topic {
+        height: 52px;
+        font-weight: 400;
+        font-size: 24px;
+        color: #ffffff;
+      }
+      .detail {
+        height: 31px;
+        font-weight: 400;
+        font-size: 16px;
+        color: #ffffff;
+      }
+      .business {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10%;
+        :deep(.el-image) {
+          width: 65px;
+          height: 65px;
+        }
+      }
+    }
+    .center {
+      width: 30%;
+      height: 60%;
+
+      .center-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .container-item {
+          margin-bottom: 15px;
+          .title {
+            font-weight: 400;
+            font-size: 14px;
+            color: #999999;
+          }
+
+          .detail {
+            font-weight: bold;
+            font-size: 18px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    .right {
+      width: 25%;
+      height: 60%;
+
+      .right-container {
+        width: 100%;
+        display: flex;
+        .left {
+          width: 80%;
+          display: flex;
+          gap: 5%;
+          .image-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 400;
+            font-size: 14px;
+            color: #ffffff;
+            :deep(.el-image) {
+              width: 90px;
+              height: 90px;
+              cursor: pointer;
+            }
+            .topic {
+              margin-top: 10px;
+              cursor: pointer;
+            }
+          }
+        }
+        .right {
+          width: 20%;
+          display: flex;
+          align-items: flex-end;
+          flex-direction: column;
+          .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f3a7a4;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 12px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .footer {
+    .footer-navbar {
+      .block {
+        .logo {
+          width: 30%;
+        }
+
+        .text {
+          width: 70%;
+        }
+      }
+    }
+    .footer-container {
+      .left-left {
+      width: 35%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 10%;
+
+      .topic {
+        height: 52px;
+        font-weight: 400;
+        font-size: 24px;
+        color: #ffffff;
+      }
+      .detail {
+        height: 31px;
+        font-weight: 400;
+        font-size: 16px;
+        color: #ffffff;
+      }
+      .business {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10%;
+        :deep(.el-image) {
+          width: 65px;
+          height: 65px;
+        }
+      }
+    }
+    .center {
+      width: 30%;
+      height: 60%;
+
+      .center-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .container-item {
+          margin-bottom: 15px;
+          .title {
+            font-weight: 400;
+            font-size: 14px;
+            color: #999999;
+          }
+
+          .detail {
+            font-weight: bold;
+            font-size: 18px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    .right {
+      width: 25%;
+      height: 60%;
+
+      .right-container {
+        width: 100%;
+        display: flex;
+        .left {
+          width: 80%;
+          display: flex;
+          gap: 5%;
+          .image-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 400;
+            font-size: 14px;
+            color: #ffffff;
+            :deep(.el-image) {
+              width: 90px;
+              height: 90px;
+              cursor: pointer;
+            }
+            .topic {
+              margin-top: 10px;
+              cursor: pointer;
+            }
+          }
+        }
+        .right {
+          width: 20%;
+          display: flex;
+          align-items: flex-end;
+          flex-direction: column;
+          .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f3a7a4;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 12px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
     }
   }
 }

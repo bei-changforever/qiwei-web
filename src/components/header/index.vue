@@ -1,36 +1,31 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-    <el-row :gutter="20">
-      <el-col :span="4"
-        ><div class="grid-content logo">
-          <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
+    <div class="header-content">
+      <div class="logo">
+        <el-image :src="getAssetsFile('icon', 'logo.png')" :fit="'fill'" />
+      </div>
+      <div class="text">
+        <div
+          v-for="(item, index) in HeaderInfo"
+          :class="['text-item', activeIndex == index ? 'active' : '']"
+          :key="index"
+          @click="handleSelect(index)"
+        >
+          {{ item }}
         </div>
-      </el-col>
-      <el-col :span="17"
-        ><div class="grid-content text">
-          <div
-            v-for="(item, index) in HeaderInfo"
-            :class="['text-item', activeIndex == index ? 'active' : '']"
-            :key="index"
-            @click="handleSelect(index)"
-          >
-            {{ item }}
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="3"
-        ><div class="grid-content icon">
-          <el-image
-            width="21px"
-            height="21px"
-            v-for="(item, index) in IconInfo"
-            :src="item"
-            :fit="'fill'"
-          />
-        </div>
-      </el-col>
-    </el-row>
+      </div>
+      <div class="icon">
+        <el-image
+          class="unactive-image"
+          v-for="(item, index) in IconInfo"
+          :key="index"
+          :src="item"
+          :fit="'fill'"
+        />
+        <div class="active">≡</div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -50,37 +45,40 @@ const handleSelect = (key: number) => {
 </script>
 <style lang="scss" scoped>
 .header {
-  width: var(--header-width);
+  width: 100%;
   height: 100%;
-  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  // background-image: radial-gradient(transparent 1px, var(--vp-c-bg) 1px);
-  background-size: 4px 4px;
-  // backdrop-filter: saturate(50%) blur(4px);
-
-  .grid-content {
-    width: 100%;
-    height: var(--header-height);
-
-    &.logo {
-      width: 100%;
+  .header-content {
+    width: var(--base-width);
+    height: 100%;
+    display: flex;
+    background-color: orange;
+    .logo {
+      width: 15%;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       :deep(.el-image) {
+        width: 223px;
+        height: 54px;
         cursor: pointer;
       }
     }
-
-    &.text {
-      width: 100%;
+    .text {
+      width: 70%;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 100px;
+
+      gap: 10%;
       .text-item {
+        white-space: nowrap;
         font-weight: 400;
         font-size: 14px;
         color: #ffffff;
@@ -91,13 +89,72 @@ const handleSelect = (key: number) => {
         }
       }
     }
-
-    &.icon {
+    .icon {
+      width: 15%;
+      height: 100%;
+      :deep(.el-image) {
+        width: 20px;
+        height: 20px;
+      }
       cursor: pointer;
       display: flex;
-      gap: 17px;
+      gap: 10%;
       align-items: center;
       justify-content: flex-end;
+      .active {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1220px) {
+  .header {
+    .header-content {
+      .logo {
+        width: 20%;
+      }
+      .text {
+        width: 60%;
+        gap: 5%;
+      }
+      .icon {
+        width: 20%;
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .header {
+    .header-content {
+      padding: 10px;
+      box-sizing: border-box;
+      .logo {
+        width: 80%;
+      }
+      .text {
+        display: none !important;
+      }
+      .icon {
+        width: 20%;
+        .unactive-image {
+          display: none;
+        }
+
+        .active {
+          width: 40px;
+          height: 40px;
+          border: 2px solid white;
+          border-radius: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          color: white;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
