@@ -12,7 +12,7 @@ const IconInfo = [
 <template>
   <div class="container-fluid main custom-style">
     <el-container>
-      <el-affix :offset="0">
+      <el-affix position="top" :offset="0">
         <el-header>
           <CusHeader />
         </el-header>
@@ -21,10 +21,23 @@ const IconInfo = [
       <el-main>
         <slot name="Main"> <HomeView /></slot>
       </el-main>
-      <el-footer>
-        <CusFooter />
-      </el-footer>
+     
+        <el-footer>
+          <CusFooter />
+        </el-footer>
+ 
     </el-container>
+    <!-- <div class="cus-header">
+      <el-affix :offset="0">
+        <CusHeader />
+      </el-affix>
+    </div>
+    <div class="cus-main">
+      <HomeView />
+    </div>
+    <div class="cus-footer">
+      <CusFooter />
+    </div> -->
   </div>
 </template>
 
@@ -32,6 +45,31 @@ const IconInfo = [
 .custom-style {
   padding: 0;
   width: 100%;
+
+  .cus-header {
+    width: 100%;
+    height: var(--header-height);
+    background-color: black;
+    padding: 0;
+    margin: 0 auto;
+  }
+  .cus-main {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+  }
+  .cus-footer {
+    width: 100%;
+    height: var(--footer-height);
+    padding: 0;
+    background-color: #3a3a3a;
+  }
+
+  :deep(.el-container) {
+    width: 100%;
+    padding: 0;
+    height: 100vh;
+  }
   :deep(.el-header) {
     width: 100%;
     height: var(--header-height);
