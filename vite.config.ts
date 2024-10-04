@@ -8,9 +8,10 @@ import dayjs from 'dayjs'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
 //兼容低版本浏览器
 import legacy from '@vitejs/plugin-legacy'
-
+// import postcsspxtoviewport from 'postcss-px-to-viewport'
 
 /** 当前执行node命令时文件夹的地址（工作目录） */
 const root: string = process.cwd()
@@ -35,10 +36,10 @@ export default defineConfig({
     vue(),
     vueJsx(),
     AutoImport({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [ElementPlusResolver(), VantResolver()]
     }),
     Components({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [ElementPlusResolver(), VantResolver()]
     }),
     legacy({
       targets: ['defaults', 'ios < 14'], //需要兼容的目标列表，可以设置多个
@@ -65,7 +66,24 @@ export default defineConfig({
     })
   ],
   css: {
-  
+    postcss: {
+      plugins: [
+        // postcsspxtoviewport({
+        //   unitToConvert: 'px', // 要转化的单位
+        //   viewportWidth: 1920, // UI设计稿的宽度
+        //   unitPrecision: 6, // 转换后的精度，即小数点位数
+        //   propList: ['*'], // 指定转换的css属性的单位，*代表全部css属性的单位都进行转换
+        //   viewportUnit: 'vw', // 指定需要转换成的视窗单位，默认vw
+        //   fontViewportUnit: 'vw', // 指定字体需要转换成的视窗单位，默认vw
+        //   selectorBlackList: ['ignore-'], // 指定不转换为视窗单位的类名，
+        //   minPixelValue: 1, // 默认值1，小于或等于1px则不进行转换
+        //   mediaQuery: true, // 是否在媒体查询的css代码中也进行转换，默认false
+        //   replace: true, // 是否转换后直接更换属性值
+        //   landscape: false // 是否处理横屏情况
+        // })
+      ]
+    },
+
     // css预处理器
     preprocessorOptions: {
       scss: {
@@ -79,6 +97,7 @@ export default defineConfig({
     alias
   },
   server: {
+    host: '0.0.0.0',
     port: 8080
   },
   build: {
