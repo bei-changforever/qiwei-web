@@ -1,7 +1,10 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-    <div class="fixed-box">
+    <div
+      class="fixed-box"
+      :style="{ backgroundColor: changeBackGroundColor ? '#000000' : 'transparent' }"
+    >
       <div class="header-content">
         <div class="logo">
           <el-image :src="getAssetsFile('icon', 'logo.png')" :fit="'fill'" />
@@ -29,7 +32,7 @@
       </div>
     </div>
 
-    <div class="header-swiper" v-if="!changeBanner">
+    <div class="header-swiper" ref="carouselbox" v-if="!changeBanner">
       <el-carousel
         ref="carousel"
         v-model="currentIndex"
@@ -53,17 +56,21 @@
         ></div>
       </div>
     </div>
-    <div class="header-swiper" v-else>
+    <div class="header-swiper" ref="carouselbox" v-else>
       <van-swipe style="height: 55vw" class="my-swipe" :autoplay="3000" indicator-color="white">
         <van-swipe-item v-for="item in 4" :key="item">
-          <van-image width="100%" height="100%" :src="getAssetsFile('images', '轮播海报.png')" fit="fill"
+          <van-image
+            width="100%"
+            height="100%"
+            :src="getAssetsFile('images', '轮播海报.png')"
+            fit="fill"
         /></van-swipe-item>
       </van-swipe>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { isMobile } from '@/utils/equipment'
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
@@ -76,6 +83,8 @@ const carousel = ref()
 const currentIndex = ref(0)
 const activeIndex = ref(0)
 const changeBanner = ref(false)
+const carouselbox = ref(null)
+const changeBackGroundColor = ref(false)
 //获取屏幕宽度
 const screenWidth = ref(window.innerWidth)
 const handleSelect = (key: number) => {
@@ -97,6 +106,30 @@ const handleResize = () => {
   screenWidth.value = window.innerWidth
 }
 
+// 处理滚轮事件的方法
+const handleWheel = (event) => {
+  const deltaY = event.deltaY
+  if (deltaY < 0) {
+    if (carouselbox.value.getBoundingClientRect().top == 0) {
+      changeBackGroundColor.value = false
+    }
+    // 向上滚动
+  } else if (deltaY > 0) {
+    // 向下滚动
+    if (carouselbox.value.getBoundingClientRect().top < 20) {
+      changeBackGroundColor.value = true
+    }
+
+    // if (screenWidth.value < 960) {
+    //   carouselbox.value.scrollBy({
+    //     top: 0,
+    //     left: 0,
+    //     behavior: 'smooth'
+    //   })
+    // }
+  }
+}
+
 onMounted(() => {
   if (isMobile()) {
     changeBanner.value = true
@@ -104,13 +137,14 @@ onMounted(() => {
     changeBanner.value = false
   }
   window.addEventListener('resize', handleResize)
+
+  window.addEventListener('wheel', handleWheel)
 })
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
 
-watch(screenWidth, (newValue, oldValue) => {
-  console.log(newValue)
-
-  // console.log("值发生了变更", newValue, oldValue, isCollapse.value)
+// 在组件卸载前移除监听器
+onBeforeUnmount(() => {
+  window.removeEventListener('wheel', handleWheel)
 })
 </script>
 <style lang="scss" scoped>
@@ -118,7 +152,6 @@ watch(screenWidth, (newValue, oldValue) => {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: skyblue;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -131,10 +164,11 @@ watch(screenWidth, (newValue, oldValue) => {
     top: 0;
     left: 50%;
     transform: translate(-50%);
-    z-index: 2;
+    z-index: 99;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all .3s ease-in-out;
 
     .header-content {
       width: var(--base-width);

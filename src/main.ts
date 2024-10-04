@@ -8,8 +8,6 @@ import 'element-plus/dist/index.css'
 import './assets/style/index.scss'
 import '@/assets/front-style/pingFang.css'
 import component from './components/component'
-// import "lib-flexible";
-
 // 引入模块后自动生效
 import '@vant/touch-emulator'
 
@@ -22,5 +20,4 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(component)
-
 app.mount('#app')

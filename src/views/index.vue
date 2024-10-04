@@ -1,27 +1,65 @@
-<script setup lang="ts">
-import HomeView from '@/views/Home/index.vue'
-import { getAssetsFile } from '@/utils/tools'
-const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
-const IconInfo = [
-  getAssetsFile('icon', 'search.png'),
-  getAssetsFile('icon', 'share.png'),
-  getAssetsFile('icon', 'collect.png')
-]
-</script>
-
 <template>
-  <div class="container-fluid main custom-style">
+  <!-- <div class="custom-style">
     <header id="header">
       <CusHeader />
     </header>
-    <section id="main">
-      <!-- <HomeView /> -->
-    </section>
-    <footer id="footer"></footer>
-  </div>
-</template>
 
-<style lang="scss" scoped>
+    <section id="main">
+
+
+      <swiper
+        :direction="'vertical'"
+        :slidesPerView="1"
+        :spaceBetween="30"
+        :mousewheel="true"
+        :pagination="{
+          clickable: true
+        }"
+        :modules="modules"
+        class="mySwiper"
+      >
+        <swiper-slide><div class="box1">box1</div></swiper-slide>
+        <swiper-slide><div class="box2">box2</div></swiper-slide>
+        <swiper-slide><div class="box3">box3</div></swiper-slide>
+      </swiper>
+    </section>
+
+    <footer id="footer"></footer>
+  </div> -->
+  <header id="header">
+    <CusHeader />
+  </header>
+  <swiper
+    :direction="'vertical'"
+    :slidesPerView="1"
+    :spaceBetween="30"
+    :mousewheel="true"
+    :pagination="{
+      clickable: true
+    }"
+    :modules="modules"
+    class="mySwiper"
+  >
+    <swiper-slide><div class="box1">box1</div></swiper-slide>
+    <swiper-slide><div class="box2">box2</div></swiper-slide>
+    <swiper-slide><div class="box3">box3</div></swiper-slide>
+  </swiper>
+</template>
+<script setup>
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+// Import Swiper styles
+import 'swiper/css'
+
+import 'swiper/css/pagination'
+
+// import required modules
+import { Mousewheel, Pagination } from 'swiper/modules'
+
+const modules = [Mousewheel, Pagination]
+</script>
+<style scoped lang="scss">
 .custom-style {
   padding: 0;
   width: 100%;
@@ -36,8 +74,6 @@ const IconInfo = [
   }
   #main {
     width: 100%;
-    padding: 0;
-    margin: 0 auto;
   }
   #footer {
     width: 100%;
@@ -45,5 +81,36 @@ const IconInfo = [
     padding: 0;
     background-color: #3a3a3a;
   }
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.box1 {
+  background: #ff0000;
+}
+.box2 {
+  background: pink;
+}
+.box3 {
+  background: orange;
 }
 </style>
