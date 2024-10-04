@@ -19,7 +19,6 @@
       </div>
     </div>
 
-    <Banner />
 
   </div>
 </template>

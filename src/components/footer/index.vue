@@ -3,7 +3,7 @@
     <div class="footer-navbar">
       <div class="block">
         <div class="logo">
-          <el-image :src="getAssetsFile('icon', 'logo.png')" :fit="'fill'" />
+          <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
         </div>
         <div class="text">
           <div v-for="(item, index) in HeaderInfo" :class="['text-item']" :key="index">
