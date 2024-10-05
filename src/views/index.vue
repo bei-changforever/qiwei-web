@@ -1,51 +1,27 @@
 <template>
-  <!-- <div class="custom-style">
-    <header id="header">
-      <CusHeader />
-    </header>
-
-    <section id="main">
-
-
-      <swiper
-        :direction="'vertical'"
-        :slidesPerView="1"
-        :spaceBetween="30"
-        :mousewheel="true"
-        :pagination="{
-          clickable: true
-        }"
-        :modules="modules"
-        class="mySwiper"
-      >
-        <swiper-slide><div class="box1">box1</div></swiper-slide>
-        <swiper-slide><div class="box2">box2</div></swiper-slide>
-        <swiper-slide><div class="box3">box3</div></swiper-slide>
-      </swiper>
-    </section>
-
-    <footer id="footer"></footer>
-  </div> -->
-  <!-- <header id="header">
-    <CusHeader />
-  </header> -->
-  <swiper :direction="'vertical'" :slidesPerView="1" :spaceBetween="30" :mousewheel="true" :pagination="{
-    clickable: true
-  }" :modules="modules" class="mySwiper">
-    <swiper-slide>
-      <header id="header">
-        <CusHeader />
-      </header>
+  <header id="header">
+    <CusHeader :swiperActiveIndex="activeIndex"/>
+  </header>
+  <swiper :direction="'vertical'" :slidesPerView="1" :mousewheel="true" :modules="modules" @slideChange="onSlideChange" class="mySwiper">
+    <swiper-slide style="height: auto;">
+      <Banner />
     </swiper-slide>
-    <swiper-slide>
-      <div class="box2">box2</div>
+    <swiper-slide style="height: auto;">
+
+      <HomeView />
     </swiper-slide>
     <swiper-slide>
       <div class="box3">box3</div>
     </swiper-slide>
   </swiper>
+
+
+  <footer id="footer"></footer>
 </template>
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import HomeView from "@/views/Home/product.vue"
+
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
@@ -56,28 +32,30 @@ import 'swiper/css/pagination'
 
 // import required modules
 import { Mousewheel, Pagination } from 'swiper/modules'
-
+const activeIndex = ref(0)
 const modules = [Mousewheel, Pagination]
+const onSlideChange = (item) => {
+  activeIndex.value = item.activeIndex
+}
 </script>
 <style scoped lang="scss">
+#header {
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
 
+#main {
+  width: 100%;
+}
 
-  #header {
-    width: 100%;
-    padding: 0;
-    margin: 0 auto;
-  }
+#footer {
+  width: 100%;
+  height: var(--footer-height);
+  padding: 0;
+  background-color: #3a3a3a;
+}
 
-  #main {
-    width: 100%;
-  }
-
-  #footer {
-    width: 100%;
-    height: var(--footer-height);
-    padding: 0;
-    background-color: #3a3a3a;
-  }
 
 
 .swiper {
@@ -87,17 +65,6 @@ const modules = [Mousewheel, Pagination]
 
 
 
-.box1 {
-  width: 100%;
-  height: 100%;
-  background: #ff0000;
-}
-
-.box2 {
-  width: 100%;
-  height: 100%;
-  background: pink;
-}
 
 .box3 {
   width: 100%;

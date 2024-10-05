@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-    <div class="fixed-box" :style="{ backgroundColor: changeBackGroundColor ? '#000000' : 'transparent' }">
+    <div class="fixed-box" :style="{ backgroundColor: changeBackGroundColor ? 'rgba(0,0,0,.6)' : 'transparent' }">
       <div class="header-content">
         <div class="logo">
           <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
@@ -18,14 +18,18 @@
         </div>
       </div>
     </div>
-
-    <Banner />
-
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+const changeBackGroundColor = ref(false)
+const props = defineProps({
+  swiperActiveIndex: {
+    type: Number,
+    default: 0
+  }
+})
 
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
 const IconInfo = [
@@ -36,48 +40,19 @@ const IconInfo = [
 
 const activeIndex = ref(0)
 
-const carouselbox = ref(null)
-const changeBackGroundColor = ref(false)
-//获取屏幕宽度
-const screenWidth = ref(window.innerWidth)
+
 const handleSelect = (key: number) => {
   if (activeIndex.value == key) return
   activeIndex.value = key
 }
 
-
-
-const handleResize = () => {
-  screenWidth.value = window.innerWidth
-}
-
-// 处理滚轮事件的方法
-const handleWheel = (event) => {
-  const deltaY = event.deltaY
-  if (deltaY < 0) {
-    if (carouselbox.value.getBoundingClientRect().top == 0) {
-      changeBackGroundColor.value = false
-    }
-    // 向上滚动
-  } else if (deltaY > 0) {
-    // 向下滚动
-    if (carouselbox.value.getBoundingClientRect().top < 20) {
-      changeBackGroundColor.value = true
-    }
+watch(() => props.swiperActiveIndex, (newVal, oldVal) => {
+  if (newVal > 0) {
+    changeBackGroundColor.value = true
+  } else {
+    changeBackGroundColor.value = false
   }
-}
 
-onMounted(() => {
-
-  window.addEventListener('resize', handleResize)
-
-  window.addEventListener('wheel', handleWheel)
-})
-//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
-
-// 在组件卸载前移除监听器
-onBeforeUnmount(() => {
-  window.removeEventListener('wheel', handleWheel)
 })
 </script>
 <style lang="scss" scoped>
@@ -90,6 +65,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
 
   .fixed-box {
     width: 100%;
@@ -124,7 +100,7 @@ onBeforeUnmount(() => {
       }
 
       .text {
-        width: 70%;
+        width: 78%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -167,6 +143,8 @@ onBeforeUnmount(() => {
       }
     }
   }
+
+
 
 
 }
