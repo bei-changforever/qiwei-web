@@ -15,8 +15,6 @@ declare module 'vue' {
     ElImage: typeof import('element-plus/es')['ElImage']
     Footer: typeof import('./src/components/footer/index.vue')['default']
     Header: typeof import('./src/components/header/index.vue')['default']
-    'Index copy': typeof import('./src/components/header/index copy.vue')['default']
-    'Index copy 2': typeof import('./src/components/header/index copy 2.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VanImage: typeof import('vant/es')['Image']

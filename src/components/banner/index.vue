@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="header-swiper" ref="carouselbox"  v-if="!changeBanner">
+    <div class="header-swiper" ref="carouselbox" v-if="!changeBanner">
+
         <el-carousel ref="carousel" v-model="currentIndex" :initial-index="currentIndex" :interval="5000" height="50vw"
             indicator-position="none" motion-blur @change="changeHandle">
             <el-carousel-item v-for="item in 4" :key="item">
@@ -13,7 +14,7 @@
                 @click="changeIndicator(index)"></div>
         </div>
     </div>
-    <div class="header-swiper" ref="carouselbox"  v-else>
+    <div class="header-swiper" ref="carouselbox" v-else>
         <van-swipe style="height: 50vw" class="my-swipe" :autoplay="3000" indicator-color="white">
             <van-swipe-item v-for="item in 4" :key="item">
                 <van-image width="100%" height="100%" :src="getAssetsFile('images', '轮播海报.png')"
@@ -22,9 +23,13 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, watch,onBeforeUnmount } from 'vue'
+import { ref, onMounted, watch, onBeforeUnmount } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { isMobile } from '@/utils/equipment'
+
+
+
+
 const carousel = ref()
 const currentIndex = ref(0)
 const changeBanner = ref(false)
@@ -48,25 +53,25 @@ const changeBackGroundColor = ref(false)
 // 处理滚轮事件的方法
 const handleWheel = (event) => {
 
-    
-  const deltaY = event.deltaY
-  if (deltaY < 0) {
 
-    
-    // if (carouselbox.value.getBoundingClientRect().top == 0) {
-    //   changeBackGroundColor.value = false
-    // }
-    // if (carouselbox.value.getBoundingClientRect().top == 0) {
-    //   changeBackGroundColor.value = false
-    // }
-    // 向上滚动
-  } else if (deltaY > 0) {
-    // 向下滚动
-    // if (carouselbox.value.getBoundingClientRect().top < 20) {
-    //   changeBackGroundColor.value = true
-    // }
-    
-  }
+    const deltaY = event.deltaY
+    if (deltaY < 0) {
+
+
+        // if (carouselbox.value.getBoundingClientRect().top == 0) {
+        //   changeBackGroundColor.value = false
+        // }
+        // if (carouselbox.value.getBoundingClientRect().top == 0) {
+        //   changeBackGroundColor.value = false
+        // }
+        // 向上滚动
+    } else if (deltaY > 0) {
+        // 向下滚动
+        // if (carouselbox.value.getBoundingClientRect().top < 20) {
+        //   changeBackGroundColor.value = true
+        // }
+
+    }
 }
 
 // onMounted(() => {
@@ -78,7 +83,7 @@ const handleWheel = (event) => {
 
 onMounted(() => {
     console.log(carouselbox.value);
-    
+
     if (isMobile()) {
         changeBanner.value = true
     } else {
@@ -123,7 +128,7 @@ watch(screenWidth, (newVal, oldVal) => {
 
 // 在组件卸载前移除监听器
 onBeforeUnmount(() => {
-  window.removeEventListener('wheel', handleWheel)
+    window.removeEventListener('wheel', handleWheel)
 })
 </script>
 <style lang="scss" scoped>

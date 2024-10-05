@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-    <div class="fixed-box" :style="{ backgroundColor: changeBackGroundColor ? 'rgba(0,0,0,.6)' : 'transparent' }">
+    <div class="fixed-box" :style="{ backgroundColor: changeBackGroundColor ? '#000000' : 'transparent' }">
       <div class="header-content">
         <div class="logo">
           <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />

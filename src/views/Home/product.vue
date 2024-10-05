@@ -17,10 +17,9 @@
       </div>
     </div>
     <div class="home-product-swiper">
-      <swiper :slidesPerView="3" :spaceBetween="30" :freeMode="true" :pagination="{
-            clickable: true,
-          }" :modules="modules" class="mySwiper">
-        <swiper-slide v-for="item in 3" :key="item">
+      <swiper @swiper="onSwiper" :slidesPerView="3" :spaceBetween="100" :freeMode="true" :navigation="true"
+        :modules="modules" class="mySwiper">
+        <swiper-slide v-for="item in 6" :key="item">
           <div class="product-info">
             <div class="product-info-container">
               <div class="background-detail-box">
@@ -32,17 +31,28 @@
               <div class="backfround-info-box">
                 <div class="background-info">产品展示</div>
               </div>
-
-              <div class="background-image">
-                <el-image :src="getAssetsFile('images', '热门产品未选中1.png')" :fit="'fill'" />
+              <div class="background-image-box">
+                <div class="background-image">
+                  <el-image :src="getAssetsFile('images', '热门产品未选中1.png')" :fit="'fill'" />
+                </div>
               </div>
+
             </div>
           </div>
         </swiper-slide>
 
 
       </swiper>
+      <div class="home-product-swiper-pagination">
+        <div class="left-btn">
+          <el-image :src="getAssetsFile('icon', 'left.png')" :fit="'fill'" @click="bannerSwiperPrev" />
+        </div>
+        <div class="right-btn">
+          <el-image :src="getAssetsFile('icon', 'right.png')" :fit="'fill'" @click="bannerSwiperNext" />
+        </div>
+      </div>
     </div>
+
   </div>
 
 
@@ -53,31 +63,37 @@ import { ref } from 'vue'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 // import required modules
-import { FreeMode, Pagination } from 'swiper/modules';
+import { FreeMode, Pagination, EffectFade, Navigation } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
+import 'swiper/css/effect-fade';
 
 
-const modules = [FreeMode, Pagination]
+const modules = [FreeMode, Pagination, EffectFade, Navigation]
 const productType = ['底纹', '彩妆', '护肤', '清洁', '隔离']
 const productTypeIndex = ref(0)
-
-const handleMouseOver = (event) => {
-
-
+const swiperDom = ref(null)
+const onSwiper = (swiper) => {
+  swiperDom.value = swiper
+}
+const bannerSwiperPrev = () => {
+  swiperDom.value.slidePrev()
 }
 
-
-const handleMouseOut = (event) => {
-
+const bannerSwiperNext = () => {
+  swiperDom.value.slideNext()
 }
 </script>
 <style lang="scss" scoped>
 .home-product {
+  padding-top: 80px;
+
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
 
+  background-color: white;
 
   .home-product-container {
     margin: 0 auto;
@@ -87,7 +103,7 @@ const handleMouseOut = (event) => {
     .aside {
       width: 100%;
       height: 50px;
-      background-color: brown;
+
       display: flex;
       align-items: center;
       gap: 10px;
@@ -101,18 +117,16 @@ const handleMouseOut = (event) => {
       .block {
         width: 6px;
         height: 16px;
-        background-color: #f3a7a5;
         border-radius: 1px;
+        background-color: #f3a7a5;
       }
     }
 
     .topic {
       width: 100%;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: pink;
 
       .left {
         width: 50%;
@@ -155,7 +169,7 @@ const handleMouseOut = (event) => {
           .block {
             width: 0px;
             height: 14px;
-            background-color: red;
+
             border: 1px solid #999999;
           }
 
@@ -168,15 +182,20 @@ const handleMouseOut = (event) => {
 
   .home-product-swiper {
     margin: 0 auto;
+    margin-top: 20px;
     width: var(--base-width);
     transition: all .3s ease-in;
     zoom: 1;
 
-    .product-info {
-      // width: 460px;
-      height: 580px;
+    .mySwiper {
+      width: 100%;
+    }
 
-      border: 1px solid red;
+    .product-info {
+      height: 450px;
+
+
+
       .product-info-container {
         position: relative;
         width: 100%;
@@ -186,7 +205,8 @@ const handleMouseOut = (event) => {
         .background-detail-box {
           position: relative;
           width: 100%;
-          height: calc(580px - 110px);
+          height: calc(450px - 60px);
+          background: #eee;
 
           .background-detail {
             position: absolute;
@@ -194,7 +214,7 @@ const handleMouseOut = (event) => {
             left: 0;
             width: 100%;
             height: 0;
-            background: pink;
+
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -223,28 +243,38 @@ const handleMouseOut = (event) => {
           }
         }
 
-
-
-        .background-image {
+        .background-image-box {
           position: absolute;
           bottom: 0;
           left: 0;
           width: 100%;
-          height: calc(580px - 110px);
-          zoom: 1;
+          height: 100%;
 
-          :deep(.el-image) {
+
+          .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(450px - 60px);
+            zoom: 1;
+            transition: all .3s ease-in;
+
+            :deep(.el-image) {
+              width: 100%;
+              height: 100%;
+            }
+
+
           }
 
-
         }
+
 
         .backfround-info-box {
           position: relative;
           width: 100%;
-          height: 110px;
+          height: 60px;
 
           .background-info {
             position: absolute;
@@ -253,13 +283,13 @@ const handleMouseOut = (event) => {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: white;
+            background: #eee;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: Microsoft YaHei, Microsoft YaHei;
             font-weight: 400;
-            font-size: 30px;
+            font-size: 26px;
             color: #333333;
             transition: all .3s ease-in;
           }
@@ -271,16 +301,25 @@ const handleMouseOut = (event) => {
         &:hover {
 
           .background-detail {
-            height: calc(580px - 110px);
+            height: calc(450px - 60px);
             transition: all .4s ease-in;
           }
 
-          // .background-image  {
-          //   bottom: 0;
-          //   transform: scale(0.6);
-          //   transform-origin: bottom center;
-          //   transition: all .3s ease-in;
-          // }
+          .background-image-box {
+            bottom: -10%;
+            transform: scale(0.8);
+            transform-origin: bottom center;
+            transition: all .3s ease-in;
+
+            .background-image {
+              bottom: 0;
+              transform: scale(0.8);
+              transform-origin: bottom center;
+              transition: all .3s ease-in;
+            }
+          }
+
+
           .background-info {
             height: 0;
             transition: all .3s ease-in;
@@ -288,6 +327,46 @@ const handleMouseOut = (event) => {
         }
       }
     }
+
+    .home-product-swiper-pagination {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2%;
+     
+
+      .left-btn {
+        cursor: pointer;
+
+        :deep(.el-image) {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .right-btn {
+        cursor: pointer;
+
+        :deep(.el-image) {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+}
+
+:deep(.swiper-button-prev) {
+  &::after {
+    display: none;
+  }
+}
+
+:deep(.swiper-button-next) {
+  &::after {
+    display: none;
   }
 }
 </style>

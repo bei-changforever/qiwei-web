@@ -3,14 +3,14 @@
     <CusHeader :swiperActiveIndex="activeIndex"/>
   </header>
   <swiper :direction="'vertical'" :slidesPerView="1" :mousewheel="true" :modules="modules" @slideChange="onSlideChange" class="mySwiper">
-    <swiper-slide style="height: auto;">
+    <swiper-slide style="height: 100%;">
       <Banner />
     </swiper-slide>
-    <swiper-slide style="height: auto;">
+    <swiper-slide style="height: 100%;">
 
       <HomeView />
     </swiper-slide>
-    <swiper-slide>
+    <swiper-slide style="height: 100%;">
       <div class="box3">box3</div>
     </swiper-slide>
   </swiper>
