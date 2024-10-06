@@ -29,7 +29,9 @@
                 </div>
               </div>
               <div class="backfround-info-box">
-                <div class="background-info">产品展示</div>
+                <div class="background-info">
+                  <span> 产品展示</span>
+                </div>
               </div>
               <div class="background-image-box">
                 <div class="background-image">
@@ -189,144 +191,159 @@ const bannerSwiperNext = () => {
 
     .mySwiper {
       width: 100%;
-    }
-
-    .product-info {
       height: 450px;
+    
 
 
+      .product-info {
+        width: 98%;
+        height: 99%;
+        margin: 0 auto;
 
-      .product-info-container {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
 
-        .background-detail-box {
+        .product-info-container {
           position: relative;
           width: 100%;
-          height: calc(450px - 60px);
-          background: #eee;
+          height: 100%;
+          cursor: pointer;
 
-          .background-detail {
+
+          .background-detail-box {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 60px);
+
+
+            .background-detail {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 40%;
+              border-radius: 10px 10px 0px 0px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              overflow: hidden;
+              transition: all .3s ease-in;
+              background: #eee;
+              box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+              span {
+                width: 100%;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: Microsoft YaHei, Microsoft YaHei;
+                font-weight: 400;
+                font-size: 24px;
+                color: #000000;
+
+                &:first-child {
+                  margin-top: 30px;
+                  font-family: Microsoft YaHei, Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 30px;
+                  color: #000000;
+                }
+              }
+            }
+          }
+
+          .background-image-box {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 0;
+            height: 100%;
 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow: hidden;
-            transition: all .3s ease-in;
 
-            span {
+            .background-image {
+              position: absolute;
+              top: 0;
+              left: 0;
               width: 100%;
-              height: 60px;
+              height: calc(100% - 60px);
+              zoom: 1;
+              transition: all .3s ease-in;
+
+              :deep(.el-image) {
+                width: 100%;
+                height: 100%;
+              }
+
+
+            }
+
+          }
+
+
+          .backfround-info-box {
+            position: relative;
+            width: 100%;
+            height: 60px;
+
+            .background-info {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
+              background: white;
               display: flex;
               align-items: center;
               justify-content: center;
               font-family: Microsoft YaHei, Microsoft YaHei;
               font-weight: 400;
-              font-size: 24px;
-              color: #000000;
+              font-size: 26px;
+              color: #333333;
+              transition: all .3s ease-in;
+              border-radius: 0px 0px 10px 10px;
+              box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-              &:first-child {
-                margin-top: 50px;
-                font-family: Microsoft YaHei, Microsoft YaHei;
-                font-weight: 400;
-                font-size: 30px;
-                color: #000000;
-              }
             }
+
           }
-        }
-
-        .background-image-box {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
 
 
-          .background-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: calc(450px - 60px);
-            zoom: 1;
-            transition: all .3s ease-in;
 
-            :deep(.el-image) {
-              width: 100%;
+          &:hover {
+
+            .background-detail {
               height: 100%;
+              border-radius: 10px 10px 10px 10px;
+              transition: all .4s ease-in;
+
             }
 
-
-          }
-
-        }
-
-
-        .backfround-info-box {
-          position: relative;
-          width: 100%;
-          height: 60px;
-
-          .background-info {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Microsoft YaHei, Microsoft YaHei;
-            font-weight: 400;
-            font-size: 26px;
-            color: #333333;
-            transition: all .3s ease-in;
-          }
-
-        }
-
-
-
-        &:hover {
-
-          .background-detail {
-            height: calc(450px - 60px);
-            transition: all .4s ease-in;
-          }
-
-          .background-image-box {
-            bottom: -10%;
-            transform: scale(0.8);
-            transform-origin: bottom center;
-            transition: all .3s ease-in;
-
-            .background-image {
-              bottom: 0;
+            .background-image-box {
+              bottom: -10%;
               transform: scale(0.8);
               transform-origin: bottom center;
               transition: all .3s ease-in;
+
+              .background-image {
+                bottom: 0;
+                transform: scale(0.8);
+                transform-origin: bottom center;
+                transition: all .2s ease-in;
+              }
             }
-          }
 
 
-          .background-info {
-            height: 0;
-            transition: all .3s ease-in;
+            .background-info {
+              height: 0;
+              transition: all .3s ease-in;
+
+            }
           }
         }
       }
     }
+
+
 
     .home-product-swiper-pagination {
       width: 100%;
@@ -335,7 +352,7 @@ const bannerSwiperNext = () => {
       align-items: center;
       justify-content: center;
       gap: 2%;
-     
+
 
       .left-btn {
         cursor: pointer;
@@ -357,6 +374,8 @@ const bannerSwiperNext = () => {
     }
   }
 }
+
+
 
 :deep(.swiper-button-prev) {
   &::after {

@@ -1,8 +1,9 @@
 <template>
   <header id="header">
-    <CusHeader :swiperActiveIndex="activeIndex"/>
+    <CusHeader :swiperActiveIndex="activeIndex" />
   </header>
-  <swiper :direction="'vertical'" :slidesPerView="1" :mousewheel="true" :modules="modules" @slideChange="onSlideChange" class="mySwiper">
+  <swiper :direction="'vertical'" :slidesPerView="1" :mousewheel="true" :modules="modules" @slideChange="onSlideChange"
+    class="mySwiper">
     <swiper-slide style="height: 100%;">
       <Banner />
     </swiper-slide>
@@ -11,7 +12,7 @@
       <HomeView />
     </swiper-slide>
     <swiper-slide style="height: 100%;">
-      <div class="box3">box3</div>
+      <BussinessInfo />
     </swiper-slide>
   </swiper>
 
@@ -21,7 +22,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import HomeView from "@/views/Home/product.vue"
-
+import BussinessInfo from "@/views/Home/business-info.vue"
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
