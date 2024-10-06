@@ -8,8 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     2: typeof import('./src/components/header/index copy 2.vue')['default']
+    Accordion: typeof import('./src/components/accordion/index.vue')['default']
     Banner: typeof import('./src/components/banner/index.vue')['default']
-    copy: typeof import('./src/components/header/index copy.vue')['default']
+    copy: typeof import('./src/components/accordion/index copy.vue')['default']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']

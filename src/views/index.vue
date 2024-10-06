@@ -14,15 +14,19 @@
     <swiper-slide style="height: 100%;">
       <BussinessInfo />
     </swiper-slide>
+    <swiper-slide style="height: 100%;">
+     <Advantage/>
+    </swiper-slide>
   </swiper>
 
 
   <footer id="footer"></footer>
 </template>
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount ,reactive} from 'vue'
 import HomeView from "@/views/Home/product.vue"
 import BussinessInfo from "@/views/Home/business-info.vue"
+import Advantage from "@/views/Home/advantage.vue"
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
@@ -38,6 +42,8 @@ const modules = [Mousewheel, Pagination]
 const onSlideChange = (item) => {
   activeIndex.value = item.activeIndex
 }
+
+
 </script>
 <style scoped lang="scss">
 #header {
