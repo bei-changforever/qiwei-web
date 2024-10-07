@@ -32,12 +32,14 @@ import Accordion from '@/components/accordion/index.vue'
 </script>
 <style lang="scss" scoped>
 .advantage {
-  width: 100%;
-  height: 100%;
+    width: 100vw;
+    height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
   .advantage-box {
     margin: 0 auto;
     width: var(--base-width);

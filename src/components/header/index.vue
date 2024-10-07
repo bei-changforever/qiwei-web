@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-    <div class="fixed-box" :style="{ backgroundColor: changeBackGroundColor ? '#000000' : 'transparent' }">
+    <div class="fixed-box" :style="{ backgroundColor: slkbg ? '#000000' : 'transparent' }">
       <div class="header-content">
         <div class="logo">
           <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
@@ -28,6 +28,10 @@ const props = defineProps({
   swiperActiveIndex: {
     type: Number,
     default: 0
+  },
+  slkbg: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -46,14 +50,7 @@ const handleSelect = (key: number) => {
   activeIndex.value = key
 }
 
-watch(() => props.swiperActiveIndex, (newVal, oldVal) => {
-  if (newVal > 0) {
-    changeBackGroundColor.value = true
-  } else {
-    changeBackGroundColor.value = false
-  }
 
-})
 </script>
 <style lang="scss" scoped>
 .header {

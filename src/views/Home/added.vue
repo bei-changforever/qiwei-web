@@ -51,12 +51,16 @@ import { getAssetsFile } from '@/utils/tools'
 </script>
 <style lang="scss" scoped>
 .added {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
+
+  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+  scroll-snap-align: start;
+
   .added-container {
     padding-top: 80px;
     width: var(--base-width);
@@ -64,6 +68,7 @@ import { getAssetsFile } from '@/utils/tools'
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     .business-container-left-item {
       width: 100%;
 
@@ -97,6 +102,7 @@ import { getAssetsFile } from '@/utils/tools'
         font-size: 42px;
         color: #333333;
       }
+
       .fu-name {
         margin-top: 10px;
         font-family:
@@ -106,6 +112,7 @@ import { getAssetsFile } from '@/utils/tools'
         font-size: 32px;
         color: #333333;
       }
+
       .desc {
         margin-top: 10px;
         font-family:
@@ -117,6 +124,7 @@ import { getAssetsFile } from '@/utils/tools'
         line-height: 34px;
       }
     }
+
     .added-big-image-box {
       position: relative;
       margin-top: 2vw;
@@ -142,13 +150,14 @@ import { getAssetsFile } from '@/utils/tools'
           display: flex;
           align-items: center;
           flex-direction: column;
-
+          font-size: 12px;
           justify-content: center;
           //   border: 1px solid red;
           color: #666666;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
+
           &:nth-child(1) {
             top: 10%;
             left: 0;
@@ -158,42 +167,52 @@ import { getAssetsFile } from '@/utils/tools'
             top: 10%;
             left: 22%;
           }
+
           &:nth-child(3) {
             top: 10%;
             left: 43%;
           }
+
           &:nth-child(4) {
             top: 10%;
             left: 64.5%;
           }
+
           &:nth-child(5) {
             top: 46%;
             left: 0.5%;
           }
+
           &:nth-child(6) {
             top: 46%;
             left: 22%;
           }
+
           &:nth-child(7) {
             top: 46%;
             left: 43%;
           }
+
           &:nth-child(8) {
             top: 46%;
             left: 64.5%;
           }
+
           &:nth-child(9) {
             top: 88%;
             left: 0%;
           }
+
           &:nth-child(10) {
             top: 88%;
             left: 25%;
           }
+
           &:nth-child(11) {
             top: 88%;
             left: 50%;
           }
+
           &:nth-child(12) {
             top: 88%;
             left: 74%;

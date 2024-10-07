@@ -79,13 +79,17 @@ import { getAssetsFile } from '@/utils/tools'
 </script>
 <style lang="scss" scoped>
 .quality {
-  width: 100%;
-  height: 100%;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 120px;
   background-color: white;
+  
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
   .quality-container {
     width: var(--base-width);
     height: 100%;
@@ -186,7 +190,7 @@ import { getAssetsFile } from '@/utils/tools'
       position: relative;
       width: 700px;
       height: 700px;
-    //   border: 1px solid red;
+      border: 1px solid red;
       display: flex;
       align-items: center;
       justify-content: center;

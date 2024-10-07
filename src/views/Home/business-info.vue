@@ -81,12 +81,14 @@ import { CountTo } from 'vue3-count-to'
 </script>
 <style lang="scss" scoped>
 .business-info {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
   .business-container {
     margin: 0 auto;
     width: var(--base-width);

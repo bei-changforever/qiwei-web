@@ -4,7 +4,7 @@
 #app {
   height: 100%;
   zoom: 1;
-  
+
 }
 
 #header {
@@ -37,6 +37,13 @@ body {
 }
 
 body {
+  /* 满屏 */
+  width: 100vw;
+  height: 100vh;
+  /* 相对定位 */
+  position: relative;
+  /* 溢出隐藏 */
+  overflow: hidden;
   background: #eee;
   font-family:
     Helvetica Neue,

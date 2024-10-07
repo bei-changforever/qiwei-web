@@ -5,7 +5,7 @@
         <el-carousel ref="carousel" v-model="currentIndex" :initial-index="currentIndex" :interval="5000" height="50vw"
             indicator-position="none" motion-blur @change="changeHandle">
             <el-carousel-item v-for="item in 4" :key="item">
-                <el-image :src="getAssetsFile('images', '轮播海报.png')" :fit="'cover'" />
+                <el-image :src="getAssetsFile('images', '轮播海报.png')" :fit="'fill'" />
             </el-carousel-item>
         </el-carousel>
         <div class="custom-indicator">
@@ -52,37 +52,25 @@ const carouselbox = ref(null)
 const changeBackGroundColor = ref(false)
 // 处理滚轮事件的方法
 const handleWheel = (event) => {
-
-
     const deltaY = event.deltaY
     if (deltaY < 0) {
 
-
-        // if (carouselbox.value.getBoundingClientRect().top == 0) {
-        //   changeBackGroundColor.value = false
-        // }
-        // if (carouselbox.value.getBoundingClientRect().top == 0) {
-        //   changeBackGroundColor.value = false
-        // }
+        if (carouselbox.value.getBoundingClientRect().top >= -710) {
+            // 事件通知
+        }
         // 向上滚动
     } else if (deltaY > 0) {
         // 向下滚动
-        // if (carouselbox.value.getBoundingClientRect().top < 20) {
-        //   changeBackGroundColor.value = true
-        // }
-
+        if (carouselbox.value.getBoundingClientRect().top > -710 || carouselbox.value.getBoundingClientRect().top == 0) {
+       
+        }
     }
 }
-
-// onMounted(() => {
-//   window.addEventListener('wheel', handleWheel)
-// })
 
 
 
 
 onMounted(() => {
-    console.log(carouselbox.value);
 
     if (isMobile()) {
         changeBanner.value = true
@@ -135,10 +123,13 @@ onBeforeUnmount(() => {
 .header-swiper {
     position: relative;
     width: 100%;
+    height: 100%;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: end;
 
     :deep(.el-image) {
         width: 100%;
-        height: auto;
+        height: 100%;
     }
 
     .custom-indicator {

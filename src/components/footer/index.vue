@@ -68,6 +68,9 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
   width: var(--base-width);
   height: 100%;
   margin: 0 auto;
+  
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
   .footer-navbar {
     width: 100%;
     height: 207px;

@@ -139,12 +139,15 @@ const bannerSwiperNext = () => {
 </script>
 <style lang="scss" scoped>
 .development2 {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #f5f5f5;
+  
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
   .development2-container {
     width: var(--base-width);
     height: 100%;
