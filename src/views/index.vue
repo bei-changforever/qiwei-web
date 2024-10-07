@@ -2,31 +2,43 @@
   <header id="header">
     <CusHeader :swiperActiveIndex="activeIndex" />
   </header>
-  <swiper :direction="'vertical'" :slidesPerView="1" :mousewheel="true" :modules="modules" @slideChange="onSlideChange"
-    class="mySwiper">
-    <swiper-slide style="height: 100%;">
+  <swiper
+    :direction="'vertical'"
+    :slidesPerView="1"
+    :mousewheel="true"
+    :modules="modules"
+    @slideChange="onSlideChange"
+    class="mySwiper"
+  >
+    <swiper-slide style="height: 100%">
       <Banner />
     </swiper-slide>
-    <swiper-slide style="height: 100%;">
-
+    <swiper-slide style="height: 100%">
       <HomeView />
     </swiper-slide>
-    <swiper-slide style="height: 100%;">
+    <swiper-slide style="height: 100%">
       <BussinessInfo />
     </swiper-slide>
-    <swiper-slide style="height: 100%;">
-     <Advantage/>
+    <swiper-slide style="height: 100%">
+      <Advantage />
+    </swiper-slide>
+    <swiper-slide style="height: 100%">
+      <DevelopMent />
+    </swiper-slide>
+    <swiper-slide style="height: 100%">
+      <Quality />
     </swiper-slide>
   </swiper>
-
 
   <footer id="footer"></footer>
 </template>
 <script setup>
-import { ref, onMounted, onBeforeUnmount ,reactive} from 'vue'
-import HomeView from "@/views/Home/product.vue"
-import BussinessInfo from "@/views/Home/business-info.vue"
-import Advantage from "@/views/Home/advantage.vue"
+import { ref, onMounted, onBeforeUnmount, reactive } from 'vue'
+import HomeView from '@/views/Home/product.vue'
+import BussinessInfo from '@/views/Home/business-info.vue'
+import Advantage from '@/views/Home/advantage.vue'
+import DevelopMent from '@/views/Home/development.vue'
+import Quality from '@/views/Home/quality.vue'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
@@ -42,8 +54,6 @@ const modules = [Mousewheel, Pagination]
 const onSlideChange = (item) => {
   activeIndex.value = item.activeIndex
 }
-
-
 </script>
 <style scoped lang="scss">
 #header {
@@ -63,15 +73,10 @@ const onSlideChange = (item) => {
   background-color: #3a3a3a;
 }
 
-
-
 .swiper {
   width: 100%;
   height: 100%;
 }
-
-
-
 
 .box3 {
   width: 100%;

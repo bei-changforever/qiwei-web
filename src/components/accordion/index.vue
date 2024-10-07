@@ -72,6 +72,7 @@ import { getAssetsFile } from '@/utils/tools'
     .box {
         position: relative;
         flex: 1;
+        margin: 0 2px;
         overflow: hidden;
         transition: .5s;
         cursor: pointer;
