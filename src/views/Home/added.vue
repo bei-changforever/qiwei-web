@@ -142,7 +142,7 @@ import { getAssetsFile } from '@/utils/tools'
           display: flex;
           align-items: center;
           flex-direction: column;
-          
+
           justify-content: center;
           //   border: 1px solid red;
           color: #666666;
@@ -202,5 +202,18 @@ import { getAssetsFile } from '@/utils/tools'
       }
     }
   }
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  font-size: 18px;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 30px;
 }
 </style>

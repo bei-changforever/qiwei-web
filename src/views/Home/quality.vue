@@ -84,7 +84,8 @@ import { getAssetsFile } from '@/utils/tools'
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 120px;
+  background-color: white;
   .quality-container {
     width: var(--base-width);
     height: 100%;
@@ -94,7 +95,7 @@ import { getAssetsFile } from '@/utils/tools'
     justify-content: center;
     .advantage-container {
       position: absolute;
-      top: 100px;
+      top: 120px;
       width: var(--base-width);
       display: flex;
       justify-content: space-between;

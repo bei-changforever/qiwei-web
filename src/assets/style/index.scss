@@ -6,6 +6,30 @@
   zoom: 1;
   
 }
+
+#header {
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+#main {
+  width: 100%;
+}
+
+#footer {
+  width: 100%;
+  height: var(--footer-height);
+  padding: 0;
+  background-color: #3a3a3a;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+
 html,
 body {
   position: relative;

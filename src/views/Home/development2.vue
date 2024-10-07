@@ -144,6 +144,7 @@ const bannerSwiperNext = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #f5f5f5;
   .development2-container {
     width: var(--base-width);
     height: 100%;

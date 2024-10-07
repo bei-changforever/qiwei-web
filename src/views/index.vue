@@ -34,9 +34,12 @@
     <swiper-slide style="height: 100%">
       <Added />
     </swiper-slide>
+    <swiper-slide>
+      <footer id="footer">
+        <CusFooter />
+      </footer>
+    </swiper-slide>
   </swiper>
-
-  <footer id="footer"></footer>
 </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount, reactive } from 'vue'
@@ -61,34 +64,7 @@ const activeIndex = ref(0)
 const modules = [Mousewheel, Pagination]
 const onSlideChange = (item) => {
   activeIndex.value = item.activeIndex
+  console.log(activeIndex.value)
 }
 </script>
-<style scoped lang="scss">
-#header {
-  width: 100%;
-  padding: 0;
-  margin: 0 auto;
-}
-
-#main {
-  width: 100%;
-}
-
-#footer {
-  width: 100%;
-  height: var(--footer-height);
-  padding: 0;
-  background-color: #3a3a3a;
-}
-
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.box3 {
-  width: 100%;
-  height: 100%;
-  background: orange;
-}
-</style>
+<style scoped lang="scss"></style>
