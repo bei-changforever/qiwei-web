@@ -28,6 +28,12 @@
     <swiper-slide style="height: 100%">
       <Quality />
     </swiper-slide>
+    <swiper-slide style="height: 100%">
+      <DevelopMent2 />
+    </swiper-slide>
+    <swiper-slide style="height: 100%">
+      <Added />
+    </swiper-slide>
   </swiper>
 
   <footer id="footer"></footer>
@@ -39,6 +45,8 @@ import BussinessInfo from '@/views/Home/business-info.vue'
 import Advantage from '@/views/Home/advantage.vue'
 import DevelopMent from '@/views/Home/development.vue'
 import Quality from '@/views/Home/quality.vue'
+import DevelopMent2 from '@/views/Home/development2.vue'
+import Added from '@/views/Home/added.vue'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 

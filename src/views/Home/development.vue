@@ -114,7 +114,7 @@ import { getAssetsFile } from '@/utils/tools'
           }
 
           .konw-more-about {
-            margin-top: 10px;
+            margin-top: 2vw;
             width: 166px;
             height: 46px;
             border-radius: 50px;

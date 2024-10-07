@@ -89,16 +89,17 @@ const bannerSwiperNext = () => {
 </script>
 <style lang="scss" scoped>
 .home-product {
-  padding-top: 80px;
 
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-
   background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
   .home-product-container {
-    margin: 0 auto;
     width: var(--base-width);
 
 

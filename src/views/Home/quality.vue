@@ -125,7 +125,7 @@ import { getAssetsFile } from '@/utils/tools'
 
       .T-right {
         .konw-more-about {
-          margin-top: 55px;
+          margin-top: 1vw;
           width: 166px;
           height: 46px;
           border-radius: 50px;

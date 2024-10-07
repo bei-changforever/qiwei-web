@@ -83,7 +83,9 @@ import { CountTo } from 'vue3-count-to'
 .business-info {
   width: 100%;
   height: 100%;
-  padding-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .business-container {
     margin: 0 auto;
@@ -146,7 +148,7 @@ import { CountTo } from 'vue3-count-to'
           }
 
           .konw-more-about {
-            margin-top: 10px;
+            margin-top: 2vw;
             width: 166px;
             height: 46px;
             border-radius: 50px;
