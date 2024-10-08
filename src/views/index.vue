@@ -1,49 +1,10 @@
 <template>
-  <!-- <div class="main-container" >
-    <header id="header">
-      <CusHeader :slkbg="changeBackGroundColor" />
-    </header>
-    <div class="flex-main" ref="flexMain">
-      <Banner />
-      <HomeView />
-      <BussinessInfo />
-      <Advantage />
-      <DevelopMent />
-      <Quality />
-      <DevelopMent2 />
-      <Added />
-      <footer id="footer">
-        <CusFooter />
-      </footer>
-    </div>
-  </div> -->
   <header id="header">
     <CusHeader :slkbg="changeBackGroundColor" />
   </header>
-  <div class="main-okj-container" ref="container">
-    <div class="boxapi">
-      <Banner />
-    </div>
-    <div class="boxapi">
-      <HomeView />
-    </div>
-    <div class="boxapi">
-      <BussinessInfo />
-    </div>
-    <div class="boxapi">
-      <Advantage />
-    </div>
-    <div class="boxapi">
-      <DevelopMent />
-    </div>
-    <div class="boxapi">
-      <Quality />
-    </div>
-    <div class="boxapi">
-      <DevelopMent2 />
-    </div>
-    <div class="boxapi">
-      <Added />
+  <div class="main-okj-container" ref="container" v-if="domIndex !== 1">
+    <div class="boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
+      <component :is="comp" />
     </div>
     <div class="boxapi">
       <footer id="footer">
@@ -51,9 +12,18 @@
       </footer>
     </div>
   </div>
+  <div class="main-okj-container-nofull" v-else>
+    <div class="nofull-boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
+      <component :is="comp" />
+    </div>
+    <footer id="footer">
+      <CusFooter />
+    </footer>
+  </div>
 </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
+import Banner from '@/components/banner/index.vue'
 import HomeView from '@/views/Home/product.vue'
 import BussinessInfo from '@/views/Home/business-info.vue'
 import Advantage from '@/views/Home/advantage.vue'
@@ -61,7 +31,22 @@ import DevelopMent from '@/views/Home/development.vue'
 import Quality from '@/views/Home/quality.vue'
 import DevelopMent2 from '@/views/Home/development2.vue'
 import Added from '@/views/Home/added.vue'
-const flexMain = ref(null)
+import productBanner from '@/views/Product/product-banner.vue'
+import ProductContainer from '@/views/Product/product-container.vue'
+import emitter from '@/utils/mitt'
+const domArr = ref([
+  {
+    id: 'home',
+    domarr: [Banner, HomeView, BussinessInfo, Advantage, DevelopMent, Quality, DevelopMent2, Added]
+  },
+  {
+    id: 'product',
+    domarr: [productBanner,ProductContainer]
+  }
+])
+
+let domIndex = ref(0)
+
 const changeBackGroundColor = ref(false)
 
 const container = ref(null)
@@ -110,7 +95,6 @@ function scrollDown() {
 }
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  console.log(screenWidth.value);
   if (pageIndex == 8) {
     if (screenWidth.value >= 1520 && screenWidth.value <= 1920) {
       container.value.style.top = `-${pageIndex - 1}55%`
@@ -124,11 +108,11 @@ function scrollToPage(pageIndex) {
       container.value.style.top = `-${pageIndex - 1}55%`
     }
 
-    if(screenWidth.value <= 1220 && screenWidth.value >= 960) {
+    if (screenWidth.value <= 1220 && screenWidth.value >= 960) {
       container.value.style.top = `-${pageIndex - 1}55%`
     }
 
-    if(screenWidth.value <= 960) {
+    if (screenWidth.value <= 960) {
       container.value.style.top = `-${pageIndex - 1}55%`
     }
   } else {
@@ -168,6 +152,9 @@ const handleResize = () => {
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
 
+  emitter.on('DOMINDEX', (res) => {
+    domIndex.value = res
+  })
   // 添加鼠标滚轮事件
   document.onmousewheel = mouseWheel
   document.addEventListener('DOMMouseScroll', mouseWheel, false)
@@ -208,5 +195,11 @@ watch(screenWidth, (newVal, oldVal) => {})
   top: 0;
   /* 添加过渡动画 */
   transition: all 0.3s ease-in-out;
+}
+
+.main-okj-container-nofull {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
 }
 </style>

@@ -7,13 +7,23 @@
           <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
         </div>
         <div class="text">
-          <div v-for="(item, index) in HeaderInfo" :class="['text-item', activeIndex == index ? 'active' : '']"
-            :key="index" @click="handleSelect(index)">
+          <div
+            v-for="(item, index) in HeaderInfo"
+            :class="['text-item', activeIndex == index ? 'active' : '']"
+            :key="index"
+            @click="handleSelect(index)"
+          >
             {{ item }}
           </div>
         </div>
         <div class="icon">
-          <el-image class="unactive-image" v-for="(item, index) in IconInfo" :key="index" :src="item" :fit="'fill'" />
+          <el-image
+            class="unactive-image"
+            v-for="(item, index) in IconInfo"
+            :key="index"
+            :src="item"
+            :fit="'fill'"
+          />
           <div class="active">≡</div>
         </div>
       </div>
@@ -21,9 +31,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-const changeBackGroundColor = ref(false)
+import emitter from '@/utils/mitt'
 const props = defineProps({
   swiperActiveIndex: {
     type: Number,
@@ -44,13 +54,11 @@ const IconInfo = [
 
 const activeIndex = ref(0)
 
-
 const handleSelect = (key: number) => {
   if (activeIndex.value == key) return
   activeIndex.value = key
+  emitter.emit('DOMINDEX', activeIndex.value)
 }
-
-
 </script>
 <style lang="scss" scoped>
 .header {
@@ -63,7 +71,6 @@ const handleSelect = (key: number) => {
   align-items: center;
   justify-content: center;
 
-
   .fixed-box {
     width: 100%;
     position: fixed;
@@ -74,7 +81,7 @@ const handleSelect = (key: number) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     .header-content {
       width: var(--base-width);
@@ -140,10 +147,6 @@ const handleSelect = (key: number) => {
       }
     }
   }
-
-
-
-
 }
 
 @media (min-width: 960px) and (max-width: 1220px) {
