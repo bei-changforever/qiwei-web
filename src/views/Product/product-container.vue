@@ -24,7 +24,11 @@
                   <span>底妆</span>
                   <el-image :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
                 </div>
-                <div class="line"></div>
+                <div class="line">
+                  <div class="line-button">口红</div>
+                  <div class="line-button">唇釉</div>
+                  <div class="line-button">固体唇釉</div>
+                </div>
               </div>
               <div class="bottom-text-item">
                 <div class="text-b">
@@ -95,7 +99,6 @@ import { getAssetsFile } from '@/utils/tools'
       padding-top: 0;
       padding-bottom: 0;
       box-sizing: border-box;
-      //   background-color: orange;
       border-radius: 20px 20px 20px 20px;
       background-color: #f6f9ff;
       .sift-box-top {
@@ -195,7 +198,6 @@ import { getAssetsFile } from '@/utils/tools'
                   font-weight: 400;
                   font-size: 16px;
                   color: #333333;
-                
 
                   &.active {
                     color: #f3a7a4;
@@ -207,7 +209,32 @@ import { getAssetsFile } from '@/utils/tools'
                 left: 0;
                 bottom: -4.5vh;
                 padding: 20px;
-                background-color: skyblue;
+                background-color: #f4f6f7;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 2vw;
+                z-index: 2;
+                .line-button {
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 14px;
+
+                  color: #333333;
+                  width: 94px;
+                  height: 38px;
+                  border-radius: 19px 19px 19px 19px;
+                  background-color: white;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  cursor: pointer;
+                  &.active {
+                    color: #f3a7a4;
+                  }
+                }
               }
             }
           }
