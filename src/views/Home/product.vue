@@ -1,5 +1,4 @@
 <template>
-
   <div class="home-product">
     <div class="home-product-container">
       <div class="aside">
@@ -9,7 +8,10 @@
       <div class="topic">
         <div class="left">热门产品</div>
         <div class="right">
-          <div v-for="(item, index) in productType" :class="['right-item', productTypeIndex == index ? 'active' : '']">
+          <div
+            v-for="(item, index) in productType"
+            :class="['right-item', productTypeIndex == index ? 'active' : '']"
+          >
             <div class="text">{{ item }}</div>
             <div class="block" v-show="index !== productType.length - 1"></div>
           </div>
@@ -17,8 +19,15 @@
       </div>
     </div>
     <div class="home-product-swiper">
-      <swiper @swiper="onSwiper" :slidesPerView="3" :spaceBetween="100" :freeMode="true" :navigation="true"
-        :modules="modules" class="mySwiper">
+      <swiper
+        @swiper="onSwiper"
+        :slidesPerView="3"
+        :spaceBetween="100"
+        :freeMode="true"
+        :navigation="true"
+        :modules="modules"
+        class="mySwiper"
+      >
         <swiper-slide v-for="item in 6" :key="item">
           <div class="product-info">
             <div class="product-info-container">
@@ -38,39 +47,40 @@
                   <el-image :src="getAssetsFile('images', '热门产品未选中1.png')" :fit="'fill'" />
                 </div>
               </div>
-
             </div>
           </div>
         </swiper-slide>
-
-
       </swiper>
       <div class="home-product-swiper-pagination">
         <div class="left-btn">
-          <el-image :src="getAssetsFile('icon', 'left.png')" :fit="'fill'" @click="bannerSwiperPrev" />
+          <el-image
+            :src="getAssetsFile('icon', 'left.png')"
+            :fit="'fill'"
+            @click="bannerSwiperPrev"
+          />
         </div>
         <div class="right-btn">
-          <el-image :src="getAssetsFile('icon', 'right.png')" :fit="'fill'" @click="bannerSwiperNext" />
+          <el-image
+            :src="getAssetsFile('icon', 'right.png')"
+            :fit="'fill'"
+            @click="bannerSwiperNext"
+          />
         </div>
       </div>
     </div>
-
   </div>
-
-
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
 import { ref } from 'vue'
 // Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Swiper, SwiperSlide } from 'swiper/vue'
 // import required modules
-import { FreeMode, Pagination, EffectFade, Navigation } from 'swiper/modules';
+import { FreeMode, Pagination, EffectFade, Navigation } from 'swiper/modules'
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/effect-fade';
-
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import 'swiper/css/effect-fade'
 
 const modules = [FreeMode, Pagination, EffectFade, Navigation]
 const productType = ['底纹', '彩妆', '护肤', '清洁', '隔离']
@@ -89,29 +99,35 @@ const bannerSwiperNext = () => {
 </script>
 <style lang="scss" scoped>
 .home-product {
-
   box-sizing: border-box;
   width: 100vw;
   height: 100vh;
   background-color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
   flex-direction: column;
 
-    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-    scroll-snap-align: start;
+  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+  scroll-snap-align: start;
+  padding-top: 15vh;
   .home-product-container {
     width: var(--base-width);
-
-
+    margin: 0 auto;
+    // height: 15vh;
+    margin-bottom: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    // background-color: pink;
     .aside {
       width: 100%;
       height: 50px;
 
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 1vw;
 
       .text {
         font-weight: 400;
@@ -135,7 +151,9 @@ const bannerSwiperNext = () => {
 
       .left {
         width: 50%;
-        font-family: Microsoft YaHei, Microsoft YaHei;
+        font-family:
+          Microsoft YaHei,
+          Microsoft YaHei;
         font-weight: bold;
         font-size: 42px;
         color: #333333;
@@ -150,7 +168,9 @@ const bannerSwiperNext = () => {
 
         .right-item {
           position: relative;
-          font-family: Microsoft YaHei, Microsoft YaHei;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
           font-weight: 400;
           font-size: 22px;
           color: #333333;
@@ -159,50 +179,41 @@ const bannerSwiperNext = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 14px;
-          margin-right: 14px;
+          gap: 1vw;
+          margin-right: 1vw;
 
           &:last-child {
             margin-right: 0;
           }
 
           &.active {
-            color: #F3A7A5;
+            color: #f3a7a5;
           }
-
 
           .block {
             width: 0px;
             height: 14px;
-
             border: 1px solid #999999;
           }
-
-
         }
-
       }
     }
   }
 
   .home-product-swiper {
     margin: 0 auto;
-    margin-top: 20px;
     width: var(--base-width);
-    transition: all .3s ease-in;
+    transition: all 0.3s ease-in;
     zoom: 1;
 
     .mySwiper {
       width: 100%;
-      height: 450px;
-    
-
+      height: 540px;
 
       .product-info {
         width: 98%;
         height: 99%;
         margin: 0 auto;
-
 
         .product-info-container {
           position: relative;
@@ -210,12 +221,10 @@ const bannerSwiperNext = () => {
           height: 100%;
           cursor: pointer;
 
-
           .background-detail-box {
             position: relative;
             width: 100%;
-            height: calc(100% - 60px);
-
+            height: calc(100% - 100px);
 
             .background-detail {
               position: absolute;
@@ -228,24 +237,28 @@ const bannerSwiperNext = () => {
               flex-direction: column;
               align-items: center;
               overflow: hidden;
-              transition: all .3s ease-in;
+              transition: all 0.3s ease-in;
               background: #eee;
               box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
               span {
                 width: 100%;
-                height: 60px;
+                height: 90px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-family: Microsoft YaHei, Microsoft YaHei;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
                 font-weight: 400;
                 font-size: 24px;
                 color: #000000;
 
                 &:first-child {
-                  margin-top: 30px;
-                  font-family: Microsoft YaHei, Microsoft YaHei;
+                  margin-top: 1vw;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
                   font-weight: 400;
                   font-size: 30px;
                   color: #000000;
@@ -261,31 +274,26 @@ const bannerSwiperNext = () => {
             width: 100%;
             height: 100%;
 
-
             .background-image {
               position: absolute;
               top: 0;
               left: 0;
               width: 100%;
-              height: calc(100% - 60px);
+              height: calc(100% - 100px);
               zoom: 1;
-              transition: all .3s ease-in;
+              transition: all 0.3s ease-in;
 
               :deep(.el-image) {
                 width: 100%;
                 height: 100%;
               }
-
-
             }
-
           }
-
 
           .backfround-info-box {
             position: relative;
             width: 100%;
-            height: 60px;
+            height: 100px;
 
             .background-info {
               position: absolute;
@@ -298,64 +306,56 @@ const bannerSwiperNext = () => {
               display: flex;
               align-items: center;
               justify-content: center;
-              font-family: Microsoft YaHei, Microsoft YaHei;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
               font-weight: 400;
               font-size: 26px;
               color: #333333;
-              transition: all .3s ease-in;
+              transition: all 0.3s ease-in;
               border-radius: 0px 0px 10px 10px;
               box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
             }
-
           }
 
-
-
           &:hover {
-
             .background-detail {
               height: 100%;
               border-radius: 10px 10px 10px 10px;
-              transition: all .4s ease-in;
-
+              transition: all 0.4s ease-in;
             }
 
             .background-image-box {
               bottom: -10%;
               transform: scale(0.8);
               transform-origin: bottom center;
-              transition: all .3s ease-in;
+              transition: all 0.3s ease-in;
 
               .background-image {
                 bottom: 0;
                 transform: scale(0.8);
                 transform-origin: bottom center;
-                transition: all .2s ease-in;
+                transition: all 0.2s ease-in;
               }
             }
 
-
             .background-info {
               height: 0;
-              transition: all .3s ease-in;
-
+              transition: all 0.3s ease-in;
             }
           }
         }
       }
     }
 
-
-
     .home-product-swiper-pagination {
+      margin-top: 2vw;
       width: 100%;
       height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 2%;
-
+      gap: 2vw;
 
       .left-btn {
         cursor: pointer;
@@ -377,8 +377,6 @@ const bannerSwiperNext = () => {
     }
   }
 }
-
-
 
 :deep(.swiper-button-prev) {
   &::after {

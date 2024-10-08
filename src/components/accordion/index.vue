@@ -79,7 +79,7 @@ import { getAssetsFile } from '@/utils/tools'
 <style lang="scss" scoped>
 .shell {
   width: 100%;
-  height: 450px;
+  height: 500px;
   display: flex;
 
   .box {

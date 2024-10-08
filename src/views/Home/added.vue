@@ -54,16 +54,19 @@ import { getAssetsFile } from '@/utils/tools'
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
   background-color: white;
 
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
-
+  padding-top: 15vh;
+  box-sizing: border-box;
   .added-container {
-    padding-top: 80px;
+    // padding-top: 80px;
     width: var(--base-width);
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -228,11 +231,5 @@ import { getAssetsFile } from '@/utils/tools'
   height: 100%;
 }
 
-.swiper-slide {
-  font-size: 18px;
-  height: auto;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 30px;
-}
+
 </style>

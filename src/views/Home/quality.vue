@@ -83,15 +83,16 @@ import { getAssetsFile } from '@/utils/tools'
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
-  padding-top: 120px;
+  padding-top: 15vh;
   background-color: white;
-  
-    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-    scroll-snap-align: start;
+
+  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+  scroll-snap-align: start;
   .quality-container {
     width: var(--base-width);
+    margin: 0 auto;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -99,14 +100,14 @@ import { getAssetsFile } from '@/utils/tools'
     justify-content: center;
     .advantage-container {
       position: absolute;
-      top: 120px;
+      top: 15vh;
       width: var(--base-width);
       display: flex;
       justify-content: space-between;
 
       .T-left {
         .name {
-          margin-top: 10px;
+          margin-top: 1vh;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
@@ -116,7 +117,7 @@ import { getAssetsFile } from '@/utils/tools'
         }
 
         .desc {
-          margin-top: 10px;
+          margin-top: 2vh;
           width: 59%;
           font-family:
             Microsoft YaHei,
@@ -130,7 +131,7 @@ import { getAssetsFile } from '@/utils/tools'
 
       .T-right {
         .konw-more-about {
-          margin-top: 1vw;
+          margin-top: 1vh;
           width: 166px;
           height: 46px;
           border-radius: 50px;
@@ -176,7 +177,7 @@ import { getAssetsFile } from '@/utils/tools'
         gap: 10px;
         // height: 50px;
         // background-color: orange;
-        .pagenavigation-item{
+        .pagenavigation-item {
           width: 14px;
           height: 14px;
           border-radius: 50%;
@@ -190,7 +191,7 @@ import { getAssetsFile } from '@/utils/tools'
       position: relative;
       width: 700px;
       height: 700px;
-      border: 1px solid red;
+      // border: 1px solid red;
       display: flex;
       align-items: center;
       justify-content: center;

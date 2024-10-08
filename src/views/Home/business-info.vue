@@ -84,11 +84,12 @@ import { CountTo } from 'vue3-count-to'
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
 
-    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-    scroll-snap-align: start;
+  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+  scroll-snap-align: start;
+  padding-top: 15vh;
   .business-container {
     margin: 0 auto;
     width: var(--base-width);
@@ -112,7 +113,7 @@ import { CountTo } from 'vue3-count-to'
             height: 40px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1vw;
 
             .text {
               font-weight: 400;
@@ -129,7 +130,7 @@ import { CountTo } from 'vue3-count-to'
           }
 
           .name {
-            margin-top: 10px;
+            margin-top: 1vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
@@ -139,7 +140,7 @@ import { CountTo } from 'vue3-count-to'
           }
 
           .desc {
-            margin-top: 10px;
+            margin-top: 5vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
@@ -150,7 +151,7 @@ import { CountTo } from 'vue3-count-to'
           }
 
           .konw-more-about {
-            margin-top: 2vw;
+            margin-top: 5vh;
             width: 166px;
             height: 46px;
             border-radius: 50px;
@@ -202,7 +203,7 @@ import { CountTo } from 'vue3-count-to'
     }
 
     .business-container-bottom {
-      margin-top: 50px;
+      margin-top: 10vh;
       width: 100%;
       height: 130px;
       display: flex;

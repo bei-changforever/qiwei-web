@@ -32,14 +32,15 @@ import Accordion from '@/components/accordion/index.vue'
 </script>
 <style lang="scss" scoped>
 .advantage {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
 
-    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-    scroll-snap-align: start;
+  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+  scroll-snap-align: start;
+  padding: 15vh;
   .advantage-box {
     margin: 0 auto;
     width: var(--base-width);
@@ -57,7 +58,7 @@ import Accordion from '@/components/accordion/index.vue'
           height: 40px;
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 1vw;
 
           .text {
             font-weight: 400;
@@ -74,7 +75,7 @@ import Accordion from '@/components/accordion/index.vue'
         }
 
         .name {
-          margin-top: 10px;
+          margin-top: 1vh;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
@@ -84,7 +85,7 @@ import Accordion from '@/components/accordion/index.vue'
         }
 
         .desc {
-          margin-top: 10px;
+          margin-top: 5vh;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
@@ -97,7 +98,7 @@ import Accordion from '@/components/accordion/index.vue'
 
       .T-right {
         .konw-more-about {
-          margin-top: 1vw;
+          margin-top: 5vh;
           width: 166px;
           height: 46px;
           border-radius: 50px;
@@ -127,7 +128,7 @@ import Accordion from '@/components/accordion/index.vue'
     }
 
     .accordion {
-      margin-top: 15px;
+      margin-top: 5vh;
     }
   }
 }

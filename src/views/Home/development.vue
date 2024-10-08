@@ -41,12 +41,13 @@ import { getAssetsFile } from '@/utils/tools'
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
   background-color: #f5f5f5;
 
-    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-    scroll-snap-align: start;
+  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+  scroll-snap-align: start;
+  padding-top: 15vh;
   .business-container {
     margin: 0 auto;
     width: var(--base-width);
@@ -70,7 +71,7 @@ import { getAssetsFile } from '@/utils/tools'
             height: 40px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1vw;
 
             .text {
               font-weight: 400;
@@ -87,7 +88,7 @@ import { getAssetsFile } from '@/utils/tools'
           }
 
           .name {
-            margin-top: 10px;
+            margin-top: 1vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
@@ -96,7 +97,7 @@ import { getAssetsFile } from '@/utils/tools'
             color: #333333;
           }
           .fu-name {
-            margin-top: 10px;
+            margin-top: 2vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
@@ -105,7 +106,7 @@ import { getAssetsFile } from '@/utils/tools'
             color: #333333;
           }
           .desc {
-            margin-top: 10px;
+            margin-top: 5vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
@@ -116,7 +117,7 @@ import { getAssetsFile } from '@/utils/tools'
           }
 
           .konw-more-about {
-            margin-top: 2vw;
+            margin-top: 5vh;
             width: 166px;
             height: 46px;
             border-radius: 50px;
