@@ -52,7 +52,7 @@
           </div>
           <div class="right">
             <div class="btn" type="primary">免费<br />打样</div>
-            <div class="btn" type="primary" @click="scrollToTop">回到<br />顶部</div>
+            <div class="btn" type="primary" @click="handelClick">回到<br />顶部</div>
           </div>
         </div>
       </div>
@@ -60,18 +60,16 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref, defineEmits } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
+import emitter from '@/utils/mitt'
+// 触发emits事件
+const handelClick = () => {
+ 
+  emitter.emit("BACKPAGETOP")
 
-const scrollToTop = () => {
-  window.scrollTo({
-    // top: document.documentElement.offsetHeight, //回到底部
-    top: 0, //回到顶部
-    left: 0,
-    behavior: "smooth", //smooth 平滑；auto:瞬间
-  });
 }
-
 </script>
 <style lang="scss" scoped>
 .footer {

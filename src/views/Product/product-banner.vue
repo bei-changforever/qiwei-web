@@ -1,6 +1,7 @@
 <template>
     <div class="product-banner" ref="productBanner">
         <div class="prodcut-banner"
+       
             :style="{ backgroundImage: 'url(' + getAssetsFile('images', 'product-banner-bg.png') + ')' }">
 
         </div>
@@ -36,6 +37,8 @@ const handleWheel = (event) => {
         }
     }
 }
+
+
 
 onMounted(() => {
     window.addEventListener('wheel', handleWheel)

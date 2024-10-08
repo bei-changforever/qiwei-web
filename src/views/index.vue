@@ -12,7 +12,7 @@
       </footer>
     </div>
   </div>
-  <div class="main-okj-container-nofull" v-else>
+  <div class="main-okj-container-nofull" ref="nofull" v-else>
     <div class="nofull-boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
       <component :is="comp" />
     </div>
@@ -46,7 +46,7 @@ const domArr = shallowRef([
 ])
 
 let domIndex = ref(0)
-
+const nofull = ref(null)
 const changeBackGroundColor = ref(false)
 const activeColor = ref('#000000')
 const container = ref(null)
@@ -97,23 +97,23 @@ function scrollDown() {
 function scrollToPage(pageIndex) {
   if (pageIndex == 8) {
     if (screenWidth.value >= 1520 && screenWidth.value <= 1920) {
-      container.value.style.top = `-${pageIndex - 1}55%`
+      container.value.style.top = `-${pageIndex - 1}56%`
     }
 
     if (screenWidth.value <= 1520 && screenWidth.value >= 1440) {
-      container.value.style.top = `-${pageIndex - 1}55%`
+      container.value.style.top = `-${pageIndex - 1}56%`
     }
 
     if (screenWidth.value <= 1440 && screenWidth.value >= 1220) {
-      container.value.style.top = `-${pageIndex - 1}55%`
+      container.value.style.top = `-${pageIndex - 1}56%`
     }
 
     if (screenWidth.value <= 1220 && screenWidth.value >= 960) {
-      container.value.style.top = `-${pageIndex - 1}55%`
+      container.value.style.top = `-${pageIndex - 1}56%`
     }
 
     if (screenWidth.value <= 960) {
-      container.value.style.top = `-${pageIndex - 1}55%`
+      container.value.style.top = `-${pageIndex - 1}56%`
     }
   } else {
     container.value.style.top = `-${pageIndex}00%`
@@ -152,6 +152,28 @@ const handleResize = () => {
   screenWidth.value =
     window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 }
+
+const handleScrolltoTop = () => {
+  nextTick(() => {
+    console.log("点击回到顶部");
+    if (domIndex.value == 0) {
+      scrollToPage(0)
+    }
+    if (domIndex.value == 1) {
+      console.log(nofull.value.getBoundingClientRect());
+
+      // window.scrollTo({
+      //   top: 0,
+      //   behavior: 'smooth' // 可选，使滚动平滑
+      // });
+
+    }
+  })
+
+}
+
+
+
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
 
@@ -163,7 +185,7 @@ onMounted(() => {
       left: 0,
       behavior: "smooth", //smooth 平滑；auto:瞬间
     });
-    if(domIndex.value == 0) {
+    if (domIndex.value == 0) {
       isDarkPage.value = true
       changeBackGroundColor.value = false
       activeColor.value = '#000000'
@@ -171,7 +193,7 @@ onMounted(() => {
     if (domIndex.value == 1) {
       isDarkPage.value = true
       activeColor.value = 'white',
-      changeBackGroundColor.value = false
+        changeBackGroundColor.value = false
     }
   })
 
@@ -182,6 +204,11 @@ onMounted(() => {
     changeBackGroundColor.value = res.slideChangeBakColor
 
 
+  })
+
+
+  emitter.on('BACKPAGETOP', res => {
+    handleScrolltoTop()
   })
   // 添加鼠标滚轮事件
   document.onmousewheel = mouseWheel
@@ -200,6 +227,7 @@ onBeforeUnmount(() => {
   document.removeEventListener('DOMMouseScroll', mouseWheel)
   emitter.off('DOMINDEX')
   emitter.off('changHeaderBack')
+  emitter.off('BACKPAGETOP')
 })
 
 watch(
@@ -229,7 +257,7 @@ watch(screenWidth, (newVal, oldVal) => { })
 
 .main-okj-container-nofull {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
 }
 </style>

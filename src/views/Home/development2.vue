@@ -546,7 +546,7 @@ const bannerSwiperNext = () => {
           }
 
           .T-bottom {
-            margin-top: 12vh;
+            margin-top: 7vh;
             width: 100%;
 
             .T-bottom-container {
