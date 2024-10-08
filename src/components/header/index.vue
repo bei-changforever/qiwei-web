@@ -1,47 +1,64 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-    <div class="fixed-box" :style="{ backgroundColor: slkbg ? '#000000' : 'transparent' }">
-      <div class="header-content">
+
+
+    <div class="fixed-box" :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }">
+      <div :class="['header-content', isDark ? 'is-dark' : 'is-white']">
         <div class="logo">
-          <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
+          <!-- <el-image :src="getAssetsFile('icon', activeBackgroundColor == '#000000' ? 'LOGO.png' : 'logo_black.png')"
+            :fit="'fill'" /> -->
+          <el-image :src="getAssetsFile('icon', isDark ?  'LOGO.png' : 'logo_black.png')" :fit="'fill'" />
         </div>
-        <div class="text">
-          <div
-            v-for="(item, index) in HeaderInfo"
-            :class="['text-item', activeIndex == index ? 'active' : '']"
-            :key="index"
-            @click="handleSelect(index)"
-          >
+        <div :class="['text']">
+          <div v-for="(item, index) in HeaderInfo" :class="['text-item', activeIndex == index ? 'active' : '']"
+            :key="index" @click="handleSelect(index)">
             {{ item }}
           </div>
         </div>
-        <div class="icon">
-          <el-image
-            class="unactive-image"
-            v-for="(item, index) in IconInfo"
-            :key="index"
-            :src="item"
-            :fit="'fill'"
-          />
+        <div class="icon" v-if="isDark">
+          <el-image class="unactive-image" v-for="(item, index) in IconInfo" :key="index" :src="item" :fit="'fill'" />
           <div class="active">≡</div>
+        </div>
+        <div class="icon" v-else>
+          <el-image class="unactive-image" v-for="(item, index) in blackIconInfo" :key="index" :src="item"
+            :fit="'fill'" />
+          <div class="dark-active">≡</div>
         </div>
       </div>
     </div>
+
+
+
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import emitter from '@/utils/mitt'
+/** props 
+ * @params
+ * activeIndex: 当前选中的菜单索引
+ * slideChangeBakColor: 是否开启背景色渐变
+ * activeBackgroundColor: 背景色渐变颜色
+ * isDark: 是否为暗黑模式
+ */
 const props = defineProps({
   swiperActiveIndex: {
     type: Number,
     default: 0
   },
-  slkbg: {
+  slideChangeBakColor: {
     type: Boolean,
     default: false
+  },
+  activeBackgroundColor: {
+    type: String,
+    default: '#000000'
+  },
+  isDark: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -52,6 +69,12 @@ const IconInfo = [
   getAssetsFile('icon', 'collect.png')
 ]
 
+const blackIconInfo = [
+  getAssetsFile('icon', 'search_black.png'),
+  getAssetsFile('icon', 'share_black.png'),
+  getAssetsFile('icon', 'collect_black.png')
+]
+
 const activeIndex = ref(0)
 
 const handleSelect = (key: number) => {
@@ -59,6 +82,8 @@ const handleSelect = (key: number) => {
   activeIndex.value = key
   emitter.emit('DOMINDEX', activeIndex.value)
 }
+
+
 </script>
 <style lang="scss" scoped>
 .header {
@@ -109,14 +134,14 @@ const handleSelect = (key: number) => {
         display: flex;
         align-items: center;
         justify-content: center;
-
         gap: 10%;
+
+
 
         .text-item {
           white-space: nowrap;
           font-weight: 400;
           font-size: 14px;
-          color: #ffffff;
           cursor: pointer;
 
           &.active {
@@ -144,7 +169,38 @@ const handleSelect = (key: number) => {
         .active {
           display: none;
         }
+
+        .dark-active {
+          display: none;
+        }
       }
+
+      &.is-dark {
+        .text {
+          .text-item {
+            color: white;
+
+            &.active {
+              color: #f3a7a5;
+              border-bottom: 3px solid #f3a7a5;
+            }
+          }
+        }
+      }
+
+      &.is-white {
+        .text {
+          .text-item {
+            color: black;
+
+            &.active {
+              color: #f3a7a5;
+              border-bottom: 3px solid #f3a7a5;
+            }
+          }
+        }
+      }
+
     }
   }
 }
@@ -208,6 +264,19 @@ const handleSelect = (key: number) => {
             justify-content: center;
             font-size: 24px;
             color: white;
+            cursor: pointer;
+          }
+
+          .dark-active {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #000000;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #000000;
             cursor: pointer;
           }
         }

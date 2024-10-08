@@ -1,5 +1,5 @@
 <template>
-  <div class="product-container">
+  <div class="product-container" @click.stop="parentClick">
     <div class="product-container-content">
       <div class="sift">
         <div class="sift-box-top">
@@ -19,60 +19,74 @@
           </div>
           <div class="bottom">
             <div class="bottom-text-box">
-              <div class="bottom-text-item">
-                <div class="text-b">
-                  <span>底妆</span>
-                  <el-image :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
+              <div class="bottom-text-item" v-for="(item, index) in bottomTextArr" :key="index">
+                <div :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
+                  @click.stop="handleSelect(index)">
+                  <span>{{ item.name }}</span>
+                  <el-image v-if="bottomTextItemIndex == index" :src="getAssetsFile('icon', 'arrowup.png')"
+                    :fit="'fill'" />
+                  <el-image v-else :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
                 </div>
-                <div class="line">
-                  <div class="line-button">口红</div>
-                  <div class="line-button">唇釉</div>
-                  <div class="line-button">固体唇釉</div>
+                <div class="line" v-show="bottomTextItemIndex == index">
+                  <div :class="['line-button', br.isActive ? 'active' : 'none']" v-for="(br, bri) in item.list"
+                    :key="bri" @click.stop="handleSelectchild(br)">{{ br.name }}</div>
                 </div>
-              </div>
-              <div class="bottom-text-item">
-                <div class="text-b">
-                  <span>底妆</span>
-                  <el-image :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
-                </div>
-                <div class="line"></div>
-              </div>
-              <div class="bottom-text-item">
-                <div class="text-b">
-                  <span>底妆</span>
-                  <el-image :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
-                </div>
-                <div class="line"></div>
-              </div>
-              <div class="bottom-text-item">
-                <div class="text-b">
-                  <span>底妆</span>
-                  <el-image :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
-                </div>
-                <div class="line"></div>
-              </div>
-              <div class="bottom-text-item">
-                <div class="text-b">
-                  <span>底妆</span>
-                  <el-image :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
-                </div>
-                <div class="line"></div>
-              </div>
-              <div class="bottom-text-item">
-                <div class="text-b">
-                  <span>底妆</span>
-                  <el-image :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
-                </div>
-                <div class="line"></div>
-              </div>
-              <div class="bottom-text-item">
-                <div class="text-b">
-                  <span>底妆</span>
-                  <el-image :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
-                </div>
-                <div class="line"></div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="product-box--ww-bottom">
+        <div class="product-list">
+          <div class="product-list-item" v-for="item in 8">
+
+            <div class="ww-box">
+              <div class="image">
+                <!-- <el-image :src="getAssetsFile('images', '产品中心产品4.png')" /> -->
+                <img :src="getAssetsFile('images', '产品中心产品4.png')" alt="">
+              </div>
+              <div class="text">
+
+                三色唇膏
+              </div>
+            </div>
+
+
+
+          </div>
+
+        </div>
+        <div class="page-control">
+          <div class="page-number-control">
+            <div class="left-icon">
+              <el-icon>
+                <ArrowLeft />
+              </el-icon>
+            </div>
+
+
+            <div class="number-block">
+
+              <div class="number-item" v-for="(item, index) in 5" :key="index">{{ index + 1 }}</div>
+            </div>
+
+            <div class="right-icon">
+
+              <el-icon>
+                <ArrowRight />
+              </el-icon>
+            </div>
+          </div>
+          <div class="block"></div>
+          <div class="jumpto">
+            <div class="jump-text">跳转至</div>
+            <div class="jump-input">
+              <el-input v-model="input" />
+            </div>
+            <div class="jump-text">页</div>
+          </div>
+          <div class="button">
+            <el-button type="primary">确定</el-button>
           </div>
         </div>
       </div>
@@ -80,18 +94,181 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+
+
+const input = ref('')
+
+const handleSizeChange = (val: number) => {
+  console.log(`${val} items per page`)
+}
+const handleCurrentChange = (val: number) => {
+  console.log(`current page: ${val}`)
+}
+
+
+
+
+
+
+
+
+const bottomTextItemIndex = ref(-1)
+const bottomTextArr = ref([
+  {
+    name: '底妆',
+    list: [
+      {
+        isActive: false,
+        name: '口红'
+      },
+      {
+        isActive: false,
+        name: '唇釉'
+      },
+      {
+        isActive: false,
+        name: '固体唇釉'
+      }
+    ]
+  },
+  {
+    name: '眉妆',
+    list: [
+      {
+        isActive: false,
+        name: '口红'
+      },
+      {
+        isActive: false,
+        name: '唇釉'
+      },
+      {
+        isActive: false,
+        name: '固体唇釉'
+      }
+    ]
+  },
+  {
+    name: '眼妆',
+    list: [
+      {
+        isActive: false,
+        name: '口红'
+      },
+      {
+        isActive: false,
+        name: '唇釉'
+      },
+      {
+        isActive: false,
+        name: '固体唇釉'
+      }
+    ]
+  }, {
+    name: '唇妆',
+    list: [
+      {
+        isActive: false,
+        name: '口红'
+      },
+      {
+        isActive: false,
+        name: '唇釉'
+      },
+      {
+        isActive: false,
+        name: '固体唇釉'
+      }
+    ]
+  }, {
+    name: '定妆',
+    list: [
+      {
+        isActive: false,
+        name: '口红'
+      },
+      {
+        isActive: false,
+        name: '唇釉'
+      },
+      {
+        isActive: false,
+        name: '固体唇釉'
+      }
+    ]
+  }
+  , {
+    name: '卸妆',
+    list: [
+      {
+        isActive: false,
+        name: '口红'
+      },
+      {
+        isActive: false,
+        name: '唇釉'
+      },
+      {
+        isActive: false,
+        name: '固体唇釉'
+      }
+    ]
+  },
+  {
+    name: '其他',
+    list: [
+      {
+        isActive: false,
+        name: '口红'
+      },
+      {
+        isActive: false,
+        name: '唇釉'
+      },
+      {
+        isActive: false,
+        name: '固体唇釉'
+      }
+    ]
+  }
+])
+
+const handleSelect = (index) => {
+
+  if (bottomTextItemIndex.value == index) {
+    bottomTextItemIndex.value = -1
+  } else {
+    bottomTextItemIndex.value = index
+  }
+
+}
+
+const handleSelectchild = (br) => {
+
+  br.isActive = !br.isActive
+
+}
+
+const parentClick = () => {
+  bottomTextItemIndex.value = -1
+}
 </script>
 <style lang="scss" scoped>
 .product-container {
   width: 100vw;
-  height: 100vh;
+  // height: 120vh;
   background-color: white;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  box-sizing: border-box;
+
   .product-container-content {
     width: var(--base-width);
     margin: 0 auto;
-    height: 500px;
     background-color: pink;
+
     .sift {
       width: 100%;
       height: 120px;
@@ -101,11 +278,13 @@ import { getAssetsFile } from '@/utils/tools'
       box-sizing: border-box;
       border-radius: 20px 20px 20px 20px;
       background-color: #f6f9ff;
+
       .sift-box-top {
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
+
         .top {
           width: 100%;
           height: 50%;
@@ -127,8 +306,10 @@ import { getAssetsFile } from '@/utils/tools'
             color: #333333;
 
             gap: 3vw;
+
             .text-item {
               cursor: pointer;
+
               &.active {
                 color: #f3a7a4;
               }
@@ -141,6 +322,7 @@ import { getAssetsFile } from '@/utils/tools'
             display: flex;
             align-items: center;
             justify-content: flex-end;
+
             .button-item {
               cursor: pointer;
               width: 72px;
@@ -155,6 +337,7 @@ import { getAssetsFile } from '@/utils/tools'
               align-items: center;
               justify-content: center;
               border-radius: 50px;
+
               &.active {
                 background-color: #2d2d2d;
                 color: #ffffff;
@@ -173,6 +356,7 @@ import { getAssetsFile } from '@/utils/tools'
             display: flex;
             align-items: center;
             gap: 3vw;
+
             .bottom-text-item {
               position: relative;
               display: flex;
@@ -180,16 +364,25 @@ import { getAssetsFile } from '@/utils/tools'
               justify-content: center;
               width: 5vw;
               height: 100%;
-              background-color: orange;
+
               .text-b {
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: flex-start;
                 gap: 0.5vw;
                 cursor: pointer;
 
                 width: 100%;
                 height: 100%;
+                transition: all .3S;
+
+                &.active {
+                  background-color: #F9F9F9;
+
+                  span {
+                    color: #f3a7a4;
+                  }
+                }
 
                 span {
                   font-family:
@@ -198,16 +391,15 @@ import { getAssetsFile } from '@/utils/tools'
                   font-weight: 400;
                   font-size: 16px;
                   color: #333333;
+                  user-select: none;
 
-                  &.active {
-                    color: #f3a7a4;
-                  }
                 }
               }
+
               .line {
                 position: absolute;
                 left: 0;
-                bottom: -4.5vh;
+                bottom: -8vh;
                 padding: 20px;
                 background-color: #f4f6f7;
                 display: flex;
@@ -215,6 +407,8 @@ import { getAssetsFile } from '@/utils/tools'
                 justify-content: center;
                 gap: 2vw;
                 z-index: 2;
+                transition: all .3S;
+
                 .line-button {
                   font-family:
                     Microsoft YaHei,
@@ -231,14 +425,99 @@ import { getAssetsFile } from '@/utils/tools'
                   align-items: center;
                   justify-content: center;
                   cursor: pointer;
+
                   &.active {
                     color: #f3a7a4;
                   }
+                }
+
+                &.none {
+                  display: none;
+                }
+
+                &.active {
+                  display: flex;
+                  color: #f3a7a4;
                 }
               }
             }
           }
         }
+      }
+
+    }
+
+    .product-box--ww-bottom {
+      margin-top: 2vh;
+      width: 100%;
+      height: auto;
+
+      .product-list {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1vw;
+
+        .product-list-item {
+          width: 24%;
+          height: 49%;
+
+          display: flex;
+          flex-direction: column;
+
+
+          .ww-box {
+
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+
+            .image {
+              width: 100%;
+              height: calc(100% - 60px);
+
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+              }
+
+            }
+
+            .text {
+              width: 100%;
+              height: 60px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-family: Microsoft YaHei, Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+              background-color: #F8F8F8;
+              border-radius: 0px 0px 20px 20px;
+            }
+          }
+
+
+        }
+      }
+    }
+
+    .page-control {
+      margin-top: 4vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .block {
+        width: 2px;
+        height: 16px;
+        background-color: #DFDFDF;
       }
     }
   }

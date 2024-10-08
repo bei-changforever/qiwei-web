@@ -1,6 +1,6 @@
 <template>
   <header id="header">
-    <CusHeader :slkbg="changeBackGroundColor" />
+    <CusHeader :slideChangeBakColor="changeBackGroundColor" :isDark="isDarkPage" :activeBackgroundColor="activeColor" />
   </header>
   <div class="main-okj-container" ref="container" v-if="domIndex !== 1">
     <div class="boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
@@ -22,7 +22,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch, nextTick, shallowRef, reactive } from 'vue'
 import Banner from '@/components/banner/index.vue'
 import HomeView from '@/views/Home/product.vue'
 import BussinessInfo from '@/views/Home/business-info.vue'
@@ -34,23 +34,23 @@ import Added from '@/views/Home/added.vue'
 import productBanner from '@/views/Product/product-banner.vue'
 import ProductContainer from '@/views/Product/product-container.vue'
 import emitter from '@/utils/mitt'
-const domArr = ref([
+const domArr = shallowRef([
   {
     id: 'home',
     domarr: [Banner, HomeView, BussinessInfo, Advantage, DevelopMent, Quality, DevelopMent2, Added]
   },
   {
     id: 'product',
-    domarr: [productBanner,ProductContainer]
+    domarr: [productBanner, ProductContainer]
   }
 ])
 
 let domIndex = ref(0)
 
 const changeBackGroundColor = ref(false)
-
+const activeColor = ref('#000000')
 const container = ref(null)
-
+const isDarkPage = ref(true)
 // 处理滚轮事件的方法
 const handleWheel = (event) => {
   const deltaY = event.deltaY
@@ -130,19 +130,22 @@ function scrollTimer() {
 }
 // 鼠标滚轮事件
 function mouseWheel(e) {
-  if (e.wheelDelta) {
-    if (e.wheelDelta > 0) {
-      scrollUp()
+  if (container.value) {
+    if (e.wheelDelta) {
+      if (e.wheelDelta > 0) {
+        scrollUp()
+      } else {
+        scrollDown()
+      }
     } else {
-      scrollDown()
-    }
-  } else {
-    if (e.detail > 0) {
-      scrollDown()
-    } else {
-      scrollUp()
+      if (e.detail > 0) {
+        scrollDown()
+      } else {
+        scrollUp()
+      }
     }
   }
+
 }
 const screenWidth = ref(window.innerWidth)
 const handleResize = () => {
@@ -154,6 +157,31 @@ onMounted(() => {
 
   emitter.on('DOMINDEX', (res) => {
     domIndex.value = res
+    window.scrollTo({
+      // top: document.documentElement.offsetHeight, //回到底部
+      top: 0, //回到顶部
+      left: 0,
+      behavior: "smooth", //smooth 平滑；auto:瞬间
+    });
+    if(domIndex.value == 0) {
+      isDarkPage.value = true
+      changeBackGroundColor.value = false
+      activeColor.value = '#000000'
+    }
+    if (domIndex.value == 1) {
+      isDarkPage.value = true
+      activeColor.value = 'white',
+      changeBackGroundColor.value = false
+    }
+  })
+
+  emitter.on('changHeaderBack', res => {
+
+    isDarkPage.value = res.isDark
+    activeColor.value = res.activeBackgroundColor
+    changeBackGroundColor.value = res.slideChangeBakColor
+
+
   })
   // 添加鼠标滚轮事件
   document.onmousewheel = mouseWheel
@@ -170,6 +198,8 @@ onMounted(() => {
 })
 onBeforeUnmount(() => {
   document.removeEventListener('DOMMouseScroll', mouseWheel)
+  emitter.off('DOMINDEX')
+  emitter.off('changHeaderBack')
 })
 
 watch(
@@ -183,7 +213,7 @@ watch(
   }
 )
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
-watch(screenWidth, (newVal, oldVal) => {})
+watch(screenWidth, (newVal, oldVal) => { })
 </script>
 <style scoped lang="scss">
 .main-okj-container {

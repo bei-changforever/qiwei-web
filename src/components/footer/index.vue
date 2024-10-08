@@ -52,7 +52,7 @@
           </div>
           <div class="right">
             <div class="btn" type="primary">免费<br />打样</div>
-            <div class="btn" type="primary">回到<br />顶部</div>
+            <div class="btn" type="primary" @click="scrollToTop">回到<br />顶部</div>
           </div>
         </div>
       </div>
@@ -62,15 +62,26 @@
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
+
+const scrollToTop = () => {
+  window.scrollTo({
+    // top: document.documentElement.offsetHeight, //回到底部
+    top: 0, //回到顶部
+    left: 0,
+    behavior: "smooth", //smooth 平滑；auto:瞬间
+  });
+}
+
 </script>
 <style lang="scss" scoped>
 .footer {
   width: var(--base-width);
   height: 100%;
   margin: 0 auto;
-  
-    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-    scroll-snap-align: start;
+
+  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+  scroll-snap-align: start;
+
   .footer-navbar {
     width: 100%;
     height: 207px;
@@ -78,6 +89,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px dashed #707070;
+
     .block {
       width: 100%;
       height: 100%;
@@ -91,6 +103,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         display: flex;
         align-items: center;
         justify-content: flex-start;
+
         :deep(.el-image) {
           width: 223px;
           height: 54px;
@@ -105,11 +118,13 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         align-items: center;
         justify-content: flex-end;
         gap: 10%;
+
         .text-item {
           font-weight: 400;
           font-size: 14px;
           color: #ffffff;
           cursor: pointer;
+
           &.active {
             color: #f3a7a5;
             border-bottom: 3px solid #f3a7a5;
@@ -118,12 +133,14 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
       }
     }
   }
+
   .footer-container {
     width: 100%;
     height: calc(100% - 208px);
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .left-left {
       width: 35%;
       height: 60%;
@@ -137,23 +154,27 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         font-size: 40px;
         color: #ffffff;
       }
+
       .detail {
         height: 31px;
         font-weight: 400;
         font-size: 24px;
         color: #ffffff;
       }
+
       .business {
         width: 100%;
         display: flex;
         align-items: center;
         gap: 10%;
+
         :deep(.el-image) {
           width: 80px;
           height: 80px;
         }
       }
     }
+
     .center {
       width: 35%;
       height: 60%;
@@ -164,8 +185,10 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
+
         .container-item {
           margin-bottom: 40px;
+
           .title {
             font-weight: 400;
             font-size: 16px;
@@ -180,6 +203,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         }
       }
     }
+
     .right {
       width: 20%;
       height: 60%;
@@ -187,10 +211,12 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
       .right-container {
         width: 100%;
         display: flex;
+
         .left {
           width: 80%;
           display: flex;
           gap: 5%;
+
           .image-box {
             display: flex;
             flex-direction: column;
@@ -198,22 +224,26 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
             font-weight: 400;
             font-size: 16px;
             color: #ffffff;
+
             :deep(.el-image) {
               width: 100px;
               height: 100px;
               cursor: pointer;
             }
+
             .topic {
               margin-top: 10px;
               cursor: pointer;
             }
           }
         }
+
         .right {
           width: 20%;
           display: flex;
           align-items: flex-end;
           flex-direction: column;
+
           .btn {
             display: flex;
             align-items: center;
@@ -249,6 +279,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         }
       }
     }
+
     .footer-container {
       .left-left {
         width: 32%;
@@ -263,23 +294,27 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           font-size: 30px;
           color: #ffffff;
         }
+
         .detail {
           height: 31px;
           font-weight: 400;
           font-size: 20px;
           color: #ffffff;
         }
+
         .business {
           width: 100%;
           display: flex;
           align-items: center;
           gap: 10%;
+
           :deep(.el-image) {
             width: 70px;
             height: 70px;
           }
         }
       }
+
       .center {
         width: 35%;
         height: 60%;
@@ -290,8 +325,10 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
+
           .container-item {
             margin-bottom: 40px;
+
             .title {
               font-weight: 400;
               font-size: 14px;
@@ -306,6 +343,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           }
         }
       }
+
       .right {
         width: 20%;
         height: 60%;
@@ -313,10 +351,12 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         .right-container {
           width: 100%;
           display: flex;
+
           .left {
             width: 80%;
             display: flex;
             gap: 5%;
+
             .image-box {
               display: flex;
               flex-direction: column;
@@ -324,22 +364,26 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
               font-weight: 400;
               font-size: 14px;
               color: #ffffff;
+
               :deep(.el-image) {
                 width: 90px;
                 height: 90px;
                 cursor: pointer;
               }
+
               .topic {
                 margin-top: 10px;
                 cursor: pointer;
               }
             }
           }
+
           .right {
             width: 20%;
             display: flex;
             align-items: flex-end;
             flex-direction: column;
+
             .btn {
               display: flex;
               align-items: center;
@@ -375,6 +419,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         }
       }
     }
+
     .footer-container {
       .left-left {
         width: 32%;
@@ -389,23 +434,27 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           font-size: 26px;
           color: #ffffff;
         }
+
         .detail {
           height: 31px;
           font-weight: 400;
           font-size: 18px;
           color: #ffffff;
         }
+
         .business {
           width: 100%;
           display: flex;
           align-items: center;
           gap: 10%;
+
           :deep(.el-image) {
             width: 65px;
             height: 65px;
           }
         }
       }
+
       .center {
         width: 35%;
         height: 60%;
@@ -416,8 +465,10 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
+
           .container-item {
             margin-bottom: 40px;
+
             .title {
               font-weight: 400;
               font-size: 14px;
@@ -432,6 +483,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           }
         }
       }
+
       .right {
         width: 22%;
         height: 60%;
@@ -439,10 +491,12 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         .right-container {
           width: 100%;
           display: flex;
+
           .left {
             width: 80%;
             display: flex;
             gap: 5%;
+
             .image-box {
               display: flex;
               flex-direction: column;
@@ -450,22 +504,26 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
               font-weight: 400;
               font-size: 14px;
               color: #ffffff;
+
               :deep(.el-image) {
                 width: 90px;
                 height: 90px;
                 cursor: pointer;
               }
+
               .topic {
                 margin-top: 10px;
                 cursor: pointer;
               }
             }
           }
+
           .right {
             width: 20%;
             display: flex;
             align-items: flex-end;
             flex-direction: column;
+
             .btn {
               display: flex;
               align-items: center;
@@ -501,6 +559,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         }
       }
     }
+
     .footer-container {
       .left-left {
         width: 32%;
@@ -515,23 +574,27 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           font-size: 24px;
           color: #ffffff;
         }
+
         .detail {
           height: 31px;
           font-weight: 400;
           font-size: 16px;
           color: #ffffff;
         }
+
         .business {
           width: 100%;
           display: flex;
           align-items: center;
           gap: 10%;
+
           :deep(.el-image) {
             width: 65px;
             height: 65px;
           }
         }
       }
+
       .center {
         width: 30%;
         height: 60%;
@@ -542,8 +605,10 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
+
           .container-item {
             margin-bottom: 15px;
+
             .title {
               font-weight: 400;
               font-size: 14px;
@@ -558,6 +623,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           }
         }
       }
+
       .right {
         width: 25%;
         height: 60%;
@@ -565,10 +631,12 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         .right-container {
           width: 100%;
           display: flex;
+
           .left {
             width: 80%;
             display: flex;
             gap: 5%;
+
             .image-box {
               display: flex;
               flex-direction: column;
@@ -576,22 +644,26 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
               font-weight: 400;
               font-size: 14px;
               color: #ffffff;
+
               :deep(.el-image) {
                 width: 90px;
                 height: 90px;
                 cursor: pointer;
               }
+
               .topic {
                 margin-top: 10px;
                 cursor: pointer;
               }
             }
           }
+
           .right {
             width: 20%;
             display: flex;
             align-items: flex-end;
             flex-direction: column;
+
             .btn {
               display: flex;
               align-items: center;
@@ -627,6 +699,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         }
       }
     }
+
     .footer-container {
       .left-left {
         width: 35%;
@@ -641,23 +714,27 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           font-size: 24px;
           color: #ffffff;
         }
+
         .detail {
           height: 31px;
           font-weight: 400;
           font-size: 16px;
           color: #ffffff;
         }
+
         .business {
           width: 100%;
           display: flex;
           align-items: center;
           gap: 10%;
+
           :deep(.el-image) {
             width: 65px;
             height: 65px;
           }
         }
       }
+
       .center {
         width: 30%;
         height: 60%;
@@ -668,8 +745,10 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
+
           .container-item {
             margin-bottom: 15px;
+
             .title {
               font-weight: 400;
               font-size: 14px;
@@ -684,6 +763,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           }
         }
       }
+
       .right {
         width: 25%;
         height: 60%;
@@ -691,10 +771,12 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         .right-container {
           width: 100%;
           display: flex;
+
           .left {
             width: 80%;
             display: flex;
             gap: 5%;
+
             .image-box {
               display: flex;
               flex-direction: column;
@@ -702,22 +784,26 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
               font-weight: 400;
               font-size: 14px;
               color: #ffffff;
+
               :deep(.el-image) {
                 width: 90px;
                 height: 90px;
                 cursor: pointer;
               }
+
               .topic {
                 margin-top: 10px;
                 cursor: pointer;
               }
             }
           }
+
           .right {
             width: 20%;
             display: flex;
             align-items: flex-end;
             flex-direction: column;
+
             .btn {
               display: flex;
               align-items: center;
@@ -744,8 +830,10 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
   .footer {
     padding: 10px;
     box-sizing: border-box;
+
     .footer-navbar {
       display: none !important;
+
       .block {
         .logo {
           width: 30%;
@@ -756,9 +844,11 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         }
       }
     }
+
     .footer-container {
       display: flex;
       flex-direction: column;
+
       .left-left {
         width: 100%;
         height: 60%;
@@ -766,41 +856,49 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         flex-direction: column;
         gap: 10%;
         margin-bottom: 30px;
+
         .topic {
           height: 52px;
           font-weight: 400;
           font-size: 20px;
           color: #ffffff;
         }
+
         .detail {
           height: 31px;
           font-weight: 400;
           font-size: 14px;
           color: #ffffff;
         }
+
         .business {
           width: 100%;
           display: flex;
           align-items: center;
           gap: 10%;
+
           :deep(.el-image) {
             width: 65px;
             height: 65px;
           }
         }
       }
+
       .center {
         width: 100%;
         height: 60%;
         margin-bottom: 20px;
+
         .center-container {
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
+
           .container-item {
             margin-bottom: 15px;
+
             .title {
               font-weight: 400;
               font-size: 12px;
@@ -815,6 +913,7 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
           }
         }
       }
+
       .right {
         width: 100%;
         height: 60%;
@@ -822,10 +921,12 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
         .right-container {
           width: 100%;
           display: flex;
+
           .left {
             width: 80%;
             display: flex;
             gap: 5%;
+
             .image-box {
               display: flex;
               flex-direction: column;
@@ -833,22 +934,26 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
               font-weight: 400;
               font-size: 12px;
               color: #ffffff;
+
               :deep(.el-image) {
                 width: 90px;
                 height: 90px;
                 cursor: pointer;
               }
+
               .topic {
                 margin-top: 10px;
                 cursor: pointer;
               }
             }
           }
+
           .right {
             width: 20%;
             display: flex;
             align-items: flex-end;
             flex-direction: column;
+
             .btn {
               display: flex;
               align-items: center;
