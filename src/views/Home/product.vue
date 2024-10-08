@@ -22,7 +22,7 @@
       <swiper
         @swiper="onSwiper"
         :slidesPerView="3"
-        :spaceBetween="100"
+        :spaceBetween="25"
         :freeMode="true"
         :navigation="true"
         :modules="modules"
@@ -211,7 +211,7 @@ const bannerSwiperNext = () => {
       height: 540px;
 
       .product-info {
-        width: 98%;
+        width: 100%;
         height: 99%;
         margin: 0 auto;
 

@@ -1,6 +1,4 @@
 <template>
-
-
   <!-- <div class="main-container" >
     <header id="header">
       <CusHeader :slkbg="changeBackGroundColor" />
@@ -53,10 +51,6 @@
       </footer>
     </div>
   </div>
-
-
-
-
 </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
@@ -70,131 +64,139 @@ import Added from '@/views/Home/added.vue'
 const flexMain = ref(null)
 const changeBackGroundColor = ref(false)
 
-
 const container = ref(null)
-
 
 // 处理滚轮事件的方法
 const handleWheel = (event) => {
-
   const deltaY = event.deltaY
   // 存储上一次变量
 
-
   if (deltaY < 0) {
     // 向上滚动
-
-
   } else if (deltaY > 0) {
     // 向下滚动
-
   }
 }
 
-
-
 // 定义当前页面的索引
-let pageIndex = ref(0);
+let pageIndex = ref(0)
 // 定义是否允许滚动
-let pageScroll = ref(true);
+let pageScroll = ref(true)
 // 定义上一次页面的索引
-let prevIndex = ref(0);
+let prevIndex = ref(0)
 
 let boxapis = ref([])
 
 // 向上滚动
 function scrollUp() {
   if (pageIndex.value > 0 && pageScroll.value) {
-    prevIndex.value = pageIndex.value;
-    pageIndex.value--;
-    scrollToPage(pageIndex.value);
+    prevIndex.value = pageIndex.value
+    pageIndex.value--
+    scrollToPage(pageIndex.value)
   } else if (pageIndex.value <= 0) {
-    pageIndex.value = 0;
+    pageIndex.value = 0
   }
 }
-
-
 
 // 向下滚动
 function scrollDown() {
   if (pageIndex.value < boxapis.value.length - 1 && pageScroll.value) {
-    prevIndex.value = pageIndex.value;
-    pageIndex.value++;
-    scrollToPage(pageIndex.value);
+    prevIndex.value = pageIndex.value
+    pageIndex.value++
+    scrollToPage(pageIndex.value)
   } else if (pageIndex.value >= boxapis.value.length - 1) {
-    pageIndex.value = boxapis.value.length - 1;
+    pageIndex.value = boxapis.value.length - 1
   }
 }
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  if(pageIndex == 8) {
-    container.value.style.top = `-${pageIndex-1}55%`;
-  }else {
-    container.value.style.top = `-${pageIndex}00%`;
-  }
-  
+  console.log(screenWidth.value);
+  if (pageIndex == 8) {
+    if (screenWidth.value >= 1520 && screenWidth.value <= 1920) {
+      container.value.style.top = `-${pageIndex - 1}55%`
+    }
 
-  
-  
-  pageScroll.value = false;
-  scrollTimer();
+    if (screenWidth.value <= 1520 && screenWidth.value >= 1440) {
+      container.value.style.top = `-${pageIndex - 1}55%`
+    }
+
+    if (screenWidth.value <= 1440 && screenWidth.value >= 1220) {
+      container.value.style.top = `-${pageIndex - 1}55%`
+    }
+
+    if(screenWidth.value <= 1220 && screenWidth.value >= 960) {
+      container.value.style.top = `-${pageIndex - 1}55%`
+    }
+
+    if(screenWidth.value <= 960) {
+      container.value.style.top = `-${pageIndex - 1}55%`
+    }
+  } else {
+    container.value.style.top = `-${pageIndex}00%`
+  }
+
+  pageScroll.value = false
+  scrollTimer()
 }
 // 设置定时器，等待500毫秒后，允许再次滚动
 function scrollTimer() {
   setTimeout(() => {
-    pageScroll.value = true;
-  }, 500);
+    pageScroll.value = true
+  }, 500)
 }
 // 鼠标滚轮事件
 function mouseWheel(e) {
   if (e.wheelDelta) {
     if (e.wheelDelta > 0) {
-      scrollUp();
+      scrollUp()
     } else {
-      scrollDown();
+      scrollDown()
     }
   } else {
     if (e.detail > 0) {
-      scrollDown();
+      scrollDown()
     } else {
-      scrollUp();
+      scrollUp()
     }
   }
 }
-
+const screenWidth = ref(window.innerWidth)
+const handleResize = () => {
+  screenWidth.value =
+    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+}
 onMounted(() => {
-
   // window.addEventListener('wheel', handleWheel)
 
   // 添加鼠标滚轮事件
-  document.onmousewheel = mouseWheel;
-  document.addEventListener('DOMMouseScroll', mouseWheel, false);
+  document.onmousewheel = mouseWheel
+  document.addEventListener('DOMMouseScroll', mouseWheel, false)
   // 设置滚动记录
-  history.scrollRestoration = 'manual';
-
+  history.scrollRestoration = 'manual'
 
   nextTick(() => {
-    boxapis.value = document.querySelectorAll('.boxapi');
-    container.value.style.height = `${boxapis.length}00%`;
+    boxapis.value = document.querySelectorAll('.boxapi')
+    container.value.style.height = `${boxapis.length}00%`
   })
 
-
+  window.addEventListener('resize', handleResize)
 })
 onBeforeUnmount(() => {
   document.removeEventListener('DOMMouseScroll', mouseWheel)
 })
 
-watch(() => pageIndex.value, (newValue, oldValue) => {
-  if (newValue == 0) {
-    changeBackGroundColor.value = false
-  } else {
-    changeBackGroundColor.value = true
+watch(
+  () => pageIndex.value,
+  (newValue, oldValue) => {
+    if (newValue == 0) {
+      changeBackGroundColor.value = false
+    } else {
+      changeBackGroundColor.value = true
+    }
   }
-
-
-});
-
-
+)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(screenWidth, (newVal, oldVal) => {})
 </script>
 <style scoped lang="scss">
 .main-okj-container {
@@ -206,9 +208,5 @@ watch(() => pageIndex.value, (newValue, oldValue) => {
   top: 0;
   /* 添加过渡动画 */
   transition: all 0.3s ease-in-out;
-
-
-
-
 }
 </style>

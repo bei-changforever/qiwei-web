@@ -132,4 +132,5 @@ import Accordion from '@/components/accordion/index.vue'
     }
   }
 }
+
 </style>
