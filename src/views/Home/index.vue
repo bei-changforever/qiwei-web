@@ -1,28 +1,22 @@
 <template>
-  <header id="header">
-    <CusHeader
-      :slideChangeBakColor="changeBackGroundColor"
-      :isDark="isDarkPage"
-      :activeBackgroundColor="activeColor"
-    />
-  </header>
-  <div class="main-okj-container" ref="container" v-if="domIndex !== 1">
-    <div class="boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
-      <component :is="comp" />
+  <div class="home-base-container">
+    <!-- <header id="header">
+      <CusHeader
+        :slideChangeBakColor="changeBackGroundColor"
+        :isDark="isDarkPage"
+        :activeBackgroundColor="activeColor"
+      />
+    </header> -->
+    <div class="main-okj-container" ref="container">
+      <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
+        <component :is="comp" />
+      </div>
+      <div class="boxapi">
+        <footer id="footer">
+          <CusFooter />
+        </footer>
+      </div>
     </div>
-    <div class="boxapi">
-      <footer id="footer">
-        <CusFooter />
-      </footer>
-    </div>
-  </div>
-  <div class="main-okj-container-nofull" ref="nofull" v-else>
-    <div class="nofull-boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
-      <component :is="comp" />
-    </div>
-    <footer id="footer">
-      <CusFooter />
-    </footer>
   </div>
 </template>
 <script setup>
@@ -35,17 +29,11 @@ import DevelopMent from '@/views/Home/development.vue'
 import Quality from '@/views/Home/quality.vue'
 import DevelopMent2 from '@/views/Home/development2.vue'
 import Added from '@/views/Home/added.vue'
-import productBanner from '@/views/Product/product-banner.vue'
-import ProductContainer from '@/views/Product/product-container.vue'
 import emitter from '@/utils/mitt'
 const domArr = shallowRef([
   {
     id: 'home',
     domarr: [Banner, HomeView, BussinessInfo, Advantage, DevelopMent, Quality, DevelopMent2, Added]
-  },
-  {
-    id: 'product',
-    domarr: [productBanner, ProductContainer]
   }
 ])
 
@@ -157,48 +145,14 @@ const handleResize = () => {
 }
 
 const handleScrolltoTop = () => {
-  nextTick(() => {
-    console.log('点击回到顶部')
-    if (domIndex.value == 0) {
-      scrollToPage(0)
-    }
-    if (domIndex.value == 1) {
-      console.log(nofull.value.getBoundingClientRect())
 
-      // window.scrollTo({
-      //   top: 0,
-      //   behavior: 'smooth' // 可选，使滚动平滑
-      // });
-    }
-  })
+      scrollToPage(0)
+ 
 }
 
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
-  emitter.on('DOMINDEX', (index) => {
-    window.scrollTo({
-      // top: document.documentElement.offsetHeight, //回到底部
-      top: 0, //回到顶部
-      left: 0,
-      behavior: 'smooth' //smooth 平滑；auto:瞬间
-    })
-    if (index == 0) {
-      isDarkPage.value = true
-      changeBackGroundColor.value = false
-      activeColor.value = '#000000'
-    }
-    if (index == 1) {
-      isDarkPage.value = true
-      activeColor.value = 'white'
-      changeBackGroundColor.value = false
-    }
-  })
 
-  emitter.on('changHeaderBack', (res) => {
-    isDarkPage.value = res.isDark;
-    activeColor.value = res.activeBackgroundColor;
-    changeBackGroundColor.value = res.slideChangeBakColor;
-  })
 
   emitter.on('BACKPAGETOP', (res) => {
     handleScrolltoTop()
@@ -218,7 +172,7 @@ onMounted(() => {
 })
 onBeforeUnmount(() => {
   document.removeEventListener('DOMMouseScroll', mouseWheel)
-  emitter.off('DOMINDEX')
+//   emitter.off('DOMINDEX')
   emitter.off('changHeaderBack')
   emitter.off('BACKPAGETOP')
 })
@@ -227,9 +181,17 @@ watch(
   () => pageIndex.value,
   (newValue, oldValue) => {
     if (newValue == 0) {
-      changeBackGroundColor.value = false
+      emitter.emit('changHeaderBack', {
+        isDark: true,
+        activeBackgroundColor: '#000000',
+        slideChangeBakColor: false
+      })
     } else {
-      changeBackGroundColor.value = true
+      emitter.emit('changHeaderBack', {
+        isDark: true,
+        activeBackgroundColor: '#000000',
+        slideChangeBakColor: true
+      })
     }
   }
 )
@@ -237,20 +199,28 @@ watch(
 watch(screenWidth, (newVal, oldVal) => {})
 </script>
 <style scoped lang="scss">
-.main-okj-container {
-  width: 100%;
-  height: 100%;
-  /* 绝对定位 */
-  position: absolute;
-  left: 0;
-  top: 0;
-  /* 添加过渡动画 */
-  transition: all 0.3s ease-in-out;
-}
-
-.main-okj-container-nofull {
-  width: 100%;
+.home-base-container {
+  /* 满屏 */
+  width: 100vw;
   height: 100vh;
-  overflow-y: auto;
+  /* 相对定位 */
+  position: relative;
+  /* 溢出隐藏 */
+  overflow: hidden;
+
+  .main-okj-container {
+    width: 100%;
+    height: 100%;
+    /* 绝对定位 */
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* 添加过渡动画 */
+    transition: all 0.3s ease-in-out;
+
+    .boxapi {
+      overflow: hidden;
+    }
+  }
 }
 </style>

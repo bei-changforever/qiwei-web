@@ -2,9 +2,9 @@
 @import url('./root.scss');
 
 #app {
+  width: 100%;
   height: 100%;
   zoom: 1;
-
 }
 
 #header {
@@ -33,7 +33,6 @@
   height: 100%;
 }
 
-
 html,
 body {
   position: relative;
@@ -41,13 +40,6 @@ body {
 }
 
 body {
-  /* 满屏 */
-  width: 100vw;
-  height: 100vh;
-  /* 相对定位 */
-  position: relative;
-  /* 溢出隐藏 */
-  overflow: hidden;
   background: #eee;
   font-family:
     Helvetica Neue,
