@@ -690,13 +690,13 @@ const bannerSwiperNext = () => {
 
               .text {
                 font-weight: 400;
-                font-size: 22px;
+                font-size: var(--aside-fontSize);
                 color: #f3a7a5;
               }
 
               .block {
                 width: 6px;
-                height: 16px;
+                height: var(--aside-block);
                 border-radius: 1px;
                 background-color: #f3a7a5;
               }
@@ -712,15 +712,15 @@ const bannerSwiperNext = () => {
             }
 
             .desc {
-              margin-top: 5vh;
+              margin-top: 2vh;
 
               font-family:
                 Microsoft YaHei,
                 Microsoft YaHei;
               font-weight: 400;
-              font-size: 20px;
+              font-size: var(--desc-fontSize);
               color: #666666;
-              line-height: 34px;
+              line-height: var(--desc-lineHeight);
             }
           }
 
@@ -743,11 +743,11 @@ const bannerSwiperNext = () => {
                     Microsoft YaHei,
                     Microsoft YaHei;
                   font-weight: bold;
-                  font-size: 30px;
+                  font-size: 25px;
                   color: #999999;
                   .active-number {
                     color: #f3a7a5;
-                    font-size: 54px;
+                    font-size: 34px;
                   }
                 }
 
@@ -757,8 +757,8 @@ const bannerSwiperNext = () => {
                   justify-content: flex-end;
                   gap: 2vw;
                   :deep(.el-image) {
-                    width: 50px;
-                    height: 50px;
+                    width: 40px;
+                    height: 40px;
                     cursor: pointer;
                   }
                 }
@@ -799,8 +799,8 @@ const bannerSwiperNext = () => {
 
                 .swiper {
                   // margin: 100px auto;
-                  width: 240px;
-                  height: 360px;
+                  width: 220px;
+                  height: 340px;
                 }
 
                 .swiper-slide {
@@ -817,12 +817,12 @@ const bannerSwiperNext = () => {
 
               .content-right-text {
                 position: absolute;
-                bottom: 12%;
+                bottom: 15%;
                 font-family:
                   Microsoft YaHei,
                   Microsoft YaHei;
                 font-weight: 400;
-                font-size: 30px;
+                font-size: 25px;
                 color: #333333;
               }
             }

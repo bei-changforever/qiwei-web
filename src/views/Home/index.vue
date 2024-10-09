@@ -1,12 +1,5 @@
 <template>
   <div class="home-base-container">
-    <!-- <header id="header">
-      <CusHeader
-        :slideChangeBakColor="changeBackGroundColor"
-        :isDark="isDarkPage"
-        :activeBackgroundColor="activeColor"
-      />
-    </header> -->
     <div class="main-okj-container" ref="container">
       <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
@@ -36,34 +29,14 @@ const domArr = shallowRef([
     domarr: [Banner, HomeView, BussinessInfo, Advantage, DevelopMent, Quality, DevelopMent2, Added]
   }
 ])
-
-let domIndex = ref(0)
-const nofull = ref(null)
-const changeBackGroundColor = ref(false)
-const activeColor = ref('#000000')
 const container = ref(null)
-const isDarkPage = ref(true)
-// 处理滚轮事件的方法
-const handleWheel = (event) => {
-  const deltaY = event.deltaY
-  // 存储上一次变量
-
-  if (deltaY < 0) {
-    // 向上滚动
-  } else if (deltaY > 0) {
-    // 向下滚动
-  }
-}
-
 // 定义当前页面的索引
 let pageIndex = ref(0)
 // 定义是否允许滚动
 let pageScroll = ref(true)
 // 定义上一次页面的索引
 let prevIndex = ref(0)
-
 let boxapis = ref([])
-
 // 向上滚动
 function scrollUp() {
   if (pageIndex.value > 0 && pageScroll.value) {
@@ -101,7 +74,8 @@ function scrollToPage(pageIndex) {
     }
 
     if (screenWidth.value <= 1220 && screenWidth.value >= 960) {
-      container.value.style.top = `-${pageIndex - 1}56%`
+
+      container.value.style.top = `-${pageIndex - 1}72%`
     }
 
     if (screenWidth.value <= 960) {
@@ -145,15 +119,11 @@ const handleResize = () => {
 }
 
 const handleScrolltoTop = () => {
-
       scrollToPage(0)
- 
 }
 
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
-
-
   emitter.on('BACKPAGETOP', (res) => {
     handleScrolltoTop()
   })
@@ -172,8 +142,6 @@ onMounted(() => {
 })
 onBeforeUnmount(() => {
   document.removeEventListener('DOMMouseScroll', mouseWheel)
-//   emitter.off('DOMINDEX')
-  emitter.off('changHeaderBack')
   emitter.off('BACKPAGETOP')
 })
 

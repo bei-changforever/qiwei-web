@@ -62,13 +62,13 @@ import Accordion from '@/components/accordion/index.vue'
 
           .text {
             font-weight: 400;
-            font-size: 22px;
+            font-size: var(--aside-fontSize);
             color: #f3a7a5;
           }
 
           .block {
             width: 6px;
-            height: 16px;
+            height: var(--aside-block);
             border-radius: 1px;
             background-color: #f3a7a5;
           }
@@ -80,7 +80,7 @@ import Accordion from '@/components/accordion/index.vue'
             Microsoft YaHei,
             Microsoft YaHei;
           font-weight: bold;
-          font-size: 42px;
+          font-size: var(--topic-fontSize);
           color: #333333;
         }
 
@@ -90,9 +90,9 @@ import Accordion from '@/components/accordion/index.vue'
             Microsoft YaHei,
             Microsoft YaHei;
           font-weight: 400;
-          font-size: 20px;
+          font-size: var(--desc-fontSize);
           color: #666666;
-          line-height: 34px;
+          line-height: var(--desc-lineHeight);
         }
       }
 
@@ -132,5 +132,107 @@ import Accordion from '@/components/accordion/index.vue'
     }
   }
 }
+@media (min-width: 960px) and (max-width: 1220px) {
+  .advantage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  // align-items: center;
+  justify-content: center;
 
+  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+  scroll-snap-align: start;
+  padding: 15vh;
+  .advantage-box {
+    margin: 0 auto;
+    width: var(--base-width);
+    transition: all 0.3s ease-in;
+    zoom: 1;
+
+    .advantage-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .T-left {
+        .topic {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          gap: 1vw;
+
+          .text {
+            font-weight: 400;
+            font-size: var(--aside-fontSize);
+            color: #f3a7a5;
+          }
+
+          .block {
+            width: 6px;
+            height: var(--aside-block);
+            border-radius: 1px;
+            background-color: #f3a7a5;
+          }
+        }
+
+        .name {
+          margin-top: 1vh;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: bold;
+          font-size: var(--topic-fontSize);
+          color: #333333;
+        }
+
+        .desc {
+          margin-top: 2vh;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: var(--desc-fontSize);
+          color: #666666;
+          line-height: var(--desc-lineHeight);
+        }
+      }
+
+      .T-right {
+        .konw-more-about {
+            margin-top: 5vh;
+            width: 150px;
+            height: 40px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #f3a7a5;
+
+            .text {
+              width: 80%;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 18px;
+              color: #f3a7a5;
+              text-align: center;
+              text-indent: 0.5em;
+            }
+
+            .about-icon {
+              color: #f3a7a5;
+              font-size: 40px;
+            }
+          }
+      }
+    }
+
+    .accordion {
+      margin-top: 3vh;
+    }
+  }
+}
+}
 </style>
