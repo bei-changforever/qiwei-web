@@ -1,42 +1,61 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-
-
-    <div class="fixed-box" :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }">
+    <div
+      class="fixed-box"
+      :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }"
+    >
       <div :class="['header-content', isDark ? 'is-dark' : 'is-white']">
         <div class="logo">
           <!-- <el-image :src="getAssetsFile('icon', activeBackgroundColor == '#000000' ? 'LOGO.png' : 'logo_black.png')"
             :fit="'fill'" /> -->
-          <el-image :src="getAssetsFile('icon', isDark ?  'LOGO.png' : 'logo_black.png')" :fit="'fill'" />
+          <el-image
+            :src="getAssetsFile('icon', isDark ? 'LOGO.png' : 'logo_black.png')"
+            :fit="'fill'"
+          />
         </div>
         <div :class="['text']">
-          <div v-for="(item, index) in HeaderInfo" :class="['text-item', activeIndex == index ? 'active' : '']"
-            :key="index" @click="handleSelect(index)">
+          <div
+            v-for="(item, index) in HeaderInfo"
+            :class="['text-item', activeIndex == index ? 'active' : '']"
+            :key="index"
+            @click="handleSelect(index)"
+          >
             {{ item }}
           </div>
         </div>
         <div class="icon" v-if="isDark">
-          <el-image class="unactive-image" v-for="(item, index) in IconInfo" :key="index" :src="item" :fit="'fill'" />
+          <el-image
+            class="unactive-image"
+            v-for="(item, index) in IconInfo"
+            :key="index"
+            :src="item"
+            :fit="'fill'"
+          />
           <div class="active">≡</div>
         </div>
         <div class="icon" v-else>
-          <el-image class="unactive-image" v-for="(item, index) in blackIconInfo" :key="index" :src="item"
-            :fit="'fill'" />
+          <el-image
+            class="unactive-image"
+            v-for="(item, index) in blackIconInfo"
+            :key="index"
+            :src="item"
+            :fit="'fill'"
+          />
           <div class="dark-active">≡</div>
         </div>
       </div>
     </div>
-
-
-
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { useRouter, useRoute } from 'vue-router'
 import emitter from '@/utils/mitt'
-/** props 
+const route = useRoute()
+const router = useRouter()
+/** props
  * @params
  * activeIndex: 当前选中的菜单索引
  * slideChangeBakColor: 是否开启背景色渐变
@@ -78,12 +97,53 @@ const blackIconInfo = [
 const activeIndex = ref(0)
 
 const handleSelect = (key: number) => {
-  if (activeIndex.value == key) return
-  activeIndex.value = key
-  emitter.emit('DOMINDEX', activeIndex.value)
+  switch (key) {
+    case 0:
+      activeIndex.value = 0
+      router.push('/')
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 1:
+      activeIndex.value = 1
+      router.push('/product/product-detail')
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 2:
+      activeIndex.value = 2
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 3:
+      activeIndex.value = 3
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 4:
+      activeIndex.value = 4
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 5:
+      activeIndex.value = 5
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    default:
+      break
+  }
 }
 
 
+watch(
+  () => route.path,
+  (newVal, oldVal) => {
+    if (newVal == '/') {
+      activeIndex.value = 0
+    }
+    if (newVal == '/product/product-detail') {
+      activeIndex.value = 1
+    }
+  },{
+    deep: true,
+    immediate: true
+  }
+)
 </script>
 <style lang="scss" scoped>
 .header {
@@ -106,7 +166,7 @@ const handleSelect = (key: number) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s;
 
     .header-content {
       width: var(--base-width);
@@ -135,8 +195,6 @@ const handleSelect = (key: number) => {
         align-items: center;
         justify-content: center;
         gap: 10%;
-
-
 
         .text-item {
           white-space: nowrap;
@@ -200,7 +258,6 @@ const handleSelect = (key: number) => {
           }
         }
       }
-
     }
   }
 }

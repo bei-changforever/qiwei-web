@@ -245,4 +245,91 @@ import { getAssetsFile } from '@/utils/tools'
     }
   }
 }
+
+
+@media (min-width: 960px) and (max-width: 1220px) {
+  .shell {
+    width: 100%;
+    height: 400px;
+    display: flex;
+
+    .box {
+      position: relative;
+      flex: 1;
+      margin: 0 2px;
+      overflow: hidden;
+      transition: 0.5s;
+      cursor: pointer;
+
+      :deep(.el-image) {
+        width: 200%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-family:
+          Microsoft YaHei,
+          Microsoft YaHei;
+        font-weight: 400;
+        font-size: 25px;
+        color: #ffffff;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: 0.3s;
+      }
+
+      .detail {
+        position: absolute;
+        bottom: 0;
+        right: 0%;
+        height: 0;
+        width: 70%;
+        font-family:
+          Microsoft YaHei,
+          Microsoft YaHei;
+        font-weight: 400;
+        font-size: 14px;
+        color: #ffffff;
+        background-color: rgba(0, 0, 0, 0.5);
+        .ad {
+          // display: block;
+          margin-top: 10px;
+          margin-left: 10px;
+        }
+
+        .ab {
+          margin-top: -20px;
+          margin-left: 10px;
+        }
+      }
+
+      &:hover {
+        flex-basis: 40%;
+
+        :deep(.el-image) {
+          width: 100%;
+          height: 100%;
+        }
+
+        .title {
+          width: 30%;
+        }
+        .detail {
+          // width: 70%;
+          height: 20%;
+          transition: 1s;
+        }
+      }
+    }
+  }
+}
 </style>

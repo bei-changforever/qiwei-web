@@ -43,7 +43,6 @@ import { getAssetsFile } from '@/utils/tools'
   display: flex;
   // align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
 
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
@@ -75,13 +74,13 @@ import { getAssetsFile } from '@/utils/tools'
 
             .text {
               font-weight: 400;
-              font-size: 22px;
+              font-size: var(--aside-fontSize);
               color: #f3a7a5;
             }
 
             .block {
               width: 6px;
-              height: 16px;
+              height: var(--aside-block);
               border-radius: 1px;
               background-color: #f3a7a5;
             }
@@ -93,27 +92,29 @@ import { getAssetsFile } from '@/utils/tools'
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: bold;
-            font-size: 42px;
+            font-size: var(--topic-fontSize);
             color: #333333;
           }
+
           .fu-name {
-            margin-top: 2vh;
+            margin-top: 1vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
-            font-size: 32px;
+            font-size: var(--fu-name-fontSize);
             color: #333333;
           }
+
           .desc {
             margin-top: 5vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
-            font-size: 20px;
+            font-size: var(--desc-fontSize);
             color: #666666;
-            line-height: 34px;
+            line-height: var(--desc-lineHeight);
           }
 
           .konw-more-about {
@@ -163,6 +164,252 @@ import { getAssetsFile } from '@/utils/tools'
           :deep(.el-image) {
             width: 60px;
             height: 60px;
+          }
+        }
+      }
+    }
+
+    .business-container-bottom {
+      margin-top: 10vh;
+      width: 100%;
+      height: 130px;
+      display: flex;
+      gap: 4%;
+      justify-content: center;
+      align-items: center;
+
+      .business-container-bottom-container {
+        width: 20%;
+
+        .business-container-bottom-top {
+          width: 100%;
+          display: flex;
+
+          .bussiness-container-bottom-top-left {
+            position: relative;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: bold;
+            font-size: 72px;
+            color: #f3a7a5;
+            line-height: 0px;
+
+            &.plus {
+              &::after {
+                content: '+';
+                position: absolute;
+                top: -20px;
+                right: -20px;
+                font-size: 26px;
+              }
+            }
+          }
+
+          .bussiness-container-bottom-top-right {
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 20px;
+            color: #333333;
+            margin-left: 10px;
+          }
+        }
+
+        .business-container-bottom-bottom {
+          margin-top: 10px;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: 20px;
+          color: #333333;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1220px) {
+  .business-info {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding-top: 15vh;
+    .business-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      .business-container-top {
+        width: 100%;
+        gap: 5%;
+        display: flex;
+
+        .business-container-left {
+          width: 50%;
+          height: auto;
+
+          .business-container-left-item {
+            width: 100%;
+
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: var(--aside-fontSize);
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 6px;
+                height: var(--aside-block);
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
+            }
+
+            .name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: var(--topic-fontSize);
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 2vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--desc-fontSize);
+              color: #666666;
+              line-height: var(--desc-lineHeight);
+            }
+
+            .konw-more-about {
+              margin-top: 5vh;
+              width: 150px;
+              height: 40px;
+              border-radius: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              border: 1px solid #f3a7a5;
+
+              .text {
+                width: 80%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 18px;
+                color: #f3a7a5;
+                text-align: center;
+                text-indent: 0.5em;
+              }
+
+              .about-icon {
+                color: #f3a7a5;
+                font-size: 40px;
+              }
+            }
+          }
+        }
+
+        .business-container-right {
+          width: 50%;
+          position: relative;
+
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+          }
+
+          .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            :deep(.el-image) {
+              width: 60px;
+              height: 60px;
+            }
+          }
+        }
+      }
+
+      .business-container-bottom {
+        margin-top: 6vh;
+        width: 100%;
+        height: 120px;
+        display: flex;
+        gap: 4%;
+        justify-content: center;
+        align-items: center;
+
+        .business-container-bottom-container {
+          width: 20%;
+
+          .business-container-bottom-top {
+            width: 100%;
+            display: flex;
+
+            .bussiness-container-bottom-top-left {
+              position: relative;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 60px;
+              color: #f3a7a5;
+              line-height: 0px;
+
+              &.plus {
+                &::after {
+                  content: '+';
+                  position: absolute;
+                  top: -20px;
+                  right: -20px;
+                  font-size: 20px;
+                }
+              }
+            }
+
+            .bussiness-container-bottom-top-right {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+              margin-left: 10px;
+            }
+          }
+
+          .business-container-bottom-bottom {
+            margin-top: 10px;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 18px;
+            color: #333333;
           }
         }
       }

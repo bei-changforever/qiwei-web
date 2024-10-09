@@ -20,16 +20,27 @@
           <div class="bottom">
             <div class="bottom-text-box">
               <div class="bottom-text-item" v-for="(item, index) in bottomTextArr" :key="index">
-                <div :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
-                  @click.stop="handleSelect(index)">
+                <div
+                  :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
+                  @click.stop="handleSelect(index)"
+                >
                   <span>{{ item.name }}</span>
-                  <el-image v-if="bottomTextItemIndex == index" :src="getAssetsFile('icon', 'arrowup.png')"
-                    :fit="'fill'" />
+                  <el-image
+                    v-if="bottomTextItemIndex == index"
+                    :src="getAssetsFile('icon', 'arrowup.png')"
+                    :fit="'fill'"
+                  />
                   <el-image v-else :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
                 </div>
                 <div class="line" v-show="bottomTextItemIndex == index">
-                  <div :class="['line-button', br.isActive ? 'active' : 'none']" v-for="(br, bri) in item.list"
-                    :key="bri" @click.stop="handleSelectchild(br)">{{ br.name }}</div>
+                  <div
+                    :class="['line-button', br.isActive ? 'active' : 'none']"
+                    v-for="(br, bri) in item.list"
+                    :key="bri"
+                    @click.stop="handleSelectchild(br, bri)"
+                  >
+                    {{ br.name }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -38,23 +49,15 @@
       </div>
       <div class="product-box--ww-bottom">
         <div class="product-list">
-          <div class="product-list-item" v-for="item in 8">
-
+          <div class="product-list-item" v-for="item in 8" @click="gotoProductInfo">
             <div class="ww-box">
               <div class="image">
                 <!-- <el-image :src="getAssetsFile('images', '产品中心产品4.png')" /> -->
-                <img :src="getAssetsFile('images', '产品中心产品4.png')" alt="">
+                <img :src="getAssetsFile('images', '产品中心产品4.png')" alt="" />
               </div>
-              <div class="text">
-
-                三色唇膏
-              </div>
+              <div class="text">三色唇膏</div>
             </div>
-
-
-
           </div>
-
         </div>
         <div class="page-control">
           <div class="page-number-control">
@@ -64,14 +67,11 @@
               </el-icon>
             </div>
 
-
             <div class="number-block">
-
               <div class="number-item" v-for="(item, index) in 5" :key="index">{{ index + 1 }}</div>
             </div>
 
             <div class="right-icon">
-
               <el-icon>
                 <ArrowRight />
               </el-icon>
@@ -86,7 +86,7 @@
             <div class="jump-text">页</div>
           </div>
           <div class="button">
-            <el-button type="primary">确定</el-button>
+            <el-button>确定</el-button>
           </div>
         </div>
       </div>
@@ -96,8 +96,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const input = ref('')
 
 const handleSizeChange = (val: number) => {
@@ -106,13 +106,6 @@ const handleSizeChange = (val: number) => {
 const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`)
 }
-
-
-
-
-
-
-
 
 const bottomTextItemIndex = ref(-1)
 const bottomTextArr = ref([
@@ -166,7 +159,8 @@ const bottomTextArr = ref([
         name: '固体唇釉'
       }
     ]
-  }, {
+  },
+  {
     name: '唇妆',
     list: [
       {
@@ -182,7 +176,8 @@ const bottomTextArr = ref([
         name: '固体唇釉'
       }
     ]
-  }, {
+  },
+  {
     name: '定妆',
     list: [
       {
@@ -198,8 +193,8 @@ const bottomTextArr = ref([
         name: '固体唇釉'
       }
     ]
-  }
-  , {
+  },
+  {
     name: '卸妆',
     list: [
       {
@@ -236,23 +231,28 @@ const bottomTextArr = ref([
 ])
 
 const handleSelect = (index) => {
-
   if (bottomTextItemIndex.value == index) {
     bottomTextItemIndex.value = -1
   } else {
     bottomTextItemIndex.value = index
   }
-
 }
 
-const handleSelectchild = (br) => {
-
+const handleSelectchild = (br, brindex) => {
+  bottomTextArr.value.forEach((item, index) => {
+    item.list.forEach((li, liindex) => {
+      li.isActive = false
+    })
+  })
   br.isActive = !br.isActive
-
 }
 
 const parentClick = () => {
   bottomTextItemIndex.value = -1
+}
+
+const gotoProductInfo = () => {
+  router.push('/product/product-info')
 }
 </script>
 <style lang="scss" scoped>
@@ -267,7 +267,7 @@ const parentClick = () => {
   .product-container-content {
     width: var(--base-width);
     margin: 0 auto;
-    background-color: pink;
+    // background-color: pink;
 
     .sift {
       width: 100%;
@@ -374,10 +374,10 @@ const parentClick = () => {
 
                 width: 100%;
                 height: 100%;
-                transition: all .3S;
+                transition: all 0.3s;
 
                 &.active {
-                  background-color: #F9F9F9;
+                  background-color: #f9f9f9;
 
                   span {
                     color: #f3a7a4;
@@ -392,7 +392,6 @@ const parentClick = () => {
                   font-size: 16px;
                   color: #333333;
                   user-select: none;
-
                 }
               }
 
@@ -407,7 +406,7 @@ const parentClick = () => {
                 justify-content: center;
                 gap: 2vw;
                 z-index: 2;
-                transition: all .3S;
+                transition: all 0.3s;
 
                 .line-button {
                   font-family:
@@ -444,7 +443,6 @@ const parentClick = () => {
           }
         }
       }
-
     }
 
     .product-box--ww-bottom {
@@ -466,26 +464,21 @@ const parentClick = () => {
           display: flex;
           flex-direction: column;
 
-
           .ww-box {
-
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
-
-
+            cursor: pointer;
             .image {
               width: 100%;
               height: calc(100% - 60px);
-
 
               img {
                 width: 100%;
                 height: 100%;
                 object-fit: fill;
               }
-
             }
 
             .text {
@@ -494,30 +487,110 @@ const parentClick = () => {
               display: flex;
               align-items: center;
               justify-content: center;
-              font-family: Microsoft YaHei, Microsoft YaHei;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
               font-weight: 400;
               font-size: 16px;
               color: #333333;
-              background-color: #F8F8F8;
+              background-color: #f8f8f8;
               border-radius: 0px 0px 20px 20px;
             }
           }
-
-
         }
       }
     }
 
     .page-control {
-      margin-top: 4vh;
+      margin-top: 5vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 1vw;
+      .page-number-control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .left-icon {
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #dfdfdf;
+          font-size: 12px;
+          cursor: pointer;
+        }
+        .number-block {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1vw;
+          .number-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px 4px 4px 4px;
+            border: 1px solid #dfdfdf;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 12px;
+            color: #666666;
+            background-color: white;
+            cursor: pointer;
+            &.active {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 12px;
+              color: #ffffff;
+              background-color: #f3a7a4;
+            }
+          }
+        }
+
+        .right-icon {
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #dfdfdf;
+          font-size: 12px;
+          cursor: pointer;
+        }
+      }
 
       .block {
         width: 2px;
         height: 16px;
-        background-color: #DFDFDF;
+        background-color: #dfdfdf;
+      }
+
+      .jumpto {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #dfdfdf;
+        font-size: 12px;
+        gap: 1vw;
+
+        :deep(.el-input) {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      .button {
+        :deep(.el-button) {
+          background-color: #f3a7a4;
+          color: white;
+          border: none;
+        }
       }
     }
   }

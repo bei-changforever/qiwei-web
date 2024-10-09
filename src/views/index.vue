@@ -1,6 +1,10 @@
 <template>
   <header id="header">
-    <CusHeader :slideChangeBakColor="changeBackGroundColor" :isDark="isDarkPage" :activeBackgroundColor="activeColor" />
+    <CusHeader
+      :slideChangeBakColor="changeBackGroundColor"
+      :isDark="isDarkPage"
+      :activeBackgroundColor="activeColor"
+    />
   </header>
   <div class="main-okj-container" ref="container" v-if="domIndex !== 1">
     <div class="boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
@@ -145,7 +149,6 @@ function mouseWheel(e) {
       }
     }
   }
-
 }
 const screenWidth = ref(window.innerWidth)
 const handleResize = () => {
@@ -155,62 +158,49 @@ const handleResize = () => {
 
 const handleScrolltoTop = () => {
   nextTick(() => {
-    console.log("点击回到顶部");
+    console.log('点击回到顶部')
     if (domIndex.value == 0) {
       scrollToPage(0)
     }
     if (domIndex.value == 1) {
-     console.log(nofull.value.getBoundingClientRect());
-     let dom = document.getElementById("product-banner");
-     console.log(dom);
-     
-     
+      console.log(nofull.value.getBoundingClientRect())
+
       // window.scrollTo({
       //   top: 0,
       //   behavior: 'smooth' // 可选，使滚动平滑
       // });
-
     }
   })
-
 }
-
-
 
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
-
-  emitter.on('DOMINDEX', (res) => {
-    domIndex.value = res
+  emitter.on('DOMINDEX', (index) => {
     window.scrollTo({
       // top: document.documentElement.offsetHeight, //回到底部
       top: 0, //回到顶部
       left: 0,
-      behavior: "smooth", //smooth 平滑；auto:瞬间
-    });
-    if (domIndex.value == 0) {
+      behavior: 'smooth' //smooth 平滑；auto:瞬间
+    })
+    if (index == 0) {
       isDarkPage.value = true
       changeBackGroundColor.value = false
       activeColor.value = '#000000'
     }
-    if (domIndex.value == 1) {
+    if (index == 1) {
       isDarkPage.value = true
-      activeColor.value = 'white',
-        changeBackGroundColor.value = false
+      activeColor.value = 'white'
+      changeBackGroundColor.value = false
     }
   })
 
-  emitter.on('changHeaderBack', res => {
-
-    isDarkPage.value = res.isDark
-    activeColor.value = res.activeBackgroundColor
-    changeBackGroundColor.value = res.slideChangeBakColor
-
-
+  emitter.on('changHeaderBack', (res) => {
+    isDarkPage.value = res.isDark;
+    activeColor.value = res.activeBackgroundColor;
+    changeBackGroundColor.value = res.slideChangeBakColor;
   })
 
-
-  emitter.on('BACKPAGETOP', res => {
+  emitter.on('BACKPAGETOP', (res) => {
     handleScrolltoTop()
   })
   // 添加鼠标滚轮事件
@@ -244,7 +234,7 @@ watch(
   }
 )
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
-watch(screenWidth, (newVal, oldVal) => { })
+watch(screenWidth, (newVal, oldVal) => {})
 </script>
 <style scoped lang="scss">
 .main-okj-container {

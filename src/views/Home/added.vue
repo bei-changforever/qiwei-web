@@ -84,47 +84,47 @@ import { getAssetsFile } from '@/utils/tools'
 
         .text {
           font-weight: 400;
-          font-size: 22px;
+          font-size: var(--aside-fontSize);
           color: #f3a7a5;
         }
 
         .block {
           width: 6px;
-          height: 16px;
+          height: var(--aside-block);
           border-radius: 1px;
           background-color: #f3a7a5;
         }
       }
 
       .name {
-        margin-top: 10px;
+        margin-top: 1vh;
         font-family:
           Microsoft YaHei,
           Microsoft YaHei;
         font-weight: bold;
-        font-size: 42px;
+        font-size: var(--topic-fontSize);
         color: #333333;
       }
 
       .fu-name {
-        margin-top: 10px;
+        margin-top: 1vh;
         font-family:
           Microsoft YaHei,
           Microsoft YaHei;
         font-weight: 400;
-        font-size: 32px;
+        font-size: var(--fu-name-fontSize);
         color: #333333;
       }
 
       .desc {
-        margin-top: 10px;
+        margin-top: 1vh;
         font-family:
           Microsoft YaHei,
           Microsoft YaHei;
         font-weight: 400;
-        font-size: 20px;
+        font-size: var(--desc-fontSize);
         color: #666666;
-        line-height: 34px;
+        line-height: var(--desc-lineHeight);
       }
     }
 
