@@ -37,7 +37,7 @@
                     :class="['line-button', br.isActive ? 'active' : 'none']"
                     v-for="(br, bri) in item.list"
                     :key="bri"
-                    @click.stop="handleSelectchild(br)"
+                    @click.stop="handleSelectchild(br, bri)"
                   >
                     {{ br.name }}
                   </div>
@@ -49,7 +49,7 @@
       </div>
       <div class="product-box--ww-bottom">
         <div class="product-list">
-          <div class="product-list-item" v-for="item in 8">
+          <div class="product-list-item" v-for="item in 8" @click="gotoProductInfo">
             <div class="ww-box">
               <div class="image">
                 <!-- <el-image :src="getAssetsFile('images', '产品中心产品4.png')" /> -->
@@ -86,7 +86,7 @@
             <div class="jump-text">页</div>
           </div>
           <div class="button">
-            <el-button >确定</el-button>
+            <el-button>确定</el-button>
           </div>
         </div>
       </div>
@@ -96,7 +96,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const input = ref('')
 
 const handleSizeChange = (val: number) => {
@@ -237,12 +238,21 @@ const handleSelect = (index) => {
   }
 }
 
-const handleSelectchild = (br) => {
+const handleSelectchild = (br, brindex) => {
+  bottomTextArr.value.forEach((item, index) => {
+    item.list.forEach((li, liindex) => {
+      li.isActive = false
+    })
+  })
   br.isActive = !br.isActive
 }
 
 const parentClick = () => {
   bottomTextItemIndex.value = -1
+}
+
+const gotoProductInfo = () => {
+  router.push('/product/product-info')
 }
 </script>
 <style lang="scss" scoped>
@@ -459,7 +469,7 @@ const parentClick = () => {
             height: 100%;
             display: flex;
             flex-direction: column;
-
+            cursor: pointer;
             .image {
               width: 100%;
               height: calc(100% - 60px);
@@ -577,7 +587,7 @@ const parentClick = () => {
       }
       .button {
         :deep(.el-button) {
-          background-color: #F3A7A4;
+          background-color: #f3a7a4;
           color: white;
           border: none;
         }
