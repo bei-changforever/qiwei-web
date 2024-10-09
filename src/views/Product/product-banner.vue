@@ -1,5 +1,5 @@
 <template>
-    <div class="product-banner" ref="productBanner">
+    <div class="product-banner" ref="productBanner" id="product-banner">
         <div class="prodcut-banner"
        
             :style="{ backgroundImage: 'url(' + getAssetsFile('images', 'product-banner-bg.png') + ')' }">

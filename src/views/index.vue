@@ -160,8 +160,11 @@ const handleScrolltoTop = () => {
       scrollToPage(0)
     }
     if (domIndex.value == 1) {
-      console.log(nofull.value.getBoundingClientRect());
-
+     console.log(nofull.value.getBoundingClientRect());
+     let dom = document.getElementById("product-banner");
+     console.log(dom);
+     
+     
       // window.scrollTo({
       //   top: 0,
       //   behavior: 'smooth' // 可选，使滚动平滑
@@ -257,7 +260,13 @@ watch(screenWidth, (newVal, oldVal) => { })
 
 .main-okj-container-nofull {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  /* 绝对定位 */
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* 添加过渡动画 */
+  transition: all 0.3s ease-in-out;
   overflow-y: auto;
 }
 </style>
