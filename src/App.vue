@@ -15,12 +15,6 @@ onMounted(() => {
       activeColor.value = data.activeBackgroundColor
       changeBackGroundColor.value = data.slideChangeBakColor
     } else if (index == 'DOMINDEX') {
-      window.scrollTo({
-        // top: document.documentElement.offsetHeight, //回到底部
-        top: 0, //回到顶部
-        left: 0,
-        behavior: 'smooth' //smooth 平滑；auto:瞬间
-      })
       if (data == 0) {
         isDarkPage.value = true
         changeBackGroundColor.value = false

@@ -1,8 +1,14 @@
 <template>
   <div class="product-base-container" ref="productBaseContainer">
     <div class="main-okj-container-nofull" ref="nofull">
-      <div class="nofull-boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
+      <!-- <div class="nofull-boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
+      </div> -->
+      <div class="nofull-boxapi">
+        <productBanner />
+      </div>
+      <div class="nofull-boxapi">
+        <RouterView/>
       </div>
       <footer id="footer">
         <CusFooter />
