@@ -1,15 +1,14 @@
 <template>
-  <div class="product-base-container" ref="productBaseContainer">
-    <div class="main-okj-container-nofull" ref="nofull">
-      <!-- <div class="nofull-boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
+  <div class="about-base-container" ref="aboutBaseContainer">
+    <div class="main-okj-container-nofull">
+      <div class="boxapi">
+        <AboutBanner />
+      </div>
+
+      <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
-      </div> -->
-      <div class="nofull-boxapi">
-        <productBanner />
       </div>
-      <div class="nofull-boxapi">
-        <RouterView/>
-      </div>
+
       <footer id="footer">
         <CusFooter />
       </footer>
@@ -17,17 +16,26 @@
   </div>
 </template>
 <script setup lang="ts">
-import productBanner from '@/views/Product/product-banner.vue'
+import { ref, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import AboutBanner from '@/views/About/about-banner.vue'
+import AboutBussiness from '@/views/About/about-business.vue'
+import AboutHistory from '@/views/About/about-history.vue'
 import emitter from '@/utils/mitt'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-const productBaseContainer = ref(null)
+const aboutBaseContainer = ref(null)
+
+const domArr = shallowRef([
+  {
+    id: 'about',
+    domarr: [AboutBussiness, AboutHistory]
+  }
+])
 
 // 处理滚轮事件的方法
 const handleWheel = (event) => {
   const deltaY = event.deltaY
   if (deltaY < 0) {
     // 向上滚动
-    if (productBaseContainer.value.getBoundingClientRect().top > -100) {
+    if (aboutBaseContainer.value.getBoundingClientRect().top > -100) {
       emitter.emit('changHeaderBack', {
         isDark: true,
         activeBackgroundColor: null,
@@ -36,7 +44,7 @@ const handleWheel = (event) => {
     }
   } else if (deltaY > 0) {
     // 向下滚动
-    if (productBaseContainer.value.getBoundingClientRect().top <= -100) {
+    if (aboutBaseContainer.value.getBoundingClientRect().top <= -100) {
       emitter.emit('changHeaderBack', {
         isDark: false,
         activeBackgroundColor: 'white',
@@ -62,7 +70,7 @@ onBeforeUnmount(() => {
 })
 </script>
 <style lang="scss" scoped>
-.product-base-container {
+.about-base-container {
   width: 100vw;
   //   border: 1px solid red;
   .main-okj-container-nofull {

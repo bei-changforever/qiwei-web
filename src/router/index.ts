@@ -34,6 +34,14 @@ const router = createRouter({
           component: () => import('@/views/Product/product-info.vue'),
         }
       ]
+    },{
+      path: '/about',
+      name: 'about',
+      meta: {
+        keepAlive: true, //设置页面是否需要使用缓存
+        title: '关于我们'
+      },
+      component: () => import('@/views/About/index.vue')
     }
   ],
   // 是否严格匹配路由

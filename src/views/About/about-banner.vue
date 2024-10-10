@@ -1,22 +1,20 @@
 <template>
-  <div class="product-banner" ref="productBanner">
+  <div class="about-banner">
     <div
-      class="prodcut-banner"
-      :style="{ backgroundImage: 'url(' + getAssetsFile('images', 'product-banner-bg.png') + ')' }"
+      class="about-banner"
+      :style="{ backgroundImage: 'url(' + getAssetsFile('images', '关于我们海报.png') + ')' }"
     ></div>
   </div>
 </template>
 <script setup lang="ts">
-
 import { getAssetsFile } from '@/utils/tools'
-
 </script>
 <style lang="scss" scoped>
-.product-banner {
+.about-banner {
   width: 100vw;
   height: 590px;
 
-  .prodcut-banner {
+  .about-banner {
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;

@@ -20,7 +20,7 @@ onMounted(() => {
         changeBackGroundColor.value = false
         activeColor.value = '#000000'
       }
-      if (data == 1) {
+      if (data == 1 || data == 4) {
         isDarkPage.value = true
         activeColor.value = 'white'
         changeBackGroundColor.value = false
