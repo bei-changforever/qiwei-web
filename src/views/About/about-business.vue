@@ -59,7 +59,7 @@ const activeIndex = ref(0)
   display: flex;
   // align-items: center;
   justify-content: center;
-
+background-color: white;
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
   padding-top: 5vh;

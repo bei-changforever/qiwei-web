@@ -20,11 +20,181 @@
           </div>
         </div>
       </div>
+      <div class="about-history-container-bottom">
+        <swiper class="mySwiper">
+          <swiper-slide>
+            <div class="about-history-container-bottom-content">
+              <div class="content-background-image">
+
+              </div>
+              <div class="content-text">
+                <div class="text-title">
+                  <div class="block"></div>
+
+                  <div class="time">SINCE 1996</div>
+                  <div class="text-content is-no">
+                    <div class="content-time">
+                      1997-2002
+                    </div>
+                    <div class="content-detail">
+                      <div class="text">
+                        荣获"国家高新技术企业"认 证
+
+                      </div>
+                      <div class="text">
+
+                        底妆类项目投产
+
+                      </div>
+                      <div class="text">
+
+                        研发、产能全面升级
+                      </div>
+                    </div>
+                    <div class="image">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-title">
+                  <div class="block"></div>
+
+                  <div class="time">SINCE 1996</div>
+                  <div class="text-content is-no">
+                    <div class="content-time">
+                      1997-2002
+                    </div>
+                    <div class="content-detail">
+                      <div class="text">
+                        荣获"国家高新技术企业"认 证
+
+                      </div>
+                      <div class="text">
+
+                        底妆类项目投产
+
+                      </div>
+                      <div class="text">
+
+                        研发、产能全面升级
+                      </div>
+                    </div>
+                    <div class="image">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                    </div>
+                  </div>
+                </div>
+                <div class="text-title">
+                  <div class="block"></div>
+
+                  <div class="time">SINCE 1996</div>
+                  <div class="text-content is-no">
+                    <div class="content-time">
+                      1997-2002
+                    </div>
+                    <div class="content-detail">
+                      <div class="text">
+                        荣获"国家高新技术企业"认 证
+
+                      </div>
+                      <div class="text">
+
+                        底妆类项目投产
+
+                      </div>
+                      <div class="text">
+
+                        研发、产能全面升级
+                      </div>
+                    </div>
+                    <div class="image">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                    </div>
+                  </div>
+                </div>
+                <div class="text-title">
+                  <div class="block"></div>
+
+                  <div class="time">SINCE 1996</div>
+                  <div class="text-content is-no">
+                    <div class="content-time">
+                      1997-2002
+                    </div>
+                    <div class="content-detail">
+                      <div class="text">
+                        荣获"国家高新技术企业"认 证
+
+                      </div>
+                      <div class="text">
+
+                        底妆类项目投产
+
+                      </div>
+                      <div class="text">
+
+                        研发、产能全面升级
+                      </div>
+                    </div>
+                    <div class="image">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                    </div>
+                  </div>
+                </div>
+                <div class="text-title">
+                  <div class="block"></div>
+
+                  <div class="time">SINCE 1996</div>
+                  <div class="text-content">
+                    <div class="content-time">
+                      1997-2002
+                    </div>
+                    <div class="content-detail">
+                      <div class="text">
+                        荣获"国家高新技术企业"认 证
+
+                      </div>
+                      <div class="text">
+
+                        底妆类项目投产
+
+                      </div>
+                      <div class="text">
+
+                        研发、产能全面升级
+                      </div>
+                    </div>
+                    <div class="image">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="about-history-container-bottom-content">
+              <div class="content-background-image unback"></div>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="about-history-container-bottom-content">
+              <div class="content-background-image"></div>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
+
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// Import Swiper styles
+import 'swiper/css';
 </script>
 <style lang="scss" scoped>
 .about-history {
@@ -33,6 +203,7 @@ import { getAssetsFile } from '@/utils/tools'
   display: flex;
   // align-items: center;
   justify-content: center;
+  background-color: white;
 
   .about-history-container {
     margin: 0 auto;
@@ -81,13 +252,235 @@ import { getAssetsFile } from '@/utils/tools'
       .T-right {
 
         .swiper-btn {
-            margin-top: 5vh;
-            display: flex;
-            gap: 1vw;
-            :deep(.el-image) {
-                width: 40px;
-                height: 40px;
+          margin-top: 5vh;
+          display: flex;
+          gap: 1vw;
+
+          :deep(.el-image) {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .about-history-container-bottom {
+      width: 100%;
+
+      .about-history-container-bottom-content {
+        width: 100%;
+        position: relative;
+        height: 60vh;
+        background-color: pink;
+
+        .content-background-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url('../../assets/images/时间背景.png');
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+
+          &.unback {
+            transform: rotateY(180deg);
+          }
+        }
+
+        .content-text {
+          position: absolute;
+          top: 0;
+          left: 0;
+          // border: 1px solid red;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 2vw;
+
+          .text-title {
+            position: relative;
+            cursor: pointer;
+
+            // background-color: orange;
+
+            .text-content {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              padding: 20px;
+              box-sizing: border-box;
+              z-index: 2;
+
+              &.is-no {
+                display: none;
+              }
+
+              .content-time {
+                font-family: Microsoft YaHei, Microsoft YaHei;
+                font-weight: bold;
+                font-size: 32px;
+                color: #333333;
+                margin-bottom: 1vh;
+              }
+
+              .content-detail {
+                font-family: Microsoft YaHei, Microsoft YaHei;
+                font-weight: 400;
+                font-size: 14px;
+                color: #333333;
+                margin-bottom: 2.5vh;
+
+                .text {
+                  position: relative;
+                  margin-left: 1vw;
+
+                  &::after {
+                    content: '';
+                    position: absolute;
+                    left: -10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background-color: #B9B9B9;
+                  }
+                }
+              }
+
+              .image {
+                width: 100%;
+                height: 230px;
+
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: fill;
+                }
+              }
             }
+
+
+            &:nth-child(1) {
+              .text-content {
+                position: absolute;
+                top: -15vh;
+                left: 160px;
+                width: 320px;
+                height: 420px;
+                background-image: url('../../assets/images/选中时间背景.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+
+
+
+
+
+              }
+            }
+
+            &:nth-child(2) {
+              margin-bottom: 15vh;
+
+              .text-content {
+                position: absolute;
+                top: -15vh;
+                left: 160px;
+                width: 320px;
+                height: 420px;
+                background-image: url('../../assets/images/选中时间背景.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+
+              }
+            }
+
+            &:nth-child(3) {
+              margin-bottom: 16vh;
+
+              .text-content {
+                position: absolute;
+                top: -15vh;
+                left: 160px;
+                width: 320px;
+                height: 420px;
+                background-image: url('../../assets/images/选中时间背景.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+
+              }
+            }
+
+            &:nth-child(4) {
+              margin-bottom: 12vh;
+
+              .text-content {
+                position: absolute;
+                top: -15vh;
+                left: 160px;
+                width: 320px;
+                height: 420px;
+                background-image: url('../../assets/images/选中时间背景.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+
+              }
+            }
+
+            &:nth-child(5) {
+              margin-bottom: 25vh;
+
+              .text-content {
+                position: absolute;
+                top: -10vh;
+                left: -360px;
+                width: 320px;
+                height: 420px;
+                background-image: url('../../assets/images/选中时间背景.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+
+              }
+            }
+
+            .block {
+              position: relative;
+              width: 6px;
+              height: 6px;
+              background-color: #f3a7a5;
+              border-radius: 50%;
+
+              &::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 2px;
+                height: 200px;
+                background: linear-gradient(to bottom, #f3a7a5, white);
+              }
+            }
+
+            .time {
+              margin-left: 1vw;
+              font-family: Microsoft YaHei, Microsoft YaHei;
+              font-weight: bold;
+              font-size: 24px;
+              color: #333333;
+            }
+
+
+          }
         }
       }
     }
