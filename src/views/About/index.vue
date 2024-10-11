@@ -20,13 +20,15 @@ import { ref, onMounted, onBeforeUnmount, shallowRef } from 'vue'
 import AboutBanner from '@/views/About/about-banner.vue'
 import AboutBussiness from '@/views/About/about-business.vue'
 import AboutHistory from '@/views/About/about-history.vue'
+import aboutHonor from './about-honor.vue'
+import aboutFootprint from './about-footprint.vue'
 import emitter from '@/utils/mitt'
 const aboutBaseContainer = ref(null)
 
 const domArr = shallowRef([
   {
     id: 'about',
-    domarr: [AboutBussiness, AboutHistory]
+    domarr: [AboutBussiness, AboutHistory, aboutHonor, aboutFootprint]
   }
 ])
 

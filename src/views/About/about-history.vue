@@ -24,35 +24,21 @@
         <swiper class="mySwiper">
           <swiper-slide>
             <div class="about-history-container-bottom-content">
-              <div class="content-background-image">
-
-              </div>
+              <div class="content-background-image"></div>
               <div class="content-text">
                 <div class="text-title">
                   <div class="block"></div>
 
                   <div class="time">SINCE 1996</div>
                   <div class="text-content is-no">
-                    <div class="content-time">
-                      1997-2002
-                    </div>
+                    <div class="content-time">1997-2002</div>
                     <div class="content-detail">
-                      <div class="text">
-                        荣获"国家高新技术企业"认 证
-
-                      </div>
-                      <div class="text">
-
-                        底妆类项目投产
-
-                      </div>
-                      <div class="text">
-
-                        研发、产能全面升级
-                      </div>
+                      <div class="text">荣获"国家高新技术企业"认 证</div>
+                      <div class="text">底妆类项目投产</div>
+                      <div class="text">研发、产能全面升级</div>
                     </div>
                     <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
                     </div>
                   </div>
                 </div>
@@ -62,26 +48,14 @@
 
                   <div class="time">SINCE 1996</div>
                   <div class="text-content is-no">
-                    <div class="content-time">
-                      1997-2002
-                    </div>
+                    <div class="content-time">1997-2002</div>
                     <div class="content-detail">
-                      <div class="text">
-                        荣获"国家高新技术企业"认 证
-
-                      </div>
-                      <div class="text">
-
-                        底妆类项目投产
-
-                      </div>
-                      <div class="text">
-
-                        研发、产能全面升级
-                      </div>
+                      <div class="text">荣获"国家高新技术企业"认 证</div>
+                      <div class="text">底妆类项目投产</div>
+                      <div class="text">研发、产能全面升级</div>
                     </div>
                     <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
                     </div>
                   </div>
                 </div>
@@ -90,26 +64,14 @@
 
                   <div class="time">SINCE 1996</div>
                   <div class="text-content is-no">
-                    <div class="content-time">
-                      1997-2002
-                    </div>
+                    <div class="content-time">1997-2002</div>
                     <div class="content-detail">
-                      <div class="text">
-                        荣获"国家高新技术企业"认 证
-
-                      </div>
-                      <div class="text">
-
-                        底妆类项目投产
-
-                      </div>
-                      <div class="text">
-
-                        研发、产能全面升级
-                      </div>
+                      <div class="text">荣获"国家高新技术企业"认 证</div>
+                      <div class="text">底妆类项目投产</div>
+                      <div class="text">研发、产能全面升级</div>
                     </div>
                     <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
                     </div>
                   </div>
                 </div>
@@ -118,26 +80,14 @@
 
                   <div class="time">SINCE 1996</div>
                   <div class="text-content is-no">
-                    <div class="content-time">
-                      1997-2002
-                    </div>
+                    <div class="content-time">1997-2002</div>
                     <div class="content-detail">
-                      <div class="text">
-                        荣获"国家高新技术企业"认 证
-
-                      </div>
-                      <div class="text">
-
-                        底妆类项目投产
-
-                      </div>
-                      <div class="text">
-
-                        研发、产能全面升级
-                      </div>
+                      <div class="text">荣获"国家高新技术企业"认 证</div>
+                      <div class="text">底妆类项目投产</div>
+                      <div class="text">研发、产能全面升级</div>
                     </div>
                     <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
                     </div>
                   </div>
                 </div>
@@ -146,26 +96,14 @@
 
                   <div class="time">SINCE 1996</div>
                   <div class="text-content">
-                    <div class="content-time">
-                      1997-2002
-                    </div>
+                    <div class="content-time">1997-2002</div>
                     <div class="content-detail">
-                      <div class="text">
-                        荣获"国家高新技术企业"认 证
-
-                      </div>
-                      <div class="text">
-
-                        底妆类项目投产
-
-                      </div>
-                      <div class="text">
-
-                        研发、产能全面升级
-                      </div>
+                      <div class="text">荣获"国家高新技术企业"认 证</div>
+                      <div class="text">底妆类项目投产</div>
+                      <div class="text">研发、产能全面升级</div>
                     </div>
                     <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="">
+                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
                     </div>
                   </div>
                 </div>
@@ -191,10 +129,10 @@
 import { getAssetsFile } from '@/utils/tools'
 
 // Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Swiper, SwiperSlide } from 'swiper/vue'
 
 // Import Swiper styles
-import 'swiper/css';
+import 'swiper/css'
 </script>
 <style lang="scss" scoped>
 .about-history {
@@ -204,7 +142,8 @@ import 'swiper/css';
   // align-items: center;
   justify-content: center;
   background-color: white;
-
+  padding-top: 15vh;
+  box-sizing: border-box;
   .about-history-container {
     margin: 0 auto;
     width: var(--base-width);
@@ -250,7 +189,6 @@ import 'swiper/css';
       }
 
       .T-right {
-
         .swiper-btn {
           margin-top: 5vh;
           display: flex;
@@ -272,7 +210,6 @@ import 'swiper/css';
         width: 100%;
         position: relative;
         height: 60vh;
-        background-color: pink;
 
         .content-background-image {
           position: absolute;
@@ -321,7 +258,9 @@ import 'swiper/css';
               }
 
               .content-time {
-                font-family: Microsoft YaHei, Microsoft YaHei;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
                 font-weight: bold;
                 font-size: 32px;
                 color: #333333;
@@ -329,7 +268,9 @@ import 'swiper/css';
               }
 
               .content-detail {
-                font-family: Microsoft YaHei, Microsoft YaHei;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
                 font-weight: 400;
                 font-size: 14px;
                 color: #333333;
@@ -348,7 +289,7 @@ import 'swiper/css';
                     width: 5px;
                     height: 5px;
                     border-radius: 50%;
-                    background-color: #B9B9B9;
+                    background-color: #b9b9b9;
                   }
                 }
               }
@@ -365,7 +306,6 @@ import 'swiper/css';
               }
             }
 
-
             &:nth-child(1) {
               .text-content {
                 position: absolute;
@@ -377,11 +317,6 @@ import 'swiper/css';
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
-
-
-
-
-
               }
             }
 
@@ -398,7 +333,6 @@ import 'swiper/css';
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
-
               }
             }
 
@@ -415,7 +349,6 @@ import 'swiper/css';
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
-
               }
             }
 
@@ -432,7 +365,6 @@ import 'swiper/css';
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
-
               }
             }
 
@@ -449,7 +381,6 @@ import 'swiper/css';
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
-
               }
             }
 
@@ -461,7 +392,7 @@ import 'swiper/css';
               border-radius: 50%;
 
               &::after {
-                content: "";
+                content: '';
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
@@ -473,13 +404,13 @@ import 'swiper/css';
 
             .time {
               margin-left: 1vw;
-              font-family: Microsoft YaHei, Microsoft YaHei;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
               font-weight: bold;
               font-size: 24px;
               color: #333333;
             }
-
-
           }
         }
       }
