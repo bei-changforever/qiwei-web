@@ -43,6 +43,15 @@ const router = createRouter({
       },
       component: () => import('@/views/About/index.vue')
     }
+    ,{
+      path: '/business',
+      name: 'business',
+      meta: {
+        keepAlive: true, //设置页面是否需要使用缓存
+        title: '业务合作'
+      },
+      component: () => import('@/views/Business/index.vue')
+    }
   ],
   // 是否严格匹配路由
   strict: true,

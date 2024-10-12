@@ -18,7 +18,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
+import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick ,watch} from 'vue'
 import AboutBanner from '@/views/About/about-banner.vue'
 import AboutBussiness from '@/views/About/about-business.vue'
 import AboutHistory from '@/views/About/about-history.vue'
@@ -158,34 +158,9 @@ onMounted(() => {
   //     behavior: 'smooth' // 可选，使滚动平滑
   //   })
   // })
-  // emitter.on('tagViewsShowModel', (res) => {
-  //   // console.log(res)
-  //   // console.log(aboutBaseContainer.value.getBoundingClientRect().top);
-  //   let business = document.getElementById('about-business')
-  //   let footprint = document.getElementById('about-footprint')
-  //   let history = document.getElementById('about-history')
-  //   let honor = document.getElementById('about-honor')
-  //   let domarr = [
-  //     business.getBoundingClientRect().top,
-  //     history.getBoundingClientRect().top,
-  //     honor.getBoundingClientRect().top,
-  //     footprint.getBoundingClientRect().top
-  //   ]
-  //   // console.log(banner.getBoundingClientRect().top);
-  //   // console.log(business.getBoundingClientRect().top);
-  //   // console.log(footprint.getBoundingClientRect().top);
-  //   // console.log(history.getBoundingClientRect().top);
-  //   // console.log(honor.getBoundingClientRect().top);
-  //   emitter.emit('changHeaderBack', {
-  //       isDark: false,
-  //       activeBackgroundColor: 'white',
-  //       slideChangeBakColor: true
-  //     })
-  //   window.scrollTo({
-  //     top: domarr[res] - aboutBaseContainer.value.getBoundingClientRect().top,
-  //     behavior: 'smooth' // 可选，使滚动平滑
-  //   })
-  // })
+  emitter.on('tagViewsShowModel', (res) => {
+    scrollToPage(res+1)
+  })
 
   emitter.on('BACKPAGETOP', (res) => {
     handleScrolltoTop()
@@ -207,11 +182,31 @@ onMounted(() => {
 onBeforeUnmount(() => {
   // window.removeEventListener('wheel', handleWheel)
   // emitter.off('BACKPAGETOP')
-  // emitter.off('tagViewsShowModel')
+  emitter.off('tagViewsShowModel')
 
   document.removeEventListener('DOMMouseScroll', mouseWheel)
   emitter.off('BACKPAGETOP')
 })
+
+
+watch(
+  () => pageIndex.value,
+  (newValue, oldValue) => {
+    if (newValue == 0) {
+      emitter.emit('changHeaderBack', {
+        isDark: true,
+        activeBackgroundColor: null,
+        slideChangeBakColor: false
+      })
+    } else {
+      emitter.emit('changHeaderBack', {
+        isDark: false,
+        activeBackgroundColor: 'white',
+        slideChangeBakColor: true
+      })
+    }
+  }
+)
 </script>
 <style lang="scss" scoped>
 .about-base-container {
