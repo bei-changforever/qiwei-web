@@ -1,5 +1,5 @@
 <template>
-  <div class="about-banner">
+  <div class="about-banner" id="about-banner">
     <div
       class="about-banner"
       :style="{ backgroundImage: 'url(' + getAssetsFile('images', '关于我们海报.png') + ')' }"

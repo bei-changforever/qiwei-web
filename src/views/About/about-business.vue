@@ -1,11 +1,12 @@
 <template>
-  <div class="business-info">
+  <div class="business-info" id="about-business">
     <div class="business-container">
       <div class="control-button">
         <div
           :class="['control-button-item', activeIndex == index ? 'active' : '']"
           v-for="(item, index) in list"
           :key="index"
+          @click="handleSelect(index)"
         >
           {{ item }}
         </div>
@@ -49,8 +50,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import emitter from '@/utils/mitt'
 const list = ['关于奇伟', '公司沿革', '荣誉资质', '全球足迹']
 const activeIndex = ref(0)
+const handleSelect = (index) => {
+  if (activeIndex.value == index) {
+    return
+  } else {
+    activeIndex.value = index
+    emitter.emit('tagViewsShowModel', activeIndex.value)
+  }
+}
 </script>
 <style lang="scss" scoped>
 .business-info {
@@ -59,10 +69,11 @@ const activeIndex = ref(0)
   display: flex;
   // align-items: center;
   justify-content: center;
-background-color: white;
+  background-color: white;
+
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
-  padding-top: 5vh;
+  padding-top: 10vh;
   .business-container {
     margin: 0 auto;
     width: var(--base-width);

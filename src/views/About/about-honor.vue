@@ -1,5 +1,5 @@
 <template>
-  <div class="about-honor">
+  <div class="about-honor" id="about-honor"> 
     <div class="about-honor-base-container">
       <div class="about-base-container-top">
         <div class="T-left">
@@ -83,7 +83,7 @@ const handleSelect = (index) => {
 .about-honor {
   width: 100vw;
   height: 100vh;
-  padding-top: 10vh;
+  padding-top: 6vh;
   box-sizing: border-box;
   background-color: white;
   .about-honor-base-container {
