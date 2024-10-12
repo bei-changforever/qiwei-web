@@ -16,10 +16,11 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch } from 'vue'
 import BusinessBanner from './bussiness-banner.vue'
+import BusinessRange from './business-range.vue'
 const domArr = shallowRef([
   {
     id: 'business',
-    domarr: [BusinessBanner]
+    domarr: [BusinessBanner,BusinessRange]
   }
 ])
 </script>
