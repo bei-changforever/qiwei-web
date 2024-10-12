@@ -144,6 +144,7 @@ import 'swiper/css'
   background-color: white;
   padding-top: 12vh;
   box-sizing: border-box;
+  // background-color: pink;
   .about-history-container {
     margin: 0 auto;
     width: var(--base-width);

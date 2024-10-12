@@ -136,10 +136,20 @@ watch(
   () => route.path,
   (newVal, oldVal) => {
     if (newVal == '/') {
+      router.push('/')
       activeIndex.value = 0
     }
     if (newVal == '/product/product-detail') {
+      router.push('/product/product-detail')
       activeIndex.value = 1
+    }
+    if(newVal == '/business') {
+      router.push('/business')
+      activeIndex.value = 2
+    }
+    if(newVal == '/about') {
+      router.push('/about')
+      activeIndex.value = 4
     }
   },{
     deep: true,
