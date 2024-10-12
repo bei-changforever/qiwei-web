@@ -195,20 +195,23 @@ const handleSelect = (index) => {
 
     .business-container-bottom {
       margin: 3vh auto;
-      width: auto;
+      width: 97%;
       display: flex;
       align-items: center;
       //   justify-content: center;
     //   background-color: pink;
       flex-wrap: wrap;
-      gap: 1vw;
-      padding-left: 4.5vw;
+        gap: 0.5vw;
+      //   padding-left: 4.5vw;
       .business-container-bottom-item {
-        
-        width: auto;
+        width: 24%;
+        height: 100px;
+        height: auto;
 
         :deep(.el-image) {
-            cursor: pointer;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
         }
       }
     }
