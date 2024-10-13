@@ -1,5 +1,5 @@
 <template>
-  <div class="about-footprint">
+  <div class="about-footprint" id="about-footprint">
     <div class="about-footprint-base-container">
       <div class="about-footprint-container-top">
         <div class="T-left">
@@ -126,7 +126,8 @@ import { getAssetsFile } from '@/utils/tools'
 .about-footprint {
   width: 100vw;
   height: 100vh;
-
+  padding-top: 12vh;
+  box-sizing: border-box;
   .about-footprint-base-container {
     margin: 0 auto;
     width: var(--base-width);

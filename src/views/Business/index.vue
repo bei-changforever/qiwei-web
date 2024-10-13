@@ -1,10 +1,6 @@
 <template>
-  <div class="about-base-container" ref="aboutBaseContainer">
+  <div class="business-base-container" ref="businessBaseContainer">
     <div class="main-okj-container" ref="container">
-      <!-- <div class="boxapi">
-        <AboutBanner />
-      </div> -->
-
       <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
       </div>
@@ -18,19 +14,18 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick ,watch} from 'vue'
-import AboutBanner from '@/views/About/about-banner.vue'
-import AboutBussiness from '@/views/About/about-business.vue'
-import AboutHistory from '@/views/About/about-history.vue'
-import aboutHonor from './about-honor.vue'
-import aboutFootprint from './about-footprint.vue'
+import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch } from 'vue'
+import BusinessBanner from './bussiness-banner.vue'
+import BusinessRange from './business-range.vue'
+import businessServe from './business-serve.vue';
+import BusinessPrinciple from './business-principle.vue'
+import businessChain from './business-chain.vue';
+import businessCooperate from './business-cooperate.vue';
 import emitter from '@/utils/mitt'
-const aboutBaseContainer = ref(null)
-
 const domArr = shallowRef([
   {
-    id: 'about',
-    domarr: [AboutBanner,AboutBussiness, AboutHistory, aboutHonor, aboutFootprint]
+    id: 'business',
+    domarr: [BusinessBanner, BusinessRange, businessServe, BusinessPrinciple, businessChain, businessCooperate]
   }
 ])
 
@@ -88,28 +83,33 @@ function scrollDown() {
     pageIndex.value = boxapis.value.length - 1
   }
 }
-
+let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  console.log(pageIndex);
-  if(pageIndex == 1) {
+  // console.log(pageIndex);
+  if (pageIndex == 1) {
     container.value.style.top = `-590px`
-  }else if(pageIndex == 2) {
+  } else if (pageIndex == 2) {
     container.value.style.top = `-162%`
   }
-  else if(pageIndex == 3) {
+  else if (pageIndex == 3) {
     container.value.style.top = `-260%`
   }
-  else if(pageIndex == 4) {
-    container.value.style.top = `-362%`
+  else if (pageIndex == 4) {
+    container.value.style.top = `-305%`
   }
-  else if(pageIndex == 5) {
-    container.value.style.top = `-420%`
+  else if (pageIndex == 5) {
+    container.value.style.top = `-400%`
+  }
+  else if (pageIndex == 6) {
+    container.value.style.top = `-490%`
+
+
   }
   else {
     container.value.style.top = `-${pageIndex}00%`
   }
-  
+
 
   pageScroll.value = false
   scrollTimer()
@@ -127,14 +127,37 @@ function mouseWheel(e) {
   if (container.value) {
     if (e.wheelDelta) {
       if (e.wheelDelta > 0) {
+        console.log('aaaa');
+        bigSizeIndex.value = 0;
         scrollUp()
       } else {
+
         scrollDown()
+
+
+
+        if (pageIndex.value == 6) {
+          bigSizeIndex.value++;
+          // console.log(bigSizeIndex.value);
+          if (bigSizeIndex.value > 1) {
+            container.value.style.top = `-500%`
+          }
+          if (bigSizeIndex.value >= 5) {
+            container.value.style.top = `-585%`
+          }
+
+        }
+
       }
     } else {
       if (e.detail > 0) {
+        console.log('bbbb');
+
+
         scrollDown()
       } else {
+        console.log('ccccc');
+
         scrollUp()
       }
     }
@@ -160,7 +183,7 @@ onMounted(() => {
   // })
   emitter.on('tagViewsShowModel', (res) => {
     pageIndex.value = res + 1
-    scrollToPage(res+1)
+    scrollToPage(res + 1)
   })
 
   emitter.on('BACKPAGETOP', (res) => {
@@ -208,9 +231,10 @@ watch(
     }
   }
 )
+
 </script>
 <style lang="scss" scoped>
-.about-base-container {
+.business-base-container {
   /* 满屏 */
   width: 100vw;
   height: 100vh;

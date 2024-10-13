@@ -1,5 +1,5 @@
 <template>
-  <div class="about-history">
+  <div class="about-history" id="about-history">
     <div class="about-history-container">
       <div class="about-history-container-top">
         <div class="T-left">
@@ -142,8 +142,9 @@ import 'swiper/css'
   // align-items: center;
   justify-content: center;
   background-color: white;
-  padding-top: 15vh;
+  padding-top: 12vh;
   box-sizing: border-box;
+  // background-color: pink;
   .about-history-container {
     margin: 0 auto;
     width: var(--base-width);
