@@ -115,6 +115,7 @@ const handleSelect = (key: number) => {
       break
     case 3:
       activeIndex.value = 3
+      router.push('/develop')
       emitter.emit('DOMINDEX', activeIndex.value)
       break
     case 4:
@@ -146,6 +147,10 @@ watch(
     if(newVal == '/business') {
       router.push('/business')
       activeIndex.value = 2
+    }
+    if(newVal == '/develop') {
+      router.push('/develop')
+      activeIndex.value = 3
     }
     if(newVal == '/about') {
       router.push('/about')
