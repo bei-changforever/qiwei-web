@@ -199,6 +199,7 @@ import { getAssetsFile } from '@/utils/tools'
     .about-footprint-container-bottom {
       width: 100%;
       height: 65vh;
+      margin-top: 5vh;
       .about-footprint-bg {
         width: 100%;
         height: 100%;

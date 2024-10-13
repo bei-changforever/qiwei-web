@@ -1,6 +1,6 @@
 <template>
   <div class="about-base-container" ref="aboutBaseContainer">
-    <div class="main-okj-container-nofull">
+    <div class="main-okj-container" ref="container">
       <div class="boxapi">
         <AboutBanner />
       </div>
@@ -15,8 +15,8 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+<script setup>
+import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
 import AboutBanner from '@/views/About/about-banner.vue'
 import AboutBussiness from '@/views/About/about-business.vue'
 import AboutHistory from '@/views/About/about-history.vue'
@@ -31,7 +31,75 @@ const domArr = shallowRef([
     domarr: [AboutBussiness, AboutHistory, aboutHonor, aboutFootprint]
   }
 ])
+const container = ref(null)
+// 定义当前页面的索引
+let pageIndex = ref(0)
+// 定义是否允许滚动
+let pageScroll = ref(true)
+// 定义上一次页面的索引
+let prevIndex = ref(0)
+let boxapis = ref([])
+// 向上滚动
+function scrollUp() {
+  if (pageIndex.value > 0 && pageScroll.value) {
+    prevIndex.value = pageIndex.value
+    pageIndex.value--
+    scrollToPage(pageIndex.value)
+  } else if (pageIndex.value <= 0) {
+    pageIndex.value = 0
+  }
+}
+// 向下滚动
+function scrollDown() {
+  if (pageIndex.value < boxapis.value.length - 1 && pageScroll.value) {
+    prevIndex.value = pageIndex.value
+    pageIndex.value++
+    scrollToPage(pageIndex.value)
+  } else if (pageIndex.value >= boxapis.value.length - 1) {
+    pageIndex.value = boxapis.value.length - 1
+  }
+}
 
+// 滚动到指定页面
+function scrollToPage(pageIndex) {
+  console.log(pageIndex);
+  
+  if (pageIndex == 1) {
+    container.value.style.top = `-62%`
+  }
+  else {
+     container.value.style.top = `-${pageIndex}00%`
+  }
+
+  pageScroll.value = false
+  scrollTimer()
+}
+// 设置定时器，等待500毫秒后，允许再次滚动
+function scrollTimer() {
+  setTimeout(() => {
+    pageScroll.value = true
+  }, 500)
+}
+
+// 鼠标滚轮事件
+function mouseWheel(e) {
+  if (container.value) {
+    if (e.wheelDelta) {
+      if (e.wheelDelta > 0) {
+        scrollUp()
+      } else {
+        scrollDown()
+      }
+    } else {
+      if (e.detail > 0) {
+        scrollDown()
+      } else {
+        scrollUp()
+      }
+    }
+  }
+}
+const screenWidth = ref(window.innerWidth)
 // 处理滚轮事件的方法
 const handleWheel = (event) => {
   const deltaY = event.deltaY
@@ -56,27 +124,63 @@ const handleWheel = (event) => {
   }
 }
 
+const handleResize = () => {
+  screenWidth.value =
+    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+}
+
+const handleScrolltoTop = () => {
+  scrollToPage(0)
+}
+
 onMounted(() => {
-  window.addEventListener('wheel', handleWheel)
+  // 添加鼠标滚轮事件
+  document.onmousewheel = mouseWheel
+  document.addEventListener('DOMMouseScroll', mouseWheel, false)
+  // 设置滚动记录
+  history.scrollRestoration = 'manual'
+  // window.addEventListener('wheel', handleWheel)
   emitter.on('BACKPAGETOP', (res) => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth' // 可选，使滚动平滑
     })
   })
+  window.addEventListener('resize', handleResize)
+  nextTick(() => {
+    boxapis.value = document.querySelectorAll('.boxapi')
+    container.value.style.height = `${boxapis.length}00%`
+  })
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('wheel', handleWheel)
+  // window.removeEventListener('wheel', handleWheel)
   emitter.off('BACKPAGETOP')
 })
 </script>
 <style lang="scss" scoped>
 .about-base-container {
+  /* 满屏 */
   width: 100vw;
-  //   border: 1px solid red;
-  .main-okj-container-nofull {
+  height: 100vh;
+  /* 相对定位 */
+  position: relative;
+  /* 溢出隐藏 */
+  overflow: hidden;
+
+  .main-okj-container {
     width: 100%;
+    height: 100%;
+    /* 绝对定位 */
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* 添加过渡动画 */
+    transition: all 0.3s ease-in-out;
+
+    .boxapi {
+      overflow: hidden;
+    }
   }
 }
 </style>
