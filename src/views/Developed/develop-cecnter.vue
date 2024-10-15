@@ -28,27 +28,60 @@
         <div class="develop-container-bottom-left">
           <div class="develop-cotainer-bottom-left-item">
             <el-image :src="getAssetsFile('images', '研发图片1.png')" :fit="'fill'" alt="" />
+            <div class="text">以综合性测评为导向</div>
+            <div class="desc">
+              <span>以综合性测评为导向</span>
+              <span
+                >化妆品研发以严格遵循安全性、功能性、稳定性、法规合规性及消费者需求为导向，通过多项测试确保产品全面满足市场需求。</span
+              >
+            </div>
           </div>
-          <div class="develop-cotainer-bottom-left-item" style="height: 300px">
+          <div class="develop-cotainer-bottom-left-item">
             <el-image :src="getAssetsFile('images', '研发图片2.png')" :fit="'fill'" alt="" />
-          </div>
-          <div class="develop-cotainer-bottom-left-item">
-            <el-image :src="getAssetsFile('images', '研发图片5.png')" :fit="'fill'" alt="" />
-          </div>
-
-          <div class="develop-cotainer-bottom-left-item">
-            <el-image :src="getAssetsFile('images', '研发图片3.png')" :fit="'fill'" alt="" />
-          </div>
-
-          <div class="develop-cotainer-bottom-left-item" style="height: 525px">
-            <el-image :src="getAssetsFile('images', '研发图片4.png')" :fit="'fill'" alt="" />
+            <div class="text">专业性研发团队</div>
+            <div class="desc">
+              <span>专业性研发团队</span>
+              <span
+                >拥有深厚的专业知识与广泛的实践经验，更具备敏锐的市场洞察力，能够精准捕捉潮流趋势与消费者需求。</span
+              >
+            </div>
           </div>
         </div>
-        <!-- <div class="develop-container-bottom-right">
+        <div class="develop-container-bottom-center">
+          <div class="develop-cotainer-bottom-center-item">
+            <el-image :src="getAssetsFile('images', '研发图片5.png')" :fit="'fill'" alt="" />
+            <div class="text">完善实验室支持</div>
+            <div class="desc">
+              <span>完善实验室支持</span>
+              <span
+                >公司拥有完善的物理、化学和生物实验室设施，为研发创新和产品制程提供了全方位、强有力的技术支持。</span
+              >
+            </div>
+          </div>
+
+          <div class="develop-cotainer-bottom-center-item">
+            <el-image :src="getAssetsFile('images', '研发图片3.png')" :fit="'fill'" alt="" />
+            <div class="text">质量严格控</div>
+            <div class="desc">
+              <span>质量严格控</span>
+              <span
+                >我们秉持质量至上的原则，从源头精选优质原料，历经多轮精细筛选与全面评测，每一步都倾注匠心。确保产品妆效的卓越，为客户带来卓越体验。</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="develop-container-bottom-right">
           <div class="develop-cotainer-bottom-right-item">
             <el-image :src="getAssetsFile('images', '研发图片4.png')" :fit="'fill'" alt="" />
+            <div class="text">知识产权保护体系</div>
+            <div class="desc">
+              <span>知识产权保护体系</span>
+              <span
+                >奇伟始终将科技创新视为公司发展的核心驱动力，并建立了完善的知识产权保护体系，目前拥40+核心专利证书。</span
+              >
+            </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -190,27 +223,223 @@ const activeIndex = ref(0)
 
     .develop-container-bottom {
       width: 100%;
-      //   height: 500px;
-      //   background-color: pink;
-      //   display: flex;
+      height: 650px;
+      // background-color: pink;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5vw;
       .develop-container-bottom-left {
-        margin: 1vw;
-        column-count: 3;
-        column-gap: 0.5vw;
-        // display: flex;
-        // flex-flow: column wrap;
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        height: 100%;
         .develop-cotainer-bottom-left-item {
-          //   margin: 10px;
-          //   width: calc(100% / 3 - 20px);
           cursor: pointer;
+          overflow: hidden;
+          position: relative;
+          transition: all 0.2s;
+          .text {
+            position: absolute;
+            bottom: 1vh;
+            left: 1vw;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 24px;
+            color: #ffffff;
+          }
+
+          .desc {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 10px;
+            span {
+              &:nth-child(1) {
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 24px;
+                color: #ffffff;
+              }
+            }
+          }
+
+          &:hover {
+            .text {
+              display: none;
+            }
+            .desc {
+              display: flex;
+            }
+          }
+
           :deep(.el-image) {
             width: 100%;
             height: 100%;
+            border-radius: 10px;
+          }
+        }
+      }
+
+      .develop-container-bottom-center {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        height: 100%;
+        .develop-cotainer-bottom-center-item {
+          cursor: pointer;
+          overflow: hidden;
+          position: relative;
+          .text {
+            position: absolute;
+            bottom: 1vh;
+            left: 1vw;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 24px;
+            color: #ffffff;
+          }
+
+          .desc {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 10px;
+            span {
+              &:nth-child(1) {
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 24px;
+                color: #ffffff;
+              }
+            }
+          }
+
+          &:hover {
+            .text {
+              display: none;
+            }
+            .desc {
+              display: flex;
+            }
+          }
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
           }
         }
       }
 
       .develop-container-bottom-right {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        .develop-cotainer-bottom-right-item {
+          cursor: pointer;
+          overflow: hidden;
+          position: relative;
+          // max-height: 612px;
+          .text {
+            position: absolute;
+            bottom: 1vh;
+            left: 1vw;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 24px;
+            color: #ffffff;
+          }
+
+          .desc {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            // display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 10px;
+            display: none;
+            span {
+              &:nth-child(1) {
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 24px;
+                color: #ffffff;
+              }
+            }
+          }
+
+          &:hover {
+            .text {
+              display: none;
+            }
+            .desc {
+              display: flex;
+            }
+          }
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+          }
+        }
       }
     }
   }
