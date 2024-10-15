@@ -17,10 +17,13 @@
 import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch } from 'vue'
 import developBanner from './develop-banner.vue';
 import DevelopCenter from './develop-cecnter.vue';
+import developScientifically from './develop-scientifically.vue';
+import developInfomation from './develop-infomation.vue'
+import developPatent from './develop-patent.vue';
 const domArr = shallowRef([
     {
         id: 'develop',
-        domarr: [developBanner,DevelopCenter]
+        domarr: [developBanner, DevelopCenter, developScientifically, developInfomation, developPatent]
     }
 ])
 </script>

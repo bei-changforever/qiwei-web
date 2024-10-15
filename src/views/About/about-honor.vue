@@ -158,7 +158,7 @@ const handleSelect = (index) => {
         gap: 1vw;
         .about-honor-content-item {
           width: 24%;
-          height: 30vh;
+          height: 32vh;
           background-color: #f8f8f8;
           border-radius: 20px 20px 20px 20px;
           display: flex;

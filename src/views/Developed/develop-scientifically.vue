@@ -12,10 +12,23 @@
           </div>
         </div>
       </div>
+      <div class="develop-container-bottom">
+        <div class="develop-container-bottom-item">
+          <el-image :src="getAssetsFile('images', '未选中创新.png')" :fit="'fill'" />
+        </div>
+        <div class="develop-container-bottom-item">
+          <el-image :src="getAssetsFile('images', '专注选中.png')" :fit="'fill'" />
+        </div>
+        <div class="develop-container-bottom-item">
+          <el-image :src="getAssetsFile('images', '平衡未选中.png')" :fit="'fill'" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { getAssetsFile } from '@/utils/tools'
+</script>
 <style lang="scss" scoped>
 .develop-scientificall {
   width: 100vw;
@@ -26,6 +39,7 @@
     width: var(--base-width);
     transition: all 0.3s ease-in;
     zoom: 1;
+
     .develop-container-top {
       width: 100%;
       display: flex;
@@ -108,6 +122,20 @@
             background: #e0e0e0;
             border-radius: 0px 0px 0px 0px;
           }
+        }
+      }
+    }
+
+    .develop-container-bottom {
+      width: 100%;
+      display: flex;
+      gap: 1vw;
+      .develop-container-bottom-item {
+        width: 33.3%;
+        :deep(.el-image) {
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
         }
       }
     }
