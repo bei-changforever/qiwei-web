@@ -52,7 +52,15 @@
               我们诚邀您填写个人基本信息，便于我们选择匹配度最高的团队为您提供服务。
             </div>
           </div>
-          <el-form :model="form" label-width="auto" :label-position="'top'" style="max-width: 100%">
+          <el-form
+            ref="ruleFormRef"
+            :model="form"
+            label-width="auto"
+            :rules="rules"
+            :label-position="'top'"
+            style="max-width: 100%"
+            status-icon
+          >
             <el-form-item label="您是？">
               <el-select v-model="form.occupation">
                 <el-option label="Zone one" value="shanghai" />
@@ -118,7 +126,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
 // do not use same name with ref
-
+const ruleFormRef = ref<FormInstance>()
 interface RuleForm {
   question: string
   occupation: string
@@ -245,6 +253,7 @@ const draw = ({ el, BMap, map }) => {
           width: 100%;
           background-color: white;
           border-radius: 20px;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
           .image {
             width: 100%;
             height: 320px;
