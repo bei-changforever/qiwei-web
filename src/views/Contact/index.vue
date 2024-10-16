@@ -20,11 +20,53 @@
 import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch } from 'vue'
 import contactbanner from './contact-banner.vue'
 import contactMain from './contact-main.vue'
-const domArr = shallowRef([
-  {
-    id: 'develop',
-    domarr: []
+import emitter from '@/utils/mitt'
+const contactBaseContainer = ref(null)
+// 处理滚轮事件的方法
+const handleWheel = (event) => {
+  const deltaY = event.deltaY
+  if (deltaY < 0) {
+    // 向上滚动
+    if (contactBaseContainer.value.getBoundingClientRect().top > -100) {
+      emitter.emit('changHeaderBack', {
+        isDark: true,
+        activeBackgroundColor: null,
+        slideChangeBakColor: false
+      })
+    }
+  } else if (deltaY > 0) {
+    // 向下滚动
+    if (contactBaseContainer.value.getBoundingClientRect().top <= -100) {
+      emitter.emit('changHeaderBack', {
+        isDark: false,
+        activeBackgroundColor: 'white',
+        slideChangeBakColor: true
+      })
+    }
   }
-])
+}
+
+onMounted(() => {
+  window.addEventListener('wheel', handleWheel)
+  emitter.on('BACKPAGETOP', (res) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 可选，使滚动平滑
+    })
+  })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('wheel', handleWheel)
+  emitter.off('BACKPAGETOP')
+})
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.contact-base-container {
+  width: 100vw;
+  //   border: 1px solid red;
+  .main-okj-container-nofull {
+    width: 100%;
+  }
+}
+</style>

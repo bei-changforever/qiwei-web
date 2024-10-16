@@ -1,6 +1,15 @@
 <template>
   <div class="contact-main">
     <div class="contact-base-container">
+      <div class="about-base-container-top">
+        <div class="T-left">
+          <div class="topic">
+            <div class="block"></div>
+            <div class="text">CONTACT</div>
+          </div>
+          <div class="name">联系奇伟</div>
+        </div>
+      </div>
       <div class="base-top">
         <div class="contact-left">
           <div class="contact-left-content">
@@ -80,19 +89,6 @@
           :zoom="25"
           :center="{ lng: 116.43836142559879, lat: 23.24771330479027 }"
         >
-          <!-- <bm-overlay pane="labelPane" class="info-map">
-            <div class="info-box">
-              <div class="image">
-                <img :src="getAssetsFile('images', 'map位置.png')" alt="" />
-              </div>
-              <div class="text-box">
-                <div class="text">奇伟实业有限公司</div>
-                <div class="icon">
-                  <img :src="getAssetsFile('images', '导航按钮.png')" alt="" />
-                </div>
-              </div>
-            </div>
-          </bm-overlay> -->
           <bm-overlay
             pane="labelPane"
             :class="{ sample: true, active }"
@@ -117,11 +113,22 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-// import { load } from '@amap/amap-jsapi-loader'
+import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
 // do not use same name with ref
+
+interface RuleForm {
+  question: string
+  occupation: string
+  name: string
+  Companyname: string
+  delivery: string
+  Brandname: string
+  phonenumber: number
+}
+
 const form = reactive({
   question: '',
   occupation: '',
@@ -130,6 +137,39 @@ const form = reactive({
   delivery: '',
   Brandname: '',
   phonenumber: ''
+})
+
+const rules = reactive<FormRules<RuleForm>>({
+  name: [
+    { required: true, message: 'Please input Activity name', trigger: 'blur' },
+    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
+  ],
+  question: [
+    {
+      required: true,
+      message: 'Please select Activity zone',
+      trigger: 'change'
+    }
+  ],
+  occupation: [
+    {
+      required: true,
+      message: 'Please select Activity count',
+      trigger: 'change'
+    }
+  ],
+  Companyname: [
+    {
+      required: true,
+      message: 'Please select activity resource',
+      trigger: 'change'
+    }
+  ],
+  delivery: [{ required: true, message: 'Please input activity form', trigger: 'blur' }],
+  Brandname: [{ required: true, message: 'Please input activity form', trigger: 'blur' }],
+  phonenumber: [
+    { type: 'number', required: true, message: 'Please input activity form', trigger: 'blur' }
+  ]
 })
 
 const onSubmit = () => {
@@ -142,46 +182,62 @@ const draw = ({ el, BMap, map }) => {
   el.style.left = pixel.x - 20 + 'px' // 最终坐标 = 覆盖物坐标 - 覆盖物宽度/2。 // 居中显示
   el.style.top = pixel.y - 50 + 'px'
 }
-// const mapRef = ref() // 对应地图渲染的 ref 元素 <div ref="mapRef" />
-// const initMapView = async () => {
-//   map.value = await load({
-//     key: 'b5ba0a4a12c605fe209e8ff6db441fc6',
-//     version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-//     plugins: [
-//       'AMap.Scale',
-//       'AMap.PlaceSearch',
-//       'AMap.Autocomplete',
-//       'AMap.LngLat',
-//       'AMap.Geocoder',
-//       'AMap.PolylineEditor'
-//     ]
-//   })
-//   new map.value.Map(mapRef.value, {
-//     viewMode: '3D', // 是否为3D地图模式
-//     zoom: 11, // 初始化地图级别
-//     center: [106.603408, 29.531952],
-//     resizeEnable: true
-//   })
-// }
-
-// const map = ref()
-// onMounted(() => {
-//   initMapView()
-// })
 </script>
 <style lang="scss" scoped>
 .contact-main {
   width: 100vw;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  box-sizing: border-box;
   .contact-base-container {
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
     zoom: 1;
 
+    .about-base-container-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .T-left {
+        .topic {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          gap: 1vw;
+
+          .text {
+            font-weight: 400;
+            font-size: var(--aside-fontSize);
+            color: #f3a7a5;
+          }
+
+          .block {
+            width: 6px;
+            height: var(--aside-block);
+            border-radius: 1px;
+            background-color: #f3a7a5;
+          }
+        }
+
+        .name {
+          margin-top: 1vh;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: bold;
+          font-size: var(--topic-fontSize);
+          color: #333333;
+        }
+      }
+    }
     .base-top {
       width: 100%;
       display: flex;
       justify-content: space-between;
+      margin-top: 5vh;
       .contact-left {
         // width: 30%;
         width: 480px;
@@ -339,11 +395,13 @@ const draw = ({ el, BMap, map }) => {
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
         }
       }
     }
 
     .base-bottom {
+      margin-top: 5vh;
       width: 100%;
       height: 500px;
 
