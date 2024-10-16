@@ -60,6 +60,14 @@ const router = createRouter({
         title: '研发中心'
       },
       component: () => import('@/views/Developed/index.vue')
+    },{
+      path: '/contact',
+      name: 'contact',
+      meta: {
+        keepAlive: true, //设置页面是否需要使用缓存
+        title: '联系奇伟'
+      },
+      component: () => import('@/views/Contact/index.vue')
     }
   ],
   // 是否严格匹配路由

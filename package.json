@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "^2.3.1",
     "@popperjs/core": "^2.11.8",
     "@vant/touch-emulator": "^1.4.0",
@@ -30,6 +31,7 @@
     "vant": "^4.9.7",
     "vconsole": "^3.15.1",
     "vue": "^3.4.29",
+    "vue-baidu-map-3x": "^1.0.39",
     "vue-router": "^4.3.3",
     "vue3-count-to": "^1.1.2"
   },

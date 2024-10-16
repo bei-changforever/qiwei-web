@@ -188,6 +188,8 @@ onMounted(() => {
 
   emitter.on('BACKPAGETOP', (res) => {
     handleScrolltoTop()
+    bigSizeIndex.value = 0
+    pageIndex.value = 0
   })
   // 添加鼠标滚轮事件
   document.onmousewheel = mouseWheel

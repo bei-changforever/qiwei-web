@@ -81,7 +81,11 @@ import { getAssetsFile } from '@/utils/tools'
 <style lang="scss" scoped>
 .develop-infomation {
     width: 100vw;
-    // height: 100vh;
+    height: 135vh;
+
+    padding-top: 15vh;
+    box-sizing: border-box;
+    background-color: white;
 
     .develop-infomation-base-container {
         margin: 0 auto;
@@ -307,6 +311,7 @@ import { getAssetsFile } from '@/utils/tools'
                 width: 33.3%;
                 cursor: pointer;
                 position: relative;
+
                 :deep(.el-image) {
                     width: 100%;
                     height: 100%;

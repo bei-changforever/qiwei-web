@@ -11,7 +11,7 @@ import component from './components/component'
 // 引入模块后自动生效
 import '@vant/touch-emulator'
 
-
+import BaiduMap from 'vue-baidu-map-3x'
 const env = import.meta.env.VITE_APP_ENV // 获取配置信息
 import Vconsole from 'vconsole' // 引入 vconsole
 
@@ -26,4 +26,10 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(createPinia())
 app.use(router)
 app.use(component)
+app.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: 'oei253vVub3Z48dQF1FaD5Wh6klyXz3X'
+  // v:'2.0',  // 默认使用3.0
+  // type: 'WebGL' // ||API 默认API  (使用此模式 BMap=BMapGL)
+})
 app.mount('#app')
