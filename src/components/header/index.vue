@@ -125,13 +125,13 @@ const handleSelect = (key: number) => {
       break
     case 5:
       activeIndex.value = 5
+      router.push('/contact')
       emitter.emit('DOMINDEX', activeIndex.value)
       break
     default:
       break
   }
 }
-
 
 watch(
   () => route.path,
@@ -144,19 +144,24 @@ watch(
       router.push('/product/product-detail')
       activeIndex.value = 1
     }
-    if(newVal == '/business') {
+    if (newVal == '/business') {
       router.push('/business')
       activeIndex.value = 2
     }
-    if(newVal == '/develop') {
+    if (newVal == '/develop') {
       router.push('/develop')
       activeIndex.value = 3
     }
-    if(newVal == '/about') {
+    if (newVal == '/about') {
       router.push('/about')
       activeIndex.value = 4
     }
-  },{
+    if (newVal == '/contact') {
+      router.push('/contact')
+      activeIndex.value = 5
+    }
+  },
+  {
     deep: true,
     immediate: true
   }
