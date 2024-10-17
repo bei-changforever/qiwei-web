@@ -18,7 +18,9 @@ declare module 'vue' {
     MainContainer: typeof import('./src/components/main-container/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    VanBackTop: typeof import('vant/es')['BackTop']
     VanPopup: typeof import('vant/es')['Popup']
+    VanRollingText: typeof import('vant/es')['RollingText']
     VanSwipe: typeof import('vant/es')['Swipe']
     VanSwipeItem: typeof import('vant/es')['SwipeItem']
   }

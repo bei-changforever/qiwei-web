@@ -1,5 +1,5 @@
 <template>
-  <div class="home-base-container">
+  <div class="home-base-container" v-if="screenWidth > 960">
     <div class="main-okj-container" ref="container">
       <div
         :class="[
@@ -18,9 +18,22 @@
       </div>
     </div>
   </div>
+  <div class="mobile" v-else>
+    <div class="mobile-container" ref="mobilecontainer" @touchmove="handleTouchMove">
+      <div class="mobile-box" v-for="(comp, index) in domArr[0].domarr" :key="index">
+        <component :is="comp" />
+      </div>
+      <div class="mobile-box">
+        <footer id="footer">
+          <CusFooter />
+        </footer>
+      </div>
+    </div>
+    <!-- <van-back-top right="15vw" bottom="10vh" /> -->
+  </div>
 </template>
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch, nextTick, shallowRef, reactive } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch, nextTick, shallowRef, reactive, toRefs } from 'vue'
 import Banner from '@/views/Home/banner.vue'
 import HomeView from '@/views/Home/product.vue'
 import BussinessInfo from '@/views/Home/business-info.vue'
@@ -30,6 +43,8 @@ import Quality from '@/views/Home/quality.vue'
 import DevelopMent2 from '@/views/Home/development2.vue'
 import Added from '@/views/Home/added.vue'
 import emitter from '@/utils/mitt'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const domArr = shallowRef([
   {
     id: 'home',
@@ -74,28 +89,28 @@ function scrollToPage(pageIndex) {
 
   if (pageIndex == 5) {
     showAnimation.value = true
-    if (screenWidth.value >= 960 && screenWidth.value <= 1220) {
+    if (PAGEWIDTH >= 960 && PAGEWIDTH <= 1220) {
       container.value.style.top = `-495%`
     } else {
       container.value.style.top = `-470%`
     }
   } else if (pageIndex == 6) {
     showAnimation.value = true
-    if (screenWidth.value >= 960 && screenWidth.value <= 1220) {
+    if (PAGEWIDTH >= 960 && PAGEWIDTH <= 1220) {
       container.value.style.top = `-595%`
     } else {
       container.value.style.top = `-565%`
     }
   } else if (pageIndex == 7) {
     showAnimation.value = true
-    if (screenWidth.value >= 960 && screenWidth.value <= 1220) {
+    if (PAGEWIDTH >= 960 && PAGEWIDTH <= 1220) {
       container.value.style.top = `-695%`
     } else {
       container.value.style.top = `-670%`
     }
   } else if (pageIndex == 8) {
     showAnimation.value = true
-    if (screenWidth.value >= 960 && screenWidth.value <= 1220) {
+    if (PAGEWIDTH >= 960 && PAGEWIDTH <= 1220) {
       container.value.style.top = `-752%`
     } else {
       container.value.style.top = `-729%`
@@ -132,10 +147,27 @@ function mouseWheel(e) {
     }
   }
 }
-const screenWidth = ref(window.innerWidth)
-const handleResize = () => {
-  screenWidth.value =
-    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+
+function handleTouchMove(event) {
+  // event.preventDefault()
+
+  // console.log('手指滑动')
+  console.log(mobilecontainer.value.getBoundingClientRect().top);
+
+  if (mobilecontainer.value.getBoundingClientRect().top > -110) {
+    emitter.emit('changHeaderBack', {
+      isDark: true,
+      activeBackgroundColor: 'rgba(0,0,0,.75)',
+      slideChangeBakColor: false
+    })
+  } 
+  if(mobilecontainer.value.getBoundingClientRect().top <= -120) {
+    emitter.emit('changHeaderBack', {
+      isDark: true,
+      activeBackgroundColor: 'rgba(0,0,0,.75)',
+      slideChangeBakColor: true
+    })
+  }
 }
 
 const handleScrolltoTop = () => {
@@ -143,13 +175,18 @@ const handleScrolltoTop = () => {
 }
 
 const showAnimation = ref(false)
-
+const mobilecontainer = ref(null)
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
   emitter.on('BACKPAGETOP', (res) => {
-    handleScrolltoTop()
-    pageIndex.value = 0
+    if (PAGEWIDTH.value <= 960) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      handleScrolltoTop()
+      pageIndex.value = 0
+    }
   })
+
   // 添加鼠标滚轮事件
   document.onmousewheel = mouseWheel
   document.addEventListener('DOMMouseScroll', mouseWheel, false)
@@ -157,11 +194,13 @@ onMounted(() => {
   history.scrollRestoration = 'manual'
 
   nextTick(() => {
-    boxapis.value = document.querySelectorAll('.boxapi')
-    container.value.style.height = `${boxapis.length}00%`
+    if (PAGEWIDTH.value > 960) {
+      boxapis.value = document.querySelectorAll('.boxapi')
+      container.value.style.height = `${boxapis.length}00%`
+    }
   })
 
-  window.addEventListener('resize', handleResize)
+  // window.addEventListener('resize', handleResize)
 })
 onBeforeUnmount(() => {
   document.removeEventListener('DOMMouseScroll', mouseWheel)
@@ -187,8 +226,15 @@ watch(
     }
   }
 )
+
+const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
-watch(screenWidth, (newVal, oldVal) => {})
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style scoped lang="scss">
 .home-base-container {

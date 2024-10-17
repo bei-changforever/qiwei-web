@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="home-product-swiper">
+    <div class="home-product-swiper" v-if="screenWidth > 960">
       <swiper
         @swiper="onSwiper"
         :slidesPerView="3"
@@ -70,11 +70,20 @@
         </div>
       </div>
     </div>
+    <div class="home-product-swiper" v-else>
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="(item, index) in 6" :key="index">
+          <div class="background-image">
+            <img :src="getAssetsFile('images', '热门产品未选中1.png')" />
+          </div>
+        </van-swipe-item>
+      </van-swipe>
+    </div>
   </div>
 </template>
 <script setup>
 import { getAssetsFile } from '@/utils/tools'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRefs, watch } from 'vue'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 // import required modules
@@ -83,7 +92,9 @@ import { FreeMode, Pagination, EffectFade, Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/effect-fade'
-import emitter from '@/utils/mitt'
+// import emitter from '@/utils/mitt'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const modules = [FreeMode, Pagination, EffectFade, Navigation]
 const productType = ['底纹', '彩妆', '护肤', '清洁', '隔离']
 
@@ -147,16 +158,15 @@ const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
 }
 const showAnimation = ref(false)
-onMounted(() => {
-  // ANIMATION
-  // emitter.on('ANIMATION', (res) => {
-  //   if (res == 1) {
-  //     showAnimation.value = true
-  //   } else {
-  //     showAnimation.value = false
-  //   }
-  // })
-})
+onMounted(() => {})
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .home-product {
@@ -1018,6 +1028,137 @@ onMounted(() => {
             width: 40px;
             height: 40px;
           }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .home-product {
+    box-sizing: border-box;
+    width: 100vw;
+    height: auto;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    flex-direction: column;
+    padding: 0;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    // padding-top: 15vh;
+    .home-product-container {
+      width: var(--base-width);
+      margin: 0 auto;
+      // height: 15vh;
+      padding: 2vh;
+      padding-bottom: 0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      // background-color: pink;
+      .aside {
+        width: 100%;
+        height: 50px;
+
+        display: none;
+        // flex-direction: column;
+        align-items: center;
+        gap: 1vw;
+
+        .text {
+          font-weight: 400;
+          font-size: var(--aside-fontSize);
+          color: #f3a7a5;
+        }
+
+        .block {
+          width: 6px;
+          height: var(--aside-block);
+          border-radius: 1px;
+          background-color: #f3a7a5;
+        }
+      }
+
+      .topic {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .left {
+          width: 50%;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: bold;
+          font-size: 18px;
+          color: #333333;
+        }
+
+        .right {
+          width: 40%;
+
+          display: flex;
+          justify-content: flex-end;
+          // gap: 8%;
+
+          .right-item {
+            position: relative;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333333;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2vw;
+            margin-right: 1vw;
+
+            &:last-child {
+              margin-right: 0;
+            }
+
+            &.active {
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 0px;
+              height: 14px;
+              border: 1px solid #999999;
+            }
+          }
+        }
+      }
+    }
+
+    .home-product-swiper {
+      padding: 2vh;
+      box-sizing: border-box;
+
+      .my-swipe {
+        width: 100%;
+      }
+
+      :deep(.van-swipe-item) {
+        width: 100%;
+        // border: 1px solid red;
+      }
+      .background-image {
+        width: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
         }
       }
     }

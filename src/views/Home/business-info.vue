@@ -52,12 +52,13 @@
         </div>
       </div>
       <div
-        :class="['business-container-bottom', showAnimation && 'animate__animated animate__fadeIn']"
+        class="business-container-bottom"
       >
         <div class="business-container-bottom-container">
           <div class="business-container-bottom-top">
             <div class="bussiness-container-bottom-top-left">
               <count-to :startVal="0" :endVal="28" :duration="7000" :separator="null"></count-to>
+              <!-- <van-rolling-text :start-num="0" :target-num="28" /> -->
             </div>
             <div class="bussiness-container-bottom-top-right">年</div>
           </div>
@@ -111,13 +112,7 @@ const clickRouter = () => {
 const showAnimation = ref(false)
 
 onMounted(() => {
-  // emitter.on('ANIMATION', (res) => {
-  //   if (res == 2) {
-  //     showAnimation.value = true
-  //   } else {
-  //     showAnimation.value = false
-  //   }
-  // })
+ 
 })
 </script>
 <style lang="scss" scoped>
@@ -874,6 +869,7 @@ onMounted(() => {
         .business-container-right {
           margin-top: 2vh;
           width: 100%;
+          height: 320px;
           position: relative;
 
           :deep(.el-image) {
@@ -895,7 +891,7 @@ onMounted(() => {
       }
 
       .business-container-bottom {
-        margin-top: 6vh;
+        margin-top: 2vh;
         width: 100%;
         height: 120px;
         display: flex;
@@ -939,6 +935,7 @@ onMounted(() => {
               font-size: 12px;
               color: #333333;
               margin-left: 10px;
+              
             }
           }
 

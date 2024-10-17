@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { RouterView } from 'vue-router'
 import { useRouter, useRoute } from 'vue-router'
 import emitter from '@/utils/mitt'
+import { isMobile } from '@/utils/equipment'
+import { useCounterStore } from '@/stores/screenWidth'
+const { setScreenWidth } = useCounterStore()
 const route = useRoute()
 const router = useRouter()
-
 const changeBackGroundColor = ref(false)
 const activeColor = ref('#000000')
 const isDarkPage = ref(true)
 const showTop = ref(false)
+const screenWidth = ref(window.innerWidth)
+const handleResize = () => {
+  // console.log('v胡发发啊发发');
+  
+  screenWidth.value =
+    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+  setScreenWidth(screenWidth.value)
+}
 onMounted(() => {
   emitter.on('*', (index: any, data: any) => {
     // console.log('监听到事件', index)
@@ -35,10 +45,11 @@ onMounted(() => {
       console.log('监听')
 
       showTop.value = data
-    }  else {
+    } else {
       return
     }
   })
+  window.addEventListener('resize', handleResize)
 })
 
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']

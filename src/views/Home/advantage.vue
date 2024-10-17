@@ -1,6 +1,6 @@
 <template>
   <div class="advantage">
-    <div :class="['advantage-box',showAnimation && 'animate__animated animate__fadeIn']">
+    <div :class="['advantage-box']">
       <div class="advantage-container">
         <div class="T-left">
           <div class="topic">
@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div class="accordion" v-if="!changePageShow">
+      <div class="accordion" v-if="PAGEWIDTH > 960">
         <Accordion />
       </div>
       <div class="accordion" v-else>
@@ -33,29 +33,23 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, toRefs, onBeforeMount, onMounted, ref } from 'vue'
+import { reactive, toRef, onBeforeMount, onMounted, ref, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { isMobile } from '@/utils/equipment'
 import Accordion from '@/components/accordion/index.vue'
 import emitter from '@/utils/mitt'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const changePageShow = ref(false)
 const showAnimation = ref(false)
-onMounted(() => {
-  // let eq = isMobile()
-  // if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
-  //   changePageShow.value = true
-  // } else {
-  //   changePageShow.value = false
-  // }
-
-  // emitter.on('ANIMATION', (res) => {
-  //   if (res == 3) {
-  //     showAnimation.value = true
-  //   } else {
-  //     showAnimation.value = false
-  //   }
-  // })
-})
+onMounted(() => {})
+const PAGEWIDTH = ref(window.innerWidth)
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .advantage {

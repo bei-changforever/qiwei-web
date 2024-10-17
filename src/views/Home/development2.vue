@@ -53,7 +53,7 @@
             </div>
           </div>
         </div>
-        <div class="content-right">
+        <div class="content-right" v-if="PAGEWIDTH > 960">
           <div class="content-right-backfround">
             <div class="content-right-bg">
               <el-image :src="getAssetsFile('images', '选中证书底.png')" :fit="'fill'" />
@@ -83,12 +83,28 @@
             </div>
           </div>
         </div>
+        <div class="mom-sw" v-else>
+          <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+            <van-swipe-item>
+              <el-image :src="getAssetsFile('images', '证书1.png')" :fit="'fill'" />
+            </van-swipe-item>
+            <van-swipe-item>
+              <el-image :src="getAssetsFile('images', '证书2.png')" :fit="'fill'" />
+            </van-swipe-item>
+            <van-swipe-item>
+              <el-image :src="getAssetsFile('images', '证书3.png')" :fit="'fill'" />
+            </van-swipe-item>
+            <van-swipe-item>
+              <el-image :src="getAssetsFile('images', '证书4.png')" :fit="'fill'" />
+            </van-swipe-item>
+          </van-swipe>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -99,6 +115,8 @@ import 'swiper/css/effect-creative'
 
 // import required modules
 import { EffectCreative } from 'swiper/modules'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const modules = [EffectCreative]
 
 const activeIndex = ref(0)
@@ -139,10 +157,19 @@ const selectIndex = (index) => {
   if (activeIndex.value == index) {
     return
   } else {
-    swiperDom.value.slideTo(index);
+    swiperDom.value.slideTo(index)
     activeIndex.value = index
   }
 }
+
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .development2 {
@@ -857,6 +884,199 @@ const selectIndex = (index) => {
                 color: #333333;
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 960px) {
+  .development2 {
+    width: 100vw;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    // padding-top: 5vh;
+    box-sizing: border-box;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    // scroll-snap-align: start;
+    padding: 0;
+    .development2-container {
+      width: var(--base-width);
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2vh;
+      box-sizing: border-box;
+      .development2-content {
+        width: 100%;
+        // height: 80%;
+        display: flex;
+        flex-direction: column;
+        .content-left {
+          width: 100%;
+          .T-left {
+            width: 100%;
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: none;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: 22px;
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 6px;
+                height: 16px;
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
+            }
+            .name {
+              // margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 18px;
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 1vh;
+
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #666666;
+              line-height: 34px;
+            }
+          }
+
+          .T-bottom {
+            margin-top: 7vh;
+            width: 100%;
+            display: none;
+            .T-bottom-container {
+              width: 100%;
+
+              .T-bottom-top {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 6%;
+                .left {
+                  width: 50%;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: 30px;
+                  color: #999999;
+                  .active-number {
+                    color: #f3a7a5;
+                    font-size: 54px;
+                  }
+                }
+
+                .right {
+                  width: 50%;
+                  display: flex;
+                  justify-content: flex-end;
+                  gap: 2vw;
+                  :deep(.el-image) {
+                    width: 50px;
+                    height: 50px;
+                    cursor: pointer;
+                  }
+                }
+              }
+
+              .T-bottom-bottom {
+                width: 100%;
+                .T-bottom-bottom-item {
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                }
+              }
+            }
+          }
+        }
+        .content-right {
+          width: 40%;
+          height: 100%;
+
+          .content-right-backfround {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .content-right-bg {
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .content-right-img {
+                position: absolute;
+                top: 10%;
+
+                .swiper {
+                  // margin: 100px auto;
+                  width: 340px;
+                  height: 460px;
+                }
+
+                .swiper-slide {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  :deep(.el-image) {
+                    width: 200%;
+                    height: 100%;
+                    object-fit: cover;
+                  }
+                }
+              }
+
+              .content-right-text {
+                position: absolute;
+                bottom: 12%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 30px;
+                color: #333333;
+              }
+            }
+          }
+        }
+
+        .mom-sw {
+          margin-top: 1vh;
+          width: 100%;
+          // background-color: pink;
+
+          :deep(.van-swipe-item) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
       }

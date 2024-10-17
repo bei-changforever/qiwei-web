@@ -1,6 +1,6 @@
 <template>
   <div class="quality">
-    <div :class="['quality-container',, showAnimation && 'animate__animated animate__fadeIn']">
+    <div :class="['quality-container']">
       <div class="advantage-container">
         <div class="T-left">
           <div class="name">从源头把控精选全球原料</div>
@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div class="position-box" v-if="!changePageShow">
+      <div class="position-box" v-if="PAGEWIDTH > 960">
         <div class="square-box">
           <div class="square-box-left">
             <!-- <div class="square-box-left-item" v-for="item in 9" :key="item">
@@ -349,11 +349,11 @@
         </div>
       </div>
       <div class="moom-box" v-else>
-        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-          <van-swipe-item v-for="item in 4">
+        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="skyblue" lazy-render>
+          <van-swipe-item v-for="(item,index) in list">
             <div class="image-box">
-              <div class="image" v-for="item in 6">
-                <img :src="getAssetsFile('images', '合作品牌11.png')" alt="" />
+              <div class="image" v-for="(number,i) in item">
+                <img :src="getAssetsFile('images', `合作品牌${number}.png`)" alt="" />
               </div>
             </div>
           </van-swipe-item>
@@ -363,29 +363,26 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { isMobile } from '@/utils/equipment'
 import emitter from '@/utils/mitt'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
 const changePageShow = ref(false)
 const showAnimation = ref(false)
-onMounted(() => {
-  // let eq = isMobile()
-  // if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
-  //   changePageShow.value = true
-  // } else {
-  //   changePageShow.value = false
-  // }
-
-  // emitter.on('ANIMATION', (res) => {
-  //   if (res == 5) {
-  //     showAnimation.value = true
-  //   } else {
-  //     showAnimation.value = false
-  //   }
-  // })
-})
+const list = [
+  [1, 2, 3, 4, 5,6],[7,8,9,10,11,12],[13,14,15,16,17,18],[19,20]
+]
+onMounted(() => {})
+const PAGEWIDTH = ref(window.innerWidth)
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .quality {
@@ -2149,7 +2146,7 @@ onMounted(() => {
         width: 100%;
         .image-box {
           width: 100%;
-          background-color: skyblue;
+          // background-color: skyblue;
           display: flex;
           flex-wrap: wrap;
           .image {

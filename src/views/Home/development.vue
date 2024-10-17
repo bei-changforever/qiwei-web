@@ -57,13 +57,7 @@ const clickRouter = () => {
 
 const showAnimation = ref(false)
 onMounted(() => {
-  // emitter.on('ANIMATION', (res) => {
-  //   if (res == 4) {
-  //     showAnimation.value = true
-  //   } else {
-  //     showAnimation.value = false
-  //   }
-  // })
+ 
 })
 </script>
 <style lang="scss" scoped>
@@ -542,6 +536,7 @@ onMounted(() => {
         .business-container-right {
           margin-top: 2vh;
           width: 100%;
+          height: 320px;
           position: relative;
 
           :deep(.el-image) {

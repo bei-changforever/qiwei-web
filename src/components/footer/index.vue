@@ -686,6 +686,8 @@ const handelClick = () => {
 
 @media (max-width: 960px) {
   .footer {
+    padding: 2vh;
+    box-sizing: border-box;
     .footer-navbar {
       .block {
         .logo {
@@ -826,7 +828,7 @@ const handelClick = () => {
 
 @media (min-width: 375px) and (max-width: 960px) {
   .footer {
-    padding: 10px;
+    padding: 2vh;
     box-sizing: border-box;
 
     .footer-navbar {
