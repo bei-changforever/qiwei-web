@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="home-product-swiper">
+    <div class="home-product-swiper" v-if="!changePageShow">
       <swiper
         @swiper="onSwiper"
         :slidesPerView="3"
@@ -68,11 +68,38 @@
         </div>
       </div>
     </div>
+
+    <div class="home-product-swiper" v-else>
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="(item, index) in 6" :key="index">
+          <div class="product-info">
+            <div class="product-info-container">
+              <!-- <div class="background-detail-box">
+                <div class="background-detail">
+                  <span>产品展示</span>
+                  <span>修颜柔润持妆粉底液</span>
+                </div>
+              </div>
+              <div class="backfround-info-box">
+                <div class="background-info">
+                  <span> 产品展示</span>
+                </div>
+              </div> -->
+              <div class="background-image-box">
+                <div class="background-image">
+                  <el-image :src="getAssetsFile('images', '热门产品未选中1.png')" :fit="'fill'" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </van-swipe-item>
+      </van-swipe>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 // import required modules
@@ -81,7 +108,8 @@ import { FreeMode, Pagination, EffectFade, Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/effect-fade'
-
+import { Swipe, SwipeItem } from 'vant'
+import { isMobile } from '@/utils/equipment'
 const modules = [FreeMode, Pagination, EffectFade, Navigation]
 const productType = ['底纹', '彩妆', '护肤', '清洁', '隔离']
 const productTypeIndex = ref(0)
@@ -96,6 +124,15 @@ const bannerSwiperPrev = () => {
 const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
 }
+const changePageShow = ref(false)
+onMounted(() => {
+  let eq = isMobile()
+  if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
+    changePageShow.value = true
+  } else {
+    changePageShow.value = false
+  }
+})
 </script>
 <style lang="scss" scoped>
 .home-product {
@@ -131,7 +168,7 @@ const bannerSwiperNext = () => {
 
       .text {
         font-weight: 400;
-        font-size:  var(--aside-fontSize);
+        font-size: var(--aside-fontSize);
         color: #f3a7a5;
       }
 
@@ -604,6 +641,290 @@ const bannerSwiperNext = () => {
                   Microsoft YaHei;
                 font-weight: 400;
                 font-size: 20px;
+                color: #333333;
+                transition: all 0.3s ease-in;
+                border-radius: 0px 0px 10px 10px;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+              }
+            }
+
+            &:hover {
+              .background-detail {
+                height: 100%;
+                border-radius: 10px 10px 10px 10px;
+                transition: all 0.4s ease-in;
+              }
+
+              .background-image-box {
+                bottom: -10vh;
+                transform: scale(0.8);
+                transform-origin: bottom center;
+                transition: all 0.3s ease-in;
+
+                .background-image {
+                  bottom: 0;
+                  transform: scale(0.8);
+                  transform-origin: bottom center;
+                  transition: all 0.2s ease-in;
+                }
+              }
+
+              .background-info {
+                height: 0;
+                transition: all 0.3s ease-in;
+              }
+            }
+          }
+        }
+      }
+
+      .home-product-swiper-pagination {
+        margin-top: 2vw;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2vw;
+
+        .left-btn {
+          cursor: pointer;
+
+          :deep(.el-image) {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        .right-btn {
+          cursor: pointer;
+
+          :deep(.el-image) {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .home-product {
+    box-sizing: border-box;
+    width: 100vw;
+    height: auto;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    flex-direction: column;
+    padding: 0;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    // padding-top: 15vh;
+    .home-product-container {
+      width: var(--base-width);
+      margin: 0 auto;
+      // height: 15vh;
+      padding: 2vh;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      // background-color: pink;
+      .aside {
+        width: 100%;
+        height: 50px;
+
+        display: none;
+        // flex-direction: column;
+        align-items: center;
+        gap: 1vw;
+
+        .text {
+          font-weight: 400;
+          font-size: var(--aside-fontSize);
+          color: #f3a7a5;
+        }
+
+        .block {
+          width: 6px;
+          height: var(--aside-block);
+          border-radius: 1px;
+          background-color: #f3a7a5;
+        }
+      }
+
+      .topic {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .left {
+          width: 50%;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: bold;
+          font-size: 18px;
+          color: #333333;
+        }
+
+        .right {
+          width: 40%;
+
+          display: flex;
+          justify-content: flex-end;
+          // gap: 8%;
+
+          .right-item {
+            position: relative;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333333;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5vw;
+            margin-right: 1vw;
+
+            &:last-child {
+              margin-right: 0;
+            }
+
+            &.active {
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 0px;
+              height: 14px;
+              border: 1px solid #999999;
+            }
+          }
+        }
+      }
+    }
+
+    .home-product-swiper {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+      padding: 2vh;
+      .mySwiper {
+        width: 100%;
+        height: 540px;
+
+        .product-info {
+          width: 100%;
+          height: 99%;
+          margin: 0 auto;
+
+          .product-info-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+
+            .background-detail-box {
+              position: relative;
+              width: 100%;
+              height: calc(100% - 100px);
+
+              .background-detail {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 40%;
+                border-radius: 10px 10px 0px 0px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                transition: all 0.3s ease-in;
+                background: #eee;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+                span {
+                  width: 100%;
+                  height: 90px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 24px;
+                  color: #000000;
+
+                  &:first-child {
+                    margin-top: 1vw;
+                    font-family:
+                      Microsoft YaHei,
+                      Microsoft YaHei;
+                    font-weight: 400;
+                    font-size: 30px;
+                    color: #000000;
+                  }
+                }
+              }
+            }
+
+            .background-image-box {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+
+              .background-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: calc(100% - 100px);
+                zoom: 1;
+                transition: all 0.3s ease-in;
+
+                :deep(.el-image) {
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+            }
+
+            .backfround-info-box {
+              position: relative;
+              width: 100%;
+              height: 100px;
+
+              .background-info {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 26px;
                 color: #333333;
                 transition: all 0.3s ease-in;
                 border-radius: 0px 0px 10px 10px;

@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div class="position-box">
+      <div class="position-box" v-if="!changePageShow">
         <div class="square-box">
           <div class="square-box-left">
             <div class="square-box-left-item" v-for="item in 9" :key="item">
@@ -71,11 +71,33 @@
           <div class="pagenavigation-item" v-for="item in 3"></div>
         </div>
       </div>
+      <div class="moom-box" v-else>
+        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+          <van-swipe-item v-for="item in 4">
+            <div class="image-box">
+              <div class="image" v-for="item in 6">
+                <img :src="getAssetsFile('images', '合作品牌11.png')" alt="" />
+              </div>
+            </div>
+          </van-swipe-item>
+        </van-swipe>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { isMobile } from '@/utils/equipment'
+const changePageShow = ref(false)
+onMounted(() => {
+  let eq = isMobile()
+  if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
+    changePageShow.value = true
+  } else {
+    changePageShow.value = false
+  }
+})
 </script>
 <style lang="scss" scoped>
 .quality {
@@ -1401,7 +1423,7 @@ import { getAssetsFile } from '@/utils/tools'
         display: flex;
         align-items: center;
         justify-content: center;
-          // background-color: pink;
+        // background-color: pink;
 
         .pagenavigation {
           position: absolute;
@@ -1424,7 +1446,7 @@ import { getAssetsFile } from '@/utils/tools'
       .square-box {
         // margin-bottom: -5vh;
         position: relative;
-        width:600px;
+        width: 600px;
         height: 600px;
         // border: 1px solid red;
         display: flex;
@@ -1716,6 +1738,115 @@ import { getAssetsFile } from '@/utils/tools'
                   display: none;
                 }
               }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .quality {
+    // position: relative;
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    // padding-top: 15vh;
+    background-color: white;
+    // border: 1px solid red;
+    padding: 0;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    // scroll-snap-align: start;
+    .quality-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+      padding: 2vh;
+      box-sizing: border-box;
+      .advantage-container {
+        // position: absolute;
+        // top: 15vh;
+        position: static;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .T-left {
+          width: 100%;
+          // background-color: orange;
+          .name {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333333;
+          }
+
+          .desc {
+            margin-top: 1vh;
+            width: 100%;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 14px;
+            color: #666666;
+            line-height: 24px;
+          }
+        }
+
+        .T-right {
+          .konw-more-about {
+            margin-top: 1vh;
+            width: 166px;
+            height: 46px;
+            border-radius: 50px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #f3a7a5;
+
+            .text {
+              width: 80%;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 20px;
+              color: #f3a7a5;
+              text-align: center;
+              text-indent: 0.5em;
+            }
+
+            .about-icon {
+              color: #f3a7a5;
+              font-size: 46px;
+            }
+          }
+        }
+      }
+      .moom-box {
+        margin-top: 1vh;
+        width: 100%;
+        .image-box {
+          width: 100%;
+          background-color: skyblue;
+          display: flex;
+          flex-wrap: wrap;
+          .image {
+            width: 33%;
+            height: 45%;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: fill;
             }
           }
         }

@@ -75,8 +75,9 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-
+import { isMobile } from '@/utils/equipment'
 import { CountTo } from 'vue3-count-to'
 </script>
 <style lang="scss" scoped>
@@ -264,191 +265,380 @@ import { CountTo } from 'vue3-count-to'
   }
 }
 
-
-
 @media (min-width: 960px) and (max-width: 1220px) {
   .business-info {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  // align-items: center;
-  justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
 
-  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-  scroll-snap-align: start;
-  padding-top: 15vh;
-  .business-container {
-    margin: 0 auto;
-    width: var(--base-width);
-    transition: all 0.3s ease-in;
-    zoom: 1;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding-top: 15vh;
+    .business-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
 
-    .business-container-top {
-      width: 100%;
-      gap: 5%;
-      display: flex;
+      .business-container-top {
+        width: 100%;
+        gap: 5%;
+        display: flex;
 
-      .business-container-left {
-        width: 50%;
-        height: auto;
+        .business-container-left {
+          width: 50%;
+          height: auto;
 
-        .business-container-left-item {
-          width: 100%;
-
-          .topic {
+          .business-container-left-item {
             width: 100%;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            gap: 1vw;
 
-            .text {
-              font-weight: 400;
-              font-size: var(--aside-fontSize);
-              color: #f3a7a5;
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: var(--aside-fontSize);
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 6px;
+                height: var(--aside-block);
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
             }
 
-            .block {
-              width: 6px;
-              height: var(--aside-block);
-              border-radius: 1px;
-              background-color: #f3a7a5;
+            .name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: var(--topic-fontSize);
+              color: #333333;
             }
-          }
 
-          .name {
-            margin-top: 1vh;
-            font-family:
-              Microsoft YaHei,
-              Microsoft YaHei;
-            font-weight: bold;
-            font-size: var(--topic-fontSize);
-            color: #333333;
-          }
-
-          .desc {
-            margin-top: 2vh;
-            font-family:
-              Microsoft YaHei,
-              Microsoft YaHei;
-            font-weight: 400;
-            font-size: var(--desc-fontSize);
-            color: #666666;
-            line-height: var(--desc-lineHeight);
-          }
-
-          .konw-more-about {
-            margin-top: 5vh;
-            width: 150px;
-            height: 40px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid #f3a7a5;
-
-            .text {
-              width: 80%;
+            .desc {
+              margin-top: 2vh;
               font-family:
                 Microsoft YaHei,
                 Microsoft YaHei;
               font-weight: 400;
-              font-size: 18px;
-              color: #f3a7a5;
-              text-align: center;
-              text-indent: 0.5em;
+              font-size: var(--desc-fontSize);
+              color: #666666;
+              line-height: var(--desc-lineHeight);
             }
 
-            .about-icon {
-              color: #f3a7a5;
-              font-size: 40px;
-            }
-          }
-        }
-      }
+            .konw-more-about {
+              margin-top: 5vh;
+              width: 150px;
+              height: 40px;
+              border-radius: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              border: 1px solid #f3a7a5;
 
-      .business-container-right {
-        width: 50%;
-        position: relative;
+              .text {
+                width: 80%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 18px;
+                color: #f3a7a5;
+                text-align: center;
+                text-indent: 0.5em;
+              }
 
-        :deep(.el-image) {
-          width: 100%;
-          height: 100%;
-        }
-
-        .play-btn {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          :deep(.el-image) {
-            width: 60px;
-            height: 60px;
-          }
-        }
-      }
-    }
-
-    .business-container-bottom {
-      margin-top: 6vh;
-      width: 100%;
-      height: 120px;
-      display: flex;
-      gap: 4%;
-      justify-content: center;
-      align-items: center;
-
-      .business-container-bottom-container {
-        width: 20%;
-
-        .business-container-bottom-top {
-          width: 100%;
-          display: flex;
-
-          .bussiness-container-bottom-top-left {
-            position: relative;
-            font-family:
-              Microsoft YaHei,
-              Microsoft YaHei;
-            font-weight: bold;
-            font-size: 60px;
-            color: #f3a7a5;
-            line-height: 0px;
-
-            &.plus {
-              &::after {
-                content: '+';
-                position: absolute;
-                top: -20px;
-                right: -20px;
-                font-size: 20px;
+              .about-icon {
+                color: #f3a7a5;
+                font-size: 40px;
               }
             }
           }
+        }
 
-          .bussiness-container-bottom-top-right {
+        .business-container-right {
+          width: 50%;
+          position: relative;
+
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+          }
+
+          .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            :deep(.el-image) {
+              width: 60px;
+              height: 60px;
+            }
+          }
+        }
+      }
+
+      .business-container-bottom {
+        margin-top: 6vh;
+        width: 100%;
+        height: 120px;
+        display: flex;
+        gap: 4%;
+        justify-content: center;
+        align-items: center;
+
+        .business-container-bottom-container {
+          width: 20%;
+
+          .business-container-bottom-top {
+            width: 100%;
+            display: flex;
+
+            .bussiness-container-bottom-top-left {
+              position: relative;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 60px;
+              color: #f3a7a5;
+              line-height: 0px;
+
+              &.plus {
+                &::after {
+                  content: '+';
+                  position: absolute;
+                  top: -20px;
+                  right: -20px;
+                  font-size: 20px;
+                }
+              }
+            }
+
+            .bussiness-container-bottom-top-right {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+              margin-left: 10px;
+            }
+          }
+
+          .business-container-bottom-bottom {
+            margin-top: 10px;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
-            font-size: 16px;
+            font-size: 18px;
             color: #333333;
-            margin-left: 10px;
           }
-        }
-
-        .business-container-bottom-bottom {
-          margin-top: 10px;
-          font-family:
-            Microsoft YaHei,
-            Microsoft YaHei;
-          font-weight: 400;
-          font-size: 18px;
-          color: #333333;
         }
       }
     }
   }
 }
+
+@media (max-width: 960px) {
+  .business-info {
+    width: 100vw;
+    height: auto;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding-top: 0;
+    .business-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+      padding: 2vh;
+      box-sizing: border-box;
+      .business-container-top {
+        width: 100%;
+        gap: 5%;
+        display: flex;
+        flex-direction: column;
+
+        .business-container-left {
+          width: 100%;
+          height: auto;
+
+          .business-container-left-item {
+            width: 100%;
+
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: none;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: var(--aside-fontSize);
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 6px;
+                height: var(--aside-block);
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
+            }
+
+            .name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 18px;
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 2vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #666666;
+              line-height: var(--desc-lineHeight);
+            }
+
+            .konw-more-about {
+              margin-top: 5vh;
+              width: 150px;
+              height: 40px;
+              border-radius: 50px;
+              display: none;
+              align-items: center;
+              justify-content: space-between;
+              border: 1px solid #f3a7a5;
+
+              .text {
+                width: 80%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 18px;
+                color: #f3a7a5;
+                text-align: center;
+                text-indent: 0.5em;
+              }
+
+              .about-icon {
+                color: #f3a7a5;
+                font-size: 40px;
+              }
+            }
+          }
+        }
+
+        .business-container-right {
+          margin-top: 2vh;
+          width: 100%;
+          position: relative;
+
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+          }
+
+          .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            :deep(.el-image) {
+              width: 60px;
+              height: 60px;
+            }
+          }
+        }
+      }
+
+      .business-container-bottom {
+        margin-top: 6vh;
+        width: 100%;
+        height: 120px;
+        display: flex;
+        gap: 4%;
+        justify-content: center;
+        align-items: center;
+
+        .business-container-bottom-container {
+          width: 20%;
+
+          .business-container-bottom-top {
+            width: 100%;
+            display: flex;
+
+            .bussiness-container-bottom-top-left {
+              position: relative;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 25px;
+              color: #f3a7a5;
+              line-height: 0px;
+
+              &.plus {
+                &::after {
+                  content: '+';
+                  position: absolute;
+                  top: -15px;
+                  right: -15px;
+                  font-size: 15px;
+                }
+              }
+            }
+
+            .bussiness-container-bottom-top-right {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 12px;
+              color: #333333;
+              margin-left: 10px;
+            }
+          }
+
+          .business-container-bottom-bottom {
+            margin-top: 10px;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 12px;
+            color: #333333;
+            white-space: nowrap;
+            
+          }
+        }
+      }
+    }
+  }
 }
 </style>

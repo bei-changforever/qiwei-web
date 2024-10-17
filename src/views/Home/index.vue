@@ -1,5 +1,5 @@
 <template>
-  <div class="home-base-container">
+  <div class="home-base-container" v-if="!changePageShow">
     <div class="main-okj-container" ref="container">
       <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
@@ -9,6 +9,16 @@
           <CusFooter />
         </footer>
       </div>
+    </div>
+  </div>
+  <div class="product-base-container" ref="productBaseContainer" v-else>
+    <div class="main-okj-container-nofull" ref="nofull">
+      <div class="nofull-boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
+        <component :is="comp" />
+      </div>
+      <footer id="footer">
+        <CusFooter />
+      </footer>
     </div>
   </div>
 </template>
@@ -23,6 +33,7 @@ import Quality from '@/views/Home/quality.vue'
 import DevelopMent2 from '@/views/Home/development2.vue'
 import Added from '@/views/Home/added.vue'
 import emitter from '@/utils/mitt'
+import { isMobile } from '@/utils/equipment'
 const domArr = shallowRef([
   {
     id: 'home',
@@ -122,8 +133,50 @@ const handleScrolltoTop = () => {
       scrollToPage(0)
 }
 
+
+const productBaseContainer = ref(null)
+
+// 处理滚轮事件的方法
+const handleWheel = (event) => {
+  const deltaY = event.deltaY
+
+  if (deltaY < 0) {
+    // 向上滚动
+    if (productBaseContainer.value.getBoundingClientRect().top > -100) {
+      emitter.emit('changHeaderBack', {
+        isDark: true,
+        activeBackgroundColor: null,
+        slideChangeBakColor: false
+      })
+    }
+  } else if (deltaY > 0) {
+    // 向下滚动
+    if (productBaseContainer.value.getBoundingClientRect().top <= -100) {
+      emitter.emit('changHeaderBack', {
+        isDark: false,
+        activeBackgroundColor: 'white',
+        slideChangeBakColor: true
+      })
+    }
+  }
+}
+
+
+
+
+const changePageShow = ref(false)
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
+
+
+  let eq = isMobile()
+  if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
+    changePageShow.value = true
+  } else {
+    changePageShow.value = false
+  }
+
+
   emitter.on('BACKPAGETOP', (res) => {
     handleScrolltoTop()
   })
@@ -143,6 +196,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('DOMMouseScroll', mouseWheel)
   emitter.off('BACKPAGETOP')
+  // window.removeEventListener('wheel', handleWheel)
 })
 
 watch(
@@ -189,6 +243,15 @@ watch(screenWidth, (newVal, oldVal) => {})
     .boxapi {
       overflow: hidden;
     }
+  }
+}
+
+
+.product-base-container {
+  width: 100vw;
+  //   border: 1px solid red;
+  .main-okj-container-nofull {
+    width: 100%;
   }
 }
 </style>

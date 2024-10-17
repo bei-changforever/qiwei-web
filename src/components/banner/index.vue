@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!changeBanner">
     <div class="arrow l">
       <el-image
         :src="getAssetsFile('icon', 'l.png')"
@@ -39,10 +39,19 @@
       ></div>
     </div>
   </div>
+  <div class="container" v-else>
+    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+      <van-swipe-item v-for="(item, index) in slide" :key="index">
+        <img :src="getAssetsFile('images', '轮播海报.png')" alt="" />
+      </van-swipe-item>
+    </van-swipe>
+  </div>
 </template>
 <script setup lang="ts">
 import { ref, nextTick, onMounted, onUnmounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { isMobile } from '@/utils/equipment'
+import { Swipe, SwipeItem } from 'vant'
 const currentIndex = ref(0)
 const slide = ref([
   {
@@ -91,17 +100,26 @@ const handleMouseOver = () => {
   clearInterval(timer.value)
 }
 const handleMouseOut = () => {
-    nextTick(() => {
-      timer.value = setInterval(() => {
-        next()
-      }, 10000)
-    })
+  nextTick(() => {
+    timer.value = setInterval(() => {
+      next()
+    }, 10000)
+  })
 }
 // 通过自定义指示器切换，赋值给轮播图
 const changeIndicator = (index) => {
   currentIndex.value = index
 }
+
+const changeBanner = ref(false)
 onMounted(() => {
+  let eq = isMobile()
+  if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
+    changeBanner.value = true
+  } else {
+    changeBanner.value = false
+  }
+
   // 自动轮播
   timer.value = setInterval(() => {
     next()
@@ -126,45 +144,44 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-
 .custom-indicator {
-    position: absolute;
-    bottom: 2vw;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
+  position: absolute;
+  bottom: 2vw;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 
-    .custom-indicator-item {
-      position: relative;
-      width: 6px;
-      height: 6px;
-      background-color: rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      cursor: pointer;
+  .custom-indicator-item {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
 
-      &.active {
-        background-color: white;
+    &.active {
+      background-color: white;
 
-        &::after {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 18px;
-          height: 18px;
-          background-color: transparent;
-          border-radius: 50%;
-          border: 2px solid white;
-        }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 18px;
+        height: 18px;
+        background-color: transparent;
+        border-radius: 50%;
+        border: 2px solid white;
       }
     }
   }
+}
 
 .slide {
   width: 100%;
@@ -244,5 +261,14 @@ onUnmounted(() => {
 }
 .r {
   right: 2vw;
+}
+
+
+@media (max-width: 960px) {
+  .container {
+    width: 100vw;
+    height: auto;
+    // .my-swipe {}
+  }
 }
 </style>

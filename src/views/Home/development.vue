@@ -34,7 +34,18 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { isMobile } from '@/utils/equipment'
+const changePageShow = ref(false)
+onMounted(() => {
+  let eq = isMobile()
+  if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
+    changePageShow.value = true
+  } else {
+    changePageShow.value = false
+  }
+})
 </script>
 <style lang="scss" scoped>
 .business-info {
@@ -409,6 +420,204 @@ import { getAssetsFile } from '@/utils/tools'
               Microsoft YaHei;
             font-weight: 400;
             font-size: 18px;
+            color: #333333;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .business-info {
+    width: 100vw;
+    height: auto;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding-top: 0;
+    .business-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+      padding: 2vh;
+      .business-container-top {
+        width: 100%;
+        gap: 5%;
+        display: flex;
+        flex-direction: column;
+
+        .business-container-left {
+          width: 100%;
+          height: auto;
+
+          .business-container-left-item {
+            width: 100%;
+
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: none;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: var(--aside-fontSize);
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 6px;
+                height: var(--aside-block);
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
+            }
+
+            .name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 18px;
+              color: #333333;
+            }
+
+            .fu-name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 14px;
+              color: #666666;
+              line-height: var(--desc-lineHeight);
+            }
+
+            .konw-more-about {
+              margin-top: 5vh;
+              width: 166px;
+              height: 46px;
+              border-radius: 50px;
+              display: none;
+              align-items: center;
+              justify-content: space-between;
+              border: 1px solid #f3a7a5;
+
+              .text {
+                width: 80%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 20px;
+                color: #f3a7a5;
+                text-align: center;
+                text-indent: 0.5em;
+              }
+
+              .about-icon {
+                color: #f3a7a5;
+                font-size: 46px;
+              }
+            }
+          }
+        }
+
+        .business-container-right {
+          margin-top: 2vh;
+          width: 100%;
+          position: relative;
+
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+          }
+
+          .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            :deep(.el-image) {
+              width: 60px;
+              height: 60px;
+            }
+          }
+        }
+      }
+
+      .business-container-bottom {
+        margin-top: 10vh;
+        width: 100%;
+        height: 130px;
+        display: flex;
+        gap: 4%;
+        justify-content: center;
+        align-items: center;
+
+        .business-container-bottom-container {
+          width: 20%;
+
+          .business-container-bottom-top {
+            width: 100%;
+            display: flex;
+
+            .bussiness-container-bottom-top-left {
+              position: relative;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 72px;
+              color: #f3a7a5;
+              line-height: 0px;
+
+              &.plus {
+                &::after {
+                  content: '+';
+                  position: absolute;
+                  top: -20px;
+                  right: -20px;
+                  font-size: 26px;
+                }
+              }
+            }
+
+            .bussiness-container-bottom-top-right {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 20px;
+              color: #333333;
+              margin-left: 10px;
+            }
+          }
+
+          .business-container-bottom-bottom {
+            margin-top: 10px;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 20px;
             color: #333333;
           }
         }

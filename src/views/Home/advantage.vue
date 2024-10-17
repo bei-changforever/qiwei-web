@@ -19,16 +19,33 @@
           </div>
         </div>
       </div>
-      <div class="accordion">
+      <div class="accordion" v-if="!changePageShow">
         <Accordion />
+      </div>
+      <div class="accordion" v-else>
+        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+          <van-swipe-item v-for="(item, index) in 5" :key="index">
+            <img :src="getAssetsFile('images', '核心优势选中1.png')" alt="" />
+          </van-swipe-item>
+        </van-swipe>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
+import { reactive, toRefs, onBeforeMount, onMounted, ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { isMobile } from '@/utils/equipment'
 import Accordion from '@/components/accordion/index.vue'
+const changePageShow = ref(false)
+onMounted(() => {
+  let eq = isMobile()
+  if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
+    changePageShow.value = true
+  } else {
+    changePageShow.value = false
+  }
+})
 </script>
 <style lang="scss" scoped>
 .advantage {
@@ -134,72 +151,72 @@ import Accordion from '@/components/accordion/index.vue'
 }
 @media (min-width: 960px) and (max-width: 1220px) {
   .advantage {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  // align-items: center;
-  justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
 
-  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-  scroll-snap-align: start;
-  padding: 15vh;
-  .advantage-box {
-    margin: 0 auto;
-    width: var(--base-width);
-    transition: all 0.3s ease-in;
-    zoom: 1;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding: 15vh;
+    .advantage-box {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
 
-    .advantage-container {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
+      .advantage-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
 
-      .T-left {
-        .topic {
-          width: 100%;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          gap: 1vw;
+        .T-left {
+          .topic {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 1vw;
 
-          .text {
+            .text {
+              font-weight: 400;
+              font-size: var(--aside-fontSize);
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 6px;
+              height: var(--aside-block);
+              border-radius: 1px;
+              background-color: #f3a7a5;
+            }
+          }
+
+          .name {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: bold;
+            font-size: var(--topic-fontSize);
+            color: #333333;
+          }
+
+          .desc {
+            margin-top: 2vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
             font-weight: 400;
-            font-size: var(--aside-fontSize);
-            color: #f3a7a5;
-          }
-
-          .block {
-            width: 6px;
-            height: var(--aside-block);
-            border-radius: 1px;
-            background-color: #f3a7a5;
+            font-size: var(--desc-fontSize);
+            color: #666666;
+            line-height: var(--desc-lineHeight);
           }
         }
 
-        .name {
-          margin-top: 1vh;
-          font-family:
-            Microsoft YaHei,
-            Microsoft YaHei;
-          font-weight: bold;
-          font-size: var(--topic-fontSize);
-          color: #333333;
-        }
-
-        .desc {
-          margin-top: 2vh;
-          font-family:
-            Microsoft YaHei,
-            Microsoft YaHei;
-          font-weight: 400;
-          font-size: var(--desc-fontSize);
-          color: #666666;
-          line-height: var(--desc-lineHeight);
-        }
-      }
-
-      .T-right {
-        .konw-more-about {
+        .T-right {
+          .konw-more-about {
             margin-top: 5vh;
             width: 150px;
             height: 40px;
@@ -226,13 +243,118 @@ import Accordion from '@/components/accordion/index.vue'
               font-size: 40px;
             }
           }
+        }
       }
-    }
 
-    .accordion {
-      margin-top: 3vh;
+      .accordion {
+        margin-top: 3vh;
+      }
     }
   }
 }
+
+@media (max-width: 960px) {
+  .advantage {
+    width: 100vw;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    // padding: 15vh;
+    padding: 0;
+    .advantage-box {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+      padding: 2vh;
+      .advantage-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .T-left {
+          .topic {
+            width: 100%;
+            height: 40px;
+            display: none;
+            align-items: center;
+            gap: 1vw;
+
+            .text {
+              font-weight: 400;
+              font-size: var(--aside-fontSize);
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 6px;
+              height: var(--aside-block);
+              border-radius: 1px;
+              background-color: #f3a7a5;
+            }
+          }
+
+          .name {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333333;
+          }
+
+          .desc {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 16px;
+            color: #666666;
+            line-height: var(--desc-lineHeight);
+          }
+        }
+
+        .T-right {
+          .konw-more-about {
+            margin-top: 5vh;
+            width: 166px;
+            height: 46px;
+            border-radius: 50px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #f3a7a5;
+
+            .text {
+              width: 80%;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 20px;
+              color: #f3a7a5;
+              text-align: center;
+              text-indent: 0.5em;
+            }
+
+            .about-icon {
+              color: #f3a7a5;
+              font-size: 46px;
+            }
+          }
+        }
+      }
+
+      .accordion {
+        margin-top: 2vh;
+      }
+    }
+  }
 }
 </style>

@@ -9,19 +9,15 @@ declare module 'vue' {
   export interface GlobalComponents {
     Accordion: typeof import('./src/components/accordion/index.vue')['default']
     Banner: typeof import('./src/components/banner/index.vue')['default']
-    ElButton: typeof import('element-plus/es')['ElButton']
-    ElForm: typeof import('element-plus/es')['ElForm']
-    ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
-    ElInput: typeof import('element-plus/es')['ElInput']
-    ElOption: typeof import('element-plus/es')['ElOption']
-    ElSelect: typeof import('element-plus/es')['ElSelect']
     Footer: typeof import('./src/components/footer/index.vue')['default']
     Header: typeof import('./src/components/header/index.vue')['default']
     MainContainer: typeof import('./src/components/main-container/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VanPopup: typeof import('vant/es')['Popup']
+    VanSwipe: typeof import('vant/es')['Swipe']
+    VanSwipeItem: typeof import('vant/es')['SwipeItem']
   }
 }
