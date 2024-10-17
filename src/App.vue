@@ -133,7 +133,7 @@ onUnmounted(() => {
   <!-- <CusMainContainer/> -->
   <van-popup v-model:show="showTop" position="right" @click-close-icon="onClickCloseIcon" closeable :overlay="false"
     :style="{
-      width: '30%', height: '100%', zIndex: 99
+      width: '50%', height: '100%', zIndex: 99
     }">
 
     <div class="phone-mobile">
@@ -160,7 +160,7 @@ onUnmounted(() => {
   .conent {
     width: 100%;
     height: 100%;
-    padding: 10vh;
+    padding: 5vh;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
