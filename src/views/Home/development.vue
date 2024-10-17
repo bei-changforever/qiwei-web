@@ -39,10 +39,11 @@ import { getAssetsFile } from '@/utils/tools'
 <style lang="scss" scoped>
 .business-info {
   width: 100vw;
-  height: 100vh;
+  height: 70vh;
   display: flex;
   // align-items: center;
   justify-content: center;
+  // background-color: pink;
 
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;

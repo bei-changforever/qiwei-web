@@ -60,30 +60,26 @@ function scrollDown() {
 }
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  if (pageIndex == 8) {
-    if (screenWidth.value >= 1520 && screenWidth.value <= 1920) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
 
-    if (screenWidth.value <= 1520 && screenWidth.value >= 1440) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
+  console.log(pageIndex);
 
-    if (screenWidth.value <= 1440 && screenWidth.value >= 1220) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
-
-    if (screenWidth.value <= 1220 && screenWidth.value >= 960) {
-
-      container.value.style.top = `-${pageIndex - 1}72%`
-    }
-
-    if (screenWidth.value <= 960) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
-  } else {
+  if (pageIndex == 5) {
+    container.value.style.top = `-470%`
+  }
+  else if (pageIndex == 6) {
+    container.value.style.top = `-565%`
+  }
+  else if(pageIndex == 7) {
+    container.value.style.top = `-670%`
+  }
+  else if(pageIndex == 8) {
+    container.value.style.top = `-729%`
+  }
+  else {
     container.value.style.top = `-${pageIndex}00%`
   }
+
+
 
   pageScroll.value = false
   scrollTimer()
@@ -119,7 +115,7 @@ const handleResize = () => {
 }
 
 const handleScrolltoTop = () => {
-      scrollToPage(0)
+  scrollToPage(0)
 }
 
 onMounted(() => {
@@ -164,7 +160,7 @@ watch(
   }
 )
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
-watch(screenWidth, (newVal, oldVal) => {})
+watch(screenWidth, (newVal, oldVal) => { })
 </script>
 <style scoped lang="scss">
 .home-base-container {
