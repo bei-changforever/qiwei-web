@@ -28,23 +28,23 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide v-for="item in 6" :key="item">
+        <swiper-slide v-for="(item, index) in list" :key="index">
           <div class="product-info">
             <div class="product-info-container">
               <div class="background-detail-box">
                 <div class="background-detail">
-                  <span>产品展示</span>
-                  <span>修颜柔润持妆粉底液</span>
+                  <span>产品展示{{ convertToChineseNumber(index + 1) }}</span>
+                  <span>{{ item.title }}</span>
                 </div>
               </div>
               <div class="backfround-info-box">
                 <div class="background-info">
-                  <span> 产品展示</span>
+                  <span> 产品展示{{ convertToChineseNumber(index + 1) }}</span>
                 </div>
               </div>
               <div class="background-image-box">
                 <div class="background-image">
-                  <el-image :src="getAssetsFile('images', '热门产品未选中1.png')" :fit="'fill'" />
+                  <img :src="item.src" />
                 </div>
               </div>
             </div>
@@ -70,7 +70,7 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { getAssetsFile } from '@/utils/tools'
 import { ref } from 'vue'
 // Import Swiper Vue.js components
@@ -84,6 +84,54 @@ import 'swiper/css/effect-fade'
 
 const modules = [FreeMode, Pagination, EffectFade, Navigation]
 const productType = ['底纹', '彩妆', '护肤', '清洁', '隔离']
+
+const list = [
+  {
+    title: '修颜柔润持妆粉底液',
+    src: getAssetsFile('images', '热门产品未选中1.png')
+  },
+  {
+    title: '修颜柔润持妆粉底液',
+    src: getAssetsFile('images', '热门产品未选中1.png')
+  },
+  {
+    title: '修颜柔润持妆粉底液',
+    src: getAssetsFile('images', '热门产品未选中1.png')
+  }
+]
+
+//阿拉伯数字转中文数字
+function convertToChineseNumber(num) {
+  const chineseNums = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+  const units = ['', '十', '百', '千', '万', '十', '百', '千', '亿']
+  let result = ''
+  let zero = false
+  let strNum = num.toString()
+
+  for (let i = 0; i < strNum.length; i++) {
+    let n = parseInt(strNum[i])
+    if (n === 0) {
+      if (!zero) {
+        result += chineseNums[n]
+        zero = true
+      }
+    } else {
+      if (zero && i !== strNum.length - 1) {
+        result = result.slice(0, -1) // 去掉多余的零
+      }
+      result += chineseNums[n] + units[strNum.length - i - 1]
+      zero = false
+    }
+  }
+
+  // 处理特殊情况，如“10”、“100”
+  if (result.startsWith('一十')) {
+    result = result.slice(1)
+  }
+
+  return result
+}
+
 const productTypeIndex = ref(0)
 const swiperDom = ref(null)
 const onSwiper = (swiper) => {
@@ -131,7 +179,7 @@ const bannerSwiperNext = () => {
 
       .text {
         font-weight: 400;
-        font-size:  var(--aside-fontSize);
+        font-size: var(--aside-fontSize);
         color: #f3a7a5;
       }
 
@@ -208,13 +256,13 @@ const bannerSwiperNext = () => {
 
     .mySwiper {
       width: 100%;
-      height: 540px;
-
+      height: 560px;
+      // border: 1px solid skyblue;
       .product-info {
         width: 100%;
-        height: 99%;
+        height: 98%;
         margin: 0 auto;
-
+        // border: 1px solid red;
         .product-info-container {
           position: relative;
           width: 100%;
@@ -283,9 +331,10 @@ const bannerSwiperNext = () => {
               zoom: 1;
               transition: all 0.3s ease-in;
 
-              :deep(.el-image) {
+              img {
                 width: 100%;
                 height: 100%;
+                border-radius: 0;
               }
             }
           }
@@ -326,16 +375,19 @@ const bannerSwiperNext = () => {
             }
 
             .background-image-box {
-              bottom: -10vh;
+              bottom: -8.4vh;
               transform: scale(0.8);
               transform-origin: bottom center;
               transition: all 0.3s ease-in;
 
               .background-image {
+                // border: 1px solid red;
                 bottom: 0;
                 transform: scale(0.8);
                 transform-origin: bottom center;
                 transition: all 0.2s ease-in;
+                border-radius: 20px !important;
+                overflow: hidden;
               }
             }
 
@@ -349,7 +401,7 @@ const bannerSwiperNext = () => {
     }
 
     .home-product-swiper-pagination {
-      margin-top: 2vw;
+      margin-top: 1vh;
       width: 100%;
       height: 80px;
       display: flex;
@@ -576,7 +628,7 @@ const bannerSwiperNext = () => {
                 zoom: 1;
                 transition: all 0.3s ease-in;
 
-                :deep(.el-image) {
+                img {
                   width: 100%;
                   height: 100%;
                 }
@@ -619,16 +671,19 @@ const bannerSwiperNext = () => {
               }
 
               .background-image-box {
-                bottom: -10vh;
+                bottom: -8.4vh;
                 transform: scale(0.8);
                 transform-origin: bottom center;
                 transition: all 0.3s ease-in;
 
                 .background-image {
+                  // border: 1px solid red;
                   bottom: 0;
                   transform: scale(0.8);
                   transform-origin: bottom center;
                   transition: all 0.2s ease-in;
+                  border-radius: 20px !important;
+                  overflow: hidden;
                 }
               }
 

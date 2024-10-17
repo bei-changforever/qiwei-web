@@ -39,7 +39,7 @@ import { getAssetsFile } from '@/utils/tools'
 <style lang="scss" scoped>
 .business-info {
   width: 100vw;
-  height: 100vh;
+  height: 70vh;
   display: flex;
   // align-items: center;
   justify-content: center;
@@ -234,7 +234,7 @@ import { getAssetsFile } from '@/utils/tools'
 @media (min-width: 960px) and (max-width: 1220px) {
   .business-info {
     width: 100vw;
-    height: 100vh;
+    height: 70vh;
     display: flex;
     // align-items: center;
     justify-content: center;

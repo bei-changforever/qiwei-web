@@ -104,14 +104,8 @@ function mouseWheel(e) {
 
                 if (pageIndex.value == 1) {
                     bigSizeIndex.value++;
-                    // console.log("bigSizeIndex=========>", bigSizeIndex.value);
-                    // // console.log('kkkkk');
-                    // console.log("pageIndex===========>", pageIndex.value);
-
-
+        
                     if (bigSizeIndex.value >= 1 && bigSizeIndex.value < 3) {
-                        console.log("执行");
-
                         container.value.style.top = `-100%`
                     }
                     if (bigSizeIndex.value >= 3) {
@@ -124,10 +118,6 @@ function mouseWheel(e) {
 
                 else if (pageIndex.value == 3) {
                     bigSizeIndex.value++;
-                    // console.log("bigSizeIndex=========>", bigSizeIndex.value);
-                    // // console.log('kkkkk');
-                    // console.log("pageIndex===========>",pageIndex.value);
-
                     if (bigSizeIndex.value >= 1 && bigSizeIndex.value < 3) {
                         container.value.style.top = `-330%`
                     }
@@ -138,8 +128,7 @@ function mouseWheel(e) {
                     }
 
                 } else {
-                    console.log("fuzhu");
-
+                 
                     scrollDown()
                 }
 

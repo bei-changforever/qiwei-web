@@ -12,98 +12,44 @@
         <div class="T-right">
           <div class="swiper-btn">
             <div class="prev">
-              <el-image :src="getAssetsFile('icon', 'left.png')" :fit="'fill'" />
+              <el-image
+                :src="getAssetsFile('icon', 'left.png')"
+                :fit="'fill'"
+                @click="bannerSwiperPrev"
+              />
             </div>
             <div class="next">
-              <el-image :src="getAssetsFile('icon', 'right.png')" :fit="'fill'" />
+              <el-image
+                :src="getAssetsFile('icon', 'right.png')"
+                :fit="'fill'"
+                @click="bannerSwiperNext"
+              />
             </div>
           </div>
         </div>
       </div>
       <div class="about-history-container-bottom">
-        <swiper class="mySwiper">
+        <swiper class="mySwiper" @swiper="onSwiper">
           <swiper-slide>
             <div class="about-history-container-bottom-content">
               <div class="content-background-image"></div>
               <div class="content-text">
-                <div class="text-title">
+                <div
+                  class="text-title"
+                  v-for="(item, index) in list"
+                  :key="index"
+                  @mouseleave="handleMouseleave(index)"
+                >
                   <div class="block"></div>
 
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content is-no">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
+                  <div class="time" @mouseenter="handleMouseenter(index)">{{ item.year }}</div>
+                  <div :class="['text-content', activeIndex == index ? '' : 'is-no']">
+                    <div class="content-time">{{ item.content.year }}</div>
+                    <div class="content-detail" v-for="(d, i2) in item.content.detail" :key="i2">
+                      <div class="text">{{ d.text }}</div>
                     </div>
                     <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-title">
-                  <div class="block"></div>
-
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content is-no">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
-                    </div>
-                    <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
-                    </div>
-                  </div>
-                </div>
-                <div class="text-title">
-                  <div class="block"></div>
-
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content is-no">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
-                    </div>
-                    <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
-                    </div>
-                  </div>
-                </div>
-                <div class="text-title">
-                  <div class="block"></div>
-
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content is-no">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
-                    </div>
-                    <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
-                    </div>
-                  </div>
-                </div>
-                <div class="text-title">
-                  <div class="block"></div>
-
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
-                    </div>
-                    <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
+                      <img :src="item.content.src" alt="" />
                     </div>
                   </div>
                 </div>
@@ -112,7 +58,29 @@
           </swiper-slide>
           <swiper-slide>
             <div class="about-history-container-bottom-content">
-              <div class="content-background-image unback"></div>
+              <div class="content-background-image unback">
+                <div class="content-text reback">
+                  <div
+                    class="text-title"
+                    v-for="(item, index) in list2"
+                    :key="index"
+                    @mouseleave="handleMouseleave(index)"
+                  >
+                    <div class="block"></div>
+
+                    <div class="time" @mouseenter="handleMouseenter(index)">{{ item.year }}</div>
+                    <div :class="['text-content', activeIndex == index ? '' : 'is-no']">
+                      <div class="content-time">{{ item.content.year }}</div>
+                      <div class="content-detail" v-for="(d, i2) in item.content.detail" :key="i2">
+                        <div class="text">{{ d.text }}</div>
+                      </div>
+                      <div class="image">
+                        <img :src="item.content.src" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </swiper-slide>
           <swiper-slide>
@@ -125,7 +93,8 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
+import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 
 // Import Swiper Vue.js components
@@ -133,6 +102,140 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 
 // Import Swiper styles
 import 'swiper/css'
+
+const list = [
+  {
+    year: 'SINCE 1996',
+    content: {
+      year: 'SINCE 1996',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  },
+  {
+    year: '1997-2002',
+    content: {
+      year: '1997-2002',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  },
+  {
+    year: '2003-2010',
+    content: {
+      year: '2003-2010',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  },
+  {
+    year: '2011-2015',
+    content: {
+      year: '2011-2015',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  },
+  {
+    year: '2016-2021',
+    content: {
+      year: '2016-2021',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  }
+]
+
+const list2 = [
+  {
+    year: '2022-2024',
+    content: {
+      year: '2022-2024',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  }
+]
+
+const activeIndex = ref(-1)
+const handleMouseenter = (index) => {
+  activeIndex.value = index
+}
+const handleMouseleave = (index) => {
+  activeIndex.value = -1
+}
+
+const swiperDom = ref(null)
+const onSwiper = (swiper) => {
+  swiperDom.value = swiper
+}
+const bannerSwiperPrev = () => {
+  swiperDom.value.slidePrev()
+}
+
+const bannerSwiperNext = () => {
+  swiperDom.value.slideNext()
+}
 </script>
 <style lang="scss" scoped>
 .about-history {
@@ -240,6 +343,10 @@ import 'swiper/css'
           align-items: center;
           justify-content: center;
           gap: 2vw;
+
+          &.reback {
+            transform: rotateY(180deg);
+          }
 
           .text-title {
             position: relative;

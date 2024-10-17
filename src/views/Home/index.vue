@@ -1,5 +1,5 @@
 <template>
-  <div class="home-base-container">
+  <!-- <div class="home-base-container">
     <div class="main-okj-container" ref="container">
       <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
@@ -10,11 +10,23 @@
         </footer>
       </div>
     </div>
+  </div> -->
+  <div class="cus-container">
+    <div class="cus-page" ref="pagecontainer">
+      <div class="cus-page-item" v-for="(comp, index) in domArr[0].domarr" :key="index">
+        <component :is="comp" />
+      </div>
+      <div class="cus-page-item">
+        <footer id="footer">
+          <CusFooter />
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, nextTick, shallowRef, reactive } from 'vue'
-import Banner from '@/components/banner/index.vue'
+import Banner from '@/views/Home/banner.vue'
 import HomeView from '@/views/Home/product.vue'
 import BussinessInfo from '@/views/Home/business-info.vue'
 import Advantage from '@/views/Home/advantage.vue'
@@ -23,171 +35,101 @@ import Quality from '@/views/Home/quality.vue'
 import DevelopMent2 from '@/views/Home/development2.vue'
 import Added from '@/views/Home/added.vue'
 import emitter from '@/utils/mitt'
+import _ from 'lodash'
 const domArr = shallowRef([
   {
     id: 'home',
     domarr: [Banner, HomeView, BussinessInfo, Advantage, DevelopMent, Quality, DevelopMent2, Added]
   }
 ])
-const container = ref(null)
-// 定义当前页面的索引
-let pageIndex = ref(0)
-// 定义是否允许滚动
-let pageScroll = ref(true)
-// 定义上一次页面的索引
-let prevIndex = ref(0)
-let boxapis = ref([])
-// 向上滚动
-function scrollUp() {
-  if (pageIndex.value > 0 && pageScroll.value) {
-    prevIndex.value = pageIndex.value
-    pageIndex.value--
-    scrollToPage(pageIndex.value)
-  } else if (pageIndex.value <= 0) {
-    pageIndex.value = 0
-  }
-}
 
-// 向下滚动
-function scrollDown() {
-  if (pageIndex.value < boxapis.value.length - 1 && pageScroll.value) {
-    prevIndex.value = pageIndex.value
-    pageIndex.value++
-    scrollToPage(pageIndex.value)
-  } else if (pageIndex.value >= boxapis.value.length - 1) {
-    pageIndex.value = boxapis.value.length - 1
-  }
-}
-// 滚动到指定页面
-function scrollToPage(pageIndex) {
-  if (pageIndex == 8) {
-    if (screenWidth.value >= 1520 && screenWidth.value <= 1920) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
+const pageIndex = ref(0)
+const pagecontainer = ref(null)
+const doms = ref([])
 
-    if (screenWidth.value <= 1520 && screenWidth.value >= 1440) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
-
-    if (screenWidth.value <= 1440 && screenWidth.value >= 1220) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
-
-    if (screenWidth.value <= 1220 && screenWidth.value >= 960) {
-
-      container.value.style.top = `-${pageIndex - 1}72%`
-    }
-
-    if (screenWidth.value <= 960) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
-  } else {
-    container.value.style.top = `-${pageIndex}00%`
-  }
-
-  pageScroll.value = false
-  scrollTimer()
-}
-// 设置定时器，等待500毫秒后，允许再次滚动
-function scrollTimer() {
-  setTimeout(() => {
-    pageScroll.value = true
-  }, 500)
-}
-// 鼠标滚轮事件
-function mouseWheel(e) {
-  if (container.value) {
-    if (e.wheelDelta) {
-      if (e.wheelDelta > 0) {
-        scrollUp()
-      } else {
-        scrollDown()
-      }
+// 处理滚轮事件的方法
+const handleWheel = (event) => {
+  const deltaY = event.deltaY
+  if (deltaY < 0) {
+    // console.log('上滚')
+    if (pageIndex.value == 0) {
+      return
     } else {
-      if (e.detail > 0) {
-        scrollDown()
-      } else {
-        scrollUp()
+      pageIndex.value--
+    }
+  } else if (deltaY > 0) {
+    console.log('下滚')
+    if (pageIndex.value == doms.value.length - 1) {
+      return
+    } else {
+      pageIndex.value++
+      console.log('pageIndex==========>', pageIndex.value)
+
+      if (doms.value[pageIndex.value]) {
+        pagecontainer.value.style.top =
+          '-' + doms.value[pageIndex.value].getBoundingClientRect().top + 'px'
+        console.log(doms.value[pageIndex.value].getBoundingClientRect().top)
+        console.log(doms.value[pageIndex.value])
       }
     }
   }
 }
-const screenWidth = ref(window.innerWidth)
-const handleResize = () => {
-  screenWidth.value =
-    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-}
-
-const handleScrolltoTop = () => {
-      scrollToPage(0)
-}
-
 onMounted(() => {
-  // window.addEventListener('wheel', handleWheel)
-  emitter.on('BACKPAGETOP', (res) => {
-    handleScrolltoTop()
-  })
-  // 添加鼠标滚轮事件
-  document.onmousewheel = mouseWheel
-  document.addEventListener('DOMMouseScroll', mouseWheel, false)
-  // 设置滚动记录
-  history.scrollRestoration = 'manual'
-
   nextTick(() => {
-    boxapis.value = document.querySelectorAll('.boxapi')
-    container.value.style.height = `${boxapis.length}00%`
+    doms.value = document.querySelectorAll('.cus-page-item')
+    // console.log(doms.value)
+    window.addEventListener(
+      'wheel',
+      _.throttle(handleWheel, 5000, {
+        leading: true, // 延长开始后调用
+        trailing: false // 延长结束前调用
+      })
+    )
   })
 
-  window.addEventListener('resize', handleResize)
+  // pagecontainer.value.style.top = -dom[pageIndex.value].getBoundingClientRect().top + 'px'
 })
 onBeforeUnmount(() => {
-  document.removeEventListener('DOMMouseScroll', mouseWheel)
-  emitter.off('BACKPAGETOP')
+  window.removeEventListener('wheel', handleWheel)
 })
 
 watch(
   () => pageIndex.value,
   (newValue, oldValue) => {
-    if (newValue == 0) {
-      emitter.emit('changHeaderBack', {
-        isDark: true,
-        activeBackgroundColor: '#000000',
-        slideChangeBakColor: false
-      })
-    } else {
-      emitter.emit('changHeaderBack', {
-        isDark: true,
-        activeBackgroundColor: '#000000',
-        slideChangeBakColor: true
-      })
-    }
+    // console.log(newValue)
+    // pagecontainer.value.style.top = -doms.value[newValue].getBoundingClientRect().top + 'px'
+    // if (newValue == 0) {
+    //   emitter.emit('changHeaderBack', {
+    //     isDark: true,
+    //     activeBackgroundColor: '#000000',
+    //     slideChangeBakColor: false
+    //   })
+    // } else {
+    //   emitter.emit('changHeaderBack', {
+    //     isDark: true,
+    //     activeBackgroundColor: '#000000',
+    //     slideChangeBakColor: true
+    //   })
+    // }
   }
 )
-//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
-watch(screenWidth, (newVal, oldVal) => {})
 </script>
 <style scoped lang="scss">
-.home-base-container {
-  /* 满屏 */
+.cus-container {
+  position: relative;
   width: 100vw;
   height: 100vh;
-  /* 相对定位 */
-  position: relative;
-  /* 溢出隐藏 */
   overflow: hidden;
 
-  .main-okj-container {
-    width: 100%;
-    height: 100%;
-    /* 绝对定位 */
+  .cus-page {
     position: absolute;
-    left: 0;
     top: 0;
-    /* 添加过渡动画 */
-    transition: all 0.3s ease-in-out;
-
-    .boxapi {
-      overflow: hidden;
+    left: 0;
+    width: 100%;
+    height: auto;
+    border: 1px solid red;
+    .cus-page-item {
+      border: 1px solid orange;
     }
   }
 }

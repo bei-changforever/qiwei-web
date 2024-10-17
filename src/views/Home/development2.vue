@@ -18,9 +18,9 @@
             <div class="T-bottom-container">
               <div class="T-bottom-top">
                 <div class="left">
-                  <span class="active-number">02</span>
+                  <span class="active-number">{{ formatNumber(activeIndex + 1) }}</span>
                   <span>/</span>
-                  <span>10</span>
+                  <span>{{ list.length }}</span>
                 </div>
                 <div class="right">
                   <div class="left-btn">
@@ -41,10 +41,7 @@
               </div>
               <div class="T-bottom-bottom">
                 <div class="T-bottom-bottom-item">
-                  <el-image :src="getAssetsFile('images', '证书1.png')" :fit="'fill'" />
-                  <el-image :src="getAssetsFile('images', '证书2.png')" :fit="'fill'" />
-                  <el-image :src="getAssetsFile('images', '证书3.png')" :fit="'fill'" />
-                  <el-image :src="getAssetsFile('images', '证书4.png')" :fit="'fill'" />
+                  <el-image v-for="(item, index) in list" :key="index" :src="item" :fit="'fill'" />
                 </div>
               </div>
             </div>
@@ -71,19 +68,9 @@
                   :modules="modules"
                   class="mySwiper"
                 >
-                  <swiper-slide
-                    ><el-image :src="getAssetsFile('images', '证书1.png')" :fit="'fill'"
-                  /></swiper-slide>
-                  <swiper-slide
-                    ><el-image
-                      :src="getAssetsFile('images', '证书2.png')"
-                      :fit="'fill'" /></swiper-slide
-                  ><swiper-slide
-                    ><el-image :src="getAssetsFile('images', '证书3.png')" :fit="'fill'"
-                  /></swiper-slide>
-                  <swiper-slide
-                    ><el-image :src="getAssetsFile('images', '证书4.png')" :fit="'fill'"
-                  /></swiper-slide>
+                  <swiper-slide v-for="(item, index) in list" :key="index"
+                    ><el-image :src="item" :fit="'fill'" />
+                  </swiper-slide>
                 </swiper>
               </div>
               <div class="content-right-text">名优高品证书（睫毛膏）</div>
@@ -108,16 +95,39 @@ import 'swiper/css/effect-creative'
 import { EffectCreative } from 'swiper/modules'
 const modules = [EffectCreative]
 
+const activeIndex = ref(0)
+
+// 小于0补0
+const formatNumber = (value) => {
+  return value < 10 ? `0${value}` : `${value}`
+}
+
+const list = [
+  getAssetsFile('images', '证书1.png'),
+  getAssetsFile('images', '证书2.png'),
+  getAssetsFile('images', '证书3.png'),
+  getAssetsFile('images', '证书4.png')
+]
 const swiperDom = ref(null)
 const onSwiper = (swiper) => {
   swiperDom.value = swiper
 }
 const bannerSwiperPrev = () => {
   swiperDom.value.slidePrev()
+  if (activeIndex.value == 0) {
+    return
+  } else {
+    activeIndex.value--
+  }
 }
 
 const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
+  if (activeIndex.value == list.length - 1) {
+    return
+  } else {
+    activeIndex.value++
+  }
 }
 </script>
 <style lang="scss" scoped>
