@@ -53,9 +53,9 @@ import { getAssetsFile } from '@/utils/tools'
   }
 }
 
-@media (max-width: 960px) {
-  .contact-banner {
-    height: 350px;
-  }
-}
+// @media (max-width: 960px) {
+//   .contact-banner {
+//     height: 350px;
+//   }
+// }
 </style>

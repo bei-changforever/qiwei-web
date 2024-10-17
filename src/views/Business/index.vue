@@ -186,6 +186,12 @@ onMounted(() => {
     scrollToPage(res + 1)
   })
 
+  emitter.on('TOGGLEPAGE', (res) => {
+    // bigSizeIndex.value = 0
+    scrollToPage(res + 1)
+    
+  })
+
   emitter.on('BACKPAGETOP', (res) => {
     handleScrolltoTop()
     bigSizeIndex.value = 0
@@ -212,6 +218,7 @@ onBeforeUnmount(() => {
 
   document.removeEventListener('DOMMouseScroll', mouseWheel)
   emitter.off('BACKPAGETOP')
+  emitter.off('TOGGLEPAGE')
 })
 
 

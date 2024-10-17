@@ -225,7 +225,7 @@ onUnmounted(() => {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  z-index: 100;
+  z-index: 9;
   background: rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   transform: background 500ms;

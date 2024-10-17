@@ -144,6 +144,7 @@ import 'swiper/css'
   background-color: white;
   padding-top: 12vh;
   box-sizing: border-box;
+
   // background-color: pink;
   .about-history-container {
     margin: 0 auto;
@@ -411,6 +412,301 @@ import 'swiper/css'
               font-weight: bold;
               font-size: 24px;
               color: #333333;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .about-history {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding-top: 12vh;
+    box-sizing: border-box;
+
+    // background-color: pink;
+    .about-history-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      .about-history-container-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .T-left {
+          .topic {
+            width: 100%;
+            height: 40px;
+            display: none;
+            align-items: center;
+            gap: 1vw;
+
+            .text {
+              font-weight: 400;
+              font-size: var(--aside-fontSize);
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 6px;
+              height: var(--aside-block);
+              border-radius: 1px;
+              background-color: #f3a7a5;
+            }
+          }
+
+          .name {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: bold;
+            font-size: var(--topic-fontSize);
+            color: #333333;
+            display: none;
+          }
+        }
+
+        .T-right {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .swiper-btn {
+            margin-top: 5vh;
+            display: flex;
+            gap: 1vw;
+
+            :deep(.el-image) {
+              width: 40px;
+              height: 40px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .about-history-container-bottom {
+        width: 100%;
+        padding: 5vh;
+        box-sizing: border-box;
+
+        .about-history-container-bottom-content {
+          width: 100%;
+          position: relative;
+          height: 60vh;
+
+          .content-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../../assets/images/时间背景.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+
+            &.unback {
+              transform: rotateY(180deg);
+            }
+          }
+
+          .content-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            // border: 1px solid red;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2vw;
+
+            .text-title {
+              position: relative;
+              cursor: pointer;
+
+              // background-color: orange;
+
+              .text-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 20px;
+                box-sizing: border-box;
+                z-index: 2;
+
+                &.is-no {
+                  display: none;
+                }
+
+                .content-time {
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: 32px;
+                  color: #333333;
+                  margin-bottom: 1vh;
+                }
+
+                .content-detail {
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 14px;
+                  color: #333333;
+                  margin-bottom: 2.5vh;
+
+                  .text {
+                    position: relative;
+                    margin-left: 1vw;
+
+                    &::after {
+                      content: '';
+                      position: absolute;
+                      left: -10px;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      width: 5px;
+                      height: 5px;
+                      border-radius: 50%;
+                      background-color: #b9b9b9;
+                    }
+                  }
+                }
+
+                .image {
+                  width: 100%;
+                  height: 230px;
+
+                  img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: fill;
+                  }
+                }
+              }
+
+              &:nth-child(1) {
+                .text-content {
+                  position: absolute;
+                  top: -15vh;
+                  left: 160px;
+                  width: 320px;
+                  height: 420px;
+                  background-image: url('../../assets/images/选中时间背景.png');
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                }
+              }
+
+              &:nth-child(2) {
+                margin-bottom: 15vh;
+
+                .text-content {
+                  position: absolute;
+                  top: -15vh;
+                  left: 160px;
+                  width: 320px;
+                  height: 420px;
+                  background-image: url('../../assets/images/选中时间背景.png');
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                }
+              }
+
+              &:nth-child(3) {
+                margin-bottom: 16vh;
+
+                .text-content {
+                  position: absolute;
+                  top: -15vh;
+                  left: 160px;
+                  width: 320px;
+                  height: 420px;
+                  background-image: url('../../assets/images/选中时间背景.png');
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                }
+              }
+
+              &:nth-child(4) {
+                margin-bottom: 12vh;
+
+                .text-content {
+                  position: absolute;
+                  top: -15vh;
+                  left: 160px;
+                  width: 320px;
+                  height: 420px;
+                  background-image: url('../../assets/images/选中时间背景.png');
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                }
+              }
+
+              &:nth-child(5) {
+                margin-bottom: 25vh;
+
+                .text-content {
+                  position: absolute;
+                  top: -10vh;
+                  left: -360px;
+                  width: 320px;
+                  height: 420px;
+                  background-image: url('../../assets/images/选中时间背景.png');
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                }
+              }
+
+              .block {
+                position: relative;
+                width: 6px;
+                height: 6px;
+                background-color: #f3a7a5;
+                border-radius: 50%;
+
+                &::after {
+                  content: '';
+                  position: absolute;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: 2px;
+                  height: 200px;
+                  background: linear-gradient(to bottom, #f3a7a5, white);
+                }
+              }
+
+              .time {
+                margin-left: 1vw;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: bold;
+                font-size: 24px;
+                color: #333333;
+              }
             }
           }
         }

@@ -459,4 +459,380 @@ const handleSelect = (index) => {
     }
   }
 }
+
+
+
+@media (max-width: 960px) {
+  .develop-center {
+  width: 100vw;
+  height: 120vh;
+  padding-top: 5vh;
+  box-sizing: border-box;
+  background-color: white;
+
+  .develop-center-base-container {
+    margin: 0 auto;
+    width: var(--base-width);
+    transition: all 0.3s ease-in;
+    zoom: 1;
+
+    .control-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1vw;
+      margin-bottom: 5vh;
+
+      .control-button-item {
+        width: 150px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family:
+          Microsoft YaHei,
+          Microsoft YaHei;
+        font-weight: 400;
+        font-size: 14px;
+        color: #999999;
+        background-color: #f6f9ff;
+        border-radius: 20px 20px 20px 20px;
+        cursor: pointer;
+
+        &.active {
+          background-color: #f3a7a5;
+          color: white;
+        }
+      }
+    }
+
+    .develop-container-top {
+
+      width: 100%;
+      display: none;
+
+      .develop-container-left {
+        width: 50%;
+
+        .develop-container-left-item {
+          .topic {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .text {
+              font-weight: 400;
+              font-size: var(--aside-fontSize);
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 6px;
+              height: var(--aside-block);
+              border-radius: 1px;
+              background-color: #f3a7a5;
+            }
+          }
+
+          .name {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: bold;
+            font-size: var(--topic-fontSize);
+            color: #333333;
+          }
+        }
+      }
+
+      .business-container-right {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1vw;
+
+        .business-container-right-item {
+          margin-top: 4vh;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 1vw;
+          cursor: pointer;
+
+          .text {
+            width: 80px;
+            height: 32px;
+
+            border-radius: 18px 18px 18px 18px;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.active {
+              background-color: #2d2d2d;
+            }
+          }
+
+          .line {
+            width: 18px;
+            height: 1px;
+            background: #e0e0e0;
+            border-radius: 0px 0px 0px 0px;
+          }
+        }
+      }
+    }
+
+    .develop-container-bottom {
+      padding: 5vh;
+      width: 100%;
+      box-sizing: border-box;
+      height: 650px;
+      // background-color: pink;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5vw;
+
+      .develop-container-bottom-left {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        height: 100%;
+
+        .develop-cotainer-bottom-left-item {
+          cursor: pointer;
+          overflow: hidden;
+          position: relative;
+          transition: all 0.2s;
+
+          .text {
+            position: absolute;
+            bottom: 1vh;
+            left: 1vw;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 24px;
+            color: #ffffff;
+          }
+
+          .desc {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 10px;
+
+            span {
+              &:nth-child(1) {
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 24px;
+                color: #ffffff;
+              }
+            }
+          }
+
+          &:hover {
+            .text {
+              display: none;
+            }
+
+            .desc {
+              display: flex;
+            }
+          }
+
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+          }
+        }
+      }
+
+      .develop-container-bottom-center {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        height: 100%;
+
+        .develop-cotainer-bottom-center-item {
+          cursor: pointer;
+          overflow: hidden;
+          position: relative;
+
+          .text {
+            position: absolute;
+            bottom: 1vh;
+            left: 1vw;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 24px;
+            color: #ffffff;
+          }
+
+          .desc {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 10px;
+
+            span {
+              &:nth-child(1) {
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 24px;
+                color: #ffffff;
+              }
+            }
+          }
+
+          &:hover {
+            .text {
+              display: none;
+            }
+
+            .desc {
+              display: flex;
+            }
+          }
+
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+          }
+        }
+      }
+
+      .develop-container-bottom-right {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        .develop-cotainer-bottom-right-item {
+          cursor: pointer;
+          overflow: hidden;
+          position: relative;
+
+          // max-height: 612px;
+          .text {
+            position: absolute;
+            bottom: 1vh;
+            left: 1vw;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 24px;
+            color: #ffffff;
+          }
+
+          .desc {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            // display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 10px;
+            display: none;
+
+            span {
+              &:nth-child(1) {
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 24px;
+                color: #ffffff;
+              }
+            }
+          }
+
+          &:hover {
+            .text {
+              display: none;
+            }
+
+            .desc {
+              display: flex;
+            }
+          }
+
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+}
 </style>

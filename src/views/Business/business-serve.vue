@@ -221,4 +221,131 @@ import { getAssetsFile } from '@/utils/tools'
     }
   }
 }
+
+
+@media (max-width: 960px) {
+  .business-serve {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 10vh;
+
+    .business-serve-base-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      padding: 5vh;
+      box-sizing: border-box;
+
+      .bussiness-container-top {
+        .title {
+          font-family: Microsoft YaHei, Microsoft YaHei;
+          font-weight: 400;
+          font-size: 18px;
+          color: #777777;
+        }
+
+        .desc {
+          font-family: Microsoft YaHei, Microsoft YaHei;
+          font-weight: bold;
+          font-size: 20px;
+          color: #333333;
+        }
+      }
+
+      .business-container-bottom {
+        width: 100%;
+        display: flex;
+        gap: 1vw;
+        margin-top: 5vh;
+
+        .business-container-bottom-item {
+          width: 23%;
+          height: 350px;
+          background-color: white;
+          display: flex;
+          flex-direction: column;
+          cursor: pointer;
+          border-radius: 0px 0px 8px 8px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+          .item-top {
+            width: 100%;
+            height: 50%;
+            position: relative;
+
+            .bg {
+              width: 100%;
+              height: 100%;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+              }
+            }
+
+            .mark {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+              }
+            }
+
+            .number {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              font-family: Microsoft YaHei, Microsoft YaHei;
+              font-weight: bold;
+              font-size: 60px;
+              color: #FFFEFE;
+              z-index: 2;
+            }
+          }
+
+          .item-bottom {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2vw;
+            box-sizing: border-box;
+            gap: 2vh;
+
+            .bttom-title {
+              font-family: Microsoft YaHei, Microsoft YaHei;
+              font-weight: bold;
+              font-size: 16px;
+              color: #333333;
+            }
+
+            .bottom-desc {
+              font-family: Microsoft YaHei, Microsoft YaHei;
+              font-weight: 400;
+              font-size: 12px;
+              color: #777777;
+              text-align: center;
+
+            }
+
+
+          }
+        }
+      }
+    }
+  }
+
+}
 </style>

@@ -99,4 +99,87 @@ import { getAssetsFile } from '@/utils/tools'
         }
     }
 }
+
+@media (max-width: 960px) {
+    .business-principle {
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
+        padding-top: 15vh;
+
+        .business-priciple-base-container {
+            margin: 0 auto;
+            width: var(--base-width);
+            transition: all 0.3s ease-in;
+            zoom: 1;
+
+            padding: 5vh;
+            box-sizing: border-box;
+
+            .business-priciple-container-top {
+                width: 100%;
+                display: none;
+                justify-content: space-between;
+
+                .T-left {
+                    .topic {
+                        width: 100%;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        gap: 1vw;
+
+                        .text {
+                            font-weight: 400;
+                            font-size: var(--aside-fontSize);
+                            color: #f3a7a5;
+                        }
+
+                        .block {
+                            width: 6px;
+                            height: var(--aside-block);
+                            border-radius: 1px;
+                            background-color: #f3a7a5;
+                        }
+                    }
+
+                    .name {
+                        margin-top: 1vh;
+                        font-family:
+                            Microsoft YaHei,
+                            Microsoft YaHei;
+                        font-weight: bold;
+                        font-size: var(--topic-fontSize);
+                        color: #333333;
+                    }
+
+                    .desc {
+                        margin-top: 5vh;
+                        font-family:
+                            Microsoft YaHei,
+                            Microsoft YaHei;
+                        font-weight: 400;
+                        font-size: var(--desc-fontSize);
+                        color: #666666;
+                        line-height: var(--desc-lineHeight);
+                    }
+                }
+
+
+            }
+
+            .business-priciple-container-bottom {
+                margin-top: 5vh;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                :deep(.el-image) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
 </style>

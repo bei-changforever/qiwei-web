@@ -1,48 +1,37 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-    <div
-      class="fixed-box"
-      :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }"
-    >
+    <div class="fixed-box" :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }">
       <div :class="['header-content', isDark ? 'is-dark' : 'is-white']">
         <div class="logo">
           <!-- <el-image :src="getAssetsFile('icon', activeBackgroundColor == '#000000' ? 'LOGO.png' : 'logo_black.png')"
             :fit="'fill'" /> -->
-          <el-image
-            :src="getAssetsFile('icon', isDark ? 'LOGO.png' : 'logo_black.png')"
-            :fit="'fill'"
-          />
+          <el-image :src="getAssetsFile('icon', isDark ? 'LOGO.png' : 'logo_black.png')" :fit="'fill'" />
         </div>
         <div :class="['text']">
-          <div
-            v-for="(item, index) in HeaderInfo"
-            :class="['text-item', activeIndex == index ? 'active' : '']"
-            :key="index"
-            @click="handleSelect(index)"
-          >
+          <div v-for="(item, index) in HeaderInfo" :class="['text-item', activeIndex == index ? 'active' : '']"
+            :key="index" @click="handleSelect(index)" @mouseenter="handleMouseenter(index)"
+            @mouseleave="handleMouseleave(index)">
             {{ item }}
+            <div class="gbk" v-if="index == 2 && show && route.path == '/business'">
+              <div class="gbk-content" @mouseleave="show = false">
+
+                <div :class="['gbk-item', selfIndex == index ? 'active' : '']" v-for="(item, index) in selfitem"
+                  @click="selfHandleSelect(index)">
+                  <div class="line" v-if="selfIndex == index"></div> {{ item }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="icon" v-if="isDark">
-          <el-image
-            class="unactive-image"
-            v-for="(item, index) in IconInfo"
-            :key="index"
-            :src="item"
-            :fit="'fill'"
-          />
-          <div class="active">≡</div>
+          <el-image class="unactive-image" v-for="(item, index) in IconInfo" :key="index" :src="item" :fit="'fill'" />
+          <div class="active" @click="changeMobilePhone">≡</div>
         </div>
         <div class="icon" v-else>
-          <el-image
-            class="unactive-image"
-            v-for="(item, index) in blackIconInfo"
-            :key="index"
-            :src="item"
-            :fit="'fill'"
-          />
-          <div class="dark-active">≡</div>
+          <el-image class="unactive-image" v-for="(item, index) in blackIconInfo" :key="index" :src="item"
+            :fit="'fill'" />
+          <div class="dark-active" @click="changeMobilePhone">≡</div>
         </div>
       </div>
     </div>
@@ -82,6 +71,36 @@ const props = defineProps({
 })
 
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
+
+const selfitem = ['业务范围', '服务原则', '全球供应链', '合作模式']
+const selfIndex = ref(-1)
+const show = ref(false)
+const selfHandleSelect = (index) => {
+  selfIndex.value = index
+  emitter.emit('TOGGLEPAGE', selfIndex.value)
+}
+const handleMouseenter = (index) => {
+
+  if (index == 2) {
+    show.value = true
+  }
+
+}
+
+const handleMouseleave = (index) => {
+  // console.log(index);
+  if (index !== 2) {
+    show.value = false
+  }
+
+}
+
+const changeMobilePhone = () => {
+  console.log('点击');
+
+  emitter.emit('TOGGLEMOBILEPHONE', true)
+}
+
 const IconInfo = [
   getAssetsFile('icon', 'search.png'),
   getAssetsFile('icon', 'share.png'),
@@ -132,10 +151,13 @@ const handleSelect = (key: number) => {
       break
   }
 }
+// console.log(route.path);
 
 watch(
   () => route.path,
   (newVal, oldVal) => {
+    console.log(newVal);
+
     if (newVal == '/') {
       router.push('/')
       activeIndex.value = 0
@@ -219,14 +241,69 @@ watch(
         gap: 10%;
 
         .text-item {
+          position: relative;
           white-space: nowrap;
           font-weight: 400;
           font-size: 14px;
           cursor: pointer;
+          // overflow: hidden;
+
+          // &:hover {
+          //   overflow: visible;
+          // }
 
           &.active {
             color: #f3a7a5;
             border-bottom: 3px solid #f3a7a5;
+          }
+
+          .gbk {
+            width: 200px;
+            height: 176px;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            position: absolute;
+            background-color: white;
+            border-radius: 0px 0px 10px 10px;
+            box-shadow: 0 0 12px 1 #000000;
+
+            .gbk-content {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              color: black;
+
+              .gbk-item {
+                width: 90%;
+                height: 24%;
+                // background-color: orange;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                border-bottom: 1px solid #F2F2F2;
+                gap: 0.2vw;
+
+                .line {
+                  width: 8px;
+                  height: 2px;
+                  background-color: #f3a7a5;
+                }
+
+                &.active {
+                  color: #f3a7a5;
+                }
+
+
+                &:last-child {
+                  border-bottom: 0;
+                }
+              }
+            }
           }
         }
       }

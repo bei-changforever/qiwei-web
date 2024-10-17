@@ -136,4 +136,100 @@ import { getAssetsFile } from '@/utils/tools'
         }
     }
 }
+
+@media (max-width: 960px) {
+    .business-chain {
+        width: 100vw;
+        height: 430px;
+        // padding-top: 5vh;
+        background-image: url('../../assets/images/全球供应链底.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+
+        .business-chain-base-container {
+            margin: 0 auto;
+            width: var(--base-width);
+            transition: all 0.3s ease-in;
+            zoom: 1;
+
+            display: flex;
+            align-items: center;
+            padding: 5vh;
+            box-sizing: border-box;
+
+            .business-chain-left {
+                width: 40%;
+
+                .T-left {
+                    display: none;
+
+                    .topic {
+                        width: 100%;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        gap: 1vw;
+
+                        .text {
+                            font-weight: 400;
+                            font-size: var(--aside-fontSize);
+                            color: #f3a7a5;
+                        }
+
+                        .block {
+                            width: 6px;
+                            height: var(--aside-block);
+                            border-radius: 1px;
+                            background-color: #f3a7a5;
+                        }
+                    }
+
+                    .name {
+                        margin-top: 1vh;
+                        font-family:
+                            Microsoft YaHei,
+                            Microsoft YaHei;
+                        font-weight: bold;
+                        font-size: var(--topic-fontSize);
+                        color: #333333;
+                    }
+                }
+
+                .t-b {
+                    margin-top: 5vh;
+
+                    .title {
+                        font-family: Microsoft YaHei, Microsoft YaHei;
+                        font-weight: bold;
+                        font-size: 22px;
+                        color: #333333;
+                    }
+
+                    .desc {
+                        font-family: Microsoft YaHei, Microsoft YaHei;
+                        font-weight: 400;
+                        font-size: 16px;
+                        color: #333333;
+                        letter-spacing: 2px;
+                    }
+                }
+            }
+
+            .business-chain-right {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                gap: 1vw;
+
+                .business-chain-right-item {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 1vw;
+                }
+            }
+        }
+    }
+}
 </style>

@@ -187,4 +187,116 @@ const handleSelect = (index) => {
     }
   }
 }
+
+
+@media (max-width: 960px) {
+  .about-honor {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 6vh;
+  box-sizing: border-box;
+  background-color: white;
+  .about-honor-base-container {
+    margin: 0 auto;
+    width: var(--base-width);
+    transition: all 0.3s ease-in;
+    zoom: 1;
+
+    .about-base-container-top {
+      width: 100%;
+      display: none;
+      justify-content: space-between;
+
+      .T-left {
+        .topic {
+          width: 100%;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          gap: 1vw;
+
+          .text {
+            font-weight: 400;
+            font-size: var(--aside-fontSize);
+            color: #f3a7a5;
+          }
+
+          .block {
+            width: 6px;
+            height: var(--aside-block);
+            border-radius: 1px;
+            background-color: #f3a7a5;
+          }
+        }
+
+        .name {
+          margin-top: 1vh;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: bold;
+          font-size: var(--topic-fontSize);
+          color: #333333;
+        }
+      }
+
+      .T-right {
+        .swiper-btn {
+          margin-top: 5vh;
+          display: flex;
+          gap: 1vw;
+
+          :deep(.el-image) {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .about-base-container-bottom {
+      width: 100%;
+      padding: 5vh;
+        box-sizing: border-box;
+      .about-base-container-bottom-content {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1vw;
+        .about-honor-content-item {
+          width: 24%;
+          height: 32vh;
+          background-color: #f8f8f8;
+          border-radius: 20px 20px 20px 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 1vw;
+          box-sizing: border-box;
+          cursor: pointer;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: 14px;
+          color: #333333;
+
+          &.active {
+            color: #f3a7a5;
+            background-color: #ffffff;
+            box-shadow:
+              rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+              rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+          }
+        }
+      }
+    }
+  }
+}
+}
 </style>
