@@ -10,7 +10,7 @@
         能
       </div>
       <div class="detail">
-        <div class="ad">从创意到实现，全方位助力品牌从0-1的产品孵化之旅</div>
+        <div class="ad">确保产品迅速上市，应对市场瞬息万变的挑战</div>
         <br />
         <div class="ab">了解详情 ></div>
       </div>
@@ -18,10 +18,10 @@
     <div class="box">
       <el-image :src="getAssetsFile('images', '核心优势选中1.png')" :fit="'cover'" />
       <div class="title">
-        高<br />
-        效<br />
-        产<br />
-        能
+        助<br />
+        力<br />
+        品<br />
+        牌
       </div>
       <div class="detail">
         <div class="ad">从创意到实现，全方位助力品牌从0-1的产品孵化之旅</div>
@@ -32,13 +32,13 @@
     <div class="box">
       <el-image :src="getAssetsFile('images', '核心优势选中1.png')" :fit="'cover'" />
       <div class="title">
-        高<br />
-        效<br />
-        产<br />
-        能
+        精<br />
+        准<br />
+        定<br />
+        制
       </div>
       <div class="detail">
-        <div class="ad">从创意到实现，全方位助力品牌从0-1的产品孵化之旅</div>
+        <div class="ad">深度洞悉品牌需求，量身定制，满足品牌个性化，产品差异化</div>
         <br />
         <div class="ab">了解详情 ></div>
       </div>
@@ -46,13 +46,13 @@
     <div class="box">
       <el-image :src="getAssetsFile('images', '核心优势选中1.png')" :fit="'cover'" />
       <div class="title">
-        高<br />
-        效<br />
-        产<br />
+        科<br />
+        技<br />
+        赋<br />
         能
       </div>
       <div class="detail">
-        <div class="ad">从创意到实现，全方位助力品牌从0-1的产品孵化之旅</div>
+        <div class="ad">持续探索技术革新，智造行业精品</div>
         <br />
         <div class="ab">了解详情 ></div>
       </div>
@@ -60,13 +60,13 @@
     <div class="box">
       <el-image :src="getAssetsFile('images', '核心优势选中1.png')" :fit="'cover'" />
       <div class="title">
-        高<br />
-        效<br />
-        产<br />
-        能
+        严<br />
+        苛<br />
+        质<br />
+        控
       </div>
       <div class="detail">
-        <div class="ad">从创意到实现，全方位助力品牌从0-1的产品孵化之旅</div>
+        <div class="ad">遵循质量管理体系，严苛标准铸就卓越品质，赢得市场信赖</div>
         <br />
         <div class="ab">了解详情 ></div>
       </div>
@@ -79,7 +79,7 @@ import { getAssetsFile } from '@/utils/tools'
 <style lang="scss" scoped>
  .shell {
     width: 100%;
-    height: 500px;
+    height: 550px;
     display: flex;
 
     .box {
@@ -128,7 +128,10 @@ import { getAssetsFile } from '@/utils/tools'
         font-weight: 400;
         font-size: 18px;
         color: #ffffff;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-image: url('../../assets/images/黑色渐变.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
         .ad {
           // display: block;
           margin-top: 10px;
@@ -154,7 +157,7 @@ import { getAssetsFile } from '@/utils/tools'
         }
         .detail {
           // width: 70%;
-          height: 20%;
+          height: 16%;
           transition: 1s;
         }
       }
@@ -212,7 +215,10 @@ import { getAssetsFile } from '@/utils/tools'
         font-weight: 400;
         font-size: 18px;
         color: #ffffff;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-image: url('../../assets/images/黑色渐变.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
         .ad {
           // display: block;
           margin-top: 10px;
@@ -250,7 +256,7 @@ import { getAssetsFile } from '@/utils/tools'
 @media (min-width: 960px) and (max-width: 1220px) {
   .shell {
     width: 100%;
-    height: 400px;
+    height: 420px;
     display: flex;
 
     .box {
@@ -299,7 +305,12 @@ import { getAssetsFile } from '@/utils/tools'
         font-weight: 400;
         font-size: 14px;
         color: #ffffff;
-        background-color: rgba(0, 0, 0, 0.5);
+        // background-color: rgba(0, 0, 0, 0.5);
+        // background-image: linear-gradient(to right, #000000, #545454);
+        background-image: url('../../assets/images/黑色渐变.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
         .ad {
           // display: block;
           margin-top: 10px;

@@ -1,6 +1,6 @@
 <template>
   <div class="advantage">
-    <div class="advantage-box">
+    <div :class="['advantage-box',showAnimation && 'animate__animated animate__fadeIn']">
       <div class="advantage-container">
         <div class="T-left">
           <div class="topic">
@@ -37,14 +37,24 @@ import { reactive, toRefs, onBeforeMount, onMounted, ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { isMobile } from '@/utils/equipment'
 import Accordion from '@/components/accordion/index.vue'
+import emitter from '@/utils/mitt'
 const changePageShow = ref(false)
+const showAnimation = ref(false)
 onMounted(() => {
-  let eq = isMobile()
-  if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
-    changePageShow.value = true
-  } else {
-    changePageShow.value = false
-  }
+  // let eq = isMobile()
+  // if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
+  //   changePageShow.value = true
+  // } else {
+  //   changePageShow.value = false
+  // }
+
+  // emitter.on('ANIMATION', (res) => {
+  //   if (res == 3) {
+  //     showAnimation.value = true
+  //   } else {
+  //     showAnimation.value = false
+  //   }
+  // })
 })
 </script>
 <style lang="scss" scoped>
@@ -57,7 +67,7 @@ onMounted(() => {
 
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
-  padding: 15vh;
+  padding-top: 15vh;
   .advantage-box {
     margin: 0 auto;
     width: var(--base-width);
@@ -102,7 +112,7 @@ onMounted(() => {
         }
 
         .desc {
-          margin-top: 5vh;
+          margin-top: 3vh;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
@@ -123,7 +133,7 @@ onMounted(() => {
           align-items: center;
           justify-content: space-between;
           border: 1px solid #f3a7a5;
-
+          cursor: pointer;
           .text {
             width: 80%;
             font-family:
@@ -145,7 +155,7 @@ onMounted(() => {
     }
 
     .accordion {
-      margin-top: 5vh;
+      margin-top: 2vh;
     }
   }
 }
@@ -159,7 +169,9 @@ onMounted(() => {
 
     /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
     scroll-snap-align: start;
-    padding: 15vh;
+    padding-top: 15vh;
+    box-sizing: border-box;
+    // padding: 0;
     .advantage-box {
       margin: 0 auto;
       width: var(--base-width);
@@ -170,7 +182,7 @@ onMounted(() => {
         width: 100%;
         display: flex;
         justify-content: space-between;
-
+        // background-color: pink;
         .T-left {
           .topic {
             width: 100%;

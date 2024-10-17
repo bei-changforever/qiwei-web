@@ -11,8 +11,8 @@ const activeColor = ref('#000000')
 const isDarkPage = ref(true)
 const showTop = ref(false)
 onMounted(() => {
-
   emitter.on('*', (index: any, data: any) => {
+    // console.log('监听到事件', index)
 
     if (index == 'changHeaderBack') {
       isDarkPage.value = data.isDark
@@ -24,17 +24,18 @@ onMounted(() => {
         changeBackGroundColor.value = false
         activeColor.value = '#000000'
       }
-      if (data == 1 || data == 4) {
+      if (data == 1 || data == 2 || data == 3 || data == 4) {
+        // console.log('执行')
+
         isDarkPage.value = true
         activeColor.value = 'white'
         changeBackGroundColor.value = false
       }
     } else if (index == 'TOGGLEMOBILEPHONE') {
-      console.log("监听");
+      console.log('监听')
 
       showTop.value = data
-    }
-    else {
+    }  else {
       return
     }
   })
@@ -44,7 +45,6 @@ const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '�
 const onClickCloseIcon = () => {
   showTop.value = false
 }
-
 
 const activeIndex = ref(0)
 
@@ -84,43 +84,7 @@ const handleSelect = (key: number) => {
       break
   }
 }
-// console.log(route.path);
 
-// watch(
-//   () => route.path,
-//   (newVal, oldVal) => {
-//     console.log(newVal);
-
-//     if (newVal == '/') {
-//       router.push('/')
-//       activeIndex.value = 0
-//     }
-//     if (newVal == '/product/product-detail') {
-//       router.push('/product/product-detail')
-//       activeIndex.value = 1
-//     }
-//     if (newVal == '/business') {
-//       router.push('/business')
-//       activeIndex.value = 2
-//     }
-//     if (newVal == '/develop') {
-//       router.push('/develop')
-//       activeIndex.value = 3
-//     }
-//     if (newVal == '/about') {
-//       router.push('/about')
-//       activeIndex.value = 4
-//     }
-//     if (newVal == '/contact') {
-//       router.push('/contact')
-//       activeIndex.value = 5
-//     }
-//   },
-//   {
-//     deep: true,
-//     immediate: true
-//   }
-// )
 onUnmounted(() => {
   emitter.off('*')
 })
@@ -128,30 +92,51 @@ onUnmounted(() => {
 
 <template>
   <header id="header">
-    <CusHeader :slideChangeBakColor="changeBackGroundColor" :isDark="isDarkPage" :activeBackgroundColor="activeColor" />
+    <CusHeader
+      :slideChangeBakColor="changeBackGroundColor"
+      :isDark="isDarkPage"
+      :activeBackgroundColor="activeColor"
+    />
   </header>
   <!-- <CusMainContainer/> -->
-  <van-popup v-model:show="showTop" position="right" @click-close-icon="onClickCloseIcon" closeable :overlay="false"
+  <van-popup
+    v-model:show="showTop"
+    position="right"
+    @click-close-icon="onClickCloseIcon"
+    closeable
+    :overlay="false"
     :style="{
-      width: '50%', height: '100%', zIndex: 99
-    }">
-
+      width: '50%',
+      height: '100%',
+      zIndex: 99
+    }"
+  >
     <div class="phone-mobile">
-
       <div class="conent">
-
-        <div :class="['contet-item', activeIndex == index ? 'active' : '']" v-for="(item, index) in HeaderInfo"
-          @click="handleSelect(index)">
+        <div
+          :class="['contet-item', activeIndex == index ? 'active' : '']"
+          v-for="(item, index) in HeaderInfo"
+          @click="handleSelect(index)"
+        >
           {{ item }}
         </div>
       </div>
     </div>
-
   </van-popup>
-  <RouterView />
-</template>s
-
+  <router-view v-slot="{ Component }">
+    <transition name="router_animate">
+      <component :is="Component" />
+    </transition>
+  </router-view>
+</template>
 <style lang="scss" scoped>
+.router_animate-enter-active {
+  // animation: fadeIn 1s;
+}
+.router_animate-leave-active {
+  // animation: fadeOut 1s;
+}
+
 .phone-mobile {
   width: 100%;
   height: 100%;

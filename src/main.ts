@@ -10,12 +10,12 @@ import '@/assets/front-style/pingFang.css'
 import component from './components/component'
 // 引入模块后自动生效
 import '@vant/touch-emulator'
-
+import 'animate.css/animate.min.css' //引入
 import BaiduMap from 'vue-baidu-map-3x'
 const env = import.meta.env.VITE_APP_ENV // 获取配置信息
 import Vconsole from 'vconsole' // 引入 vconsole
-
-new Vconsole() // 如所有环境均需开启 则不需要判断
+import { Lazyload } from 'vant'
+// new Vconsole() // 如所有环境均需开启 则不需要判断
 // 如果您正在使用CDN引入，请删除下面一行。
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
@@ -31,5 +31,9 @@ app.use(BaiduMap, {
   ak: 'oei253vVub3Z48dQF1FaD5Wh6klyXz3X'
   // v:'2.0',  // 默认使用3.0
   // type: 'WebGL' // ||API 默认API  (使用此模式 BMap=BMapGL)
+})
+// 注册时可以配置额外的选项
+app.use(Lazyload, {
+  lazyComponent: true
 })
 app.mount('#app')

@@ -1,7 +1,14 @@
 <template>
-  <div class="home-base-container" v-if="!changePageShow">
+  <div class="home-base-container">
     <div class="main-okj-container" ref="container">
-      <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
+      <div
+        :class="[
+          'boxapi',
+          showAnimation && pageIndex == index ? 'animate__animated animate__fadeIn' : ''
+        ]"
+        v-for="(comp, index) in domArr[0].domarr"
+        :key="index"
+      >
         <component :is="comp" />
       </div>
       <div class="boxapi">
@@ -11,20 +18,10 @@
       </div>
     </div>
   </div>
-  <div class="product-base-container" ref="productBaseContainer" v-else>
-    <div class="main-okj-container-nofull" ref="nofull">
-      <div class="nofull-boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
-        <component :is="comp" />
-      </div>
-      <footer id="footer">
-        <CusFooter />
-      </footer>
-    </div>
-  </div>
 </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, nextTick, shallowRef, reactive } from 'vue'
-import Banner from '@/components/banner/index.vue'
+import Banner from '@/views/Home/banner.vue'
 import HomeView from '@/views/Home/product.vue'
 import BussinessInfo from '@/views/Home/business-info.vue'
 import Advantage from '@/views/Home/advantage.vue'
@@ -33,7 +30,6 @@ import Quality from '@/views/Home/quality.vue'
 import DevelopMent2 from '@/views/Home/development2.vue'
 import Added from '@/views/Home/added.vue'
 import emitter from '@/utils/mitt'
-import { isMobile } from '@/utils/equipment'
 const domArr = shallowRef([
   {
     id: 'home',
@@ -71,26 +67,43 @@ function scrollDown() {
 }
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
+  // 通知页面播放动画
+  emitter.emit('ANIMATION', pageIndex)
 
-  console.log(pageIndex);
+  showAnimation.value = false
 
   if (pageIndex == 5) {
-    container.value.style.top = `-470%`
-  }
-  else if (pageIndex == 6) {
-    container.value.style.top = `-565%`
-  }
-  else if(pageIndex == 7) {
-    container.value.style.top = `-670%`
-  }
-  else if(pageIndex == 8) {
-    container.value.style.top = `-729%`
-  }
-  else {
+    showAnimation.value = true
+    if (screenWidth.value >= 960 && screenWidth.value <= 1220) {
+      container.value.style.top = `-495%`
+    } else {
+      container.value.style.top = `-470%`
+    }
+  } else if (pageIndex == 6) {
+    showAnimation.value = true
+    if (screenWidth.value >= 960 && screenWidth.value <= 1220) {
+      container.value.style.top = `-595%`
+    } else {
+      container.value.style.top = `-565%`
+    }
+  } else if (pageIndex == 7) {
+    showAnimation.value = true
+    if (screenWidth.value >= 960 && screenWidth.value <= 1220) {
+      container.value.style.top = `-695%`
+    } else {
+      container.value.style.top = `-670%`
+    }
+  } else if (pageIndex == 8) {
+    showAnimation.value = true
+    if (screenWidth.value >= 960 && screenWidth.value <= 1220) {
+      container.value.style.top = `-752%`
+    } else {
+      container.value.style.top = `-729%`
+    }
+  } else {
+    showAnimation.value = true
     container.value.style.top = `-${pageIndex}00%`
   }
-
-
 
   pageScroll.value = false
   scrollTimer()
@@ -129,52 +142,13 @@ const handleScrolltoTop = () => {
   scrollToPage(0)
 }
 
+const showAnimation = ref(false)
 
-const productBaseContainer = ref(null)
-
-// 处理滚轮事件的方法
-const handleWheel = (event) => {
-  const deltaY = event.deltaY
-
-  if (deltaY < 0) {
-    // 向上滚动
-    if (productBaseContainer.value.getBoundingClientRect().top > -100) {
-      emitter.emit('changHeaderBack', {
-        isDark: true,
-        activeBackgroundColor: null,
-        slideChangeBakColor: false
-      })
-    }
-  } else if (deltaY > 0) {
-    // 向下滚动
-    if (productBaseContainer.value.getBoundingClientRect().top <= -100) {
-      emitter.emit('changHeaderBack', {
-        isDark: false,
-        activeBackgroundColor: 'white',
-        slideChangeBakColor: true
-      })
-    }
-  }
-}
-
-
-
-
-const changePageShow = ref(false)
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
-
-
-  let eq = isMobile()
-  if (eq[0] == 'Android' || eq[0] == 'iOS' || eq[0] == 'iPhone') {
-    changePageShow.value = true
-  } else {
-    changePageShow.value = false
-  }
-
-
   emitter.on('BACKPAGETOP', (res) => {
     handleScrolltoTop()
+    pageIndex.value = 0
   })
   // 添加鼠标滚轮事件
   document.onmousewheel = mouseWheel
@@ -192,7 +166,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('DOMMouseScroll', mouseWheel)
   emitter.off('BACKPAGETOP')
-  // window.removeEventListener('wheel', handleWheel)
+  emitter.off('ANIMATION')
 })
 
 watch(
@@ -201,20 +175,20 @@ watch(
     if (newValue == 0) {
       emitter.emit('changHeaderBack', {
         isDark: true,
-        activeBackgroundColor: '#000000',
+        activeBackgroundColor: 'rgba(0,0,0,.75)',
         slideChangeBakColor: false
       })
     } else {
       emitter.emit('changHeaderBack', {
         isDark: true,
-        activeBackgroundColor: '#000000',
+        activeBackgroundColor: 'rgba(0,0,0,.75)',
         slideChangeBakColor: true
       })
     }
   }
 )
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
-watch(screenWidth, (newVal, oldVal) => { })
+watch(screenWidth, (newVal, oldVal) => {})
 </script>
 <style scoped lang="scss">
 .home-base-container {
@@ -240,14 +214,12 @@ watch(screenWidth, (newVal, oldVal) => { })
       overflow: hidden;
     }
   }
-}
 
-
-.product-base-container {
-  width: 100vw;
-  //   border: 1px solid red;
-  .main-okj-container-nofull {
-    width: 100%;
-  }
+  // .router_animate-enter-active {
+  //   animation: fadeIn 1s;
+  // }
+  // .router_animate-leave-active {
+  //   animation: fadeOut 1s;
+  // }
 }
 </style>
