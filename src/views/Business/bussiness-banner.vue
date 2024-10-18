@@ -17,7 +17,7 @@ import { getAssetsFile } from '@/utils/tools'
 <style lang="scss" scoped>
 .bussiness-banner {
   width: 100vw;
-  height: 590px;
+  height: 70vh;
 
   .bussiness-banner-bg {
     width: 100%;

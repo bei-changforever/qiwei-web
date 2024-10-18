@@ -4,7 +4,8 @@
       <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
       </div>
-
+      <div class="boxapi"></div>
+      <div class="boxapi"></div>
       <div class="boxapi">
         <footer id="footer">
           <CusFooter />
@@ -45,30 +46,6 @@ let pageScroll = ref(true)
 let prevIndex = ref(0)
 let boxapis = ref([])
 
-// 处理滚轮事件的方法
-// const handleWheel = (event) => {
-//   const deltaY = event.deltaY
-//   if (deltaY < 0) {
-//     // 向上滚动
-//     if (aboutBaseContainer.value.getBoundingClientRect().top > -100) {
-//       emitter.emit('changHeaderBack', {
-//         isDark: true,
-//         activeBackgroundColor: null,
-//         slideChangeBakColor: false
-//       })
-//     }
-//   } else if (deltaY > 0) {
-//     // 向下滚动
-//     if (aboutBaseContainer.value.getBoundingClientRect().top <= -100) {
-//       emitter.emit('changHeaderBack', {
-//         isDark: false,
-//         activeBackgroundColor: 'white',
-//         slideChangeBakColor: true
-//       })
-//     }
-//   }
-// }
-
 // 向上滚动
 function scrollUp() {
   if (pageIndex.value > 0 && pageScroll.value) {
@@ -95,33 +72,34 @@ let bigSizeIndex = ref(0)
 function scrollToPage(pageIndex) {
   console.log(pageIndex)
   if (pageIndex == 1) {
-    container.value.style.top = `-590px`
+    container.value.style.top = `-70%`
   } else if (pageIndex == 2) {
     container.value.style.top = `-162%`
   }
   else if (pageIndex == 3) {
-    container.value.style.top = `-260%`
+    container.value.style.top = `-270%`
   }
   else if (pageIndex == 4) {
-    container.value.style.top = `-305%`
+    container.value.style.top = `-360%`
   }
   else if (pageIndex == 5) {
-    container.value.style.top = `-400%`
+    container.value.style.top = `-410%`
   }
   else if (pageIndex == 6) {
-    container.value.style.top = `-490%`
+    container.value.style.top = `-450%`
 
+  }
+  else if(pageIndex == 7) {
+    container.value.style.top = `-550%`
+  }
+  else if(pageIndex == 8) {
+    container.value.style.top = `-594%`
   }
   else {
     container.value.style.top = `-${pageIndex}00%`
   }
 
-  // if (pageIndex.value == 1) {
-  //   container.value.style.top = `-80%`
-  // } else {
-  //   container.value.style.top = `-${pageIndex}00%`
-  // }
-
+ 
   pageScroll.value = false
   scrollTimer()
 }
