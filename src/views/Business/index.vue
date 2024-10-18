@@ -1,7 +1,14 @@
 <template>
   <div class="business-base-container" ref="businessBaseContainer">
     <div class="main-okj-container" ref="container">
-      <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
+      <div
+        :class="[
+          'boxapi',
+          showAnimation && pageIndex == index ? 'animate__animated animate__fadeIn' : ''
+        ]"
+        v-for="(comp, index) in domArr[0].domarr"
+        :key="index"
+      >
         <component :is="comp" />
       </div>
       <div class="boxapi"></div>
@@ -15,7 +22,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch, toRefs } from 'vue'
 import BusinessBanner from './bussiness-banner.vue'
 import BusinessRange from './business-range.vue'
 import businessServe from './business-serve.vue'
@@ -23,6 +30,8 @@ import BusinessPrinciple from './business-principle.vue'
 import businessChain from './business-chain.vue'
 import businessCooperate from './business-cooperate.vue'
 import emitter from '@/utils/mitt'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const domArr = shallowRef([
   {
     id: 'business',
@@ -36,7 +45,7 @@ const domArr = shallowRef([
     ]
   }
 ])
-
+const showAnimation = ref(false)
 const container = ref(null)
 // 定义当前页面的索引
 let pageIndex = ref(0)
@@ -71,35 +80,44 @@ let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
   console.log(pageIndex)
-  if (pageIndex == 1) {
+
+  showAnimation.value = false
+
+  if (pageIndex == 0) {
+    container.value.style.top = `-0%`
+  } else if (pageIndex == 1) {
     container.value.style.top = `-70%`
+    showAnimation.value = true
   } else if (pageIndex == 2) {
     container.value.style.top = `-162%`
-  }
-  else if (pageIndex == 3) {
+  } else if (pageIndex == 3) {
     container.value.style.top = `-270%`
-  }
-  else if (pageIndex == 4) {
+    showAnimation.value = true
+  } else if (pageIndex == 4) {
     container.value.style.top = `-360%`
-  }
-  else if (pageIndex == 5) {
+    showAnimation.value = true
+  } else if (pageIndex == 5) {
     container.value.style.top = `-410%`
-  }
-  else if (pageIndex == 6) {
+    showAnimation.value = true
+  } else if (pageIndex == 6) {
     container.value.style.top = `-450%`
-
-  }
-  else if(pageIndex == 7) {
+    showAnimation.value = true
+  } else if (pageIndex == 7) {
     container.value.style.top = `-550%`
-  }
-  else if(pageIndex == 8) {
-    container.value.style.top = `-594%`
-  }
-  else {
-    container.value.style.top = `-${pageIndex}00%`
+    showAnimation.value = false
+  } else if (pageIndex == 8) {
+    showAnimation.value = false
+    if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
+      container.value.style.top = `-590%`
+    }
+    else if(PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
+      container.value.style.top = `-589%`
+    } 
+    else {
+      container.value.style.top = `-594%`
+    }
   }
 
- 
   pageScroll.value = false
   scrollTimer()
 }
@@ -128,11 +146,6 @@ function mouseWheel(e) {
       }
     }
   }
-}
-const screenWidth = ref(window.innerWidth)
-const handleResize = () => {
-  screenWidth.value =
-    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 }
 
 const handleScrolltoTop = () => {
@@ -172,15 +185,10 @@ onMounted(() => {
     boxapis.value = document.querySelectorAll('.boxapi')
     container.value.style.height = `${boxapis.length}00%`
   })
-
-  window.addEventListener('resize', handleResize)
 })
 
 onBeforeUnmount(() => {
-  // window.removeEventListener('wheel', handleWheel)
-  // emitter.off('BACKPAGETOP')
   emitter.off('tagViewsShowModel')
-
   document.removeEventListener('DOMMouseScroll', mouseWheel)
   emitter.off('BACKPAGETOP')
   emitter.off('TOGGLEPAGE')
@@ -202,6 +210,15 @@ watch(
         slideChangeBakColor: true
       })
     }
+  }
+)
+
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
   }
 )
 </script>
