@@ -84,33 +84,42 @@ function scrollDown() {
 function scrollToPage(pageIndex) {
   // 通知页面播放动画
   emitter.emit('ANIMATION', pageIndex)
+  // @media (min-width: 1220px) and (max-width: 1440px)
 
   showAnimation.value = false
+  console.log(PAGEWIDTH.value)
+  //
 
   if (pageIndex == 5) {
     showAnimation.value = true
-    if (PAGEWIDTH >= 960 && PAGEWIDTH <= 1220) {
+
+    // @media (min-width: 960px) and (max-width: 1220px)
+    if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
       container.value.style.top = `-495%`
     } else {
       container.value.style.top = `-470%`
     }
   } else if (pageIndex == 6) {
     showAnimation.value = true
-    if (PAGEWIDTH >= 960 && PAGEWIDTH <= 1220) {
+    if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
       container.value.style.top = `-595%`
     } else {
       container.value.style.top = `-565%`
     }
   } else if (pageIndex == 7) {
     showAnimation.value = true
-    if (PAGEWIDTH >= 960 && PAGEWIDTH <= 1220) {
+    if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
       container.value.style.top = `-695%`
     } else {
       container.value.style.top = `-670%`
     }
   } else if (pageIndex == 8) {
     showAnimation.value = true
-    if (PAGEWIDTH >= 960 && PAGEWIDTH <= 1220) {
+
+    // @media (min-width: 1220px) and (max-width: 1440px)
+    if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
+      container.value.style.top = `-725%`
+    } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
       container.value.style.top = `-752%`
     } else {
       container.value.style.top = `-729%`
@@ -152,7 +161,7 @@ function handleTouchMove(event) {
   // event.preventDefault()
 
   // console.log('手指滑动')
-  console.log(mobilecontainer.value.getBoundingClientRect().top);
+  console.log(mobilecontainer.value.getBoundingClientRect().top)
 
   if (mobilecontainer.value.getBoundingClientRect().top > -110) {
     emitter.emit('changHeaderBack', {
@@ -160,8 +169,8 @@ function handleTouchMove(event) {
       activeBackgroundColor: 'rgba(0,0,0,.75)',
       slideChangeBakColor: false
     })
-  } 
-  if(mobilecontainer.value.getBoundingClientRect().top <= -120) {
+  }
+  if (mobilecontainer.value.getBoundingClientRect().top <= -120) {
     emitter.emit('changHeaderBack', {
       isDark: true,
       activeBackgroundColor: 'rgba(0,0,0,.75)',
