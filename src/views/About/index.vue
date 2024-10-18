@@ -202,7 +202,7 @@ watch(
     } else {
       emitter.emit('changHeaderBack', {
         isDark: false,
-        activeBackgroundColor: 'white',
+        activeBackgroundColor: 'rgba(255,255,255,.75)',
         slideChangeBakColor: true
       })
     }

@@ -14,8 +14,6 @@ const isDarkPage = ref(true)
 const showTop = ref(false)
 const screenWidth = ref(window.innerWidth)
 const handleResize = () => {
-  // console.log('v胡发发啊发发');
-  
   screenWidth.value =
     window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
   setScreenWidth(screenWidth.value)
@@ -60,6 +58,7 @@ const onClickCloseIcon = () => {
 const activeIndex = ref(0)
 
 const handleSelect = (key: number) => {
+  showTop.value = false;
   switch (key) {
     case 0:
       activeIndex.value = 0
@@ -117,13 +116,24 @@ onUnmounted(() => {
     closeable
     :overlay="false"
     :style="{
-      width: '50%',
+      width: '60%',
       height: '100%',
       zIndex: 99
     }"
   >
     <div class="phone-mobile">
       <div class="conent">
+        <van-cell-group>
+          <van-cell
+            v-for="(item, index) in HeaderInfo"
+            :title="item"
+            is-link
+            @click="handleSelect(index)"
+          />
+        </van-cell-group>
+      </div>
+
+      <!-- <div class="conent">
         <div
           :class="['contet-item', activeIndex == index ? 'active' : '']"
           v-for="(item, index) in HeaderInfo"
@@ -131,7 +141,7 @@ onUnmounted(() => {
         >
           {{ item }}
         </div>
-      </div>
+      </div> -->
     </div>
   </van-popup>
   <router-view v-slot="{ Component }">
@@ -156,12 +166,29 @@ onUnmounted(() => {
   .conent {
     width: 100%;
     height: 100%;
-    padding: 5vh;
-    box-sizing: border-box;
+    // padding: 2vh;
+    // box-sizing: border-box;
+    // background-color: pink;
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     align-items: center;
     justify-content: center;
+    // van-cell van-cell--clickable
+
+    :deep(.van-cell-group) {
+    
+      padding: 2vh;
+      box-sizing: border-box;
+      width: 100%;
+      height: auto;
+      // background-color: pink;
+    }
+
+    :deep(.van-cell) {
+      width: 100%;
+      // height: 20%;
+      margin-bottom: 5vh;
+    }
 
     .contet-item {
       height: 15%;

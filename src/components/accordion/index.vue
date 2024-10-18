@@ -2,7 +2,7 @@
 <template>
   <div class="shell">
     <div class="box">
-      <el-image :src="getAssetsFile('images', '核心优势选中1.png')" :fit="'cover'" />
+      <el-image :src="getAssetsFile('images', '高效产能.png')" :fit="'cover'" />
       <div class="title">
         高<br />
         效<br />
@@ -12,7 +12,7 @@
       <div class="detail">
         <div class="ad">确保产品迅速上市，应对市场瞬息万变的挑战</div>
         <br />
-        <div class="ab">了解详情 ></div>
+        <div class="ab" @click.stop="clickRouter">了解详情 ></div>
       </div>
     </div>
     <div class="box">
@@ -26,11 +26,11 @@
       <div class="detail">
         <div class="ad">从创意到实现，全方位助力品牌从0-1的产品孵化之旅</div>
         <br />
-        <div class="ab">了解详情 ></div>
+        <div class="ab" @click.stop="clickRouter">了解详情 ></div>
       </div>
     </div>
     <div class="box">
-      <el-image :src="getAssetsFile('images', '核心优势选中1.png')" :fit="'cover'" />
+      <el-image :src="getAssetsFile('images', '精准定位.png')" :fit="'cover'" />
       <div class="title">
         精<br />
         准<br />
@@ -40,11 +40,11 @@
       <div class="detail">
         <div class="ad">深度洞悉品牌需求，量身定制，满足品牌个性化，产品差异化</div>
         <br />
-        <div class="ab">了解详情 ></div>
+        <div class="ab" @click.stop="clickRouter">了解详情 ></div>
       </div>
     </div>
     <div class="box">
-      <el-image :src="getAssetsFile('images', '核心优势选中1.png')" :fit="'cover'" />
+      <el-image :src="getAssetsFile('images', '科技赋能.png')" :fit="'cover'" />
       <div class="title">
         科<br />
         技<br />
@@ -54,11 +54,11 @@
       <div class="detail">
         <div class="ad">持续探索技术革新，智造行业精品</div>
         <br />
-        <div class="ab">了解详情 ></div>
+        <div class="ab" @click.stop="clickRouter">了解详情 ></div>
       </div>
     </div>
     <div class="box">
-      <el-image :src="getAssetsFile('images', '核心优势选中1.png')" :fit="'cover'" />
+      <el-image :src="getAssetsFile('images', '严苛质控.png')" :fit="'cover'" />
       <div class="title">
         严<br />
         苛<br />
@@ -68,13 +68,21 @@
       <div class="detail">
         <div class="ad">遵循质量管理体系，严苛标准铸就卓越品质，赢得市场信赖</div>
         <br />
-        <div class="ab">了解详情 ></div>
+        <div class="ab" @click.stop="clickRouter">了解详情 ></div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
+import { useRouter } from 'vue-router'
+import emitter from '@/utils/mitt'
+const router = useRouter()
+const clickRouter = () => {
+  router.push('/business')
+  emitter.emit('DOMINDEX', 2)
+}
+
 </script>
 <style lang="scss" scoped>
  .shell {

@@ -48,6 +48,7 @@ const clickRouter = () => {
   router.push('/business')
   emitter.emit('DOMINDEX', 2)
 }
+
 onMounted(() => {})
 const PAGEWIDTH = ref(window.innerWidth)
 watch(

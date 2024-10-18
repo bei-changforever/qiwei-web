@@ -83,7 +83,7 @@ function scrollDown() {
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
   // 通知页面播放动画
-  emitter.emit('ANIMATION', pageIndex)
+  // emitter.emit('ANIMATION', pageIndex)
   // @media (min-width: 1220px) and (max-width: 1440px)
 
   showAnimation.value = false

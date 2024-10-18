@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="business-container-right">
-          <el-image :src="getAssetsFile('images', '图片视频栏.png')" :fit="'fill'" />
+          <el-image :src="getAssetsFile('images', '研发实力.png')" :fit="'fill'" />
           <div class="play-btn">
             <el-image :src="getAssetsFile('icon', 'play.png')" :fit="'fill'" />
           </div>

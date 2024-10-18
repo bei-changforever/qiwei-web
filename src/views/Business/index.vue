@@ -17,15 +17,22 @@
 import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch } from 'vue'
 import BusinessBanner from './bussiness-banner.vue'
 import BusinessRange from './business-range.vue'
-import businessServe from './business-serve.vue';
+import businessServe from './business-serve.vue'
 import BusinessPrinciple from './business-principle.vue'
-import businessChain from './business-chain.vue';
-import businessCooperate from './business-cooperate.vue';
+import businessChain from './business-chain.vue'
+import businessCooperate from './business-cooperate.vue'
 import emitter from '@/utils/mitt'
 const domArr = shallowRef([
   {
     id: 'business',
-    domarr: [BusinessBanner, BusinessRange, businessServe, BusinessPrinciple, businessChain, businessCooperate]
+    domarr: [
+      BusinessBanner,
+      BusinessRange,
+      businessServe,
+      BusinessPrinciple,
+      businessChain,
+      businessCooperate
+    ]
   }
 ])
 
@@ -86,7 +93,7 @@ function scrollDown() {
 let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  // console.log(pageIndex);
+  console.log(pageIndex)
   if (pageIndex == 1) {
     container.value.style.top = `-590px`
   } else if (pageIndex == 2) {
@@ -104,12 +111,16 @@ function scrollToPage(pageIndex) {
   else if (pageIndex == 6) {
     container.value.style.top = `-490%`
 
-
   }
   else {
     container.value.style.top = `-${pageIndex}00%`
   }
 
+  // if (pageIndex.value == 1) {
+  //   container.value.style.top = `-80%`
+  // } else {
+  //   container.value.style.top = `-${pageIndex}00%`
+  // }
 
   pageScroll.value = false
   scrollTimer()
@@ -127,37 +138,14 @@ function mouseWheel(e) {
   if (container.value) {
     if (e.wheelDelta) {
       if (e.wheelDelta > 0) {
-        console.log('aaaa');
-        bigSizeIndex.value = 0;
         scrollUp()
       } else {
-
         scrollDown()
-
-
-
-        if (pageIndex.value == 6) {
-          bigSizeIndex.value++;
-          // console.log(bigSizeIndex.value);
-          if (bigSizeIndex.value > 1) {
-            container.value.style.top = `-500%`
-          }
-          if (bigSizeIndex.value >= 5) {
-            container.value.style.top = `-585%`
-          }
-
-        }
-
       }
     } else {
       if (e.detail > 0) {
-        console.log('bbbb');
-
-
         scrollDown()
       } else {
-        console.log('ccccc');
-
         scrollUp()
       }
     }
@@ -189,7 +177,6 @@ onMounted(() => {
   emitter.on('TOGGLEPAGE', (res) => {
     // bigSizeIndex.value = 0
     scrollToPage(res + 1)
-    
   })
 
   emitter.on('BACKPAGETOP', (res) => {
@@ -221,7 +208,6 @@ onBeforeUnmount(() => {
   emitter.off('TOGGLEPAGE')
 })
 
-
 watch(
   () => pageIndex.value,
   (newValue, oldValue) => {
@@ -234,13 +220,12 @@ watch(
     } else {
       emitter.emit('changHeaderBack', {
         isDark: false,
-        activeBackgroundColor: 'white',
+        activeBackgroundColor: 'rgba(255,255,255,.75)',
         slideChangeBakColor: true
       })
     }
   }
 )
-
 </script>
 <style lang="scss" scoped>
 .business-base-container {

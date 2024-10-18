@@ -39,7 +39,7 @@ const handleWheel = (event) => {
     if (contactBaseContainer.value.getBoundingClientRect().top <= -100) {
       emitter.emit('changHeaderBack', {
         isDark: false,
-        activeBackgroundColor: 'white',
+        activeBackgroundColor: 'rgba(255,255,255,.75)',
         slideChangeBakColor: true
       })
     }
