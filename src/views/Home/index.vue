@@ -161,7 +161,7 @@ function handleTouchMove(event) {
   // event.preventDefault()
 
   // console.log('手指滑动')
-  console.log(mobilecontainer.value.getBoundingClientRect().top)
+  // console.log(mobilecontainer.value.getBoundingClientRect().top)
 
   if (mobilecontainer.value.getBoundingClientRect().top > -110) {
     emitter.emit('changHeaderBack', {

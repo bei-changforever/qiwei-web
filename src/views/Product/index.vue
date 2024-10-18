@@ -1,6 +1,6 @@
 <template>
   <div class="product-base-container" ref="productBaseContainer">
-    <div class="main-okj-container-nofull" ref="nofull">
+    <div class="main-okj-container-nofull" ref="nofull" @touchmove="handleTouchMove">
       <!-- <div class="nofull-boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
       </div> -->
@@ -19,8 +19,36 @@
 <script setup lang="ts">
 import productBanner from '@/views/Product/product-banner.vue'
 import emitter from '@/utils/mitt'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount,toRefs,watch } from 'vue'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const productBaseContainer = ref(null)
+
+
+
+
+function handleTouchMove(event) {
+  // event.preventDefault()
+
+  // console.log('手指滑动')
+  // console.log(mobilecontainer.value.getBoundingClientRect().top)
+
+  if (productBaseContainer.value.getBoundingClientRect().top > -110) {
+    emitter.emit('changHeaderBack', {
+        isDark: true,
+        activeBackgroundColor: null,
+        slideChangeBakColor: false
+      })
+  }
+  if (productBaseContainer.value.getBoundingClientRect().top <= -120) {
+    emitter.emit('changHeaderBack', {
+        isDark: false,
+        activeBackgroundColor: 'white',
+        slideChangeBakColor: true
+      })
+  }
+}
+
 
 // 处理滚轮事件的方法
 const handleWheel = (event) => {
@@ -60,6 +88,16 @@ onBeforeUnmount(() => {
   window.removeEventListener('wheel', handleWheel)
   emitter.off('BACKPAGETOP')
 })
+
+
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .product-base-container {

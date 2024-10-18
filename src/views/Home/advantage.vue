@@ -11,7 +11,7 @@
           <div class="desc">五大核心赋能，助力品牌共赢未来无限可能</div>
         </div>
         <div class="T-right">
-          <div class="konw-more-about">
+          <div class="konw-more-about" @click="clickRouter">
             <div class="text">了解更多</div>
             <el-icon class="about-icon">
               <CirclePlusFilled />
@@ -38,10 +38,16 @@ import { getAssetsFile } from '@/utils/tools'
 import { isMobile } from '@/utils/equipment'
 import Accordion from '@/components/accordion/index.vue'
 import emitter from '@/utils/mitt'
+import { useRouter } from 'vue-router'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
+const router = useRouter()
 const changePageShow = ref(false)
 const showAnimation = ref(false)
+const clickRouter = () => {
+  router.push('/business')
+  emitter.emit('DOMINDEX', 2)
+}
 onMounted(() => {})
 const PAGEWIDTH = ref(window.innerWidth)
 watch(
@@ -58,7 +64,7 @@ watch(
   display: flex;
   // align-items: center;
   justify-content: center;
-
+  background-color: #ffffff;
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
   padding-top: 15vh;

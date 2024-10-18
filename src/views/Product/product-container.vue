@@ -1,28 +1,35 @@
 <template>
   <div class="product-container" @click.stop="parentClick">
     <div class="product-container-content">
-      <div class="sift">
+      <div class="sift" v-if="PAGEWIDTH > 960">
         <div class="sift-box-top">
           <div class="top">
             <div class="text">
-              <div class="text-item active">彩妆</div>
-              <div class="text-item">洗护</div>
-              <div class="text-item">护肤</div>
-              <div class="text-item">香氛</div>
-              <div class="text-item">其他</div>
+              <div
+                :class="['text-item', top1Index == index ? 'active' : '']"
+                v-for="(item, index) in topiList"
+                @click="chooseTopindex(index)"
+              >
+                {{ item }}
+              </div>
             </div>
             <div class="button">
-              <div class="button-item active">全部</div>
-              <div class="button-item">国内</div>
-              <div class="button-item">国外</div>
+              <div
+                :class="['button-item', worldIndex == index ? 'active' : '']"
+                v-for="(item, index) in worldlist"
+                @click="chooseWorldType(index)"
+              >
+                {{ item }}
+              </div>
             </div>
           </div>
           <div class="bottom">
             <div class="bottom-text-box">
               <div class="bottom-text-item" v-for="(item, index) in bottomTextArr" :key="index">
                 <div
-                  :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
-                  @click.stop="handleSelect(index)"
+                  :class="['text-b', bottomTextItemIndex == index && show ? 'active' : '']"
+                  @mouseenter.stop="handleSelect(index)"
+                  @mouseleave.stop="parentClick"
                 >
                   <span>{{ item.name }}</span>
                   <el-image
@@ -31,21 +38,28 @@
                     :fit="'fill'"
                   />
                   <el-image v-else :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
-                </div>
-                <div class="line" v-show="bottomTextItemIndex == index">
-                  <div
-                    :class="['line-button', br.isActive ? 'active' : 'none']"
-                    v-for="(br, bri) in item.list"
-                    :key="bri"
-                    @click.stop="handleSelectchild(br, bri)"
-                  >
-                    {{ br.name }}
+
+                  <div class="line" v-show="bottomTextItemIndex == index">
+                    <div
+                      :class="['line-button', br.isActive ? 'active' : 'none']"
+                      v-for="(br, bri) in item.list"
+                      :key="bri"
+                      @click.stop="handleSelectchild(br, bri)"
+                    >
+                      {{ br.name }}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="mobile-sift" v-else>
+        <van-dropdown-menu swipe-threshold="4">
+          <van-dropdown-item v-model="value1" :options="option1" @click="onConfirm" />
+          <van-dropdown-item v-model="value2" :options="option2" @click="onConfirm" />
+        </van-dropdown-menu>
       </div>
       <div class="product-box--ww-bottom">
         <div class="product-list">
@@ -59,7 +73,7 @@
             </div>
           </div>
         </div>
-        <div class="page-control">
+        <div class="page-control" v-if="PAGEWIDTH > 960">
           <div class="page-number-control">
             <div class="left-icon">
               <el-icon>
@@ -89,22 +103,66 @@
             <el-button>确定</el-button>
           </div>
         </div>
+        <div class="mobile-page-control" v-else>
+          <van-pagination v-model="currentPage" :total-items="24" :items-per-page="5" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { useRouter } from 'vue-router'
+
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
+
 const router = useRouter()
 const input = ref('')
+const currentPage = ref(1)
+const option1 = [
+  { text: '彩妆', value: 0 },
+  { text: '洗护', value: 1 },
+  { text: '护肤', value: 2 },
+  {
+    text: '香氛',
+    value: 3
+  },
+  {
+    text: '其他',
+    value: 4
+  }
+]
+const value1 = ref(0)
+
+const option2 = [
+  { text: '全部', value: 0 },
+  { text: '国内', value: 1 },
+  { text: '国外', value: 2 }
+]
+const value2 = ref(0)
+
+const onConfirm = () => {}
 
 const handleSizeChange = (val: number) => {
   console.log(`${val} items per page`)
 }
 const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`)
+}
+
+const worldlist = ['全部', '国内', '国外']
+const worldIndex = ref(0)
+
+const chooseWorldType = (index) => {
+  worldIndex.value = index
+}
+
+const topiList = ['彩妆', '洗护', '护肤', '香氛', '其他']
+const top1Index = ref(0)
+const chooseTopindex = (index) => {
+  top1Index.value = index
 }
 
 const bottomTextItemIndex = ref(-1)
@@ -231,11 +289,8 @@ const bottomTextArr = ref([
 ])
 
 const handleSelect = (index) => {
-  if (bottomTextItemIndex.value == index) {
-    bottomTextItemIndex.value = -1
-  } else {
-    bottomTextItemIndex.value = index
-  }
+  show.value = true
+  bottomTextItemIndex.value = index
 }
 
 const handleSelectchild = (br, brindex) => {
@@ -246,14 +301,24 @@ const handleSelectchild = (br, brindex) => {
   })
   br.isActive = !br.isActive
 }
+const show = ref(false)
 
 const parentClick = () => {
   bottomTextItemIndex.value = -1
+  show.value = false
 }
 
 const gotoProductInfo = () => {
   router.push('/product/product-info')
 }
+
+const PAGEWIDTH = ref(window.innerWidth)
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .product-container {
@@ -308,6 +373,11 @@ const gotoProductInfo = () => {
             gap: 3vw;
 
             .text-item {
+              width: 5vw;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              white-space: nowrap;
               cursor: pointer;
 
               &.active {
@@ -322,6 +392,7 @@ const gotoProductInfo = () => {
             display: flex;
             align-items: center;
             justify-content: flex-end;
+            margin-right: 1vw;
 
             .button-item {
               cursor: pointer;
@@ -364,11 +435,13 @@ const gotoProductInfo = () => {
               justify-content: center;
               width: 5vw;
               height: 100%;
+              // border: 1px solid red;
 
+              white-space: nowrap;
               .text-b {
                 display: flex;
                 align-items: center;
-                justify-content: flex-start;
+                justify-content: center;
                 gap: 0.5vw;
                 cursor: pointer;
 
@@ -398,7 +471,7 @@ const gotoProductInfo = () => {
               .line {
                 position: absolute;
                 left: 0;
-                bottom: -8vh;
+                bottom: -8.1vh;
                 padding: 20px;
                 background-color: #f4f6f7;
                 display: flex;
@@ -591,6 +664,181 @@ const gotoProductInfo = () => {
           color: white;
           border: none;
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .product-container {
+    width: 100vw;
+    height: auto;
+    background-color: #eff2f5;
+    // padding-top: 10vh;
+    // padding-bottom: 10vh;
+    padding: 0;
+    box-sizing: border-box;
+
+    .product-container-content {
+      width: var(--base-width);
+      margin: 0 auto;
+      // background-color: pink;
+
+      .product-box--ww-bottom {
+        padding: 2vh;
+        padding-top: 0;
+        box-sizing: border-box;
+        width: 100%;
+        height: auto;
+
+        .product-list {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1vw;
+
+          .product-list-item {
+            margin: 0 auto;
+            width: 47%;
+            // height: 47%;
+
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1vh;
+
+            .ww-box {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              cursor: pointer;
+              .image {
+                width: 100%;
+                height: calc(100% - 60px);
+
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: fill;
+                }
+              }
+
+              .text {
+                width: 100%;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 16px;
+                color: #333333;
+                background-color: #f8f8f8;
+                border-radius: 0px 0px 20px 20px;
+              }
+            }
+          }
+        }
+      }
+
+      .page-control {
+        margin-top: 5vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1vw;
+        .page-number-control {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .left-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #dfdfdf;
+            font-size: 12px;
+            cursor: pointer;
+          }
+          .number-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1vw;
+            .number-item {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 30px;
+              height: 30px;
+              border-radius: 4px 4px 4px 4px;
+              border: 1px solid #dfdfdf;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 12px;
+              color: #666666;
+              background-color: white;
+              cursor: pointer;
+              &.active {
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 12px;
+                color: #ffffff;
+                background-color: #f3a7a4;
+              }
+            }
+          }
+
+          .right-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #dfdfdf;
+            font-size: 12px;
+            cursor: pointer;
+          }
+        }
+
+        .block {
+          width: 2px;
+          height: 16px;
+          background-color: #dfdfdf;
+        }
+
+        .jumpto {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #dfdfdf;
+          font-size: 12px;
+          gap: 1vw;
+
+          :deep(.el-input) {
+            width: 30px;
+            height: 30px;
+          }
+        }
+        .button {
+          :deep(.el-button) {
+            background-color: #f3a7a4;
+            color: white;
+            border: none;
+          }
+        }
+      }
+
+      .mobile-page-control {
+        margin-top: 2vh;
       }
     }
   }

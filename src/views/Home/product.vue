@@ -13,6 +13,7 @@
           <div
             v-for="(item, index) in productType"
             :class="['right-item', productTypeIndex == index ? 'active' : '']"
+            @click="handleSelect(index)"
           >
             <div class="text">{{ item }}</div>
             <div class="block" v-show="index !== productType.length - 1"></div>
@@ -146,6 +147,10 @@ function convertToChineseNumber(num) {
 }
 // animate__fadeIn
 const productTypeIndex = ref(0)
+
+const handleSelect = (index) => {
+  productTypeIndex.value = index
+}
 const swiperDom = ref(null)
 const onSwiper = (swiper) => {
   swiperDom.value = swiper

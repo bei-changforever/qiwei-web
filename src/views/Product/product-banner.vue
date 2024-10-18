@@ -24,4 +24,11 @@ import { getAssetsFile } from '@/utils/tools'
     background-position: center center;
   }
 }
+
+
+@media (max-width: 960px) {
+  .product-banner {
+    height: 300px;
+  }
+}
 </style>

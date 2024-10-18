@@ -8,7 +8,8 @@
               <div class="block"></div>
               <div class="text">PROFILE</div>
             </div>
-            <div class="name">研发实力</div>
+            <div class="name">荣誉资质</div>
+            <div class="fu-name">高新技术企业及多项荣誉认证</div>
             <div class="desc">
               荣获2022年广东省高新技术企业称号；荣获企业贯标、欧盟22716及GMPC双认证、
               ISO9001质量认证；4项广东省名优高新技术产品荣誉证书。
@@ -231,8 +232,18 @@ watch(
             color: #333333;
           }
 
+          .fu-name {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: var(--fu-name-fontSize);
+            color: #333333;
+          }
+
           .desc {
-            margin-top: 5vh;
+            margin-top: 2vh;
 
             font-family:
               Microsoft YaHei,
@@ -401,6 +412,15 @@ watch(
                 background-color: #f3a7a5;
               }
             }
+            .fu-name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--fu-name-fontSize);
+              color: #333333;
+            }
             .name {
               margin-top: 1vh;
               font-family:
@@ -412,7 +432,7 @@ watch(
             }
 
             .desc {
-              margin-top: 5vh;
+              margin-top: 1vh;
 
               font-family:
                 Microsoft YaHei,
@@ -425,7 +445,7 @@ watch(
           }
 
           .T-bottom {
-            margin-top: 5vh;
+            margin-top: 2vh;
             width: 100%;
 
             .T-bottom-container {
@@ -589,8 +609,17 @@ watch(
               color: #333333;
             }
 
+            .fu-name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--fu-name-fontSize);
+              color: #333333;
+            }
             .desc {
-              margin-top: 5vh;
+              margin-top: 1vh;
 
               font-family:
                 Microsoft YaHei,
@@ -766,6 +795,16 @@ watch(
                 Microsoft YaHei;
               font-weight: bold;
               font-size: var(--topic-fontSize);
+              color: #333333;
+            }
+
+            .fu-name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--fu-name-fontSize);
               color: #333333;
             }
 
