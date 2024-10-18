@@ -81,40 +81,29 @@ let bigSizeIndex = ref(0)
 function scrollToPage(pageIndex) {
   console.log(pageIndex)
 
-  showAnimation.value = false
-
   if (pageIndex == 0) {
     container.value.style.top = `-0%`
   } else if (pageIndex == 1) {
     container.value.style.top = `-70%`
-    showAnimation.value = true
   } else if (pageIndex == 2) {
     container.value.style.top = `-162%`
   } else if (pageIndex == 3) {
     container.value.style.top = `-270%`
-    showAnimation.value = true
   } else if (pageIndex == 4) {
     container.value.style.top = `-360%`
-    showAnimation.value = true
   } else if (pageIndex == 5) {
     container.value.style.top = `-410%`
-    showAnimation.value = true
   } else if (pageIndex == 6) {
     container.value.style.top = `-450%`
-    showAnimation.value = true
   } else if (pageIndex == 7) {
     container.value.style.top = `-550%`
-    showAnimation.value = false
   } else if (pageIndex == 8) {
-    showAnimation.value = false
     if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
-      container.value.style.top = `-590%`
-    }
-    else if(PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-589%`
-    } 
-    else {
-      container.value.style.top = `-594%`
+      container.value.style.top = `-570%`
+    } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
+      container.value.style.top = `-560%`
+    } else {
+      container.value.style.top = `-570%`
     }
   }
 
@@ -151,7 +140,7 @@ function mouseWheel(e) {
 const handleScrolltoTop = () => {
   scrollToPage(0)
 }
-
+const pageType = ref('OEM')
 onMounted(() => {
   // window.addEventListener('wheel', handleWheel)
   // emitter.on('BACKPAGETOP', (res) => {
@@ -175,6 +164,12 @@ onMounted(() => {
     bigSizeIndex.value = 0
     pageIndex.value = 0
   })
+
+  // emitter.on('change-business-cooperate-index', (res) => {
+  //   console.log(res)
+  //   pageType.value = res
+  // })
+
   // 添加鼠标滚轮事件
   document.onmousewheel = mouseWheel
   document.addEventListener('DOMMouseScroll', mouseWheel, false)

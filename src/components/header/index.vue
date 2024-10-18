@@ -13,7 +13,7 @@
             :key="index" @click="handleSelect(index)" @mouseenter="handleMouseenter(index)"
             @mouseleave="handleMouseleave(index)">
             {{ item }}
-            <div class="gbk" v-if="index == 2 && show && route.path == '/business'">
+            <!-- <div class="gbk" v-if="index == 2 && show && route.path == '/business'">
               <div class="gbk-content" @mouseleave="show = false">
 
                 <div :class="['gbk-item', selfIndex == index ? 'active' : '']" v-for="(item, index) in selfitem"
@@ -21,7 +21,7 @@
                   <div class="line" v-if="selfIndex == index"></div> {{ item }}
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="icon" v-if="isDark">
