@@ -2,8 +2,12 @@
   <div class="business-range">
     <div class="business-range-container">
       <div class="control-button">
-        <div :class="['control-button-item', activeIndex == index ? 'active' : '']" v-for="(item, index) in list"
-          :key="index" @click="handleSelect(index)">
+        <div
+          :class="['control-button-item', activeIndex == index ? 'active' : '']"
+          v-for="(item, index) in list"
+          :key="index"
+          @click="handleSelect(index)"
+        >
           {{ item }}
         </div>
       </div>
@@ -21,7 +25,10 @@
 
         <div class="business-container-right">
           <div class="business-container-right-item" v-for="(item, index) in list2" :key="index">
-            <div :class="['text', selfindex == index ? 'active' : '']">
+            <div
+              :class="['text', typeIndex == index ? 'active' : '']"
+              @click="selfHandleSelect(index)"
+            >
               {{ item }}
             </div>
             <div class="line" v-show="index !== list2.length - 1"></div>
@@ -59,6 +66,8 @@ const list3 = [
   getAssetsFile('images', '睫毛育系列.png')
 ]
 const activeIndex = ref(0)
+
+const typeIndex = ref(0)
 const handleSelect = (index) => {
   if (activeIndex.value == index) {
     return
@@ -68,7 +77,9 @@ const handleSelect = (index) => {
   }
 }
 
-const selfindex = ref(0)
+const selfHandleSelect = (index) => {
+  typeIndex.value = index
+}
 </script>
 <style lang="scss" scoped>
 .business-range {
@@ -230,25 +241,26 @@ const selfindex = ref(0)
 @media (max-width: 960px) {
   .business-range {
     width: 100vw;
-    height: 100vh;
-    padding-top: 12vh;
+    height: auto;
+    // padding-top: 12vh;
+    padding: 0;
     background-color: white;
 
     .business-range-container {
       margin: 0 auto;
-      width: var(--base-width);
+      width: 100%;
       transition: all 0.3s ease-in;
       zoom: 1;
-      padding: 5vh;
+      padding: 2vh;
       box-sizing: border-box;
 
       .control-button {
         width: 100%;
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         gap: 1vw;
-        margin-bottom: 5vh;
+        // margin-bottom: 5vh;
 
         .control-button-item {
           width: 150px;
@@ -275,13 +287,16 @@ const selfindex = ref(0)
 
       .business-container-top {
         width: 100%;
+        height: 100px;
         display: flex;
-        align-items: flex-end;
+        flex-direction: column;
         justify-content: center;
-        // background-color: pink;
+        align-items: center;
+        // border: 1px solid red;
 
         .business-container-left {
-          width: 50%;
+          width: 100%;
+          height: 50%;
 
           .business-container-left-item {
             .topic {
@@ -318,25 +333,23 @@ const selfindex = ref(0)
         }
 
         .business-container-right {
-          width: 50%;
+          padding: 0;
+          width: 100%;
+          height: 50%;
           display: flex;
-          justify-content: center;
           align-items: center;
-          gap: 1vw;
+          justify-content: center;
+          gap: 5vw;
           // background-color: orange;
 
           .business-container-right-item {
-            // margin-top: 4vh;
+            margin-top: 0;
             display: flex;
-            justify-content: flex-end;
             align-items: center;
-            gap: 1vw;
-            cursor: pointer;
-
+            justify-content: center;
             .text {
               width: 80px;
               height: 32px;
-
               border-radius: 18px 18px 18px 18px;
               font-family:
                 Microsoft YaHei,
@@ -355,6 +368,7 @@ const selfindex = ref(0)
             }
 
             .line {
+              display: none;
               width: 18px;
               height: 1px;
               background: #e0e0e0;
@@ -365,19 +379,16 @@ const selfindex = ref(0)
       }
 
       .business-container-bottom {
-        margin: 3vh auto;
-        width: 97%;
+        margin: 1vh auto;
+        width: 100%;
         display: flex;
         align-items: center;
-        //   justify-content: center;
-        //   background-color: pink;
+        justify-content: space-between;
         flex-wrap: wrap;
-        gap: 0.5vw;
+        gap: 0.5vh;
 
-        //   padding-left: 4.5vw;
         .business-container-bottom-item {
-          width: 24%;
-          height: 100px;
+          width: 49%;
           height: auto;
 
           :deep(.el-image) {

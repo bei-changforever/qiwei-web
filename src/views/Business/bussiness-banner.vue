@@ -32,6 +32,7 @@ import { getAssetsFile } from '@/utils/tools'
       align-items: center;
       flex-direction: column;
       justify-content: center;
+      text-align: center;
       .big-title {
         font-family:
           Microsoft YaHei,
@@ -48,6 +49,47 @@ import { getAssetsFile } from '@/utils/tools'
         font-weight: 400;
         font-size: 24px;
         color: #ffffff;
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .bussiness-banner {
+    width: 100vw;
+    height: 300px;
+
+    .bussiness-banner-bg {
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      .text {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        .big-title {
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: bold;
+          font-size: 24px;
+          color: #ffffff;
+        }
+
+        .small-title {
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: 16px;
+          color: #ffffff;
+        }
       }
     }
   }

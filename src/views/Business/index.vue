@@ -1,5 +1,5 @@
 <template>
-  <div class="business-base-container" ref="businessBaseContainer">
+  <div class="business-base-container" ref="businessBaseContainer" v-if="PAGEWIDTH > 960">
     <div class="main-okj-container" ref="container">
       <div
         :class="[
@@ -19,6 +19,20 @@
         </footer>
       </div>
     </div>
+  </div>
+
+  <div class="mobile" v-else>
+    <div class="mobile-container" ref="mobilecontainer" @touchmove="handleTouchMove">
+      <div class="mobile-box" v-for="(comp, index) in domArr[0].domarr" :key="index">
+        <component :is="comp" />
+      </div>
+      <div class="mobile-box">
+        <footer id="footer">
+          <CusFooter />
+        </footer>
+      </div>
+    </div>
+    <!-- <van-back-top right="15vw" bottom="10vh" /> -->
   </div>
 </template>
 <script setup>
@@ -55,6 +69,31 @@ let pageScroll = ref(true)
 let prevIndex = ref(0)
 let boxapis = ref([])
 
+const mobilecontainer = ref(null)
+
+
+function handleTouchMove(event) {
+
+  if (mobilecontainer.value.getBoundingClientRect().top > -110) {
+    emitter.emit('changHeaderBack', {
+        isDark: true,
+        activeBackgroundColor: null,
+        slideChangeBakColor: false
+      })
+  }
+  if (mobilecontainer.value.getBoundingClientRect().top <= -120) {
+    emitter.emit('changHeaderBack', {
+        isDark: false,
+        activeBackgroundColor: 'rgba(255,255,255,.75)',
+        slideChangeBakColor: true
+      })
+  }
+}
+
+
+
+
+
 // 向上滚动
 function scrollUp() {
   if (pageIndex.value > 0 && pageScroll.value) {
@@ -79,7 +118,7 @@ function scrollDown() {
 let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  console.log(pageIndex)
+  // console.log(pageIndex)
 
   if (pageIndex == 0) {
     container.value.style.top = `-0%`
@@ -177,8 +216,10 @@ onMounted(() => {
   history.scrollRestoration = 'manual'
 
   nextTick(() => {
-    boxapis.value = document.querySelectorAll('.boxapi')
-    container.value.style.height = `${boxapis.length}00%`
+    if (PAGEWIDTH.value > 960) {
+      boxapis.value = document.querySelectorAll('.boxapi')
+      container.value.style.height = `${boxapis.length}00%`
+    }
   })
 })
 
