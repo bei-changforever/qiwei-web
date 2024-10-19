@@ -13,10 +13,14 @@
         </div>
       </div>
       <div class="develop-container-bottom">
-        <div v-for="(item, index) in list" class="develop-container-bottom-item" @click="handleSelect(index)"
-          @mouseenter="enter(index)" @mouseleave="leave(index)">
+        <div
+          v-for="(item, index) in list"
+          class="develop-container-bottom-item"
+          @click="handleSelect(index)"
+          @mouseenter="enter(index)"
+          @mouseleave="leave(index)"
+        >
           <el-image :src="activeIndex == index ? item.src : item.unactive" :fit="'fill'" />
-
         </div>
       </div>
     </div>
@@ -27,9 +31,21 @@ import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 
 const list = [
-  { name: '创新', src: getAssetsFile('images', '创新选中.png'), unactive: getAssetsFile('images', '未选中创新.png') },
-  { name: '专注', src: getAssetsFile('images', '专注选中.png'), unactive: getAssetsFile('images', '专注未选中.png') },
-  { name: '平衡', src: getAssetsFile('images', '平衡选中.png'), unactive: getAssetsFile('images', '平衡未选中.png') }
+  {
+    name: '创新',
+    src: getAssetsFile('images', '创新选中.png'),
+    unactive: getAssetsFile('images', '未选中创新.png')
+  },
+  {
+    name: '专注',
+    src: getAssetsFile('images', '专注选中.png'),
+    unactive: getAssetsFile('images', '专注未选中.png')
+  },
+  {
+    name: '平衡',
+    src: getAssetsFile('images', '平衡选中.png'),
+    unactive: getAssetsFile('images', '平衡未选中.png')
+  }
 ]
 const activeIndex = ref(0)
 const enter = (index) => {
@@ -156,7 +172,6 @@ const handleSelect = (index) => {
           height: 100%;
           cursor: pointer;
 
-
           &.unactive {
             display: block;
           }
@@ -165,29 +180,28 @@ const handleSelect = (index) => {
             display: none;
           }
         }
-
-
       }
     }
   }
 }
 
-
 @media (max-width: 960px) {
   .develop-scientificall {
     width: 100vw;
-    height: 100vh;
-    padding-top: 5vh;
+    height: auto;
+    // padding-top: 5vh;
+    padding: 0;
 
     .develop-scientificall-base-container {
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
       zoom: 1;
-
+      padding: 2vh;
+      box-sizing: border-box;
       .develop-container-top {
         width: 100%;
-        display: none;
+        display: flex;
 
         .develop-container-left {
           width: 50%;
@@ -196,7 +210,7 @@ const handleSelect = (index) => {
             .topic {
               width: 100%;
               height: 40px;
-              display: flex;
+              display: none;
               align-items: center;
               gap: 10px;
 
@@ -215,12 +229,12 @@ const handleSelect = (index) => {
             }
 
             .name {
-              margin-top: 1vh;
+              // margin-top: 1vh;
               font-family:
                 Microsoft YaHei,
                 Microsoft YaHei;
               font-weight: bold;
-              font-size: var(--topic-fontSize);
+              font-size: 18px;
               color: #333333;
             }
           }
@@ -272,20 +286,22 @@ const handleSelect = (index) => {
       }
 
       .develop-container-bottom {
-        padding: 5vh;
+        margin: 0;
+        margin-top: 2vh;
         box-sizing: border-box;
         width: 100%;
         display: flex;
-        gap: 1vw;
+        align-items: center;
+        flex-direction: column;
+        gap: 1vh;
 
         .develop-container-bottom-item {
-          width: 33.3%;
+          width: 90%;
 
           :deep(.el-image) {
             width: 100%;
             height: 100%;
             cursor: pointer;
-
 
             &.unactive {
               display: block;
@@ -295,8 +311,6 @@ const handleSelect = (index) => {
               display: none;
             }
           }
-
-
         }
       }
     }

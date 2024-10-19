@@ -47,13 +47,22 @@
         </div>
         <div class="contact-right">
           <div class="form-top">
-            <div class="title"><span style="color: #f56c6c;margin-right: 2px;">*</span><span>您的基本信息</span></div>
+            <div class="title">
+              <span style="color: #f56c6c; margin-right: 2px">*</span><span>您的基本信息</span>
+            </div>
             <div class="desc">
               我们诚邀您填写个人基本信息，便于我们选择匹配度最高的团队为您提供服务。
             </div>
           </div>
-          <el-form ref="ruleFormRef" :model="form" label-width="auto" :rules="rules" :label-position="'top'"
-            style="max-width: 100%" status-icon>
+          <el-form
+            ref="ruleFormRef"
+            :model="form"
+            label-width="auto"
+            :rules="rules"
+            :label-position="'top'"
+            style="max-width: 100%"
+            status-icon
+          >
             <el-form-item label="您是？" prop="occupation">
               <el-select v-model="form.occupation">
                 <el-option label="Zone one" value="shanghai" />
@@ -85,9 +94,18 @@
       </div>
       <div class="base-bottom">
         <!-- <div class="bottom-map" ref="mapRef"></div> -->
-        <baidu-map class="bm-view" :zoom="25" :center="{ lng: 116.43836142559879, lat: 23.24771330479027 }">
-          <bm-overlay pane="labelPane" :class="{ sample: true, active }" @draw="draw" @mouseover="active = true"
-            @mouseleave="active = false">
+        <baidu-map
+          class="bm-view"
+          :zoom="25"
+          :center="{ lng: 116.43836142559879, lat: 23.24771330479027 }"
+        >
+          <bm-overlay
+            pane="labelPane"
+            :class="{ sample: true, active }"
+            @draw="draw"
+            @mouseover="active = true"
+            @mouseleave="active = false"
+          >
             <div class="info-box">
               <div class="image">
                 <img :src="getAssetsFile('images', 'map位置.png')" alt="" />
@@ -132,9 +150,7 @@ const form = reactive({
 })
 
 const rules = reactive<FormRules<RuleForm>>({
-  name: [
-    { required: true, message: '请输入您的姓名', trigger: 'blur' }
-  ],
+  name: [{ required: true, message: '请输入您的姓名', trigger: 'blur' }],
   question: [
     {
       required: true,
@@ -158,9 +174,7 @@ const rules = reactive<FormRules<RuleForm>>({
   ],
   delivery: [{ required: false, trigger: 'blur' }],
   Brandname: [{ required: false, trigger: 'blur' }],
-  phonenumber: [
-    { type: 'number', required: false, trigger: 'blur' }
-  ]
+  phonenumber: [{ type: 'number', required: false, trigger: 'blur' }]
 })
 
 const onSubmit = () => {
@@ -478,8 +492,7 @@ const draw = ({ el, BMap, map }) => {
 @media (max-width: 960px) {
   .contact-main {
     width: 100vw;
-    padding-top: 2vh;
-    padding-bottom: 5vh;
+    padding: 0;
     box-sizing: border-box;
     background-color: white;
 
@@ -491,19 +504,21 @@ const draw = ({ el, BMap, map }) => {
       display: flex;
       flex-direction: column;
       align-items: center;
-
+      // padding: 2vh;
+      // box-sizing: border-box;
       .about-base-container-top {
         width: 100%;
         display: flex;
         justify-content: space-between;
 
-        display: none;
-
         .T-left {
+          padding: 2vh;
+          padding-bottom: 0;
+          box-sizing: border-box;
           .topic {
             width: 100%;
             height: 40px;
-            display: flex;
+            display: none;
             align-items: center;
             gap: 1vw;
 
@@ -522,12 +537,12 @@ const draw = ({ el, BMap, map }) => {
           }
 
           .name {
-            margin-top: 1vh;
+            // margin-top: 1vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: bold;
-            font-size: var(--topic-fontSize);
+            font-size: 18px;
             color: #333333;
           }
         }
@@ -540,7 +555,7 @@ const draw = ({ el, BMap, map }) => {
         align-items: center;
         justify-content: center;
         gap: 5vh;
-        margin-top: 5vh;
+        margin-top: 2vh;
 
         .contact-left {
           // width: 30%;
@@ -579,7 +594,7 @@ const draw = ({ el, BMap, map }) => {
                     Microsoft YaHei,
                     Microsoft YaHei;
                   font-weight: bold;
-                  font-size: 24px;
+                  font-size: 18px;
                   color: #333333;
                 }
 
@@ -588,7 +603,7 @@ const draw = ({ el, BMap, map }) => {
                   align-items: center;
                   gap: 0.5vw;
                   cursor: pointer;
-
+                  font-size: 14px;
                   img {
                     width: 14px;
                     height: 16px;
@@ -626,7 +641,7 @@ const draw = ({ el, BMap, map }) => {
                         Microsoft YaHei,
                         Microsoft YaHei;
                       font-weight: bold;
-                      font-size: 20px;
+                      font-size: 14px;
                       color: #333333;
                     }
                   }
@@ -724,11 +739,8 @@ const draw = ({ el, BMap, map }) => {
           width: 100%;
           height: 100%;
         }
-
-
       }
     }
   }
-
 }
 </style>

@@ -14,7 +14,7 @@ import { getAssetsFile } from '@/utils/tools'
 <style lang="scss" scoped>
 .contact-banner {
   width: 100vw;
-  height: 590px;
+  height: 70vh;
 
   .contact-banner-bg {
     width: 100%;
@@ -53,9 +53,43 @@ import { getAssetsFile } from '@/utils/tools'
   }
 }
 
-// @media (max-width: 960px) {
-//   .contact-banner {
-//     height: 350px;
-//   }
-// }
+@media (max-width: 960px) {
+  .contact-banner {
+    width: 100vw;
+    height: 300px;
+    .contact-banner-bg {
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      .text {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        .big-title {
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: bold;
+          font-size: 24px;
+          color: #ffffff;
+        }
+
+        .small-title {
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: 16px;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
 </style>

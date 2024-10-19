@@ -164,6 +164,7 @@ onMounted(() => {
   emitter.on('BACKPAGETOP', (res) => {
     if (PAGEWIDTH.value > 960) {
       handleScrolltoTop()
+      pageIndex.value = 0
     } else {
       window.scrollTo({
         top: 0,

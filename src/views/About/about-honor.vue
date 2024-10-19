@@ -11,10 +11,10 @@
         </div>
         <div class="T-right">
           <div class="swiper-btn">
-            <div class="prev">
+            <div class="prev" @click="prev">
               <el-image :src="getAssetsFile('icon', 'left.png')" :fit="'fill'" />
             </div>
-            <div class="next">
+            <div class="next" @click="next">
               <el-image :src="getAssetsFile('icon', 'right.png')" :fit="'fill'" />
             </div>
           </div>
@@ -91,7 +91,21 @@ const list = [
     imgSrc: getAssetsFile('images', '证书框8.png')
   }
 ]
+const prev = () => {
+  if (activeIndex.value == 0) {
+    return
+  } else {
+    activeIndex.value--
+  }
+}
 
+const next = () => {
+  if (activeIndex.value == list.length - 1) {
+    return
+  } else {
+    activeIndex.value++
+  }
+}
 const handleSelect = (index) => {
   activeIndex.value = index
 }
