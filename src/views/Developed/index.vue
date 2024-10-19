@@ -101,7 +101,7 @@ function scrollToPage(pageIndex) {
   } else if (pageIndex == 9) {
     container.value.style.top = `-462%`
   } else if (pageIndex == 10) {
-    container.value.style.top = `-545%`
+    container.value.style.top = `-543%`
   }
 
   pageScroll.value = false

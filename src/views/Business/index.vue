@@ -115,7 +115,7 @@ function scrollToPage(pageIndex) {
   // console.log(pageIndex)
 
   if (pageIndex == 0) {
-    container.value.style.top = `-0%`
+    container.value.style.top = `0%`
   } else if (pageIndex == 1) {
     container.value.style.top = `-70%`
   } else if (pageIndex == 2) {
@@ -132,7 +132,7 @@ function scrollToPage(pageIndex) {
     container.value.style.top = `-550%`
   } else if (pageIndex == 8) {
     if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
-      container.value.style.top = `-570%`
+      container.value.style.top = `-575%`
     } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
       container.value.style.top = `-560%`
     } else {

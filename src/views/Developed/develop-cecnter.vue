@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="develop-container-bottom">
+      <div class="develop-container-bottom" v-if="PAGEWIDTH > 960">
         <div class="develop-container-bottom-left">
           <div class="develop-cotainer-bottom-left-item">
             <el-image :src="getAssetsFile('images', '研发图片1.png')" :fit="'fill'" alt="" />
@@ -83,13 +83,64 @@
           </div>
         </div>
       </div>
+      <div class="mobile-container-bottom" v-else>
+        <van-swipe :autoplay="3000" lazy-render style="height: 320px" vertical>
+          <van-swipe-item>
+            <div class="box">
+              <el-image :src="getAssetsFile('images', '研发图片1.png')" :fit="'fill'" alt="" />
+              <div class="desc">
+                <span>以综合性测评为导向</span>
+                <span
+                  >化妆品研发以严格遵循安全性、功能性、稳定性、法规合规性及消费者需求为导向，通过多项测试确保产品全面满足市场需求。</span
+                >
+              </div>
+            </div>
+          </van-swipe-item>
+          <van-swipe-item>
+            <div class="box">
+              <el-image :src="getAssetsFile('images', '研发图片2.png')" :fit="'fill'" alt="" />
+              <div class="desc">
+                <span>完善实验室支持</span>
+                <span
+                  >公司拥有完善的物理、化学和生物实验室设施，为研发创新和产品制程提供了全方位、强有力的技术支持。</span
+                >
+              </div>
+            </div>
+          </van-swipe-item>
+
+          <van-swipe-item>
+            <div class="box">
+              <el-image :src="getAssetsFile('images', '研发图片3.png')" :fit="'fill'" alt="" />
+              <div class="desc">
+                <span>质量严格控</span>
+                <span
+                  >我们秉持质量至上的原则，从源头精选优质原料，历经多轮精细筛选与全面评测，每一步都倾注匠心。确保产品妆效的卓越，为客户带来卓越体验。</span
+                >
+              </div>
+            </div>
+          </van-swipe-item>
+          <van-swipe-item>
+            <div class="box">
+              <el-image :src="getAssetsFile('images', '研发图片手机端.png')" :fit="'fill'" alt="" />
+              <div class="desc">
+                <span>知识产权保护体系</span>
+                <span
+                  >奇伟始终将科技创新视为公司发展的核心驱动力，并建立了完善的知识产权保护体系，目前拥40+核心专利证书。</span
+                >
+              </div>
+            </div>
+          </van-swipe-item>
+        </van-swipe>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import emitter from '@/utils/mitt'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const list = ['研发中心', '科学配方理念', '大数据平台', '专利技术']
 const activeIndex = ref(0)
 
@@ -101,6 +152,15 @@ const handleSelect = (index) => {
     emitter.emit('tagViewsShowModel', activeIndex.value)
   }
 }
+
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .develop-center {
@@ -488,7 +548,8 @@ const handleSelect = (index) => {
       width: 100%;
       transition: all 0.3s ease-in;
       zoom: 1;
-
+      padding: 2vh;
+      box-sizing: border-box;
       .control-button {
         width: 100%;
         display: none;
@@ -522,7 +583,7 @@ const handleSelect = (index) => {
 
       .develop-container-top {
         width: 100%;
-        display: none;
+        // display: none;
 
         .develop-container-left {
           width: 50%;
@@ -531,7 +592,7 @@ const handleSelect = (index) => {
             .topic {
               width: 100%;
               height: 40px;
-              display: flex;
+              display: none;
               align-items: center;
               gap: 10px;
 
@@ -550,12 +611,12 @@ const handleSelect = (index) => {
             }
 
             .name {
-              margin-top: 1vh;
+              // margin-top: 1vh;
               font-family:
                 Microsoft YaHei,
                 Microsoft YaHei;
               font-weight: bold;
-              font-size: var(--topic-fontSize);
+              font-size: 18px;
               color: #333333;
             }
           }
@@ -840,6 +901,54 @@ const handleSelect = (index) => {
               width: 100%;
               height: 100%;
               border-radius: 10px;
+            }
+          }
+        }
+      }
+      .mobile-container-bottom {
+        margin-top: 1vh;
+        .box {
+          width: 100%;
+          height: 320px;
+          // border: 1px solid red;
+          position: relative;
+          :deep(.el-image) {
+            width: 100%;
+            height: 99%;
+          }
+
+          .desc {
+            position: absolute;
+            width: 100%;
+            height: 99%;
+            top: 0;
+            left: 0;
+
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 14px;
+            color: #ffffff;
+            padding: 5vh;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 10px;
+
+            span {
+              &:nth-child(1) {
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 18px;
+                color: #ffffff;
+              }
             }
           }
         }

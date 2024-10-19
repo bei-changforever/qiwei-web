@@ -1,19 +1,30 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="header">
-    <div class="fixed-box" :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }">
+    <div
+      class="fixed-box"
+      :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }"
+    >
       <div :class="['header-content', isDark ? 'is-dark' : 'is-white']">
         <div class="logo">
           <!-- <el-image :src="getAssetsFile('icon', activeBackgroundColor == '#000000' ? 'LOGO.png' : 'logo_black.png')"
             :fit="'fill'" /> -->
-          <el-image :src="getAssetsFile('icon', isDark ? 'LOGO.png' : 'logo_black.png')" :fit="'fill'" />
+          <el-image
+            :src="getAssetsFile('icon', isDark ? 'LOGO.png' : 'logo_black.png')"
+            :fit="'fill'"
+          />
         </div>
         <div :class="['text']">
-          <div v-for="(item, index) in HeaderInfo" :class="['text-item', activeIndex == index ? 'active' : '']"
-            :key="index" @click="handleSelect(index)" @mouseenter="handleMouseenter(index)"
-            @mouseleave="handleMouseleave(index)">
-            {{ item }}
-            <!-- <div class="gbk" v-if="index == 2 && show && route.path == '/business'">
+          <div
+            v-for="(item, index) in HeaderInfo"
+            :class="['text-item', activeIndex == index ? 'active' : '']"
+            :key="index"
+            @click="handleSelect(index)"
+            @mouseenter="handleMouseenter(index)"
+            @mouseleave="handleMouseleave(index)"
+          >
+            <span>{{ item }}</span>
+            <div class="gbk" v-if="(index == 2 || index == 3 || index == 4 )&& show" >
               <div class="gbk-content" @mouseleave="show = false">
 
                 <div :class="['gbk-item', selfIndex == index ? 'active' : '']" v-for="(item, index) in selfitem"
@@ -21,16 +32,27 @@
                   <div class="line" v-if="selfIndex == index"></div> {{ item }}
                 </div>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
         <div class="icon" v-if="isDark">
-          <el-image class="unactive-image" v-for="(item, index) in IconInfo" :key="index" :src="item" :fit="'fill'" />
+          <el-image
+            class="unactive-image"
+            v-for="(item, index) in IconInfo"
+            :key="index"
+            :src="item"
+            :fit="'fill'"
+          />
           <div class="active" @click="changeMobilePhone">≡</div>
         </div>
         <div class="icon" v-else>
-          <el-image class="unactive-image" v-for="(item, index) in blackIconInfo" :key="index" :src="item"
-            :fit="'fill'" />
+          <el-image
+            class="unactive-image"
+            v-for="(item, index) in blackIconInfo"
+            :key="index"
+            :src="item"
+            :fit="'fill'"
+          />
           <div class="dark-active" @click="changeMobilePhone">≡</div>
         </div>
       </div>
@@ -73,6 +95,9 @@ const props = defineProps({
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
 
 const selfitem = ['业务范围', '服务原则', '全球供应链', '合作模式']
+const selfitem2 = ['研发中心', '科学配方理念', '大数据平台', '专利技术']
+const selfitem3 = ['关于奇伟', '公司沿革', '荣誉资质', '全球足迹']
+const list = [selfitem, selfitem2, selfitem3]
 const selfIndex = ref(-1)
 const show = ref(false)
 const selfHandleSelect = (index) => {
@@ -80,11 +105,9 @@ const selfHandleSelect = (index) => {
   emitter.emit('TOGGLEPAGE', selfIndex.value)
 }
 const handleMouseenter = (index) => {
-
   if (index == 2) {
     show.value = true
   }
-
 }
 
 const handleMouseleave = (index) => {
@@ -92,11 +115,10 @@ const handleMouseleave = (index) => {
   if (index !== 2) {
     show.value = false
   }
-
 }
 
 const changeMobilePhone = () => {
-  console.log('点击');
+  console.log('点击')
 
   emitter.emit('TOGGLEMOBILEPHONE', true)
 }
@@ -156,7 +178,7 @@ const handleSelect = (key: number) => {
 watch(
   () => route.path,
   (newVal, oldVal) => {
-    console.log(newVal);
+    console.log(newVal)
 
     if (newVal == '/') {
       router.push('/')
@@ -285,7 +307,7 @@ watch(
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                border-bottom: 1px solid #F2F2F2;
+                border-bottom: 1px solid #f2f2f2;
                 gap: 0.2vw;
 
                 .line {
@@ -297,7 +319,6 @@ watch(
                 &.active {
                   color: #f3a7a5;
                 }
-
 
                 &:last-child {
                   border-bottom: 0;

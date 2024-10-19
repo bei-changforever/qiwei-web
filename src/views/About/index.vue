@@ -104,7 +104,9 @@ function scrollDown() {
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
   // console.log(pageIndex)
-  if (pageIndex == 1) {
+  if (pageIndex == 0) {
+    container.value.style.top = `0%`
+  } else if (pageIndex == 1) {
     container.value.style.top = `-70%`
   } else if (pageIndex == 2) {
     container.value.style.top = `-170%`
@@ -115,9 +117,7 @@ function scrollToPage(pageIndex) {
   } else if (pageIndex == 5) {
     container.value.style.top = `-430%`
   } else if (pageIndex == 6) {
-    container.value.style.top = `-490%`
-  } else {
-    container.value.style.top = `-${pageIndex}00%`
+    container.value.style.top = `-489%`
   }
 
   pageScroll.value = false
@@ -155,7 +155,6 @@ const handleScrolltoTop = () => {
 }
 
 onMounted(() => {
-
   emitter.on('tagViewsShowModel', (res) => {
     pageIndex.value = res + 1
     scrollToPage(res + 1)
@@ -185,7 +184,6 @@ onMounted(() => {
       container.value.style.height = `${boxapis.length}00%`
     }
   })
-
 })
 
 onBeforeUnmount(() => {
