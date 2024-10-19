@@ -71,28 +71,22 @@ let boxapis = ref([])
 
 const mobilecontainer = ref(null)
 
-
 function handleTouchMove(event) {
-
   if (mobilecontainer.value.getBoundingClientRect().top > -110) {
     emitter.emit('changHeaderBack', {
-        isDark: true,
-        activeBackgroundColor: null,
-        slideChangeBakColor: false
-      })
+      isDark: true,
+      activeBackgroundColor: null,
+      slideChangeBakColor: false
+    })
   }
   if (mobilecontainer.value.getBoundingClientRect().top <= -120) {
     emitter.emit('changHeaderBack', {
-        isDark: false,
-        activeBackgroundColor: 'rgba(255,255,255,.75)',
-        slideChangeBakColor: true
-      })
+      isDark: false,
+      activeBackgroundColor: 'rgba(255,255,255,.75)',
+      slideChangeBakColor: true
+    })
   }
 }
-
-
-
-
 
 // 向上滚动
 function scrollUp() {
@@ -199,22 +193,28 @@ onMounted(() => {
   })
 
   emitter.on('BACKPAGETOP', (res) => {
-    handleScrolltoTop()
-    bigSizeIndex.value = 0
-    pageIndex.value = 0
+    if (PAGEWIDTH > 960) {
+      handleScrolltoTop()
+      pageIndex.value = 0
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // 可选，使滚动平滑
+      })
+    }
   })
 
   // emitter.on('change-business-cooperate-index', (res) => {
   //   console.log(res)
   //   pageType.value = res
   // })
-
-  // 添加鼠标滚轮事件
-  document.onmousewheel = mouseWheel
-  document.addEventListener('DOMMouseScroll', mouseWheel, false)
-  // 设置滚动记录
-  history.scrollRestoration = 'manual'
-
+  if (PAGEWIDTH.value > 960) {
+    // 添加鼠标滚轮事件
+    document.onmousewheel = mouseWheel
+    document.addEventListener('DOMMouseScroll', mouseWheel, false)
+    // 设置滚动记录
+    history.scrollRestoration = 'manual'
+  }
   nextTick(() => {
     if (PAGEWIDTH.value > 960) {
       boxapis.value = document.querySelectorAll('.boxapi')

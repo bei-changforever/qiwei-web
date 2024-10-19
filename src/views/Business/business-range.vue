@@ -339,7 +339,7 @@ const selfHandleSelect = (index) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 5vw;
+          gap: 2.5vw;
           // background-color: orange;
 
           .business-container-right-item {

@@ -195,13 +195,13 @@ onMounted(() => {
       pageIndex.value = 0
     }
   })
-
-  // 添加鼠标滚轮事件
-  document.onmousewheel = mouseWheel
-  document.addEventListener('DOMMouseScroll', mouseWheel, false)
-  // 设置滚动记录
-  history.scrollRestoration = 'manual'
-
+  if (PAGEWIDTH.value > 960) {
+    // 添加鼠标滚轮事件
+    document.onmousewheel = mouseWheel
+    document.addEventListener('DOMMouseScroll', mouseWheel, false)
+    // 设置滚动记录
+    history.scrollRestoration = 'manual'
+  }
   nextTick(() => {
     if (PAGEWIDTH.value > 960) {
       boxapis.value = document.querySelectorAll('.boxapi')

@@ -29,7 +29,11 @@
         </div>
       </div>
       <div class="business-container-bottom">
-        <img :src="getAssetsFile('images', `${list2[activeIndex]}.png`)" alt="" />
+        <img
+          :src="getAssetsFile('images', `${list2[activeIndex]}.png`)"
+          alt=""
+          @click="() => showImagePreview([getAssetsFile('images', `${list2[activeIndex]}.png`)])"
+        />
       </div>
     </div>
   </div>
@@ -38,6 +42,7 @@
 import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import emitter from '@/utils/mitt'
+import { showImagePreview } from 'vant'
 const list = ['业务范围', '服务原则', '全球供应链', '合作模式']
 const list2 = ['OEM', 'ODM', 'OBM']
 const activeIndex = ref(0)
@@ -164,9 +169,9 @@ const handleSelect = (index) => {
     .business-container-bottom {
       width: 100%;
       height: 1025px;
-      
+
       //   padding-bottom: 10vh;
-    //   border: 1px solid red;
+      //   border: 1px solid red;
       margin-top: 10vh;
       display: flex;
       align-items: center;
@@ -184,8 +189,9 @@ const handleSelect = (index) => {
 @media (max-width: 960px) {
   .business-cooperate {
     width: 100vw;
-    height: 220vh;
-    padding-top: 10vh;
+    height: auto;
+    // padding-top: 10vh;
+    padding: 0;
     background-color: white;
 
     .business-cooperate-base-container {
@@ -193,15 +199,18 @@ const handleSelect = (index) => {
       width: var(--base-width);
       transition: all 0.3s ease-in;
       zoom: 1;
-      padding: 5vh;
+      padding: 2vh;
       box-sizing: border-box;
 
       .business-container-top {
         width: 100%;
+        height: 100px;
         display: flex;
+        flex-direction: column;
+        // background: pink;
 
         .business-container-left {
-          width: 50%;
+          width: 100%;
 
           .business-container-left-item {
             .topic {
@@ -226,16 +235,17 @@ const handleSelect = (index) => {
             }
 
             .name {
-              margin-top: 1vh;
+              // margin-top: 1vh;
               font-family:
                 Microsoft YaHei,
                 Microsoft YaHei;
               font-weight: bold;
-              font-size: var(--topic-fontSize);
+              font-size: 18px;
               color: #333333;
             }
 
             .desc {
+              display: none;
               margin-top: 2vh;
               font-family:
                 Microsoft YaHei,
@@ -249,26 +259,24 @@ const handleSelect = (index) => {
         }
 
         .business-container-right {
-          width: 50%;
+          padding: 0;
+          width: 100%;
+          height: 50%;
           display: flex;
-          justify-content: flex-end;
           align-items: center;
-          gap: 1vw;
-          // background-color: pink;
+          justify-content: flex-start;
+          gap: 2.5vw;
+          // background-color: orange;
 
           .business-container-right-item {
-            // margin-top: 4vh;
+            // margin-top: 0;
+            margin: 0;
             display: flex;
-            justify-content: flex-end;
             align-items: center;
-            gap: 1vw;
-            cursor: pointer;
-            margin-bottom: 5vh;
-
+            justify-content: center;
             .text {
               width: 80px;
               height: 32px;
-
               border-radius: 18px 18px 18px 18px;
               font-family:
                 Microsoft YaHei,
@@ -287,6 +295,7 @@ const handleSelect = (index) => {
             }
 
             .line {
+              display: none;
               width: 18px;
               height: 1px;
               background: #e0e0e0;
@@ -298,15 +307,16 @@ const handleSelect = (index) => {
 
       .business-container-bottom {
         width: 100%;
-        // height: 550px;
-        margin-top: 3vh;
+        height: 500px;
+        margin-top: 1vh;
         display: flex;
         align-items: center;
         justify-content: center;
-
-        :deep(.el-image) {
+        // border: 1px solid red;
+        img {
           width: 100%;
           height: 100%;
+          object-fit: fill;
         }
       }
     }
