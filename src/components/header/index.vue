@@ -412,7 +412,7 @@ watch(
           .gbk {
             width: 200px;
             height: 176px;
-            bottom: -20.2vh;
+            bottom: -176px;
             left: 50%;
             transform: translateX(-50%);
             position: absolute;
