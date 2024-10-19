@@ -188,7 +188,7 @@ onMounted(() => {
   })
 
   emitter.on('TOGGLEPAGE', (res) => {
-    // bigSizeIndex.value = 0
+    pageIndex.value = res + 1
     scrollToPage(res + 1)
   })
 

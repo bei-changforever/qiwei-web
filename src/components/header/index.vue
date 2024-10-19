@@ -14,7 +14,7 @@
             :fit="'fill'"
           />
         </div>
-        <div :class="['text']">
+        <!-- <div :class="['text']">
           <div
             v-for="(item, index) in HeaderInfo"
             :class="['text-item', activeIndex == index ? 'active' : '']"
@@ -24,15 +24,86 @@
             @mouseleave="handleMouseleave(index)"
           >
             <span>{{ item }}</span>
-            <div class="gbk" v-if="(index == 2 || index == 3 || index == 4 )&& show" >
+            <div class="gbk" v-if="(index == 2 || index == 3 || index == 4) && show">
               <div class="gbk-content" @mouseleave="show = false">
-
-                <div :class="['gbk-item', selfIndex == index ? 'active' : '']" v-for="(item, index) in selfitem"
-                  @click="selfHandleSelect(index)">
-                  <div class="line" v-if="selfIndex == index"></div> {{ item }}
+                <div
+                  :class="['gbk-item', selfIndex == index ? 'active' : '']"
+                  v-for="(item, i) in list[index]"
+                  @click="selfHandleSelect(i)"
+                >
+                  <div class="line" v-if="selfIndex == index"></div>
+                  {{ item }}
                 </div>
               </div>
             </div>
+          </div>
+        </div> -->
+        <div class="text">
+          <div class="text-item">
+            <span :class="activeIndex == 0 ? 'active' : ''" @click="handleSelect(0)">首页</span>
+          </div>
+          <div class="text-item">
+            <span :class="activeIndex == 1 ? 'active' : ''" @click="handleSelect(1)">产品中心</span>
+          </div>
+          <div
+            class="text-item"
+            @mouseenter.stop="handleMouseenter(0)"
+            @mouseleave.stop="show1 = false"
+          >
+            <span :class="activeIndex == 2 ? 'active' : ''" @click="handleSelect(2)">业务合作</span>
+            <div class="gbk" v-if="show1">
+              <div class="gbk-content">
+                <div
+                  :class="['gbk-item', selfIndex == i ? 'active' : '']"
+                  v-for="(item, i) in selfitem"
+                  @click="selfHandleSelect('业务合作', i)"
+                >
+                  <div class="line" v-if="selfIndex == i"></div>
+                  {{ item }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="text-item"
+            @mouseenter.stop="handleMouseenter(1)"
+            @mouseleave.stop="show2 = false"
+          >
+            <span :class="activeIndex == 3 ? 'active' : ''" @click="handleSelect(3)">研发中心</span>
+            <div class="gbk" v-if="show2">
+              <div class="gbk-content">
+                <div
+                  :class="['gbk-item', selfIndex2 == i ? 'active' : '']"
+                  v-for="(item, i) in selfitem2"
+                  @click="selfHandleSelect('研发中心', i)"
+                >
+                  <div class="line" v-if="selfIndex2 == i"></div>
+                  {{ item }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="text-item"
+            @mouseenter.stop="handleMouseenter(2)"
+            @mouseleave.stop="show3 = false"
+          >
+            <span :class="activeIndex == 4 ? 'active' : ''" @click="handleSelect(4)">关于纬奇</span>
+            <div class="gbk" v-if="show3">
+              <div class="gbk-content">
+                <div
+                  :class="['gbk-item', selfIndex3 == i ? 'active' : '']"
+                  v-for="(item, i) in selfitem3"
+                  @click="selfHandleSelect('关于纬奇', i)"
+                >
+                  <div class="line" v-if="selfIndex3 == i"></div>
+                  {{ item }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-item">
+            <span :class="activeIndex == 5 ? 'active' : ''" @click="handleSelect(5)">联系我们</span>
           </div>
         </div>
         <div class="icon" v-if="isDark">
@@ -99,21 +170,79 @@ const selfitem2 = ['研发中心', '科学配方理念', '大数据平台', '专
 const selfitem3 = ['关于奇伟', '公司沿革', '荣誉资质', '全球足迹']
 const list = [selfitem, selfitem2, selfitem3]
 const selfIndex = ref(-1)
-const show = ref(false)
-const selfHandleSelect = (index) => {
-  selfIndex.value = index
-  emitter.emit('TOGGLEPAGE', selfIndex.value)
+const selfIndex2 = ref(-1)
+const selfIndex3 = ref(-1)
+const show1 = ref(false)
+const show2 = ref(false)
+
+const show3 = ref(false)
+const selfHandleSelect = (str, index) => {
+  if (str == '业务合作') {
+    selfIndex.value = index
+    selfIndex2.value = -1
+    selfIndex3.value = -1
+    if (route.path == '/business') {
+      emitter.emit('TOGGLEPAGE', index)
+      return
+    } else {
+      router.push('/business')
+      setTimeout(() => {
+        emitter.emit('TOGGLEPAGE', index)
+      }, 300)
+    }
+  }
+  if (str == '研发中心') {
+    selfIndex2.value = index
+    selfIndex.value = -1
+    selfIndex3.value = -1
+    if (route.path == '/develop') {
+      emitter.emit('TOGGLEPAGE', index)
+      return
+    } else {
+      router.push('/develop')
+      setTimeout(() => {
+        emitter.emit('TOGGLEPAGE', index)
+      }, 300)
+    }
+  }
+  if (str == '关于奇伟') {
+    selfIndex3.value = index
+    selfIndex.value = -1
+    selfIndex2.value = -1
+    if (route.path == '/about') {
+      emitter.emit('TOGGLEPAGE', index)
+      return
+    } else {
+      router.push('/about')
+      setTimeout(() => {
+        emitter.emit('TOGGLEPAGE', index)
+      }, 300)
+    }
+  }
 }
 const handleMouseenter = (index) => {
+  if (index == 0) {
+    show1.value = true
+    show2.value = false
+    show3.value = false
+  }
+  if (index == 1) {
+    show1.value = false
+    show2.value = true
+    show3.value = false
+  }
+
   if (index == 2) {
-    show.value = true
+    show1.value = false
+    show2.value = false
+    show3.value = true
   }
 }
 
 const handleMouseleave = (index) => {
   // console.log(index);
   if (index !== 2) {
-    show.value = false
+    // show.value = false
   }
 }
 
@@ -261,20 +390,21 @@ watch(
         align-items: center;
         justify-content: center;
         gap: 10%;
-
+        // background: pink;
         .text-item {
           position: relative;
           white-space: nowrap;
           font-weight: 400;
           font-size: 14px;
           cursor: pointer;
-          // overflow: hidden;
-
-          // &:hover {
-          //   overflow: visible;
-          // }
-
-          &.active {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          // background: orange;
+          border-bottom: 0;
+          border: none;
+          .active {
             color: #f3a7a5;
             border-bottom: 3px solid #f3a7a5;
           }
@@ -282,13 +412,15 @@ watch(
           .gbk {
             width: 200px;
             height: 176px;
-            bottom: -200px;
+            bottom: -20.2vh;
             left: 50%;
             transform: translateX(-50%);
             position: absolute;
             background-color: white;
             border-radius: 0px 0px 10px 10px;
-            box-shadow: 0 0 12px 1 #000000;
+            box-shadow:
+              rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+              rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 
             .gbk-content {
               width: 100%;

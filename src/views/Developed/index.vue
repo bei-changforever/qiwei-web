@@ -158,13 +158,10 @@ const handleScrolltoTop = () => {
 }
 
 onMounted(() => {
-  // window.addEventListener('wheel', handleWheel)
-  // emitter.on('BACKPAGETOP', (res) => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: 'smooth' // 可选，使滚动平滑
-  //   })
-  // })
+  emitter.on('TOGGLEPAGE', (res) => {
+    pageIndex.value = res + 1
+    scrollToPage(res + 1)
+  })
   emitter.on('tagViewsShowModel', (res) => {
     pageIndex.value = res + 1
     scrollToPage(res + 1)
@@ -195,6 +192,7 @@ onBeforeUnmount(() => {
   emitter.off('tagViewsShowModel')
   document.removeEventListener('DOMMouseScroll', mouseWheel)
   emitter.off('BACKPAGETOP')
+  emitter.off('TOGGLEPAGE')
 })
 
 watch(
