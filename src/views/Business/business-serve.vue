@@ -236,7 +236,7 @@ watch(
 .business-serve {
   width: 100vw;
   height: 100vh;
-  padding-top: 20vh;
+  padding-top: 15vh;
 
   .business-serve-base-container {
     margin: 0 auto;
