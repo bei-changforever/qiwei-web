@@ -1,5 +1,5 @@
 <template>
-  <div class="about-base-container" ref="aboutBaseContainer">
+  <div class="about-base-container" ref="aboutBaseContainer" v-if="PAGEWIDTH > 960">
     <div class="main-okj-container" ref="container">
       <!-- <div class="boxapi">
         <AboutBanner />
@@ -9,6 +9,7 @@
         <component :is="comp" />
       </div>
 
+      <div class="boxapi"></div>
       <div class="boxapi">
         <footer id="footer">
           <CusFooter />
@@ -16,21 +17,36 @@
       </div>
     </div>
   </div>
+  <div class="mobile" v-else>
+    <div class="mobile-container" ref="mobilecontainer" @touchmove="handleTouchMove">
+      <div class="mobile-box" v-for="(comp, index) in domArr[0].domarr" :key="index">
+        <component :is="comp" />
+      </div>
+      <div class="mobile-box">
+        <footer id="footer">
+          <CusFooter />
+        </footer>
+      </div>
+    </div>
+    <!-- <van-back-top right="15vw" bottom="10vh" /> -->
+  </div>
 </template>
 <script setup>
-import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick ,watch} from 'vue'
+import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch, toRefs } from 'vue'
 import AboutBanner from '@/views/About/about-banner.vue'
 import AboutBussiness from '@/views/About/about-business.vue'
 import AboutHistory from '@/views/About/about-history.vue'
 import aboutHonor from './about-honor.vue'
 import aboutFootprint from './about-footprint.vue'
 import emitter from '@/utils/mitt'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const aboutBaseContainer = ref(null)
 
 const domArr = shallowRef([
   {
     id: 'about',
-    domarr: [AboutBanner,AboutBussiness, AboutHistory, aboutHonor, aboutFootprint]
+    domarr: [AboutBanner, AboutBussiness, AboutHistory, aboutHonor, aboutFootprint]
   }
 ])
 
@@ -44,28 +60,24 @@ let prevIndex = ref(0)
 let boxapis = ref([])
 
 // 处理滚轮事件的方法
-// const handleWheel = (event) => {
-//   const deltaY = event.deltaY
-//   if (deltaY < 0) {
-//     // 向上滚动
-//     if (aboutBaseContainer.value.getBoundingClientRect().top > -100) {
-//       emitter.emit('changHeaderBack', {
-//         isDark: true,
-//         activeBackgroundColor: null,
-//         slideChangeBakColor: false
-//       })
-//     }
-//   } else if (deltaY > 0) {
-//     // 向下滚动
-//     if (aboutBaseContainer.value.getBoundingClientRect().top <= -100) {
-//       emitter.emit('changHeaderBack', {
-//         isDark: false,
-//         activeBackgroundColor: 'white',
-//         slideChangeBakColor: true
-//       })
-//     }
-//   }
-// }
+const mobilecontainer = ref(null)
+
+function handleTouchMove(event) {
+  if (mobilecontainer.value.getBoundingClientRect().top > -110) {
+    emitter.emit('changHeaderBack', {
+      isDark: true,
+      activeBackgroundColor: null,
+      slideChangeBakColor: false
+    })
+  }
+  if (mobilecontainer.value.getBoundingClientRect().top <= -120) {
+    emitter.emit('changHeaderBack', {
+      isDark: false,
+      activeBackgroundColor: 'rgba(255,255,255,.75)',
+      slideChangeBakColor: true
+    })
+  }
+}
 
 // 向上滚动
 function scrollUp() {
@@ -91,25 +103,22 @@ function scrollDown() {
 
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  console.log(pageIndex);
-  if(pageIndex == 1) {
-    container.value.style.top = `-590px`
-  }else if(pageIndex == 2) {
-    container.value.style.top = `-162%`
-  }
-  else if(pageIndex == 3) {
-    container.value.style.top = `-260%`
-  }
-  else if(pageIndex == 4) {
-    container.value.style.top = `-362%`
-  }
-  else if(pageIndex == 5) {
-    container.value.style.top = `-420%`
-  }
-  else {
+  // console.log(pageIndex)
+  if (pageIndex == 1) {
+    container.value.style.top = `-70%`
+  } else if (pageIndex == 2) {
+    container.value.style.top = `-170%`
+  } else if (pageIndex == 3) {
+    container.value.style.top = `-265%`
+  } else if (pageIndex == 4) {
+    container.value.style.top = `-310%`
+  } else if (pageIndex == 5) {
+    container.value.style.top = `-430%`
+  } else if (pageIndex == 6) {
+    container.value.style.top = `-490%`
+  } else {
     container.value.style.top = `-${pageIndex}00%`
   }
-  
 
   pageScroll.value = false
   scrollTimer()
@@ -140,55 +149,49 @@ function mouseWheel(e) {
     }
   }
 }
-const screenWidth = ref(window.innerWidth)
-const handleResize = () => {
-  screenWidth.value =
-    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-}
 
 const handleScrolltoTop = () => {
   scrollToPage(0)
 }
 
 onMounted(() => {
-  // window.addEventListener('wheel', handleWheel)
-  // emitter.on('BACKPAGETOP', (res) => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: 'smooth' // 可选，使滚动平滑
-  //   })
-  // })
+
   emitter.on('tagViewsShowModel', (res) => {
     pageIndex.value = res + 1
-    scrollToPage(res+1)
+    scrollToPage(res + 1)
   })
 
   emitter.on('BACKPAGETOP', (res) => {
-    handleScrolltoTop()
+    if (PAGEWIDTH.value > 960) {
+      handleScrolltoTop()
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // 可选，使滚动平滑
+      })
+    }
   })
-  // 添加鼠标滚轮事件
-  document.onmousewheel = mouseWheel
-  document.addEventListener('DOMMouseScroll', mouseWheel, false)
-  // 设置滚动记录
-  history.scrollRestoration = 'manual'
-
+  if (PAGEWIDTH.value > 960) {
+    // 添加鼠标滚轮事件
+    document.onmousewheel = mouseWheel
+    document.addEventListener('DOMMouseScroll', mouseWheel, false)
+    // 设置滚动记录
+    history.scrollRestoration = 'manual'
+  }
   nextTick(() => {
-    boxapis.value = document.querySelectorAll('.boxapi')
-    container.value.style.height = `${boxapis.length}00%`
+    if (PAGEWIDTH.value > 960) {
+      boxapis.value = document.querySelectorAll('.boxapi')
+      container.value.style.height = `${boxapis.length}00%`
+    }
   })
 
-  window.addEventListener('resize', handleResize)
 })
 
 onBeforeUnmount(() => {
-  // window.removeEventListener('wheel', handleWheel)
-  // emitter.off('BACKPAGETOP')
   emitter.off('tagViewsShowModel')
-
   document.removeEventListener('DOMMouseScroll', mouseWheel)
   emitter.off('BACKPAGETOP')
 })
-
 
 watch(
   () => pageIndex.value,
@@ -206,6 +209,15 @@ watch(
         slideChangeBakColor: true
       })
     }
+  }
+)
+
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
   }
 )
 </script>

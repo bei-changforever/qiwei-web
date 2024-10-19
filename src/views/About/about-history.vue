@@ -12,98 +12,44 @@
         <div class="T-right">
           <div class="swiper-btn">
             <div class="prev">
-              <el-image :src="getAssetsFile('icon', 'left.png')" :fit="'fill'" />
+              <el-image
+                :src="getAssetsFile('icon', 'left.png')"
+                :fit="'fill'"
+                @click="bannerSwiperPrev"
+              />
             </div>
             <div class="next">
-              <el-image :src="getAssetsFile('icon', 'right.png')" :fit="'fill'" />
+              <el-image
+                :src="getAssetsFile('icon', 'right.png')"
+                :fit="'fill'"
+                @click="bannerSwiperNext"
+              />
             </div>
           </div>
         </div>
       </div>
-      <div class="about-history-container-bottom">
-        <swiper class="mySwiper">
+      <div class="about-history-container-bottom" v-if="PAGEWIDTH > 960">
+        <swiper class="mySwiper" @swiper="onSwiper">
           <swiper-slide>
             <div class="about-history-container-bottom-content">
               <div class="content-background-image"></div>
               <div class="content-text">
-                <div class="text-title">
+                <div
+                  class="text-title"
+                  v-for="(item, index) in list"
+                  :key="index"
+                  @mouseleave="handleMouseleave(index)"
+                >
                   <div class="block"></div>
 
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content is-no">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
+                  <div class="time" @mouseenter="handleMouseenter(index)">{{ item.year }}</div>
+                  <div :class="['text-content', activeIndex == index ? '' : 'is-no']">
+                    <div class="content-time">{{ item.content.year }}</div>
+                    <div class="content-detail" v-for="(d, i2) in item.content.detail" :key="i2">
+                      <div class="text">{{ d.text }}</div>
                     </div>
                     <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-title">
-                  <div class="block"></div>
-
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content is-no">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
-                    </div>
-                    <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
-                    </div>
-                  </div>
-                </div>
-                <div class="text-title">
-                  <div class="block"></div>
-
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content is-no">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
-                    </div>
-                    <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
-                    </div>
-                  </div>
-                </div>
-                <div class="text-title">
-                  <div class="block"></div>
-
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content is-no">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
-                    </div>
-                    <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
-                    </div>
-                  </div>
-                </div>
-                <div class="text-title">
-                  <div class="block"></div>
-
-                  <div class="time">SINCE 1996</div>
-                  <div class="text-content">
-                    <div class="content-time">1997-2002</div>
-                    <div class="content-detail">
-                      <div class="text">荣获"国家高新技术企业"认 证</div>
-                      <div class="text">底妆类项目投产</div>
-                      <div class="text">研发、产能全面升级</div>
-                    </div>
-                    <div class="image">
-                      <img :src="getAssetsFile('images', '选中时间图片.png')" alt="" />
+                      <img :src="item.content.src" alt="" />
                     </div>
                   </div>
                 </div>
@@ -112,7 +58,29 @@
           </swiper-slide>
           <swiper-slide>
             <div class="about-history-container-bottom-content">
-              <div class="content-background-image unback"></div>
+              <div class="content-background-image unback">
+                <div class="content-text reback">
+                  <div
+                    class="text-title"
+                    v-for="(item, index) in list2"
+                    :key="index"
+                    @mouseleave="handleMouseleave(index)"
+                  >
+                    <div class="block"></div>
+
+                    <div class="time" @mouseenter="handleMouseenter(index)">{{ item.year }}</div>
+                    <div :class="['text-content', activeIndex == index ? '' : 'is-no']">
+                      <div class="content-time">{{ item.content.year }}</div>
+                      <div class="content-detail" v-for="(d, i2) in item.content.detail" :key="i2">
+                        <div class="text">{{ d.text }}</div>
+                      </div>
+                      <div class="image">
+                        <img :src="item.content.src" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </swiper-slide>
           <swiper-slide>
@@ -122,17 +90,271 @@
           </swiper-slide>
         </swiper>
       </div>
+      <div class="mobile-history" v-else>
+        <van-swipe :autoplay="3000" lazy-render>
+          <van-swipe-item v-for="(item, index) in mobileList" :key="index">
+            <div class="text-content">
+              <div class="content-time">{{ item.year }}</div>
+              <div class="content-detail" v-for="(d, i2) in item.detail" :key="i2">
+                <div class="text">{{ d.text }}</div>
+              </div>
+              <div class="image">
+                <img :src="item.src" alt="" />
+              </div>
+            </div>
+          </van-swipe-item>
+        </van-swipe>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
-
+import { ref, onMounted, onBeforeUnmount, shallowRef, nextTick, watch, toRefs } from 'vue'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
 // Import Swiper styles
 import 'swiper/css'
+
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
+
+const list = [
+  {
+    year: 'SINCE 1996',
+    content: {
+      year: 'SINCE 1996',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  },
+  {
+    year: '1997-2002',
+    content: {
+      year: '1997-2002',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  },
+  {
+    year: '2003-2010',
+    content: {
+      year: '2003-2010',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  },
+  {
+    year: '2011-2015',
+    content: {
+      year: '2011-2015',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  },
+  {
+    year: '2016-2021',
+    content: {
+      year: '2016-2021',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  }
+]
+
+const list2 = [
+  {
+    year: '2022-2024',
+    content: {
+      year: '2022-2024',
+      detail: [
+        {
+          text: '荣获"国家高新技术企业"认证'
+        },
+        {
+          text: '底妆类项目投产'
+        },
+        {
+          text: '研发、产能全面升级'
+        }
+      ],
+      src: getAssetsFile('images', '选中时间图片.png')
+    }
+  }
+]
+
+const mobileList = [
+  {
+    year: 'SINCE 1996',
+    detail: [
+      {
+        text: '荣获"国家高新技术企业"认证'
+      },
+      {
+        text: '底妆类项目投产'
+      },
+      {
+        text: '研发、产能全面升级'
+      }
+    ],
+    src: getAssetsFile('images', '选中时间图片.png')
+  },
+  {
+    year: '1997-2002',
+    detail: [
+      {
+        text: '荣获"国家高新技术企业"认证'
+      },
+      {
+        text: '底妆类项目投产'
+      },
+      {
+        text: '研发、产能全面升级'
+      }
+    ],
+    src: getAssetsFile('images', '选中时间图片.png')
+  },
+  {
+    year: '2003-2010',
+    detail: [
+      {
+        text: '荣获"国家高新技术企业"认证'
+      },
+      {
+        text: '底妆类项目投产'
+      },
+      {
+        text: '研发、产能全面升级'
+      }
+    ],
+    src: getAssetsFile('images', '选中时间图片.png')
+  },
+  {
+    year: '2011-2015',
+    detail: [
+      {
+        text: '荣获"国家高新技术企业"认证'
+      },
+      {
+        text: '底妆类项目投产'
+      },
+      {
+        text: '研发、产能全面升级'
+      }
+    ],
+    src: getAssetsFile('images', '选中时间图片.png')
+  },
+  {
+    year: '2016-2021',
+    detail: [
+      {
+        text: '荣获"国家高新技术企业"认证'
+      },
+      {
+        text: '底妆类项目投产'
+      },
+      {
+        text: '研发、产能全面升级'
+      }
+    ],
+    src: getAssetsFile('images', '选中时间图片.png')
+  },
+  {
+    year: '2022-2024',
+    detail: [
+      {
+        text: '荣获"国家高新技术企业"认证'
+      },
+      {
+        text: '底妆类项目投产'
+      },
+      {
+        text: '研发、产能全面升级'
+      }
+    ],
+    src: getAssetsFile('images', '选中时间图片.png')
+  }
+]
+
+const activeIndex = ref(-1)
+const handleMouseenter = (index) => {
+  activeIndex.value = index
+}
+const handleMouseleave = (index) => {
+  activeIndex.value = -1
+}
+
+const swiperDom = ref(null)
+const onSwiper = (swiper) => {
+  swiperDom.value = swiper
+}
+const bannerSwiperPrev = () => {
+  swiperDom.value.slidePrev()
+}
+
+const bannerSwiperNext = () => {
+  swiperDom.value.slideNext()
+}
+
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .about-history {
@@ -240,6 +462,10 @@ import 'swiper/css'
           align-items: center;
           justify-content: center;
           gap: 2vw;
+
+          &.reback {
+            transform: rotateY(180deg);
+          }
 
           .text-title {
             position: relative;
@@ -423,12 +649,12 @@ import 'swiper/css'
 @media (max-width: 960px) {
   .about-history {
     width: 100vw;
-    height: 100vh;
+    height: auto;
     display: flex;
     // align-items: center;
     justify-content: center;
     background-color: white;
-    padding-top: 12vh;
+    padding-top: 0;
     box-sizing: border-box;
 
     // background-color: pink;
@@ -437,13 +663,16 @@ import 'swiper/css'
       width: var(--base-width);
       transition: all 0.3s ease-in;
       zoom: 1;
-
+      padding: 2vh;
+      box-sizing: border-box;
       .about-history-container-top {
         width: 100%;
         display: flex;
         justify-content: space-between;
 
         .T-left {
+          width: 100%;
+
           .topic {
             width: 100%;
             height: 40px;
@@ -466,20 +695,18 @@ import 'swiper/css'
           }
 
           .name {
-            margin-top: 1vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: bold;
-            font-size: var(--topic-fontSize);
+            font-size: 18px;
             color: #333333;
-            display: none;
           }
         }
 
         .T-right {
           width: 100%;
-          display: flex;
+          display: none;
           align-items: center;
           justify-content: center;
 
@@ -707,6 +934,72 @@ import 'swiper/css'
                 font-size: 24px;
                 color: #333333;
               }
+            }
+          }
+        }
+      }
+
+      .mobile-history {
+        margin-top: 1vh;
+        .text-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 2vh;
+          box-sizing: border-box;
+          width: 100%;
+          height: 465px;
+          border-radius: 20px;
+          background-image: url('../../assets/images/选中时间背景.png');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
+
+          .content-time {
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: bold;
+            font-size: 32px;
+            color: #333333;
+            margin-bottom: 1vh;
+          }
+
+          .content-detail {
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 2.5vh;
+
+            .text {
+              position: relative;
+              margin-left: 1vw;
+
+              &::after {
+                content: '';
+                position: absolute;
+                left: -10px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: #b9b9b9;
+              }
+            }
+          }
+
+          .image {
+            width: 100%;
+            height: 230px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: fill;
             }
           }
         }

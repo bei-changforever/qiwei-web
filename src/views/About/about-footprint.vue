@@ -172,7 +172,7 @@ import { getAssetsFile } from '@/utils/tools'
         }
 
         .desc {
-          margin-top: 5vh;
+          margin-top: 1vh;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
@@ -186,7 +186,7 @@ import { getAssetsFile } from '@/utils/tools'
       .T-right {
         .swiper-btn {
           margin-top: 5vh;
-          display: flex;
+          display: none;
           gap: 1vw;
 
           :deep(.el-image) {
@@ -200,7 +200,7 @@ import { getAssetsFile } from '@/utils/tools'
     .about-footprint-container-bottom {
       width: 100%;
       height: 65vh;
-      margin-top: 5vh;
+      margin-top: 2vh;
       .about-footprint-bg {
         width: 100%;
         height: 100%;
@@ -296,20 +296,22 @@ import { getAssetsFile } from '@/utils/tools'
 @media (max-width: 960px) {
   .about-footprint {
   width: 100vw;
-  height: 100vh;
-  padding-top: 12vh;
+  height: auto;
+  // padding-top: 12vh;
+  padding: 0;
   box-sizing: border-box;
   .about-footprint-base-container {
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
     zoom: 1;
-
+    padding: 2vh;
+    box-sizing: border-box;
     .about-footprint-container-top {
       width: 100%;
       display: flex;
       justify-content: space-between;
-
+      
       .T-left {
         width: 100%;
         display: flex;
@@ -339,8 +341,8 @@ import { getAssetsFile } from '@/utils/tools'
           width: 100%;
           display: flex;
           align-items: center;
-          justify-content: center;
-          margin-top: 1vh;
+          // justify-content: center;
+          // margin-top: 1vh;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
@@ -365,7 +367,7 @@ import { getAssetsFile } from '@/utils/tools'
       .T-right {
         .swiper-btn {
           margin-top: 5vh;
-          display: flex;
+          display: none;
           gap: 1vw;
 
           :deep(.el-image) {
@@ -378,9 +380,9 @@ import { getAssetsFile } from '@/utils/tools'
     }
     .about-footprint-container-bottom {
       width: 100%;
-      height: 65vh;
-      padding: 5vh;
-      box-sizing: border-box;
+      height: auto;
+      // padding: 5vh;
+      // box-sizing: border-box;
       .about-footprint-bg {
         width: 100%;
         height: 100%;
@@ -406,6 +408,7 @@ import { getAssetsFile } from '@/utils/tools'
             max-width: 116px;
             align-items: center;
             justify-content: space-between;
+            white-space: nowrap;
             padding-left: 10px;
             font-family:
               Microsoft YaHei,
