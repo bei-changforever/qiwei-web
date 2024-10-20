@@ -3,7 +3,13 @@
     <div class="business-container">
       <div class="business-container-top">
         <div class="business-container-left">
-          <div :class="['business-container-left-item',showAnimation && 'animate__animated animate__backInLeft']" ref="businessLeftDom">
+          <div
+            :class="[
+              'business-container-left-item',
+              showAnimation && 'animate__animated animate__backInLeft'
+            ]"
+            ref="businessLeftDom"
+          >
             <div class="topic">
               <div class="block"></div>
               <div class="text">PROFILE</div>
@@ -265,6 +271,7 @@ onMounted(() => {
             justify-content: space-between;
             border: 1px solid #f3a7a5;
             cursor: pointer;
+
             .text {
               width: 80%;
               font-family:
@@ -280,6 +287,18 @@ onMounted(() => {
             .about-icon {
               color: #f3a7a5;
               font-size: 46px;
+            }
+
+            &:hover {
+              background-color: #f3a7a5;
+              .text {
+                color: white;
+              }
+
+              .about-icon {
+                color: white;
+                font-size: 46px;
+              }
             }
           }
         }

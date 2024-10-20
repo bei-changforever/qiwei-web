@@ -88,13 +88,13 @@
             @mouseenter.stop="handleMouseenter(2)"
             @mouseleave.stop="show3 = false"
           >
-            <span :class="activeIndex == 4 ? 'active' : ''" @click="handleSelect(4)">关于纬奇</span>
+            <span :class="activeIndex == 4 ? 'active' : ''" @click="handleSelect(4)">关于奇伟</span>
             <div class="gbk" v-if="show3">
               <div class="gbk-content">
                 <div
                   :class="['gbk-item', selfIndex3 == i ? 'active' : '']"
                   v-for="(item, i) in selfitem3"
-                  @click="selfHandleSelect('关于纬奇', i)"
+                  @click="selfHandleSelect('关于奇伟', i)"
                 >
                   <div class="line" v-if="selfIndex3 == i"></div>
                   {{ item }}
@@ -124,7 +124,7 @@
             :key="index"
             :src="item"
             :fit="'fill'"
-              @click="showSearch(index)"
+            @click="showSearch(index)"
           />
           <div class="dark-active" @click="changeMobilePhone">≡</div>
         </div>
@@ -132,11 +132,12 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { useRouter, useRoute } from 'vue-router'
 import emitter from '@/utils/mitt'
+import { ElMessage } from 'element-plus'
 const route = useRoute()
 const router = useRouter()
 /** props
@@ -242,11 +243,20 @@ const handleMouseenter = (index) => {
 }
 
 const showSearch = (index) => {
-  console.log(index);
-  if(index == 0) {
-     emitter.emit('SHOWSEARCH', true)
+  console.log(index)
+  if (index == 0) {
+    emitter.emit('SHOWSEARCH', true)
+  } else if (index == 1) {
+    let url = window.location.href // 当前页面链接
+    navigator.clipboard.writeText(url)
+    ElMessage({
+      message: '页面链接复制成功',
+      type: 'success'
+    })
+  } else if (index == 2) {
+    let url = window.location.href
+    AddFavorite('奇伟', url)
   }
- 
 }
 
 const handleMouseleave = (index) => {
@@ -276,7 +286,7 @@ const blackIconInfo = [
 
 const activeIndex = ref(0)
 
-const handleSelect = (key: number) => {
+const handleSelect = (key) => {
   switch (key) {
     case 0:
       activeIndex.value = 0
@@ -312,7 +322,20 @@ const handleSelect = (key: number) => {
       break
   }
 }
-// console.log(route.path);
+
+function AddFavorite(sURL, sTitle) {
+  var sTitle = ''
+  var sURL = location.href
+  if (window.sidebar) return true
+  try {
+    window.external.addFavorite(sURL, sTitle)
+  } catch (e) {
+    ElMessage({
+      message: '请使用Ctrl+D进行添加'
+    })
+  }
+  return false
+}
 
 watch(
   () => route.path,

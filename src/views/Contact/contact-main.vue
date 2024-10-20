@@ -64,27 +64,31 @@
             status-icon
           >
             <el-form-item label="您是？" prop="occupation">
-              <el-select v-model="form.occupation">
-                <el-option label="Zone one" value="shanghai" />
-                <el-option label="Zone two" value="beijing" />
+              <el-select v-model="form.occupation" placeholder="请选择">
+                <el-option
+                  v-for="(item, indx) in selectOption"
+                  :key="index"
+                  :label="item.label"
+                  :value="item.value"
+                />
               </el-select>
             </el-form-item>
             <el-form-item label="您的具体问题：" prop="question">
-              <el-input v-model="form.question" />
+              <el-input v-model="form.question" clearable/>
             </el-form-item>
             <el-form-item label="您的姓名" prop="name">
-              <el-input v-model="form.name" placeholder="请填写您的姓名" />
+              <el-input v-model="form.name" placeholder="请填写您的姓名" clearable/>
             </el-form-item>
             <el-form-item>
               <div class="row">
-                <el-input v-model="form.Companyname" placeholder="请填写您的公司名称" />
-                <el-input v-model="form.delivery" placeholder="请填写您的职位" />
+                <el-input v-model="form.Companyname" placeholder="请填写您的公司名称" clearable/>
+                <el-input v-model="form.delivery" placeholder="请填写您的职位" clearable/>
               </div>
             </el-form-item>
             <el-form-item>
               <div class="row">
-                <el-input v-model="form.Brandname" placeholder="请填写您公司的品牌名称" />
-                <el-input v-model="form.phonenumber" placeholder="请填写您的联系方式" />
+                <el-input v-model="form.Brandname" placeholder="请填写您公司的品牌名称" clearable/>
+                <el-input v-model="form.phonenumber" placeholder="请填写您的联系方式" clearable/>
               </div>
             </el-form-item>
           </el-form>
@@ -148,6 +152,46 @@ const form = reactive({
   Brandname: '',
   phonenumber: ''
 })
+
+const selectOption = [
+  {
+    label: '品牌方',
+    value: '品牌方'
+  },
+
+  {
+    label: 'OEM',
+    value: 'OEM'
+  },
+  {
+    label: 'ODM工厂',
+    value: 'ODM工厂'
+  },
+  {
+    label: '原料商',
+    value: '原料商'
+  },
+  {
+    label: '代理商',
+    value: '代理商'
+  },
+  {
+    label: '电商',
+    value: '电商'
+  },
+  {
+    label: '渠道商',
+    value: '渠道商'
+  },
+  {
+    label: '高校/研究院/协会机构',
+    value: '高校/研究院/协会机构'
+  },
+  {
+    label: '其他',
+    value: '其他'
+  }
+]
 
 const rules = reactive<FormRules<RuleForm>>({
   name: [{ required: true, message: '请输入您的姓名', trigger: 'blur' }],

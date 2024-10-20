@@ -317,14 +317,24 @@ watch(
 
           .text {
             position: absolute;
-            bottom: 1vh;
-            left: 1vw;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20%;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
             font-size: 24px;
             color: #ffffff;
+            display: flex;
+            align-items: center;
+            text-indent: 1em;
+            background-image: url('../../assets/images/标题黑底3.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            border-radius:  0 0 10px 10px;
           }
 
           .desc {

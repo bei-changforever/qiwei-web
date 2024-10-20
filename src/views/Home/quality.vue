@@ -482,6 +482,17 @@ watch(
             color: #f3a7a5;
             font-size: 46px;
           }
+          &:hover {
+              background-color: #f3a7a5;
+              .text {
+                color: white;
+              }
+
+              .about-icon {
+                color: white;
+                font-size: 46px;
+              }
+            }
         }
       }
     }

@@ -185,7 +185,7 @@ import { getAssetsFile } from '@/utils/tools'
                 display: flex;
                 align-items: center;
                 justify-content: center;
-
+                // background-color: pink;
                 &.active {
                   background-color: #2d2d2d;
                 }
@@ -248,15 +248,24 @@ import { getAssetsFile } from '@/utils/tools'
 
           .text {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
             font-size: 24px;
             color: #ffffff;
+
+            background-image: url('../../assets/images/黑色渐变1.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
           }
 
           .desc {
@@ -324,14 +333,24 @@ import { getAssetsFile } from '@/utils/tools'
 
         .text {
           position: absolute;
-          bottom: 5vh;
-          left: 2vw;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 20%;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
           font-weight: 400;
           font-size: 24px;
+          display: flex;
+          align-items: center;
           color: #ffffff;
+          border-radius: 0 0 10px 10px;
+          background-image: url('../../assets/images/黑色渐变1.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          text-indent: 1em;
         }
       }
     }

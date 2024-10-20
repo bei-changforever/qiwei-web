@@ -548,26 +548,29 @@ watch(
             &:nth-child(1) {
               .text-content {
                 position: absolute;
-                top: -15vh;
+                top: -20vh;
                 left: 160px;
                 width: 320px;
-                height: 420px;
+                height: 460px;
+                border-radius: 10px;
                 background-image: url('../../assets/images/选中时间背景.png');
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
+                
               }
             }
 
             &:nth-child(2) {
-              margin-bottom: 15vh;
+              margin-bottom: 0vh;
 
               .text-content {
                 position: absolute;
-                top: -15vh;
+                top: -20vh;
                 left: 160px;
                 width: 320px;
-                height: 420px;
+                height: 460px;
+                border-radius: 10px;
                 background-image: url('../../assets/images/选中时间背景.png');
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -583,7 +586,8 @@ watch(
                 top: -15vh;
                 left: 160px;
                 width: 320px;
-                height: 420px;
+                height: 460px;
+                border-radius: 10px;
                 background-image: url('../../assets/images/选中时间背景.png');
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -599,7 +603,8 @@ watch(
                 top: -15vh;
                 left: 160px;
                 width: 320px;
-                height: 420px;
+                height: 460px;
+                border-radius: 10px;
                 background-image: url('../../assets/images/选中时间背景.png');
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -615,7 +620,8 @@ watch(
                 top: 0vh;
                 left: -360px;
                 width: 320px;
-                height: 420px;
+                height: 460px;
+                border-radius: 10px;
                 background-image: url('../../assets/images/选中时间背景.png');
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -636,7 +642,7 @@ watch(
                 left: 50%;
                 transform: translateX(-50%);
                 width: 2px;
-                height: 200px;
+                height: 160px;
                 background: linear-gradient(to bottom, #f3a7a5, white);
               }
             }

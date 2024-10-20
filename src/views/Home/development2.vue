@@ -103,10 +103,11 @@
         </div>
       </div>
     </div>
+    <div class="color-bg"></div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, toRefs, watch ,onMounted} from 'vue'
+import { ref, toRefs, watch, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -191,21 +192,31 @@ watch(
 </script>
 <style lang="scss" scoped>
 .development2 {
+  position: relative;
   width: 100vw;
   height: 100vh;
   // display: flex;
   // align-items: center;
   // justify-content: center;
   background-color: #f5f5f5;
+  // background-image: url('../../assets/images/test.jpg');
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  // background-position: center;
   // padding-top: 5vh;
 
   box-sizing: border-box;
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
   .development2-container {
+    // position: absolute;
+    // top: 15vh;
+    // left: 50%;
+    // transform: translateX(-50%);
     width: var(--base-width);
     margin: 0 auto;
     height: 100%;
+    z-index: 2;
     // display: flex;
     // align-items: center;
     // justify-content: center;
@@ -275,7 +286,7 @@ watch(
         .T-bottom {
           margin-top: 5vh;
           width: 100%;
-
+          z-index: 2;
           .T-bottom-container {
             width: 100%;
 
@@ -380,6 +391,16 @@ watch(
       }
     }
   }
+
+  // .color-bg {
+  //   position: absolute;
+  //   bottom: 5vh;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 360px;
+  //   background-color: #f0f0f0;
+  //   z-index: 0 !important;
+  // }
 }
 
 @media (min-width: 1520px) and (max-width: 1920px) {
@@ -462,8 +483,9 @@ watch(
           }
 
           .T-bottom {
-            margin-top: 2vh;
+            margin-top: 1vh;
             width: 100%;
+            // background-color: pink;
 
             .T-bottom-container {
               width: 100%;
@@ -514,6 +536,7 @@ watch(
           }
         }
         .content-right {
+          margin-top: 1vh;
           width: 40%;
           height: 100%;
 
@@ -523,6 +546,200 @@ watch(
             display: flex;
             align-items: center;
             justify-content: flex-end;
+            .content-right-bg {
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .content-right-img {
+                position: absolute;
+                top: 10%;
+
+                .swiper {
+                  // margin: 100px auto;
+                  width: 340px;
+                  height: 460px;
+                }
+
+                .swiper-slide {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  :deep(.el-image) {
+                    width: 200%;
+                    height: 100%;
+                    object-fit: cover;
+                  }
+                }
+              }
+
+              .content-right-text {
+                position: absolute;
+                bottom: 12%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 30px;
+                color: #333333;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1520px) {
+  .development2 {
+    width: 100vw;
+    height: 100vh;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    background-color: #f5f5f5;
+    // padding-top: 5vh;
+
+    box-sizing: border-box;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    .development2-container {
+      width: var(--base-width);
+      margin: 0 auto;
+      height: 100%;
+      // display: flex;
+      // align-items: center;
+      // justify-content: center;
+      // background-color: pink;
+      .development2-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        // background-color: pink;
+        .content-left {
+          width: 60%;
+          .T-left {
+            width: 100%;
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: 22px;
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 6px;
+                height: 16px;
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
+            }
+            .name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 42px;
+              color: #333333;
+            }
+
+            .fu-name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--fu-name-fontSize);
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 2vh;
+
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 20px;
+              color: #666666;
+              line-height: 34px;
+            }
+          }
+
+          .T-bottom {
+            margin-top: 17vh;
+            width: 100%;
+
+            .T-bottom-container {
+              width: 100%;
+
+              .T-bottom-top {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 6%;
+                .left {
+                  width: 50%;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: 30px;
+                  color: #999999;
+                  .active-number {
+                    color: #f3a7a5;
+                    font-size: 54px;
+                  }
+                }
+
+                .right {
+                  width: 50%;
+                  display: flex;
+                  justify-content: flex-end;
+                  gap: 2vw;
+                  :deep(.el-image) {
+                    width: 50px;
+                    height: 50px;
+                    cursor: pointer;
+                  }
+                }
+              }
+
+              .T-bottom-bottom {
+                width: 100%;
+                .T-bottom-bottom-item {
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  :deep(.el-image) {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .content-right {
+          width: 40%;
+          height: 100%;
+
+          .content-right-backfround {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
             .content-right-bg {
               position: relative;
               display: flex;
@@ -649,7 +866,7 @@ watch(
           }
 
           .T-bottom {
-            margin-top: 7vh;
+            margin-top: 10vh;
             width: 100%;
 
             .T-bottom-container {
