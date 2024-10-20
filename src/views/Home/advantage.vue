@@ -1,7 +1,10 @@
 <template>
   <div class="advantage">
-    <div :class="['advantage-box']">
-      <div class="advantage-container">
+    <div class="advantage-box">
+      <div
+        :class="['advantage-container', showAnimation && 'animate__animated animate__backInLeft']"
+        ref="advantagedom"
+      >
         <div class="T-left">
           <div class="topic">
             <div class="block"></div>
@@ -19,7 +22,10 @@
           </div>
         </div>
       </div>
-      <div class="accordion" v-if="PAGEWIDTH > 960">
+      <div
+        :class="['accordion', showAnimation && 'animate__animated animate__fadeIn']"
+        v-if="PAGEWIDTH > 960"
+      >
         <Accordion />
       </div>
       <div class="accordion" v-else>
@@ -39,6 +45,7 @@ import { isMobile } from '@/utils/equipment'
 import Accordion from '@/components/accordion/index.vue'
 import emitter from '@/utils/mitt'
 import { useRouter } from 'vue-router'
+import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const router = useRouter()
@@ -48,8 +55,18 @@ const clickRouter = () => {
   router.push('/business')
   emitter.emit('DOMINDEX', 2)
 }
-
-onMounted(() => {})
+const advantagedom = ref(null)
+onMounted(() => {
+  useIntersectionObserver(
+    advantagedom,
+    ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        showAnimation.value = true
+      }
+    },
+    { threshold: 0.5 }
+  )
+})
 const PAGEWIDTH = ref(window.innerWidth)
 watch(
   () => screenWidth.value,

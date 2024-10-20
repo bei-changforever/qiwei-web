@@ -1,14 +1,7 @@
 <template>
   <div class="home-base-container" v-if="screenWidth > 960">
     <div class="main-okj-container" ref="container">
-      <div
-        :class="[
-          'boxapi',
-          showAnimation && pageIndex == index ? 'animate__animated animate__fadeIn' : ''
-        ]"
-        v-for="(comp, index) in domArr[0].domarr"
-        :key="index"
-      >
+      <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
       </div>
       <div class="boxapi"></div>
@@ -87,30 +80,30 @@ function scrollToPage(pageIndex) {
   // emitter.emit('ANIMATION', pageIndex)
   // @media (min-width: 1220px) and (max-width: 1440px)
 
-  showAnimation.value = false
+  // showAnimation.value = false
   // console.log(PAGEWIDTH.value)
-  console.log(pageIndex)
+  // console.log(pageIndex)
   //
   if (pageIndex == 0) {
     container.value.style.top = `0%`
   } else if (pageIndex == 1) {
-    showAnimation.value = true
+    // showAnimation.value = true
     // @media (min-width: 960px) and (max-width: 1220px)
     container.value.style.top = `-100%`
   } else if (pageIndex == 2) {
-    showAnimation.value = true
+    // showAnimation.value = true
     // @media (min-width: 960px) and (max-width: 1220px)
     container.value.style.top = `-200%`
   } else if (pageIndex == 3) {
-    showAnimation.value = true
+    // showAnimation.value = true
     // @media (min-width: 960px) and (max-width: 1220px)
     container.value.style.top = `-300%`
   } else if (pageIndex == 4) {
-    showAnimation.value = true
+    // showAnimation.value = true
     // @media (min-width: 960px) and (max-width: 1220px)
     container.value.style.top = `-400%`
   } else if (pageIndex == 5) {
-    showAnimation.value = true
+    // showAnimation.value = true
 
     // @media (min-width: 960px) and (max-width: 1220px)
     if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
@@ -119,14 +112,14 @@ function scrollToPage(pageIndex) {
       container.value.style.top = `-470%`
     }
   } else if (pageIndex == 6) {
-    showAnimation.value = true
+    // showAnimation.value = true
     if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
       container.value.style.top = `-595%`
     } else {
       container.value.style.top = `-495%`
     }
   } else if (pageIndex == 7) {
-    showAnimation.value = true
+    // showAnimation.value = true
 
     if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
       container.value.style.top = `-570%`
@@ -136,7 +129,7 @@ function scrollToPage(pageIndex) {
       container.value.style.top = `-600%`
     }
   } else if (pageIndex == 8) {
-    showAnimation.value = true
+    // showAnimation.value = true
 
     // @media (min-width: 1220px) and (max-width: 1440px)
     if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
@@ -149,13 +142,11 @@ function scrollToPage(pageIndex) {
   } else if (pageIndex == 9) {
     if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
       container.value.style.top = `-725%`
-    }
-    else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
+    } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
       container.value.style.top = `-752%`
     } else {
       container.value.style.top = `-759%`
     }
-    
   }
 
   pageScroll.value = false

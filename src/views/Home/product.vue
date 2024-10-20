@@ -1,13 +1,14 @@
 <template>
   <div class="home-product">
     <div
-      :class="['home-product-container', , showAnimation && 'animate__animated animate__fadeIn']"
+      :class="['home-product-container', showAnimation && 'animate__animated animate__backInLeft']"
+      ref="homeProductDom"
     >
-      <div :class="['aside']">
+      <div class="aside" ref="aside">
         <div class="block"></div>
         <div class="text">PRODUCT</div>
       </div>
-      <div :class="['topic']">
+      <div class="topic" ref="topic">
         <div class="left">热门产品</div>
         <div class="right">
           <div
@@ -21,7 +22,11 @@
         </div>
       </div>
     </div>
-    <div class="home-product-swiper" v-if="screenWidth > 960">
+    <div
+      :class="['home-product-swiper', showAnimation && 'animate__animated animate__fadeIn']"
+      v-if="screenWidth > 960"
+      ref="productswiper"
+    >
       <swiper
         @swiper="onSwiper"
         :slidesPerView="3"
@@ -94,11 +99,15 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/effect-fade'
 // import emitter from '@/utils/mitt'
+import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const modules = [FreeMode, Pagination, EffectFade, Navigation]
+const homeProductDom = ref(null)
 const productType = ['底纹', '彩妆', '护肤', '清洁', '隔离']
-
+const aside = ref(null)
+const topic = ref(null)
+const productswiper = ref(null)
 const list = [
   {
     title: '修颜柔润持妆粉底液',
@@ -163,7 +172,19 @@ const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
 }
 const showAnimation = ref(false)
-onMounted(() => {})
+onMounted(() => {
+  useIntersectionObserver(
+    homeProductDom,
+    ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        console.log('进入')
+
+        showAnimation.value = true
+      }
+    },
+    { threshold: 0.5 }
+  )
+})
 const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
 watch(
@@ -281,7 +302,7 @@ watch(
     width: var(--base-width);
     transition: all 0.3s ease-in;
     zoom: 1;
-
+    // opacity: 0;
     .mySwiper {
       width: 100%;
       height: 560px;

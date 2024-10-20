@@ -1,9 +1,9 @@
 <template>
   <div class="development2">
     <div class="development2-container">
-      <div class="development2-content">
+      <div class="development2-content" ref="development2Content">
         <div class="content-left">
-          <div class="T-left">
+          <div :class="['T-left', showAnimation && 'animate__animated animate__backInLeft']">
             <div class="topic">
               <div class="block"></div>
               <div class="text">PROFILE</div>
@@ -15,7 +15,7 @@
               ISO9001质量认证；4项广东省名优高新技术产品荣誉证书。
             </div>
           </div>
-          <div class="T-bottom">
+          <div :class="['T-bottom', showAnimation && 'animate__animated animate__fadeIn']">
             <div class="T-bottom-container">
               <div class="T-bottom-top">
                 <div class="left">
@@ -106,7 +106,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
+import { ref, toRefs, watch ,onMounted} from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -114,13 +114,13 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 
 import 'swiper/css/effect-creative'
-
+import { useIntersectionObserver } from '@vueuse/core'
 // import required modules
 import { EffectCreative } from 'swiper/modules'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const modules = [EffectCreative]
-
+const showAnimation = ref(false)
 const activeIndex = ref(0)
 
 // 小于0补0
@@ -134,6 +134,8 @@ const list = [
   getAssetsFile('images', '证书3.png'),
   getAssetsFile('images', '证书4.png')
 ]
+
+const development2Content = ref(null)
 const swiperDom = ref(null)
 const onSwiper = (swiper) => {
   swiperDom.value = swiper
@@ -166,6 +168,18 @@ const selectIndex = (index) => {
 const slideChange = () => {
   activeIndex.value = swiperDom.value.realIndex
 }
+
+onMounted(() => {
+  useIntersectionObserver(
+    development2Content,
+    ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        showAnimation.value = true
+      }
+    },
+    { threshold: 0.5 }
+  )
+})
 const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
 watch(

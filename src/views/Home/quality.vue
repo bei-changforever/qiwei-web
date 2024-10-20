@@ -1,7 +1,9 @@
 <template>
   <div class="quality">
-    <div :class="['quality-container']">
-      <div class="advantage-container">
+    <div class="quality-container" ref="qualityContainer">
+      <div
+        :class="['advantage-container', showAnimation && 'animate__animated animate__backInLeft']"
+      >
         <div class="T-left">
           <div class="name">从源头把控精选全球原料</div>
           <div class="desc">
@@ -18,7 +20,10 @@
           </div>
         </div>
       </div>
-      <div class="position-box" v-if="PAGEWIDTH > 960">
+      <div
+        :class="['position-box', showAnimation && 'animate__animated animate__fadeIn']"
+        v-if="PAGEWIDTH > 960"
+      >
         <div class="square-box">
           <div class="square-box-left">
             <!-- <div class="square-box-left-item" v-for="item in 9" :key="item">
@@ -350,9 +355,9 @@
       </div>
       <div class="moom-box" v-else>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="skyblue" lazy-render>
-          <van-swipe-item v-for="(item,index) in list">
+          <van-swipe-item v-for="(item, index) in list">
             <div class="image-box">
-              <div class="image" v-for="(number,i) in item">
+              <div class="image" v-for="(number, i) in item">
                 <img :src="getAssetsFile('images', `合作品牌${number}.png`)" alt="" />
               </div>
             </div>
@@ -365,17 +370,31 @@
 <script setup lang="ts">
 import { ref, onMounted, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-import { isMobile } from '@/utils/equipment'
 import emitter from '@/utils/mitt'
+import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
 const changePageShow = ref(false)
 const showAnimation = ref(false)
+const qualityContainer = ref(null)
 const list = [
-  [1, 2, 3, 4, 5,6],[7,8,9,10,11,12],[13,14,15,16,17,18],[19,20]
+  [1, 2, 3, 4, 5, 6],
+  [7, 8, 9, 10, 11, 12],
+  [13, 14, 15, 16, 17, 18],
+  [19, 20]
 ]
-onMounted(() => {})
+onMounted(() => {
+  useIntersectionObserver(
+    qualityContainer,
+    ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        showAnimation.value = true
+      }
+    },
+    { threshold: 0.5 }
+  )
+})
 const PAGEWIDTH = ref(window.innerWidth)
 watch(
   () => screenWidth.value,

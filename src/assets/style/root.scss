@@ -17,6 +17,8 @@
     --desc-fontSize: 20px;
     --desc-lineHeight: 34px;
     --fu-name-fontSize: 32px;
+    --animate-duration: 2000ms;
+    --animate-delay: 2s;
   }
 }
 
@@ -32,6 +34,8 @@
     --fu-name-fontSize: 32px;
     --topic-fontSize: 42px;
     --aside-fontSize: 22px;
+    --animate-duration: 2000ms;
+    --animate-delay: 2s;
   }
 }
 
@@ -47,6 +51,8 @@
     --desc-fontSize: 16px;
     --desc-lineHeight: 25px;
     --fu-name-fontSize: 18px;
+    --animate-duration: 2000ms;
+    --animate-delay: 2s;
   }
 }
 @media (min-width: 960px) and (max-width: 1220px) {
@@ -61,6 +67,8 @@
     --desc-fontSize: 16px;
     --desc-lineHeight: 25px;
     --fu-name-fontSize: 18px;
+    --animate-duration: 2000ms;
+    --animate-delay: 2s;
   }
 }
 
@@ -69,6 +77,8 @@
     --base-width: 100%;
     --header-height: 65px;
     --footer-height: 460px;
+    --animate-duration: 2000ms;
+    --animate-delay: 2s;
     --vp-c-bg: black;
   }
 }

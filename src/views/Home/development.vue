@@ -1,8 +1,14 @@
 <template>
   <div class="business-info">
-    <div :class="['business-container', showAnimation && 'animate__animated animate__fadeIn']">
+    <div class="business-container">
       <div class="business-container-top">
-        <div class="business-container-left">
+        <div
+          :class="[
+            'business-container-left',
+            showAnimation && 'animate__animated animate__backInLeft'
+          ]"
+          ref="businessLeftDom"
+        >
           <div class="business-container-left-item">
             <div class="topic">
               <div class="block"></div>
@@ -31,7 +37,12 @@
             </div>
           </div>
         </div>
-        <div class="business-container-right">
+        <div
+          :class="[
+            'business-container-right',
+            showAnimation && 'animate__animated animate__fadeIn'
+          ]"
+        >
           <el-image :src="getAssetsFile('images', '研发实力.png')" :fit="'fill'" />
           <div class="play-btn">
             <el-image :src="getAssetsFile('icon', 'play.png')" :fit="'fill'" />
@@ -44,12 +55,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-import { isMobile } from '@/utils/equipment'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/mitt'
+import { useIntersectionObserver } from '@vueuse/core'
 const router = useRouter()
 const changePageShow = ref(false)
-
+const businessLeftDom = ref(null)
 const clickRouter = () => {
   router.push('/develop')
   emitter.emit('DOMINDEX', 3)
@@ -57,7 +68,15 @@ const clickRouter = () => {
 
 const showAnimation = ref(false)
 onMounted(() => {
- 
+  useIntersectionObserver(
+    businessLeftDom,
+    ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        showAnimation.value = true
+      }
+    },
+    { threshold: 0.5 }
+  )
 })
 </script>
 <style lang="scss" scoped>

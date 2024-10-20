@@ -1,10 +1,13 @@
 <template>
   <div class="added">
-    <div class="added-container">
+    <div
+      :class="['added-container', showAnimation && 'animate__animated animate__backInLeft']"
+      ref="addedDom"
+    >
       <div class="business-container-left-item">
         <div class="topic">
           <div class="block"></div>
-          <div class="text">added</div>
+          <div class="text">ADDED</div>
         </div>
         <div class="name">免费服务</div>
         <div class="fu-name">12项增值配套服务</div>
@@ -48,6 +51,21 @@
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
+import { ref, onMounted } from 'vue'
+import { useIntersectionObserver } from '@vueuse/core'
+const showAnimation = ref(false)
+const addedDom = ref(null)
+onMounted(() => {
+  useIntersectionObserver(
+    addedDom,
+    ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        showAnimation.value = true
+      }
+    },
+    { threshold: 0.5 }
+  )
+})
 </script>
 <style lang="scss" scoped>
 .added {
@@ -233,180 +251,180 @@ import { getAssetsFile } from '@/utils/tools'
 
 @media (min-width: 960px) and (max-width: 1220px) {
   .added {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  // align-items: center;
-  // justify-content: center;
-  background-color: white;
-
-  /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
-  scroll-snap-align: start;
-  padding-top: 10vh;
-  box-sizing: border-box;
-  .added-container {
-    // padding-top: 80px;
-    width: var(--base-width);
-    margin: 0 auto;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    // align-items: center;
+    // justify-content: center;
+    background-color: white;
 
-    .business-container-left-item {
-      width: 100%;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding-top: 10vh;
+    box-sizing: border-box;
+    .added-container {
+      // padding-top: 80px;
+      width: var(--base-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-      .topic {
+      .business-container-left-item {
         width: 100%;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
 
-        .text {
-          font-weight: 400;
-          font-size: var(--aside-fontSize);
-          color: #f3a7a5;
-        }
-
-        .block {
-          width: 6px;
-          height: var(--aside-block);
-          border-radius: 1px;
-          background-color: #f3a7a5;
-        }
-      }
-
-      .name {
-        margin-top: 1vh;
-        font-family:
-          Microsoft YaHei,
-          Microsoft YaHei;
-        font-weight: bold;
-        font-size: var(--topic-fontSize);
-        color: #333333;
-      }
-
-      .fu-name {
-        margin-top: 1vh;
-        font-family:
-          Microsoft YaHei,
-          Microsoft YaHei;
-        font-weight: 400;
-        font-size: var(--fu-name-fontSize);
-        color: #333333;
-      }
-
-      .desc {
-        margin-top: 1vh;
-        font-family:
-          Microsoft YaHei,
-          Microsoft YaHei;
-        font-weight: 400;
-        font-size: var(--desc-fontSize);
-        color: #666666;
-        line-height: var(--desc-lineHeight);
-      }
-    }
-
-    .added-big-image-box {
-      position: relative;
-      margin-top: 2vw;
-      width: 80vw;
-      height: 43vh;
-
-      :deep(.el-image) {
-        width: 100%;
-        height: 100%;
-      }
-
-      .text-item {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-        .text {
-          position: absolute;
-          width: 24%;
-          height: 33%;
+        .topic {
+          width: 100%;
+          height: 40px;
           display: flex;
           align-items: center;
-          flex-direction: column;
-          font-size: 12px;
-          justify-content: center;
-          //   border: 1px solid red;
-          color: #666666;
+          gap: 10px;
+
+          .text {
+            font-weight: 400;
+            font-size: var(--aside-fontSize);
+            color: #f3a7a5;
+          }
+
+          .block {
+            width: 6px;
+            height: var(--aside-block);
+            border-radius: 1px;
+            background-color: #f3a7a5;
+          }
+        }
+
+        .name {
+          margin-top: 1vh;
           font-family:
             Microsoft YaHei,
             Microsoft YaHei;
+          font-weight: bold;
+          font-size: var(--topic-fontSize);
+          color: #333333;
+        }
 
-          &:nth-child(1) {
-            top: 10%;
-            left: 0;
-          }
+        .fu-name {
+          margin-top: 1vh;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: var(--fu-name-fontSize);
+          color: #333333;
+        }
 
-          &:nth-child(2) {
-            top: 10%;
-            left: 22%;
-          }
+        .desc {
+          margin-top: 1vh;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: var(--desc-fontSize);
+          color: #666666;
+          line-height: var(--desc-lineHeight);
+        }
+      }
 
-          &:nth-child(3) {
-            top: 10%;
-            left: 43%;
-          }
+      .added-big-image-box {
+        position: relative;
+        margin-top: 2vw;
+        width: 80vw;
+        height: 43vh;
 
-          &:nth-child(4) {
-            top: 10%;
-            left: 64.5%;
-          }
+        :deep(.el-image) {
+          width: 100%;
+          height: 100%;
+        }
 
-          &:nth-child(5) {
-            top: 46%;
-            left: 0.5%;
-          }
+        .text-item {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
 
-          &:nth-child(6) {
-            top: 46%;
-            left: 22%;
-          }
+          .text {
+            position: absolute;
+            width: 24%;
+            height: 33%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            font-size: 12px;
+            justify-content: center;
+            //   border: 1px solid red;
+            color: #666666;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
 
-          &:nth-child(7) {
-            top: 46%;
-            left: 43%;
-          }
+            &:nth-child(1) {
+              top: 10%;
+              left: 0;
+            }
 
-          &:nth-child(8) {
-            top: 48%;
-            left: 64.5%;
-          }
+            &:nth-child(2) {
+              top: 10%;
+              left: 22%;
+            }
 
-          &:nth-child(9) {
-            top: 88%;
-            left: 0%;
-          }
+            &:nth-child(3) {
+              top: 10%;
+              left: 43%;
+            }
 
-          &:nth-child(10) {
-            top: 88%;
-            left: 25%;
-          }
+            &:nth-child(4) {
+              top: 10%;
+              left: 64.5%;
+            }
 
-          &:nth-child(11) {
-            top: 88%;
-            left: 50%;
-          }
+            &:nth-child(5) {
+              top: 46%;
+              left: 0.5%;
+            }
 
-          &:nth-child(12) {
-            top: 88%;
-            left: 74%;
+            &:nth-child(6) {
+              top: 46%;
+              left: 22%;
+            }
+
+            &:nth-child(7) {
+              top: 46%;
+              left: 43%;
+            }
+
+            &:nth-child(8) {
+              top: 48%;
+              left: 64.5%;
+            }
+
+            &:nth-child(9) {
+              top: 88%;
+              left: 0%;
+            }
+
+            &:nth-child(10) {
+              top: 88%;
+              left: 25%;
+            }
+
+            &:nth-child(11) {
+              top: 88%;
+              left: 50%;
+            }
+
+            &:nth-child(12) {
+              top: 88%;
+              left: 74%;
+            }
           }
         }
       }
     }
   }
-}
 }
 @media (max-width: 960px) {
   .added {

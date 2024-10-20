@@ -3,12 +3,7 @@
     <div class="business-container">
       <div class="business-container-top">
         <div class="business-container-left">
-          <div
-            :class="[
-              'business-container-left-item',
-              showAnimation && 'animate__animated animate__fadeIn'
-            ]"
-          >
+          <div :class="['business-container-left-item',showAnimation && 'animate__animated animate__backInLeft']" ref="businessLeftDom">
             <div class="topic">
               <div class="block"></div>
               <div class="text">PROFILE</div>
@@ -124,7 +119,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-import { isMobile } from '@/utils/equipment'
 import { CountTo } from 'vue3-count-to'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/mitt'
@@ -135,6 +129,7 @@ const cunt0 = ref(null)
 const cunt1 = ref(null)
 const cunt2 = ref(null)
 const cunt3 = ref(null)
+const businessLeftDom = ref(null)
 const showCount = () => {
   cunt0.value.start()
   cunt1.value.start()
@@ -152,10 +147,10 @@ onMounted(() => {
   useIntersectionObserver(
     countDom,
     ([{ isIntersecting }]) => {
-      if(isIntersecting) {
+      if (isIntersecting) {
         showCount()
+        showAnimation.value = true
       }
-      
     },
     { threshold: 0.5 }
   )
