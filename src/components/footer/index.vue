@@ -6,7 +6,12 @@
           <el-image :src="getAssetsFile('icon', 'LOGO.png')" :fit="'fill'" />
         </div>
         <div class="text">
-          <div v-for="(item, index) in HeaderInfo" :class="['text-item']" :key="index">
+          <div
+            v-for="(item, index) in HeaderInfo"
+            :class="['text-item']"
+            :key="index"
+            @click="routerClick(index)"
+          >
             {{ item }}
           </div>
         </div>
@@ -62,13 +67,44 @@
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { useRouter, useRoute } from 'vue-router'
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
+const route = useRoute()
+const router = useRouter()
 import emitter from '@/utils/mitt'
+const routerClick = (key) => {
+  switch (key) {
+    case 0:
+      router.push('/')
+      emitter.emit('DOMINDEX', key)
+      break
+    case 1:
+      router.push('/product/product-detail')
+      emitter.emit('DOMINDEX', key)
+      break
+    case 2:
+      router.push('/business')
+      emitter.emit('DOMINDEX', key)
+      break
+    case 3:
+      router.push('/develop')
+      emitter.emit('DOMINDEX', key)
+      break
+    case 4:
+      router.push('/about')
+      emitter.emit('DOMINDEX', key)
+      break
+    case 5:
+      router.push('/contact')
+      emitter.emit('DOMINDEX', key)
+      break
+    default:
+      break
+  }
+}
 // 触发emits事件
 const handelClick = () => {
- 
-  emitter.emit("BACKPAGETOP")
-
+  emitter.emit('BACKPAGETOP')
 }
 </script>
 <style lang="scss" scoped>
