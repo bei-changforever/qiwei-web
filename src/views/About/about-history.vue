@@ -608,11 +608,11 @@ watch(
             }
 
             &:nth-child(5) {
-              margin-bottom: 25vh;
+              margin-bottom: 40vh;
 
               .text-content {
                 position: absolute;
-                top: -10vh;
+                top: 0vh;
                 left: -360px;
                 width: 320px;
                 height: 420px;
