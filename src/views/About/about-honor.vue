@@ -28,7 +28,7 @@
             :key="index"
             @click="handleSelect(index)"
           >
-            <el-image :src="item.imgSrc" :fit="'fill'" />
+            <el-image :src="item.imgSrc" :fit="'fill'" @click="showImagePreview([item.imgSrc])"/>
             <span>{{ item.title }}</span>
           </div>
         </div>
@@ -36,7 +36,7 @@
       <div class="mobile-base-container-bottom" v-else>
         <van-swipe :autoplay="3000" lazy-render>
           <van-swipe-item v-for="(item, index) in list" :key="index">
-            <div class="about-honor-content-item">
+            <div class="about-honor-content-item" @click="showImagePreview([item.imgSrc])">
               <div class="image-box">
                 <img :src="item.imgSrc" alt="" />
               </div>
@@ -53,7 +53,7 @@
 <script setup lang="ts">
 import { ref, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-
+import { showImagePreview } from 'vant';
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)

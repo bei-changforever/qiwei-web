@@ -370,12 +370,13 @@ watch(
   // background-color: pink;
   .about-history-container {
     margin: 0 auto;
-    width: var(--base-width);
+    width: 100%;
     transition: all 0.3s ease-in;
     zoom: 1;
 
     .about-history-container-top {
-      width: 100%;
+      margin: 0 auto;
+      width: var(--base-width);
       display: flex;
       justify-content: space-between;
 
@@ -429,11 +430,21 @@ watch(
 
     .about-history-container-bottom {
       width: 100%;
+      height: 60vh;
+      // background-color: pink;
+      // border: 1px solid red;
+      background-image: url('../../assets/images/公司历程.gif');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
 
       .about-history-container-bottom-content {
         width: 100%;
         position: relative;
-        height: 60vh;
+        // border: 1px solid red;
+        height: 100%;
+        // display: flex;
+        // justify-content: space-between;
 
         .content-background-image {
           position: absolute;
@@ -441,10 +452,10 @@ watch(
           left: 0;
           width: 100%;
           height: 100%;
-          background-image: url('../../assets/images/时间背景.png');
-          background-size: cover;
-          background-position: center center;
-          background-repeat: no-repeat;
+          // background-image: url('../../assets/images/时间背景.png');
+          // background-size: cover;
+          // background-position: center center;
+          // background-repeat: no-repeat;
 
           &.unback {
             transform: rotateY(180deg);
@@ -460,7 +471,7 @@ watch(
           height: 100%;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: space-around;
           gap: 2vw;
 
           &.reback {
