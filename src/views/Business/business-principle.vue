@@ -36,7 +36,7 @@ import { showImagePreview } from 'vant'
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    zoom: 1;
+    // zoom: 1;
 
     .business-priciple-container-top {
       width: 100%;
@@ -113,7 +113,7 @@ import { showImagePreview } from 'vant'
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      zoom: 1;
+      // zoom: 1;
 
       padding: 2vh;
       box-sizing: border-box;

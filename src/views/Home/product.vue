@@ -301,7 +301,7 @@ watch(
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    zoom: 1;
+    // zoom: 1;
     // opacity: 0;
     .mySwiper {
       width: 100%;
@@ -377,7 +377,7 @@ watch(
               left: 0;
               width: 100%;
               height: calc(100% - 100px);
-              zoom: 1;
+              // zoom: 1;
               transition: all 0.3s ease-in;
 
               img {
@@ -597,7 +597,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      zoom: 1;
+      // zoom: 1;
 
       .mySwiper {
         width: 100%;
@@ -673,7 +673,7 @@ watch(
                 left: 0;
                 width: 100%;
                 height: calc(100% - 100px);
-                zoom: 1;
+                // zoom: 1;
                 transition: all 0.3s ease-in;
 
                 img {
@@ -882,7 +882,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      zoom: 1;
+      // zoom: 1;
 
       .mySwiper {
         width: 100%;
@@ -958,7 +958,7 @@ watch(
                 left: 0;
                 width: 100%;
                 height: calc(100% - 80px);
-                zoom: 1;
+                // zoom: 1;
                 transition: all 0.3s ease-in;
 
                 img {

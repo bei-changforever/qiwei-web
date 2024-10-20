@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted, onUnmounted, watch, nextTick, reactive } from 'vue'
 import { RouterView } from 'vue-router'
 import { useRouter, useRoute } from 'vue-router'
 import emitter from '@/utils/mitt'
-import { Calendar, Search } from '@element-plus/icons-vue'
+import { Search } from '@element-plus/icons-vue'
 import { useCounterStore } from '@/stores/screenWidth'
 const { setScreenWidth } = useCounterStore()
 const route = useRoute()
@@ -33,9 +33,48 @@ const handleResize = () => {
   screenWidth.value =
     window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
   setScreenWidth(screenWidth.value)
+  // setScreenCompatibility()
+}
+
+/**
+ * 需要适配的稿纸尺寸
+ * 默认尺寸1920*1080（根据实际情况修改）
+ * @type {{width: number, height: number}}
+ */
+const sketch = {
+  width: 1920,
+  height: 1080
+}
+
+/**
+ * 设置屏幕兼容性
+ */
+const setScreenCompatibility = () => {
+  // 计算屏幕实际分辨率宽高比例为 R
+  const R = window.innerWidth / window.innerHeight
+  // 计算设计稿分辨率宽度与屏幕实际分辨率宽度比 Rw
+  const Rw = sketch.width / window.innerWidth
+  // 计算设计稿分辨率高度与屏幕实际分辨率高度比 为 Rh
+  const Rh = sketch.height / window.innerHeight
+  let width = sketch.width
+  let height = sketch.width / R
+  let scale = 1 / Rw
+  if (Rw < Rh) {
+    width = sketch.height * R
+    height = sketch.height
+    scale = 1 / Rh
+  }
+  // 设置body拉伸（尺寸）
+  document.body.style.width = width + 'px'
+  document.body.style.height = height + 'px'
+  // 设置body缩放
+  document.body.style.transform = `scale(${scale})`
+  document.body.style.transformOrigin = '0 0'
+  document.body.style.MozTransform = `scale(${scale})`
+  document.body.style.MozTransformOrigin = '0 0'
 }
 onMounted(() => {
-  emitter.on('*', (index: any, data: any) => {
+  emitter.on('*', (index, data) => {
     // console.log('监听到事件', index)
 
     if (index == 'changHeaderBack') {
@@ -75,7 +114,7 @@ const onClickCloseIcon = () => {
 
 const activeIndex = ref(0)
 
-const handleSelect = (key: number) => {
+const handleSelect = (key) => {
   showTop.value = false
   switch (key) {
     case 0:
@@ -147,7 +186,7 @@ onUnmounted(() => {
       :activeBackgroundColor="activeColor"
     />
   </header>
-  <!-- <CusMainContainer/> -->
+
   <van-popup
     v-model:show="showTop"
     position="right"
@@ -170,32 +209,15 @@ onUnmounted(() => {
           />
         </van-cell-group>
       </div>
-
-      <!-- <div class="conent">
-        <div
-          :class="['contet-item', activeIndex == index ? 'active' : '']"
-          v-for="(item, index) in HeaderInfo"
-          @click="handleSelect(index)"
-        >
-          {{ item }}
-        </div>
-      </div> -->
     </div>
   </van-popup>
   <router-view v-slot="{ Component }">
-    <transition name="router_animate">
+    <transition>
       <component :is="Component" />
     </transition>
   </router-view>
 </template>
 <style lang="scss" scoped>
-.router_animate-enter-active {
-  // animation: fadeIn 1s;
-}
-.router_animate-leave-active {
-  // animation: fadeOut 1s;
-}
-
 .phone-mobile {
   width: 100%;
   height: 100%;

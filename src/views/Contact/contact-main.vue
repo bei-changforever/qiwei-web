@@ -243,7 +243,7 @@ const draw = ({ el, BMap, map }) => {
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    zoom: 1;
+    // zoom: 1;
 
     .about-base-container-top {
       width: 100%;
@@ -544,7 +544,7 @@ const draw = ({ el, BMap, map }) => {
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      zoom: 1;
+      // zoom: 1;
       display: flex;
       flex-direction: column;
       align-items: center;

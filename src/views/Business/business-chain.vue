@@ -56,7 +56,7 @@ import { getAssetsFile } from '@/utils/tools'
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    zoom: 1;
+    // zoom: 1;
 
     display: flex;
     align-items: center;
@@ -152,7 +152,7 @@ import { getAssetsFile } from '@/utils/tools'
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      zoom: 1;
+      // zoom: 1;
 
       display: flex;
       flex-direction: column;

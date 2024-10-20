@@ -1,4 +1,155 @@
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, watch, nextTick, reactive } from 'vue'
+import { RouterView } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import emitter from '@/utils/mitt'
+import { Search } from '@element-plus/icons-vue'
+import { useCounterStore } from '@/stores/screenWidth'
+import DevicePixelRatio from '@/utils/DevicePixelRatio.js'
+const { setScreenWidth } = useCounterStore()
+const route = useRoute()
+const router = useRouter()
+const changeBackGroundColor = ref(false)
+const activeColor = ref('#000000')
+const isDarkPage = ref(true)
+const showTop = ref(false)
+const screenWidth = ref(window.innerWidth)
+
+// do not use same name with ref
+const form = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: ''
+})
+
+const onSubmit = () => {
+  console.log('submit!')
+}
+const handleResize = () => {
+  screenWidth.value =
+    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+  setScreenWidth(screenWidth.value)
+}
+
+const bodyScale = () => {
+  var devicewidth = document.documentElement.clientWidth //获取当前分辨率下的可是区域宽度
+  var scale = devicewidth / 1920 // 分母——设计稿的尺寸
+  document.body.style.zoom = scale //放大缩小相应倍数
+}
+
+onMounted(() => {
+  // new DevicePixelRatio().init();
+  // bodyScale();
+  emitter.on('*', (index: any, data: any) => {
+    // console.log('监听到事件', index)
+
+    if (index == 'changHeaderBack') {
+      isDarkPage.value = data.isDark
+      activeColor.value = data.activeBackgroundColor
+      changeBackGroundColor.value = data.slideChangeBakColor
+    } else if (index == 'DOMINDEX') {
+      if (data == 0) {
+        isDarkPage.value = true
+        changeBackGroundColor.value = false
+        activeColor.value = '#000000'
+      }
+      if (data == 1 || data == 2 || data == 3 || data == 4) {
+        // console.log('执行')
+
+        isDarkPage.value = true
+        activeColor.value = 'white'
+        changeBackGroundColor.value = false
+      }
+    } else if (index == 'SHOWSEARCH') {
+      showSearch.value = data
+    } else if (index == 'TOGGLEMOBILEPHONE') {
+      console.log('监听')
+
+      showTop.value = data
+    } else {
+      return
+    }
+  })
+  window.addEventListener('resize', handleResize)
+})
+
+const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
+const onClickCloseIcon = () => {
+  showTop.value = false
+}
+
+const activeIndex = ref(0)
+
+const handleSelect = (key: number) => {
+  showTop.value = false
+  switch (key) {
+    case 0:
+      activeIndex.value = 0
+      router.push('/')
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 1:
+      activeIndex.value = 1
+      router.push('/product/product-detail')
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 2:
+      activeIndex.value = 2
+      router.push('/business')
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 3:
+      activeIndex.value = 3
+      router.push('/develop')
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 4:
+      activeIndex.value = 4
+      router.push('/about')
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    case 5:
+      activeIndex.value = 5
+      router.push('/contact')
+      emitter.emit('DOMINDEX', activeIndex.value)
+      break
+    default:
+      break
+  }
+}
+
+const showSearch = ref(false)
+const search = () => {
+  console.log(form.name)
+
+  showSearch.value = false
+}
+onUnmounted(() => {
+  emitter.off('*')
+})
+</script>
+
 <template>
+  <!-- 顶部弹出 -->
+  <van-popup v-model:show="showSearch" position="top" :style="{ height: '8%' }">
+    <el-form :model="form" label-width="auto" style="max-width: 100%">
+      <el-form-item>
+        <div class="search-box">
+          <el-input v-model="form.name" placeholder="请输入关键字" clearable>
+            <template #prefix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
+          <el-button type="primary" @click="search">搜索</el-button>
+        </div>
+      </el-form-item>
+    </el-form>
+  </van-popup>
   <header id="header">
     <CusHeader
       :slideChangeBakColor="changeBackGroundColor"
@@ -6,257 +157,106 @@
       :activeBackgroundColor="activeColor"
     />
   </header>
-  <div class="main-okj-container" ref="container" v-if="domIndex !== 1">
-    <div class="boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
-      <component :is="comp" />
+  <!-- <CusMainContainer/> -->
+  <van-popup
+    v-model:show="showTop"
+    position="right"
+    @click-close-icon="onClickCloseIcon"
+    closeable
+    :overlay="true"
+    :style="{
+      width: '60%',
+      height: '100%'
+    }"
+  >
+    <div class="phone-mobile">
+      <div class="conent">
+        <van-cell-group>
+          <van-cell
+            v-for="(item, index) in HeaderInfo"
+            :title="item"
+            is-link
+            @click="handleSelect(index)"
+          />
+        </van-cell-group>
+      </div>
+
+      <!-- <div class="conent">
+        <div
+          :class="['contet-item', activeIndex == index ? 'active' : '']"
+          v-for="(item, index) in HeaderInfo"
+          @click="handleSelect(index)"
+        >
+          {{ item }}
+        </div>
+      </div> -->
     </div>
-    <div class="boxapi">
-      <footer id="footer">
-        <CusFooter />
-      </footer>
-    </div>
-  </div>
-  <div class="main-okj-container-nofull" ref="nofull" v-else>
-    <div class="nofull-boxapi" v-for="(comp, index) in domArr[domIndex].domarr" :key="index">
-      <component :is="comp" />
-    </div>
-    <footer id="footer">
-      <CusFooter />
-    </footer>
-  </div>
+  </van-popup>
+  <router-view v-slot="{ Component }">
+    <transition name="router_animate">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
-<script setup>
-import { ref, onMounted, onBeforeUnmount, watch, nextTick, shallowRef, reactive } from 'vue'
-import Banner from '@/components/banner/index.vue'
-import HomeView from '@/views/Home/product.vue'
-import BussinessInfo from '@/views/Home/business-info.vue'
-import Advantage from '@/views/Home/advantage.vue'
-import DevelopMent from '@/views/Home/development.vue'
-import Quality from '@/views/Home/quality.vue'
-import DevelopMent2 from '@/views/Home/development2.vue'
-import Added from '@/views/Home/added.vue'
-import productBanner from '@/views/Product/product-banner.vue'
-import ProductContainer from '@/views/Product/product-container.vue'
-import emitter from '@/utils/mitt'
-const domArr = shallowRef([
-  {
-    id: 'home',
-    domarr: [Banner, HomeView, BussinessInfo, Advantage, DevelopMent, Quality, DevelopMent2, Added]
-  },
-  {
-    id: 'product',
-    domarr: [productBanner, ProductContainer]
-  }
-])
-
-let domIndex = ref(0)
-const nofull = ref(null)
-const changeBackGroundColor = ref(false)
-const activeColor = ref('#000000')
-const container = ref(null)
-const isDarkPage = ref(true)
-// 处理滚轮事件的方法
-const handleWheel = (event) => {
-  const deltaY = event.deltaY
-  // 存储上一次变量
-
-  if (deltaY < 0) {
-    // 向上滚动
-  } else if (deltaY > 0) {
-    // 向下滚动
-  }
+<style lang="scss" scoped>
+.router_animate-enter-active {
+  // animation: fadeIn 1s;
+}
+.router_animate-leave-active {
+  // animation: fadeOut 1s;
 }
 
-// 定义当前页面的索引
-let pageIndex = ref(0)
-// 定义是否允许滚动
-let pageScroll = ref(true)
-// 定义上一次页面的索引
-let prevIndex = ref(0)
+.phone-mobile {
+  width: 100%;
+  height: 100%;
+  background-color: white;
 
-let boxapis = ref([])
+  .conent {
+    width: 100%;
+    height: 100%;
+    // padding: 2vh;
+    // box-sizing: border-box;
+    // background-color: pink;
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // van-cell van-cell--clickable
 
-// 向上滚动
-function scrollUp() {
-  if (pageIndex.value > 0 && pageScroll.value) {
-    prevIndex.value = pageIndex.value
-    pageIndex.value--
-    scrollToPage(pageIndex.value)
-  } else if (pageIndex.value <= 0) {
-    pageIndex.value = 0
-  }
-}
-
-// 向下滚动
-function scrollDown() {
-  if (pageIndex.value < boxapis.value.length - 1 && pageScroll.value) {
-    prevIndex.value = pageIndex.value
-    pageIndex.value++
-    scrollToPage(pageIndex.value)
-  } else if (pageIndex.value >= boxapis.value.length - 1) {
-    pageIndex.value = boxapis.value.length - 1
-  }
-}
-// 滚动到指定页面
-function scrollToPage(pageIndex) {
-  if (pageIndex == 8) {
-    if (screenWidth.value >= 1520 && screenWidth.value <= 1920) {
-      container.value.style.top = `-${pageIndex - 1}56%`
+    :deep(.van-cell-group) {
+      padding: 2vh;
+      box-sizing: border-box;
+      width: 100%;
+      height: auto;
+      // background-color: pink;
     }
 
-    if (screenWidth.value <= 1520 && screenWidth.value >= 1440) {
-      container.value.style.top = `-${pageIndex - 1}56%`
+    :deep(.van-cell) {
+      width: 100%;
+      // height: 20%;
+      margin-bottom: 5vh;
     }
 
-    if (screenWidth.value <= 1440 && screenWidth.value >= 1220) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
+    .contet-item {
+      height: 15%;
+      font-size: 18px;
+      cursor: pointer;
 
-    if (screenWidth.value <= 1220 && screenWidth.value >= 960) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
-
-    if (screenWidth.value <= 960) {
-      container.value.style.top = `-${pageIndex - 1}56%`
-    }
-  } else {
-    container.value.style.top = `-${pageIndex}00%`
-  }
-
-  pageScroll.value = false
-  scrollTimer()
-}
-// 设置定时器，等待500毫秒后，允许再次滚动
-function scrollTimer() {
-  setTimeout(() => {
-    pageScroll.value = true
-  }, 500)
-}
-// 鼠标滚轮事件
-function mouseWheel(e) {
-  if (container.value) {
-    if (e.wheelDelta) {
-      if (e.wheelDelta > 0) {
-        scrollUp()
-      } else {
-        scrollDown()
+      &.active {
+        color: #f3a7a5;
       }
-    } else {
-      if (e.detail > 0) {
-        scrollDown()
-      } else {
-        scrollUp()
+
+      &:hover {
+        color: #f3a7a5;
       }
     }
   }
 }
-const screenWidth = ref(window.innerWidth)
-const handleResize = () => {
-  screenWidth.value =
-    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-}
-
-const handleScrolltoTop = () => {
-  nextTick(() => {
-    console.log('点击回到顶部')
-    if (domIndex.value == 0) {
-      scrollToPage(0)
-    }
-    if (domIndex.value == 1) {
-      console.log(nofull.value.getBoundingClientRect())
-
-      // window.scrollTo({
-      //   top: 0,
-      //   behavior: 'smooth' // 可选，使滚动平滑
-      // });
-    }
-  })
-}
-
-onMounted(() => {
-  // window.addEventListener('wheel', handleWheel)
-  emitter.on('DOMINDEX', (index) => {
-    window.scrollTo({
-      // top: document.documentElement.offsetHeight, //回到底部
-      top: 0, //回到顶部
-      left: 0,
-      behavior: 'smooth' //smooth 平滑；auto:瞬间
-    })
-    if (index == 0) {
-      isDarkPage.value = true
-      changeBackGroundColor.value = false
-      activeColor.value = '#000000'
-    }
-    if (index == 1) {
-      isDarkPage.value = true
-      activeColor.value = 'white'
-      changeBackGroundColor.value = false
-    }
-  })
-
-  emitter.on('changHeaderBack', (res) => {
-    isDarkPage.value = res.isDark;
-    activeColor.value = res.activeBackgroundColor;
-    changeBackGroundColor.value = res.slideChangeBakColor;
-  })
-
-  emitter.on('BACKPAGETOP', (res) => {
-    handleScrolltoTop()
-  })
-  // 添加鼠标滚轮事件
-  document.onmousewheel = mouseWheel
-  document.addEventListener('DOMMouseScroll', mouseWheel, false)
-  // 设置滚动记录
-  history.scrollRestoration = 'manual'
-
-  nextTick(() => {
-    boxapis.value = document.querySelectorAll('.boxapi')
-    container.value.style.height = `${boxapis.length}00%`
-  })
-
-  window.addEventListener('resize', handleResize)
-})
-onBeforeUnmount(() => {
-  document.removeEventListener('DOMMouseScroll', mouseWheel)
-  emitter.off('DOMINDEX')
-  emitter.off('changHeaderBack')
-  emitter.off('BACKPAGETOP')
-})
-
-watch(
-  () => pageIndex.value,
-  (newValue, oldValue) => {
-    if (newValue == 0) {
-      changeBackGroundColor.value = false
-    } else {
-      changeBackGroundColor.value = true
-    }
-  }
-)
-//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
-watch(screenWidth, (newVal, oldVal) => {})
-</script>
-<style scoped lang="scss">
-.main-okj-container {
+.search-box {
   width: 100%;
-  height: 100%;
-  /* 绝对定位 */
-  position: absolute;
-  left: 0;
-  top: 0;
-  /* 添加过渡动画 */
-  transition: all 0.3s ease-in-out;
-}
-
-.main-okj-container-nofull {
-  width: 100%;
-  height: 100%;
-  /* 绝对定位 */
-  position: absolute;
-  left: 0;
-  top: 0;
-  /* 添加过渡动画 */
-  transition: all 0.3s ease-in-out;
-  overflow-y: auto;
+  display: flex;
+  gap: 1vw;
+  padding: 2vh;
+  box-sizing: border-box;
 }
 </style>
