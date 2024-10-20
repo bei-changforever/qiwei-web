@@ -74,6 +74,7 @@
                   }"
                   :modules="modules"
                   class="mySwiper"
+                  @slideChange="slideChange"
                 >
                   <swiper-slide v-for="(item, index) in list" :key="index"
                     ><el-image :src="item" :fit="'fill'" />
@@ -162,7 +163,9 @@ const selectIndex = (index) => {
     activeIndex.value = index
   }
 }
-
+const slideChange = () => {
+  activeIndex.value = swiperDom.value.realIndex
+}
 const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
 watch(
@@ -373,7 +376,7 @@ watch(
     // align-items: center;
     // justify-content: center;
     background-color: #f5f5f5;
-    padding-top: 10vh;
+    padding-top: 15vh;
     box-sizing: border-box;
     /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
     scroll-snap-align: start;

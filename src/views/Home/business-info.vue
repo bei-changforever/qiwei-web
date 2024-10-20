@@ -51,13 +51,18 @@
           </div>
         </div>
       </div>
-      <div
-        class="business-container-bottom"
-      >
-        <div class="business-container-bottom-container">
+      <div class="business-container-bottom">
+        <div class="business-container-bottom-container" ref="countDom">
           <div class="business-container-bottom-top">
             <div class="bussiness-container-bottom-top-left">
-              <count-to :startVal="0" :endVal="28" :duration="7000" :separator="null"></count-to>
+              <count-to
+                ref="cunt0"
+                :startVal="0"
+                :endVal="28"
+                :duration="4000"
+                :separator="null"
+                :autoplay="false"
+              ></count-to>
               <!-- <van-rolling-text :start-num="0" :target-num="28" /> -->
             </div>
             <div class="bussiness-container-bottom-top-right">年</div>
@@ -67,7 +72,14 @@
         <div class="business-container-bottom-container">
           <div class="business-container-bottom-top">
             <div class="bussiness-container-bottom-top-left">
-              <count-to :startVal="0" :endVal="10" :duration="7000" :separator="null"></count-to>
+              <count-to
+                ref="cunt1"
+                :startVal="0"
+                :endVal="10"
+                :duration="4000"
+                :separator="null"
+                :autoplay="false"
+              ></count-to>
             </div>
             <div class="bussiness-container-bottom-top-right">万m²</div>
           </div>
@@ -76,7 +88,14 @@
         <div class="business-container-bottom-container">
           <div class="business-container-bottom-top">
             <div class="bussiness-container-bottom-top-left plus">
-              <count-to :startVal="0" :endVal="60" :duration="4000" :separator="null"></count-to>
+              <count-to
+                ref="cunt2"
+                :startVal="0"
+                :endVal="60"
+                :duration="4000"
+                :separator="null"
+                :autoplay="false"
+              ></count-to>
             </div>
             <div class="bussiness-container-bottom-top-right">国家</div>
           </div>
@@ -85,7 +104,14 @@
         <div class="business-container-bottom-container">
           <div class="business-container-bottom-top">
             <div class="bussiness-container-bottom-top-left plus">
-              <count-to :startVal="0" :endVal="1000" :duration="4000" :separator="null"></count-to>
+              <count-to
+                ref="cunt3"
+                :startVal="0"
+                :endVal="1000"
+                :duration="4000"
+                :separator="null"
+                :autoplay="false"
+              ></count-to>
             </div>
             <div class="bussiness-container-bottom-top-right">位</div>
           </div>
@@ -102,8 +128,19 @@ import { isMobile } from '@/utils/equipment'
 import { CountTo } from 'vue3-count-to'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/mitt'
-
+import { useIntersectionObserver } from '@vueuse/core'
 const router = useRouter()
+const countDom = ref(null)
+const cunt0 = ref(null)
+const cunt1 = ref(null)
+const cunt2 = ref(null)
+const cunt3 = ref(null)
+const showCount = () => {
+  cunt0.value.start()
+  cunt1.value.start()
+  cunt2.value.start()
+  cunt3.value.start()
+}
 const clickRouter = () => {
   router.push('/about')
   emitter.emit('DOMINDEX', 4)
@@ -112,7 +149,16 @@ const clickRouter = () => {
 const showAnimation = ref(false)
 
 onMounted(() => {
- 
+  useIntersectionObserver(
+    countDom,
+    ([{ isIntersecting }]) => {
+      if(isIntersecting) {
+        showCount()
+      }
+      
+    },
+    { threshold: 0.5 }
+  )
 })
 </script>
 <style lang="scss" scoped>
@@ -935,7 +981,6 @@ onMounted(() => {
               font-size: 12px;
               color: #333333;
               margin-left: 10px;
-              
             }
           }
 

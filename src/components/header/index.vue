@@ -113,6 +113,7 @@
             :key="index"
             :src="item"
             :fit="'fill'"
+            @click="showSearch(index)"
           />
           <div class="active" @click="changeMobilePhone">≡</div>
         </div>
@@ -123,6 +124,7 @@
             :key="index"
             :src="item"
             :fit="'fill'"
+              @click="showSearch(index)"
           />
           <div class="dark-active" @click="changeMobilePhone">≡</div>
         </div>
@@ -237,6 +239,14 @@ const handleMouseenter = (index) => {
     show2.value = false
     show3.value = true
   }
+}
+
+const showSearch = (index) => {
+  console.log(index);
+  if(index == 0) {
+     emitter.emit('SHOWSEARCH', true)
+  }
+ 
 }
 
 const handleMouseleave = (index) => {

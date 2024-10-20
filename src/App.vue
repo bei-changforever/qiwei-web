@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick, reactive } from 'vue'
 import { RouterView } from 'vue-router'
 import { useRouter, useRoute } from 'vue-router'
 import emitter from '@/utils/mitt'
-import { isMobile } from '@/utils/equipment'
+import { Calendar, Search } from '@element-plus/icons-vue'
 import { useCounterStore } from '@/stores/screenWidth'
 const { setScreenWidth } = useCounterStore()
 const route = useRoute()
@@ -13,6 +13,22 @@ const activeColor = ref('#000000')
 const isDarkPage = ref(true)
 const showTop = ref(false)
 const screenWidth = ref(window.innerWidth)
+
+// do not use same name with ref
+const form = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: ''
+})
+
+const onSubmit = () => {
+  console.log('submit!')
+}
 const handleResize = () => {
   screenWidth.value =
     window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
@@ -39,6 +55,8 @@ onMounted(() => {
         activeColor.value = 'white'
         changeBackGroundColor.value = false
       }
+    } else if (index == 'SHOWSEARCH') {
+      showSearch.value = data
     } else if (index == 'TOGGLEMOBILEPHONE') {
       console.log('监听')
 
@@ -58,7 +76,7 @@ const onClickCloseIcon = () => {
 const activeIndex = ref(0)
 
 const handleSelect = (key: number) => {
-  showTop.value = false;
+  showTop.value = false
   switch (key) {
     case 0:
       activeIndex.value = 0
@@ -95,12 +113,33 @@ const handleSelect = (key: number) => {
   }
 }
 
+const showSearch = ref(false)
+const search = () => {
+  console.log(form.name)
+
+  showSearch.value = false
+}
 onUnmounted(() => {
   emitter.off('*')
 })
 </script>
 
 <template>
+  <!-- 顶部弹出 -->
+  <van-popup v-model:show="showSearch" position="top" :style="{ height: '8%' }">
+    <el-form :model="form" label-width="auto" style="max-width: 100%">
+      <el-form-item>
+        <div class="search-box">
+          <el-input v-model="form.name" placeholder="请输入关键字" clearable>
+            <template #prefix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
+          <el-button type="primary" @click="search">搜索</el-button>
+        </div>
+      </el-form-item>
+    </el-form>
+  </van-popup>
   <header id="header">
     <CusHeader
       :slideChangeBakColor="changeBackGroundColor"
@@ -114,11 +153,10 @@ onUnmounted(() => {
     position="right"
     @click-close-icon="onClickCloseIcon"
     closeable
-    :overlay="false"
+    :overlay="true"
     :style="{
       width: '60%',
-      height: '100%',
-      zIndex: 99
+      height: '100%'
     }"
   >
     <div class="phone-mobile">
@@ -176,7 +214,6 @@ onUnmounted(() => {
     // van-cell van-cell--clickable
 
     :deep(.van-cell-group) {
-    
       padding: 2vh;
       box-sizing: border-box;
       width: 100%;
@@ -204,5 +241,12 @@ onUnmounted(() => {
       }
     }
   }
+}
+.search-box {
+  width: 100%;
+  display: flex;
+  gap: 1vw;
+  padding: 2vh;
+  box-sizing: border-box;
 }
 </style>

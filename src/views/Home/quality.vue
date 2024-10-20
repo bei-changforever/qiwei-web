@@ -388,7 +388,7 @@ watch(
 .quality {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 130vh;
   display: flex;
   // align-items: center;
   justify-content: center;
@@ -477,7 +477,7 @@ watch(
 
       .pagenavigation {
         position: absolute;
-        bottom: -2vh;
+        bottom: 2vh;
         // width: 30%;
         padding: 20px;
         display: flex;
@@ -502,8 +502,8 @@ watch(
     .square-box {
       margin-bottom: -5vh;
       position: relative;
-      width: 700px;
-      height: 700px;
+      width: 1050px;
+      height: 1050px;
       // border: 1px solid red;
       display: flex;
       align-items: center;
@@ -769,6 +769,7 @@ watch(
         height: 50%;
         display: flex;
         flex-wrap: wrap;
+        // background-color: pink;
         .square-box-bottom-item {
           width: 33%;
           height: 33%;
