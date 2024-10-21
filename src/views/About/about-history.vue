@@ -504,6 +504,9 @@ watch(
                 font-size: 32px;
                 color: #333333;
                 margin-bottom: 1vh;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
 
               .content-detail {
@@ -514,7 +517,9 @@ watch(
                 font-size: 14px;
                 color: #333333;
                 margin-bottom: 2.5vh;
-
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 .text {
                   position: relative;
                   margin-left: 1vw;
@@ -557,7 +562,6 @@ watch(
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
-                
               }
             }
 

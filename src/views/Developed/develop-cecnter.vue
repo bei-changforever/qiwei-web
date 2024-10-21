@@ -165,8 +165,8 @@ watch(
 <style lang="scss" scoped>
 .develop-center {
   width: 100vw;
-  height: 120vh;
-  padding-top: 15vh;
+  height: 100vh;
+  padding-top: 10vh;
   box-sizing: border-box;
   background-color: white;
 
@@ -182,7 +182,7 @@ watch(
       align-items: center;
       justify-content: center;
       gap: 1vw;
-      margin-bottom: 5vh;
+      margin-bottom: 3vh;
 
       .control-button-item {
         width: 150px;
@@ -294,15 +294,17 @@ watch(
     }
 
     .develop-container-bottom {
-      margin-top: 5vh;
+      margin-top: 3vh;
       width: 100%;
-      height: 650px;
+      height: 600px;
       // background-color: pink;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5vw;
 
+      // transform: scale(0.9);
+      // transform-origin: top center;
       .develop-container-bottom-left {
         display: flex;
         flex-direction: column;

@@ -317,7 +317,8 @@ const draw = ({ el, BMap, map }) => {
 
             .contact-detail-top {
               width: 100%;
-              padding: 10px;
+              padding: 2vh;
+              padding-top: 0;
               box-sizing: border-box;
               display: flex;
               justify-content: space-between;
@@ -346,10 +347,10 @@ const draw = ({ el, BMap, map }) => {
             }
 
             .contact-detail-bottom {
-              margin-top: 5vh;
+              // margin-top: 5vh;
               display: flex;
               width: 100%;
-              padding: 10px;
+              padding: 2vh;
               box-sizing: border-box;
               justify-content: space-between;
 
@@ -617,7 +618,8 @@ const draw = ({ el, BMap, map }) => {
 
             .contact-detail-top {
               width: 100%;
-              padding: 10px;
+              padding: 2vh;
+              padding-top: 0;
               box-sizing: border-box;
               display: flex;
               justify-content: space-between;
@@ -646,10 +648,10 @@ const draw = ({ el, BMap, map }) => {
             }
 
             .contact-detail-bottom {
-              margin-top: 5vh;
+              // margin-top: 5vh;
               display: flex;
               width: 100%;
-              padding: 10px;
+              padding: 2vh;
               box-sizing: border-box;
               justify-content: space-between;
 

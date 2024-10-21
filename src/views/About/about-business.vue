@@ -65,7 +65,7 @@ const handleSelect = (index) => {
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
   // background-color: pink;
-  padding-top: 15vh;
+  padding-top: 12vh;
 
   .business-container {
     margin: 0 auto;
@@ -163,8 +163,8 @@ const handleSelect = (index) => {
       }
 
       .business-container-right {
-        width: 620px;
-        height: 550px;
+        width: 640px;
+        height: 560px;
         position: relative;
 
         :deep(.el-image) {

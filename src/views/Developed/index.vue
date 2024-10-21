@@ -4,8 +4,8 @@
       <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
       </div>
-      <div class="boxapi"></div>
-      <div class="boxapi"></div>
+      <!-- <div class="boxapi"></div> -->
+      <!-- <div class="boxapi"></div> -->
       <div class="boxapi"></div>
       <div class="boxapi"></div>
       <div class="boxapi"></div>
@@ -79,30 +79,31 @@ function scrollDown() {
 let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  //   console.log(pageIndex)
+    // console.log(pageIndex)
   if (pageIndex == 0) {
     container.value.style.top = `0%`
   } else if (pageIndex == 1) {
     container.value.style.top = `-70%`
   } else if (pageIndex == 2) {
-    container.value.style.top = `-100%`
+    container.value.style.top = `-170%`
   } else if (pageIndex == 3) {
-    container.value.style.top = `-185%`
+    container.value.style.top = `-270%`
   } else if (pageIndex == 4) {
     container.value.style.top = `-290%`
   } else if (pageIndex == 5) {
-    container.value.style.top = `-310%`
+    container.value.style.top = `-320%`
   } else if (pageIndex == 6) {
-    container.value.style.top = `-330%`
+    container.value.style.top = `-402%`
   } else if (pageIndex == 7) {
-    container.value.style.top = `-422%`
+    container.value.style.top = `-502%`
   } else if (pageIndex == 8) {
-    container.value.style.top = `-442%`
-  } else if (pageIndex == 9) {
-    container.value.style.top = `-462%`
-  } else if (pageIndex == 10) {
-    container.value.style.top = `-543%`
-  }
+    container.value.style.top = `-525%`
+  } 
+  // else if (pageIndex == 9) {
+  //   container.value.style.top = `-462%`
+  // } else if (pageIndex == 10) {
+  //   container.value.style.top = `-543%`
+  // }
 
   pageScroll.value = false
   scrollTimer()
