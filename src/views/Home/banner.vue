@@ -9,12 +9,23 @@
           @mouseout="handleMouseOut"
         />
       </div> -->
+    <!-- <div
+      v-for="(item, index) in slide"
+      :key="index"
+      :class="['slide', currentIndex == index ? 'active' : 'none']"
+      :style="{ 'background-image': item.thumb }"
+    ></div> -->
     <div
       v-for="(item, index) in slide"
       :key="index"
       :class="['slide', currentIndex == index ? 'active' : 'none']"
-      :style="{ 'background-image': 'url(' + getAssetsFile('images', '轮播海报.png') + ')' }"
-    ></div>
+    >
+      <van-image class="image" lazy-load :src="item.thumb">
+        <template v-slot:loading>
+          <van-loading type="spinner" size="20" />
+        </template>
+      </van-image>
+    </div>
 
     <!-- <div class="arrow r">
         <el-image
@@ -28,7 +39,7 @@
 
     <div class="custom-indicator">
       <div
-        v-for="(item, index) in 5"
+        v-for="(item, index) in slide"
         :key="index"
         :class="['custom-indicator-item', currentIndex == index ? 'active' : '']"
         @click="changeIndicator(index)"
@@ -38,7 +49,7 @@
   <div v-else class="banner-mobile">
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="(item, index) in slide" :key="index">
-        <img :src="getAssetsFile('images', '轮播海报.png')" alt="" />
+        <img :src="item.thumb" alt="" />
       </van-swipe-item>
     </van-swipe>
   </div>
@@ -46,36 +57,11 @@
 <script setup lang="ts">
 import { ref, nextTick, onMounted, onUnmounted, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { getBanner } from '@/api/index'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const currentIndex = ref(0)
-const slide = ref([
-  {
-    id: 1,
-    title: '轮播图1',
-    url: 'https://picsum.photos/id/237/200/300'
-  },
-  {
-    id: 2,
-    title: '轮播图2',
-    url: 'https://picsum.photos/id/237/200/300'
-  },
-  {
-    id: 3,
-    title: '轮播图3',
-    url: 'https://picsum.photos/id/237/200/300'
-  },
-  {
-    id: 4,
-    title: '轮播图4',
-    url: 'https://picsum.photos/id/237/200/300'
-  },
-  {
-    id: 5,
-    title: '轮播图5',
-    url: 'https://picsum.photos/id/237/200/300'
-  }
-]) as any
+const slide = ref([]) as any
 const timer = ref(null)
 const prev = () => {
   if (currentIndex.value <= 0) {
@@ -107,7 +93,16 @@ const handleMouseOut = () => {
 const changeIndicator = (index) => {
   currentIndex.value = index
 }
+
+const getBannerData = async () => {
+  let type = 1
+  let res = await getBanner(type)
+
+  slide.value = res.data
+}
+
 onMounted(() => {
+  getBannerData()
   // 自动轮播
   timer.value = setInterval(() => {
     next()
@@ -195,7 +190,11 @@ watch(
   background-size: cover;
   background-position: center center;
   transition: all 1s;
-
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   &.active {
     opacity: 1;
   }

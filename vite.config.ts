@@ -98,7 +98,17 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 8080
+    port: 8080,
+    proxy: {
+      '/backend/api': {
+        // 目标服务器的地址
+        target: 'http://101.35.179.19:8066/',
+        // 更改请求的origin为代理服务器的origin，以便与目标服务器交互
+        changeOrigin: true,
+        // 重写请求路径
+        // rewrite: (path) => path.replace(/^\/backend/, '')
+      }
+    }
   },
   build: {
     sourcemap: false,
