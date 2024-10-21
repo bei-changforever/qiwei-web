@@ -5,7 +5,10 @@
         <component :is="comp" />
       </div> -->
       <div class="nofull-boxapi">
-        <productBanner />
+        <!-- <productBanner /> -->
+        <div class="b-no-image">
+          
+        </div>
       </div>
       <div class="nofull-boxapi">
         <RouterView/>
@@ -105,6 +108,12 @@ watch(
   //   border: 1px solid red;
   .main-okj-container-nofull {
     width: 100%;
+  }
+
+  .b-no-image {
+    width: 100%;
+    height: 70px;
+    background-color: white;
   }
 }
 </style>

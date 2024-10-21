@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="header">
+  <div class="header" v-if="!isPproduct">
     <div
       class="fixed-box"
       :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }"
@@ -40,17 +40,21 @@
         </div> -->
         <div class="text">
           <div class="text-item">
-            <span :class="activeIndex == 0 ? 'active' : ''" @click="handleSelect(0)">首页</span>
+            <span :class="route.name == 'home' ? 'active' : ''" @click="handleSelect(0)">首页</span>
           </div>
           <div class="text-item">
-            <span :class="activeIndex == 1 ? 'active' : ''" @click="handleSelect(1)">产品中心</span>
+            <span :class="route.name == 'product-detail' ? 'active' : ''" @click="handleSelect(1)"
+              >产品中心</span
+            >
           </div>
           <div
             class="text-item"
             @mouseenter.stop="handleMouseenter(0)"
             @mouseleave.stop="show1 = false"
           >
-            <span :class="activeIndex == 2 ? 'active' : ''" @click="handleSelect(2)">业务合作</span>
+            <span :class="route.name == 'business' ? 'active' : ''" @click="handleSelect(2)"
+              >业务合作</span
+            >
             <div class="gbk" v-if="show1">
               <div class="gbk-content">
                 <div
@@ -69,7 +73,9 @@
             @mouseenter.stop="handleMouseenter(1)"
             @mouseleave.stop="show2 = false"
           >
-            <span :class="activeIndex == 3 ? 'active' : ''" @click="handleSelect(3)">研发中心</span>
+            <span :class="route.name == 'develop' ? 'active' : ''" @click="handleSelect(3)"
+              >研发中心</span
+            >
             <div class="gbk" v-if="show2">
               <div class="gbk-content">
                 <div
@@ -88,7 +94,9 @@
             @mouseenter.stop="handleMouseenter(2)"
             @mouseleave.stop="show3 = false"
           >
-            <span :class="activeIndex == 4 ? 'active' : ''" @click="handleSelect(4)">关于奇伟</span>
+            <span :class="route.name == 'about' ? 'active' : ''" @click="handleSelect(4)"
+              >关于奇伟</span
+            >
             <div class="gbk" v-if="show3">
               <div class="gbk-content">
                 <div
@@ -103,7 +111,9 @@
             </div>
           </div>
           <div class="text-item">
-            <span :class="activeIndex == 5 ? 'active' : ''" @click="handleSelect(5)">联系我们</span>
+            <span :class="route.name == 'contact' ? 'active' : ''" @click="handleSelect(5)"
+              >联系我们</span
+            >
           </div>
         </div>
         <div class="icon" v-if="isDark">
@@ -118,6 +128,111 @@
           <div class="active" @click="changeMobilePhone">≡</div>
         </div>
         <div class="icon" v-else>
+          <el-image
+            class="unactive-image"
+            v-for="(item, index) in blackIconInfo"
+            :key="index"
+            :src="item"
+            :fit="'fill'"
+            @click="showSearch(index)"
+          />
+          <div class="dark-active" @click="changeMobilePhone">≡</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header" v-else>
+    <div
+      class="fixed-box"
+      :style="{ backgroundColor: slideChangeBakColor ? activeBackgroundColor : 'transparent' }"
+    >
+      <div :class="['header-content', 'is-white']">
+        <div class="logo">
+          <!-- <el-image :src="getAssetsFile('icon', activeBackgroundColor == '#000000' ? 'LOGO.png' : 'logo_black.png')"
+            :fit="'fill'" /> -->
+          <el-image :src="getAssetsFile('icon', 'logo_black.png')" :fit="'fill'" />
+        </div>
+
+        <div class="text">
+          <div class="text-item">
+            <span :class="route.name == 'home' ? 'active' : ''" @click="handleSelect(0)">首页</span>
+          </div>
+          <div class="text-item">
+            <span :class="route.name == 'product-detail' ? 'active' : ''" @click="handleSelect(1)"
+              >产品中心</span
+            >
+          </div>
+          <div
+            class="text-item"
+            @mouseenter.stop="handleMouseenter(0)"
+            @mouseleave.stop="show1 = false"
+          >
+            <span :class="route.name == 'business' ? 'active' : ''" @click="handleSelect(2)"
+              >业务合作</span
+            >
+            <div class="gbk" v-if="show1">
+              <div class="gbk-content">
+                <div
+                  :class="['gbk-item', selfIndex == i ? 'active' : '']"
+                  v-for="(item, i) in selfitem"
+                  @click="selfHandleSelect('业务合作', i)"
+                >
+                  <div class="line" v-if="selfIndex == i"></div>
+                  {{ item }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="text-item"
+            @mouseenter.stop="handleMouseenter(1)"
+            @mouseleave.stop="show2 = false"
+          >
+            <span :class="route.name == 'develop' ? 'active' : ''" @click="handleSelect(3)"
+              >研发中心</span
+            >
+            <div class="gbk" v-if="show2">
+              <div class="gbk-content">
+                <div
+                  :class="['gbk-item', selfIndex2 == i ? 'active' : '']"
+                  v-for="(item, i) in selfitem2"
+                  @click="selfHandleSelect('研发中心', i)"
+                >
+                  <div class="line" v-if="selfIndex2 == i"></div>
+                  {{ item }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="text-item"
+            @mouseenter.stop="handleMouseenter(2)"
+            @mouseleave.stop="show3 = false"
+          >
+            <span :class="route.name == 'about' ? 'active' : ''" @click="handleSelect(4)"
+              >关于奇伟</span
+            >
+            <div class="gbk" v-if="show3">
+              <div class="gbk-content">
+                <div
+                  :class="['gbk-item', selfIndex3 == i ? 'active' : '']"
+                  v-for="(item, i) in selfitem3"
+                  @click="selfHandleSelect('关于奇伟', i)"
+                >
+                  <div class="line" v-if="selfIndex3 == i"></div>
+                  {{ item }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-item">
+            <span :class="route.name == 'contact' ? 'active' : ''" @click="handleSelect(5)"
+              >联系我们</span
+            >
+          </div>
+        </div>
+
+        <div class="icon">
           <el-image
             class="unactive-image"
             v-for="(item, index) in blackIconInfo"
@@ -163,9 +278,13 @@ const props = defineProps({
   isDark: {
     type: Boolean,
     default: true
+  },
+  isPproduct: {
+    type: Boolean,
+    default: false
   }
 })
-
+console.log(route)
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
 
 const selfitem = ['业务范围', '服务原则', '全球供应链', '合作模式']
@@ -337,41 +456,9 @@ function AddFavorite(sURL, sTitle) {
   return false
 }
 
-watch(
-  () => route.path,
-  (newVal, oldVal) => {
-    console.log(newVal)
+console.log('mounted===>', route.name)
 
-    if (newVal == '/') {
-      router.push('/')
-      activeIndex.value = 0
-    }
-    if (newVal == '/product/product-detail') {
-      router.push('/product/product-detail')
-      activeIndex.value = 1
-    }
-    if (newVal == '/business') {
-      router.push('/business')
-      activeIndex.value = 2
-    }
-    if (newVal == '/develop') {
-      router.push('/develop')
-      activeIndex.value = 3
-    }
-    if (newVal == '/about') {
-      router.push('/about')
-      activeIndex.value = 4
-    }
-    if (newVal == '/contact') {
-      router.push('/contact')
-      activeIndex.value = 5
-    }
-  },
-  {
-    deep: true,
-    immediate: true
-  }
-)
+
 </script>
 <style lang="scss" scoped>
 .header {
@@ -383,7 +470,7 @@ watch(
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  zoom: 1;
   .fixed-box {
     width: 100%;
     position: fixed;
@@ -515,6 +602,19 @@ watch(
 
         .dark-active {
           display: none;
+        }
+      }
+
+      &.is-product {
+        .text {
+          .text-item {
+            color: black;
+
+            &.active {
+              color: #f3a7a5;
+              border-bottom: 3px solid #f3a7a5;
+            }
+          }
         }
       }
 

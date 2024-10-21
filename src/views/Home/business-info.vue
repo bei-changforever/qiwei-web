@@ -43,7 +43,7 @@
         <div
           :class="[
             'business-container-right',
-            showAnimation && 'animate__animated animate__fadeIn'
+            showAnimation && 'animate__animated animate__lightSpeedInRight'
           ]"
         >
           <el-image :src="getAssetsFile('images', '图片视频栏.png')" :fit="'fill'" />
@@ -169,7 +169,7 @@ onMounted(() => {
   display: flex;
   // align-items: center;
   justify-content: center;
-
+  background-color: white;
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
   padding-top: 15vh;
@@ -177,7 +177,7 @@ onMounted(() => {
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    // zoom: 1;
+    zoom: 1;
 
     .business-container-top {
       width: 100%;
@@ -404,7 +404,7 @@ onMounted(() => {
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
 
       .business-container-top {
         width: 100%;
@@ -619,7 +619,7 @@ onMounted(() => {
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
       // background-color: orange;
       .business-container-top {
         width: 100%;
@@ -838,7 +838,7 @@ onMounted(() => {
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
       padding: 2vh;
       box-sizing: border-box;
       .business-container-top {

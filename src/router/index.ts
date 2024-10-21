@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: '',
+      name: 'home',
       meta: {
         keepAlive: true, //设置页面是否需要使用缓存
         title: '首页'
@@ -26,15 +26,28 @@ const router = createRouter({
         {
           path: 'product-detail',
           name: 'product-detail',
-          component: () => import('@/views/Product/product-container.vue'),
+          component: () => import('@/views/Product/product-container.vue')
         },
         {
           path: 'product-info',
           name: 'product-info',
-          component: () => import('@/views/Product/product-info.vue'),
+          component: () => import('@/views/Product/product-info.vue')
         }
       ]
-    },{
+    },
+
+    // {
+    //   path: '/product-detail',
+    //   name: 'product-detail',
+    //   component: () => import('@/views/Product/product-container.vue'),
+    // },
+    // {
+    //   path: '/product-info',
+    //   name: 'product-info',
+    //   component: () => import('@/views/Product/product-info.vue'),
+    // },
+
+    {
       path: '/about',
       name: 'about',
       meta: {
@@ -42,8 +55,8 @@ const router = createRouter({
         title: '关于我们'
       },
       component: () => import('@/views/About/index.vue')
-    }
-    ,{
+    },
+    {
       path: '/business',
       name: 'business',
       meta: {
@@ -51,8 +64,8 @@ const router = createRouter({
         title: '业务合作'
       },
       component: () => import('@/views/Business/index.vue')
-    }
-    ,{
+    },
+    {
       path: '/develop',
       name: 'develop',
       meta: {
@@ -60,7 +73,8 @@ const router = createRouter({
         title: '研发中心'
       },
       component: () => import('@/views/Developed/index.vue')
-    },{
+    },
+    {
       path: '/contact',
       name: 'contact',
       meta: {

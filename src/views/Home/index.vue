@@ -4,7 +4,7 @@
       <div class="boxapi" v-for="(comp, index) in domArr[0].domarr" :key="index">
         <component :is="comp" />
       </div>
-      <div class="boxapi"></div>
+      <!-- <div class="boxapi"></div> -->
       <div class="boxapi">
         <footer id="footer">
           <CusFooter />
@@ -82,7 +82,7 @@ function scrollToPage(pageIndex) {
 
   // showAnimation.value = false
   // console.log(PAGEWIDTH.value)
-  // console.log(pageIndex)
+  console.log(pageIndex)
   //
   if (pageIndex == 0) {
     container.value.style.top = `0%`
@@ -106,48 +106,37 @@ function scrollToPage(pageIndex) {
     // showAnimation.value = true
 
     // @media (min-width: 960px) and (max-width: 1220px)
-    if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-495%`
-    } else {
-      container.value.style.top = `-470%`
-    }
+
+    container.value.style.top = `-500%`
   } else if (pageIndex == 6) {
     // showAnimation.value = true
-    if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-595%`
-    } else {
-      container.value.style.top = `-495%`
-    }
+
+    container.value.style.top = `-600%`
   } else if (pageIndex == 7) {
     // showAnimation.value = true
 
-    if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
-      container.value.style.top = `-570%`
-    } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-695%`
-    } else {
-      container.value.style.top = `-600%`
-    }
+    container.value.style.top = `-700%`
   } else if (pageIndex == 8) {
     // showAnimation.value = true
 
     // @media (min-width: 1220px) and (max-width: 1440px)
     if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
-      container.value.style.top = `-670%`
+      container.value.style.top = `-760%`
     } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-752%`
-    } else {
-      container.value.style.top = `-700%`
-    }
-  } else if (pageIndex == 9) {
-    if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
-      container.value.style.top = `-725%`
-    } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-752%`
-    } else {
       container.value.style.top = `-759%`
+    } else {
+      container.value.style.top = `-760%`
     }
   }
+  // else if (pageIndex == 9) {
+  //   if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
+  //     container.value.style.top = `-725%`
+  //   } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
+  //     container.value.style.top = `-752%`
+  //   } else {
+  //     container.value.style.top = `-759%`
+  //   }
+  // }
 
   pageScroll.value = false
   scrollTimer()

@@ -309,7 +309,15 @@ const parentClick = () => {
 }
 
 const gotoProductInfo = () => {
-  router.push('/product/product-info')
+  const href = router.resolve({
+    //使用resolve
+    path: '/product/product-info'
+  })
+  // console.log(href);
+  // console.log(window.location.href);
+  
+  // router.push('/product/product-info')
+  window.open(href.href, '_blank')
 }
 
 const PAGEWIDTH = ref(window.innerWidth)
@@ -325,7 +333,7 @@ watch(
   width: 100vw;
   // height: 120vh;
   background-color: white;
-  padding-top: 10vh;
+  padding-top: 5vh;
   padding-bottom: 10vh;
   box-sizing: border-box;
 
@@ -671,6 +679,7 @@ watch(
 
 @media (max-width: 960px) {
   .product-container {
+    // margin-top: 9vh;
     width: 100vw;
     height: auto;
     background-color: #eff2f5;

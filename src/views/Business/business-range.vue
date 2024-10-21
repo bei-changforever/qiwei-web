@@ -92,7 +92,7 @@ const selfHandleSelect = (index) => {
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    // zoom: 1;
+    zoom: 1;
 
     .control-button {
       width: 100%;
@@ -250,7 +250,7 @@ const selfHandleSelect = (index) => {
       margin: 0 auto;
       width: 100%;
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
       padding: 2vh;
       box-sizing: border-box;
 

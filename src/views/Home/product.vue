@@ -301,7 +301,7 @@ watch(
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    // zoom: 1;
+    zoom: 1;
     // opacity: 0;
     .mySwiper {
       width: 100%;
@@ -377,7 +377,7 @@ watch(
               left: 0;
               width: 100%;
               height: calc(100% - 100px);
-              // zoom: 1;
+              zoom: 1;
               transition: all 0.3s ease-in;
 
               img {
@@ -597,7 +597,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
 
       .mySwiper {
         width: 100%;
@@ -673,7 +673,7 @@ watch(
                 left: 0;
                 width: 100%;
                 height: calc(100% - 100px);
-                // zoom: 1;
+                zoom: 1;
                 transition: all 0.3s ease-in;
 
                 img {
@@ -775,6 +775,292 @@ watch(
     }
   }
 }
+@media (min-width: 1220px) and (max-width: 1440px) {
+  .home-product {
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    flex-direction: column;
+
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding-top: 15vh;
+    .home-product-container {
+      width: var(--base-width);
+      margin: 0 auto;
+      // height: 15vh;
+      margin-bottom: 4vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      // background-color: pink;
+      .aside {
+        width: 100%;
+        height: 50px;
+
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+
+        .text {
+          font-weight: 400;
+          font-size: var(--aside-fontSize);
+          color: #f3a7a5;
+        }
+
+        .block {
+          width: 6px;
+          height: var(--aside-block);
+          border-radius: 1px;
+          background-color: #f3a7a5;
+        }
+      }
+
+      .topic {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .left {
+          width: 50%;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: bold;
+          font-size: var(--topic-fontSize);
+          color: #333333;
+        }
+
+        .right {
+          width: 40%;
+
+          display: flex;
+          justify-content: flex-end;
+          // gap: 8%;
+
+          .right-item {
+            position: relative;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 22px;
+            color: #333333;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1vw;
+            margin-right: 1vw;
+
+            &:last-child {
+              margin-right: 0;
+            }
+
+            &.active {
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 0px;
+              height: 14px;
+              border: 1px solid #999999;
+            }
+          }
+        }
+      }
+    }
+
+    .home-product-swiper {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+      // opacity: 0;
+      .mySwiper {
+        width: 100%;
+        height: 500px;
+        // border: 1px solid skyblue;
+        .product-info {
+          width: 100%;
+          height: 98%;
+          margin: 0 auto;
+          // border: 1px solid red;
+          .product-info-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+
+            .background-detail-box {
+              position: relative;
+              width: 100%;
+              height: calc(100% - 100px);
+
+              .background-detail {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 40%;
+                border-radius: 10px 10px 0px 0px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                transition: all 0.3s ease-in;
+                background: #eee;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+                span {
+                  width: 100%;
+                  height: 90px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 24px;
+                  color: #000000;
+
+                  &:first-child {
+                    margin-top: 1vw;
+                    font-family:
+                      Microsoft YaHei,
+                      Microsoft YaHei;
+                    font-weight: 400;
+                    font-size: 30px;
+                    color: #000000;
+                  }
+                }
+              }
+            }
+
+            .background-image-box {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+
+              .background-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: calc(100% - 100px);
+                zoom: 1;
+                transition: all 0.3s ease-in;
+
+                img {
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 0;
+                }
+              }
+            }
+
+            .backfround-info-box {
+              position: relative;
+              width: 100%;
+              height: 100px;
+
+              .background-info {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 26px;
+                color: #333333;
+                transition: all 0.3s ease-in;
+                border-radius: 0px 0px 10px 10px;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+              }
+            }
+
+            &:hover {
+              .background-detail {
+                height: 100%;
+                border-radius: 10px 10px 10px 10px;
+                transition: all 0.4s ease-in;
+              }
+
+              .background-image-box {
+                bottom: -8.4vh;
+                transform: scale(0.8);
+                transform-origin: bottom center;
+                transition: all 0.3s ease-in;
+
+                .background-image {
+                  // border: 1px solid red;
+                  bottom: 0;
+                  transform: scale(0.8);
+                  transform-origin: bottom center;
+                  transition: all 0.2s ease-in;
+                  border-radius: 20px !important;
+                  overflow: hidden;
+                }
+              }
+
+              .background-info {
+                height: 0;
+                transition: all 0.3s ease-in;
+              }
+            }
+          }
+        }
+      }
+
+      .home-product-swiper-pagination {
+        margin-top: 1vh;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2vw;
+
+        .left-btn {
+          cursor: pointer;
+
+          :deep(.el-image) {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        .right-btn {
+          cursor: pointer;
+
+          :deep(.el-image) {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (min-width: 960px) and (max-width: 1220px) {
   .home-product {
     box-sizing: border-box;
@@ -882,7 +1168,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
 
       .mySwiper {
         width: 100%;
@@ -958,7 +1244,7 @@ watch(
                 left: 0;
                 width: 100%;
                 height: calc(100% - 80px);
-                // zoom: 1;
+                zoom: 1;
                 transition: all 0.3s ease-in;
 
                 img {

@@ -10,25 +10,29 @@
           ref="businessLeftDom"
         >
           <div class="business-container-left-item">
-            <div class="topic">
-              <div class="block"></div>
-              <div class="text">PROFILE</div>
-            </div>
-            <div class="name">
-              <span>研发实力</span>
-              <div class="small-konw-more-about" @click="clickRouter">
-                <div class="text">了解更多</div>
-                <el-icon class="about-icon">
-                  <CirclePlusFilled />
-                </el-icon>
+            <div class="top-top">
+              <div class="topic">
+                <div class="block"></div>
+                <div class="text">PROFILE</div>
+              </div>
+              <div class="name">
+                <span>研发实力</span>
+                <div class="small-konw-more-about" @click="clickRouter">
+                  <div class="text">了解更多</div>
+                  <el-icon class="about-icon">
+                    <CirclePlusFilled />
+                  </el-icon>
+                </div>
+              </div>
+              <div class="fu-name">跨学科专家团队</div>
+              <div class="desc">
+                奇伟汇聚了一支跨学科专家团队，持续高投入于前沿技术创新与
+                产品安全性深入研究，精准捕捉市场需求动态，推动定制化产品
+                开发，同时注重环保与可持续发展，累积了5000+成熟配方，
+                确保每一款化妆品都拥有卓越品质。
               </div>
             </div>
-            <div class="fu-name">跨学科专家团队</div>
-            <div class="desc">
-              奇伟汇聚了一支跨学科专家团队，持续高投入于前沿技术创新与
-              产品安全性深入研究，精准捕捉市场需求动态，推动定制化产品
-              开发，同时注重环保与可持续发展，累积了5000+成熟配方， 确保每一款化妆品都拥有卓越品质。
-            </div>
+
             <div class="konw-more-about" @click="clickRouter">
               <div class="text">了解更多</div>
               <el-icon class="about-icon">
@@ -40,7 +44,7 @@
         <div
           :class="[
             'business-container-right',
-            showAnimation && 'animate__animated animate__fadeIn'
+            showAnimation && 'animate__animated animate__lightSpeedInRight'
           ]"
         >
           <el-image :src="getAssetsFile('images', '研发实力.png')" :fit="'fill'" />
@@ -82,20 +86,20 @@ onMounted(() => {
 <style lang="scss" scoped>
 .business-info {
   width: 100vw;
-  height: 70vh;
+  height: 100vh;
   display: flex;
-  // align-items: center;
+  align-items: center;
   justify-content: center;
-  // background-color: pink;
+  background-color: white;
 
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
-  padding-top: 15vh;
+  // padding-top: 15vh;
   .business-container {
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    // zoom: 1;
+    zoom: 1;
 
     .business-container-top {
       width: 100%;
@@ -292,126 +296,116 @@ onMounted(() => {
   }
 }
 
-@media (min-width: 960px) and (max-width: 1220px) {
+@media (min-width: 1220px) and (max-width: 1440px) {
   .business-info {
     width: 100vw;
     height: 100vh;
     display: flex;
-    // align-items: center;
+    align-items: center;
     justify-content: center;
+    // background-color: pink;
 
     /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
     scroll-snap-align: start;
-    padding-top: 15vh;
+    // padding-top: 15vh;
     .business-container {
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
 
       .business-container-top {
         width: 100%;
+        height: 450px;
         gap: 5%;
         display: flex;
-        align-items: center;
-        flex-direction: column;
-
+        justify-content: space-between;
+        // background-color: pink;
         .business-container-left {
-          width: 100%;
-          height: auto;
-
+          width: 50%;
+          height: 100%;
           .business-container-left-item {
             width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
-            .topic {
-              width: 100%;
-              height: 40px;
-              display: flex;
-              align-items: center;
-              gap: 1vw;
-
-              .text {
-                font-weight: 400;
-                font-size: var(--aside-fontSize);
-                color: #f3a7a5;
-              }
-
-              .block {
-                width: 6px;
-                height: var(--aside-block);
-                border-radius: 1px;
-                background-color: #f3a7a5;
-              }
-            }
-
-            .name {
-              margin-top: 1vh;
-              font-family:
-                Microsoft YaHei,
-                Microsoft YaHei;
-              font-weight: bold;
-              font-size: var(--topic-fontSize);
-              color: #333333;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              .small-konw-more-about {
-                // margin-top: 5vh;
-                width: 150px;
+            .top-top {
+              .topic {
+                width: 100%;
                 height: 40px;
-                border-radius: 50px;
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
-                border: 1px solid #f3a7a5;
+                gap: 1vw;
 
                 .text {
-                  width: 80%;
-                  font-family:
-                    Microsoft YaHei,
-                    Microsoft YaHei;
                   font-weight: 400;
-                  font-size: 18px;
+                  font-size: var(--aside-fontSize);
                   color: #f3a7a5;
-                  text-align: center;
-                  text-indent: 0.5em;
                 }
 
-                .about-icon {
-                  color: #f3a7a5;
-                  font-size: 40px;
+                .block {
+                  width: 6px;
+                  height: var(--aside-block);
+                  border-radius: 1px;
+                  background-color: #f3a7a5;
                 }
               }
-            }
 
-            .desc {
-              margin-top: 2vh;
-              font-family:
-                Microsoft YaHei,
-                Microsoft YaHei;
-              font-weight: 400;
-              font-size: var(--desc-fontSize);
-              color: #666666;
-              line-height: var(--desc-lineHeight);
+              .name {
+                margin-top: 1vh;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: bold;
+                font-size: var(--topic-fontSize);
+                color: #333333;
+                .small-konw-more-about {
+                  display: none;
+                  cursor: pointer;
+                }
+              }
+
+              .fu-name {
+                margin-top: 1vh;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: var(--fu-name-fontSize);
+                color: #333333;
+              }
+
+              .desc {
+                margin-top: 3vh;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: var(--desc-fontSize);
+                color: #666666;
+                line-height: var(--desc-lineHeight);
+              }
             }
 
             .konw-more-about {
-              margin-top: 5vh;
-              width: 150px;
-              height: 40px;
+              // margin-top: 6vh;
+              width: 166px;
+              height: 46px;
               border-radius: 50px;
-              display: none;
+              display: flex;
               align-items: center;
               justify-content: space-between;
               border: 1px solid #f3a7a5;
-
+              cursor: pointer;
               .text {
                 width: 80%;
                 font-family:
                   Microsoft YaHei,
                   Microsoft YaHei;
                 font-weight: 400;
-                font-size: 18px;
+                font-size: 20px;
                 color: #f3a7a5;
                 text-align: center;
                 text-indent: 0.5em;
@@ -419,14 +413,25 @@ onMounted(() => {
 
               .about-icon {
                 color: #f3a7a5;
-                font-size: 40px;
+                font-size: 46px;
+              }
+
+              &:hover {
+                background-color: #f3a7a5;
+                .text {
+                  color: white;
+                }
+
+                .about-icon {
+                  color: white;
+                  font-size: 46px;
+                }
               }
             }
           }
         }
 
         .business-container-right {
-          margin-top: 2vh;
           width: 800px;
           height: 450px;
           position: relative;
@@ -467,7 +472,7 @@ onMounted(() => {
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
       padding: 2vh;
       .business-container-top {
         width: 100%;

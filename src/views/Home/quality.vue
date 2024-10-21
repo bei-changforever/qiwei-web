@@ -407,12 +407,13 @@ watch(
 .quality {
   position: relative;
   width: 100vw;
-  height: 130vh;
+  height: 100vh;
   display: flex;
   // align-items: center;
   justify-content: center;
-  padding-top: 15vh;
+  padding-top: 20vh;
   background-color: white;
+  // background-color: pink;
 
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
@@ -426,7 +427,7 @@ watch(
     justify-content: center;
     .advantage-container {
       position: absolute;
-      top: 15vh;
+      top: 10vh;
       width: var(--base-width);
       display: flex;
       justify-content: space-between;
@@ -503,11 +504,11 @@ watch(
       display: flex;
       align-items: center;
       justify-content: center;
-      //   background-color: pink;
+        // background-color: orange;
 
       .pagenavigation {
         position: absolute;
-        bottom: 2vh;
+        bottom: 5vh;
         // width: 30%;
         padding: 20px;
         display: flex;
@@ -530,10 +531,10 @@ watch(
     }
 
     .square-box {
-      margin-bottom: -5vh;
+      // margin-bottom: -5vh;
       position: relative;
-      width: 1050px;
-      height: 1050px;
+      width: 850px;
+      height: 850px;
       // border: 1px solid red;
       display: flex;
       align-items: center;
@@ -1290,7 +1291,7 @@ watch(
           }
 
           .desc {
-            margin-top: 2vh;
+            margin-top: 1vh;
             width: 59%;
             font-family:
               Microsoft YaHei,
@@ -1343,7 +1344,7 @@ watch(
 
         .pagenavigation {
           position: absolute;
-          bottom: -8vh;
+          bottom: -5vh;
           // width: 30%;
           padding: 20px;
           display: flex;
@@ -2105,7 +2106,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
       padding: 2vh;
       box-sizing: border-box;
       .advantage-container {

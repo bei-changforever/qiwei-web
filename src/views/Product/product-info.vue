@@ -40,7 +40,7 @@
 
         <div class="product-right">
           <div class="product-right-history">
-            <div class="history-left">
+            <!-- <div class="history-left">
               <div class="history-item">
                 <img :src="getAssetsFile('icon', 'home.png')" alt="" />
                 首页
@@ -53,7 +53,7 @@
               <div class="history-item">唇妆</div>
               <span>/</span>
               <div class="history-item">小精灵魅惑唇膏</div>
-            </div>
+            </div> -->
             <div class="history-right">
               <img :src="getAssetsFile('icon', 'reback.png')" alt="" />
               返回上一页
@@ -68,7 +68,7 @@
             </div>
           </div>
           <div class="product-right-bottom">
-            <el-button class="liuyan" :icon="ChatLineRound">在线留言</el-button>
+            <el-button class="liuyan" :icon="ChatLineRound" @click="liuyan">在线留言</el-button>
 
             <el-dropdown @click="handleClick">
               <el-button class="share">
@@ -119,16 +119,19 @@
 import { getAssetsFile } from '@/utils/tools'
 import { ChatLineRound, Share } from '@element-plus/icons-vue'
 import { ref, toRefs, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
-
+const router  = useRouter()
 const handleClick = () => {}
 
 const handleSelect = (index: number) => {
   activeIndex.value = index
 }
-
+const liuyan = () => {
+  router.push('/contact')
+}
 const prev = () => {
   if (activeIndex.value == 0) {
     activeIndex.value = 4
@@ -282,7 +285,7 @@ watch(
             width: 30%;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
+            justify-content: flex-start;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
@@ -492,7 +495,7 @@ watch(
 
           .product-right-history {
             width: 100%;
-            height: 6vh;
+            height: 5vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;

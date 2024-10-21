@@ -198,7 +198,7 @@ watch(
   // display: flex;
   // align-items: center;
   // justify-content: center;
-  background-color: #f5f5f5;
+  background-color: white;
   // background-image: url('../../assets/images/test.jpg');
   // background-repeat: no-repeat;
   // background-size: cover;
@@ -410,7 +410,7 @@ watch(
     // display: flex;
     // align-items: center;
     // justify-content: center;
-    background-color: #f5f5f5;
+    background-color: white;
     padding-top: 15vh;
     box-sizing: border-box;
     /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
@@ -599,7 +599,7 @@ watch(
     // display: flex;
     // align-items: center;
     // justify-content: center;
-    background-color: #f5f5f5;
+    background-color: white;
     // padding-top: 5vh;
 
     box-sizing: border-box;
@@ -663,7 +663,7 @@ watch(
             }
 
             .desc {
-              margin-top: 2vh;
+              margin-top: 1vh;
 
               font-family:
                 Microsoft YaHei,
@@ -793,7 +793,7 @@ watch(
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
+    background-color: white;
     padding-top: 5vh;
     box-sizing: border-box;
     /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
@@ -866,7 +866,7 @@ watch(
           }
 
           .T-bottom {
-            margin-top: 10vh;
+            margin-top: 8.5vh;
             width: 100%;
 
             .T-bottom-container {
@@ -981,7 +981,7 @@ watch(
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
+    background-color: white;
     // padding-top: 5vh;
     box-sizing: border-box;
 
@@ -1170,7 +1170,7 @@ watch(
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
+    background-color: white;
     // padding-top: 5vh;
     box-sizing: border-box;
     /* 在需要滚动的容器上使用 scroll-snap-align 属性 */

@@ -90,7 +90,7 @@ watch(
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    // zoom: 1;
+    zoom: 1;
 
     .advantage-container {
       width: 100%;
@@ -206,7 +206,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
 
       .advantage-container {
         width: 100%;
@@ -311,7 +311,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
       padding: 2vh;
       .advantage-container {
         width: 100%;

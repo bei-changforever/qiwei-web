@@ -130,7 +130,7 @@ watch(
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
-    // zoom: 1;
+    zoom: 1;
 
     .about-base-container-top {
       width: 100%;
@@ -240,7 +240,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
       padding: 2vh;
       box-sizinging: border-box;
 

@@ -372,7 +372,7 @@ watch(
     margin: 0 auto;
     width: 100%;
     transition: all 0.3s ease-in;
-    // zoom: 1;
+    zoom: 1;
 
     .about-history-container-top {
       margin: 0 auto;
@@ -679,7 +679,7 @@ watch(
       margin: 0 auto;
       width: var(--base-width);
       transition: all 0.3s ease-in;
-      // zoom: 1;
+      zoom: 1;
       padding: 2vh;
       box-sizing: border-box;
       .about-history-container-top {

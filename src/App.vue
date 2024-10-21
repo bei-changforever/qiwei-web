@@ -10,6 +10,7 @@ const route = useRoute()
 const router = useRouter()
 const changeBackGroundColor = ref(false)
 const activeColor = ref('#000000')
+const isProduct = ref(false)
 const isDarkPage = ref(true)
 const showTop = ref(false)
 const screenWidth = ref(window.innerWidth)
@@ -74,36 +75,40 @@ const setScreenCompatibility = () => {
   document.body.style.MozTransformOrigin = '0 0'
 }
 onMounted(() => {
-  emitter.on('*', (index, data) => {
-    // console.log('监听到事件', index)
-
-    if (index == 'changHeaderBack') {
-      isDarkPage.value = data.isDark
-      activeColor.value = data.activeBackgroundColor
-      changeBackGroundColor.value = data.slideChangeBakColor
-    } else if (index == 'DOMINDEX') {
-      if (data == 0) {
-        isDarkPage.value = true
-        changeBackGroundColor.value = false
-        activeColor.value = '#000000'
-      }
-      if (data == 1 || data == 2 || data == 3 || data == 4) {
-        // console.log('执行')
-
-        isDarkPage.value = true
-        activeColor.value = 'white'
-        changeBackGroundColor.value = false
-      }
-    } else if (index == 'SHOWSEARCH') {
-      showSearch.value = data
-    } else if (index == 'TOGGLEMOBILEPHONE') {
-      console.log('监听')
-
-      showTop.value = data
-    } else {
-      return
+  nextTick(() => {
+    if (route.name == 'product-detail' || route.name == 'product-info') {
+      isProduct.value = true
     }
+    emitter.on('*', (index, data) => {
+      if (index == 'changHeaderBack') {
+        isDarkPage.value = data.isDark
+        activeColor.value = data.activeBackgroundColor
+        changeBackGroundColor.value = data.slideChangeBakColor
+      } else if (index == 'DOMINDEX') {
+        isProduct.value = false
+        if (data == 0) {
+          isDarkPage.value = true
+          changeBackGroundColor.value = false
+          activeColor.value = '#000000'
+        }
+        if (data == 1) {
+          isProduct.value = true
+        }
+        if (data == 2 || data == 3 || data == 4) {
+          isDarkPage.value = true
+          activeColor.value = 'white'
+          changeBackGroundColor.value = false
+        }
+      } else if (index == 'SHOWSEARCH') {
+        showSearch.value = data
+      } else if (index == 'TOGGLEMOBILEPHONE') {
+        showTop.value = data
+      } else {
+        return
+      }
+    })
   })
+
   window.addEventListener('resize', handleResize)
 })
 
@@ -161,6 +166,48 @@ const search = () => {
 onUnmounted(() => {
   emitter.off('*')
 })
+
+watch(
+  () => route.path,
+  (newVal, oldVal) => {
+    console.log(newVal)
+
+    if (newVal == '/product/product-detail' || newVal == '/product/product-info') {
+      isProduct.value = true
+    } else {
+      isProduct.value = false
+    }
+
+    // if (newVal == '/') {
+    //   router.push('/')
+    //   activeIndex.value = 0
+    // }
+    // if (newVal == '/product/product-detail') {
+    //   router.push('/product/product-detail')
+    //   activeIndex.value = 1
+    // }
+    // if (newVal == '/business') {
+    //   router.push('/business')
+    //   activeIndex.value = 2
+    // }
+    // if (newVal == '/develop') {
+    //   router.push('/develop')
+    //   activeIndex.value = 3
+    // }
+    // if (newVal == '/about') {
+    //   router.push('/about')
+    //   activeIndex.value = 4
+    // }
+    // if (newVal == '/contact') {
+    //   router.push('/contact')
+    //   activeIndex.value = 5
+    // }
+  },
+  {
+    deep: true,
+    immediate: true
+  }
+)
 </script>
 
 <template>
@@ -184,6 +231,7 @@ onUnmounted(() => {
       :slideChangeBakColor="changeBackGroundColor"
       :isDark="isDarkPage"
       :activeBackgroundColor="activeColor"
+      :isPproduct="isProduct"
     />
   </header>
 
