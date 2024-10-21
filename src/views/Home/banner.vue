@@ -20,7 +20,7 @@
       :key="index"
       :class="['slide', currentIndex == index ? 'active' : 'none']"
     >
-      <van-image class="image" lazy-load :src="item.thumb">
+      <van-image class="image" lazy-load :src="item.thumb" fit="cover">
         <template v-slot:loading>
           <van-loading type="spinner" size="20" />
         </template>
@@ -99,14 +99,16 @@ const getBannerData = async () => {
   let res = await getBanner(type)
 
   slide.value = res.data
+  if (slide.value.length > 0) {
+    // 自动轮播
+    timer.value = setInterval(() => {
+      next()
+    }, 10000)
+  }
 }
 
 onMounted(() => {
   getBannerData()
-  // 自动轮播
-  timer.value = setInterval(() => {
-    next()
-  }, 10000)
 })
 
 onUnmounted(() => {

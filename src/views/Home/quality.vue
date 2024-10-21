@@ -349,7 +349,7 @@
         <div class="pagenavigation">
           <div
             :class="['pagenavigation-item', activeIndex == index ? 'active' : '']"
-            v-for="(item, index) in 3"
+            v-for="(item, index) in 1"
           ></div>
         </div>
       </div>

@@ -45,7 +45,7 @@
                   <el-image
                     v-for="(item, index) in list"
                     :key="index"
-                    :src="item"
+                    :src="item.thumb"
                     :fit="'fill'"
                     @click="selectIndex(index)"
                   />
@@ -77,27 +77,18 @@
                   @slideChange="slideChange"
                 >
                   <swiper-slide v-for="(item, index) in list" :key="index"
-                    ><el-image :src="item" :fit="'fill'" />
+                    ><el-image :src="item.thumb" :fit="'fill'" />
                   </swiper-slide>
                 </swiper>
               </div>
-              <div class="content-right-text">名优高品证书（睫毛膏）</div>
+              <div class="content-right-text" v-if="list.length > 0 && list[activeIndex].name">{{ list[activeIndex].name }}</div>
             </div>
           </div>
         </div>
         <div class="mom-sw" v-else>
           <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item>
-              <el-image :src="getAssetsFile('images', '证书1.png')" :fit="'fill'" />
-            </van-swipe-item>
-            <van-swipe-item>
-              <el-image :src="getAssetsFile('images', '证书2.png')" :fit="'fill'" />
-            </van-swipe-item>
-            <van-swipe-item>
-              <el-image :src="getAssetsFile('images', '证书3.png')" :fit="'fill'" />
-            </van-swipe-item>
-            <van-swipe-item>
-              <el-image :src="getAssetsFile('images', '证书4.png')" :fit="'fill'" />
+            <van-swipe-item v-for="(item,index) in list" :key="index">
+              <el-image :src="item.thumb" :fit="'fill'" />
             </van-swipe-item>
           </van-swipe>
         </div>
@@ -109,6 +100,7 @@
 <script setup lang="ts">
 import { ref, toRefs, watch, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { getCert } from '@/api/index'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
 // Import Swiper styles
@@ -129,12 +121,14 @@ const formatNumber = (value) => {
   return value < 10 ? `0${value}` : `${value}`
 }
 
-const list = [
-  getAssetsFile('images', '证书1.png'),
-  getAssetsFile('images', '证书2.png'),
-  getAssetsFile('images', '证书3.png'),
-  getAssetsFile('images', '证书4.png')
-]
+// const list = [
+//   getAssetsFile('images', '证书1.png'),
+//   getAssetsFile('images', '证书2.png'),
+//   getAssetsFile('images', '证书3.png'),
+//   getAssetsFile('images', '证书4.png')
+// ]
+
+const list = ref([])
 
 const development2Content = ref(null)
 const swiperDom = ref(null)
@@ -152,7 +146,7 @@ const bannerSwiperPrev = () => {
 
 const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
-  if (activeIndex.value == list.length - 1) {
+  if (activeIndex.value == list.value.length - 1) {
     return
   } else {
     activeIndex.value++
@@ -170,7 +164,15 @@ const slideChange = () => {
   activeIndex.value = swiperDom.value.realIndex
 }
 
+const getCertData = async () => {
+  let res = await getCert(1)
+  if (res.status == 1) {
+    list.value = res.data
+  }
+}
+
 onMounted(() => {
+  getCertData()
   useIntersectionObserver(
     development2Content,
     ([{ isIntersecting }]) => {
@@ -330,6 +332,8 @@ watch(
                 display: flex;
                 justify-content: space-between;
                 :deep(.el-image) {
+                  width: 208px;
+                  height: 294px;
                   cursor: pointer;
                 }
               }

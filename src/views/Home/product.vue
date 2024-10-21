@@ -16,7 +16,7 @@
             :class="['right-item', productTypeIndex == index ? 'active' : '']"
             @click="handleSelect(index)"
           >
-            <div class="text">{{ item }}</div>
+            <div class="text">{{ item.name }}</div>
             <div class="block" v-show="index !== productType.length - 1"></div>
           </div>
         </div>
@@ -24,7 +24,7 @@
     </div>
     <div
       :class="['home-product-swiper', showAnimation && 'animate__animated animate__fadeIn']"
-      v-if="screenWidth > 960"
+      v-if="screenWidth > 960 && list.length > 0"
       ref="productswiper"
     >
       <swiper
@@ -42,7 +42,7 @@
               <div class="background-detail-box">
                 <div class="background-detail">
                   <span>产品展示{{ convertToChineseNumber(index + 1) }}</span>
-                  <span>{{ item.title }}</span>
+                  <span>{{ item.description }}</span>
                 </div>
               </div>
               <div class="backfround-info-box">
@@ -52,7 +52,7 @@
               </div>
               <div class="background-image-box">
                 <div class="background-image">
-                  <img :src="item.src" />
+                  <img :src="item.thumb" />
                 </div>
               </div>
             </div>
@@ -76,11 +76,11 @@
         </div>
       </div>
     </div>
-    <div class="home-product-swiper" v-else>
+    <div class="home-product-swiper" v-if="screenWidth <= 960 && list.length > 0">
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="(item, index) in 6" :key="index">
+        <van-swipe-item v-for="(item, index) in list" :key="index">
           <div class="background-image">
-            <img :src="getAssetsFile('images', '热门产品未选中1.png')" />
+            <img :src="item.thumb" />
           </div>
         </van-swipe-item>
       </van-swipe>
@@ -99,29 +99,32 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/effect-fade'
 // import emitter from '@/utils/mitt'
+import { getHotProductCategory, geTHotProduct } from '@/api/index'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const modules = [FreeMode, Pagination, EffectFade, Navigation]
 const homeProductDom = ref(null)
-const productType = ['底纹', '彩妆', '护肤', '清洁', '隔离']
+const productType = ref([])
 const aside = ref(null)
 const topic = ref(null)
 const productswiper = ref(null)
-const list = [
-  {
-    title: '修颜柔润持妆粉底液',
-    src: getAssetsFile('images', '热门产品未选中1.png')
-  },
-  {
-    title: '修颜柔润持妆粉底液',
-    src: getAssetsFile('images', '产品3@2x.png')
-  },
-  {
-    title: '修颜柔润持妆粉底液',
-    src: getAssetsFile('images', '热门产品未选中3.png')
-  }
-]
+// const list = [
+//   {
+//     title: '修颜柔润持妆粉底液',
+//     src: getAssetsFile('images', '热门产品未选中1.png')
+//   },
+//   {
+//     title: '修颜柔润持妆粉底液',
+//     src: getAssetsFile('images', '产品3@2x.png')
+//   },
+//   {
+//     title: '修颜柔润持妆粉底液',
+//     src: getAssetsFile('images', '热门产品未选中3.png')
+//   }
+// ]
+
+const list = ref([])
 
 //阿拉伯数字转中文数字
 function convertToChineseNumber(num) {
@@ -159,6 +162,7 @@ const productTypeIndex = ref(0)
 
 const handleSelect = (index) => {
   productTypeIndex.value = index
+  getHotProduct()
 }
 const swiperDom = ref(null)
 const onSwiper = (swiper) => {
@@ -172,7 +176,26 @@ const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
 }
 const showAnimation = ref(false)
+
+const getcategory = async () => {
+  let res = await getHotProductCategory()
+  if (res.status == 1) {
+    productType.value = res.data
+    getHotProduct()
+  }
+}
+
+const getHotProduct = async () => {
+  let res = await geTHotProduct(productType.value[productTypeIndex.value].id)
+
+  if (res.status == 1) {
+    list.value = res.data
+  }
+}
+
 onMounted(() => {
+  getcategory()
+
   useIntersectionObserver(
     homeProductDom,
     ([{ isIntersecting }]) => {

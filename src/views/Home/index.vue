@@ -125,7 +125,7 @@ function scrollToPage(pageIndex) {
     } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
       container.value.style.top = `-759%`
     } else {
-      container.value.style.top = `-760%`
+      container.value.style.top = `-759%`
     }
   }
   // else if (pageIndex == 9) {
