@@ -56,7 +56,7 @@
             </div>
           </div>
           <div class="right">
-            <div class="btn" type="primary">免费<br />打样</div>
+            <div class="btn" type="primary" @click="routerClick(5)">免费<br />打样</div>
             <div class="btn" type="primary" @click="handelClick">回到<br />顶部</div>
           </div>
         </div>

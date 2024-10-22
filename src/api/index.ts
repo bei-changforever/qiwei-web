@@ -29,3 +29,28 @@ export const getCert = (type) => {
     method: 'GET'
   })
 }
+
+
+// 获取产品分类
+export const getProductCategory = () => {
+  return server({
+    url: '/get-product-category',
+    method: 'GET'
+  })
+}
+
+//获取产品列表
+export const getProductList = (data) => {
+  return server({
+    url: `/get-product-list?category_id=${data.category_id}&offset=${data.offset}&limit=${data.limit}`,
+    method: 'GET',
+  })
+}
+
+// 获取产品详情
+export const getProductDetail = (id) => {
+  return server({
+    url: `/get-product-detail?id=${id}`,
+    method: 'GET'
+  })
+}

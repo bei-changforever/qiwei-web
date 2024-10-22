@@ -1,5 +1,5 @@
 <template>
-  <div class="product-container" @click.stop="parentClick">
+  <div class="product-container">
     <div class="product-container-content">
       <div class="sift" v-if="PAGEWIDTH > 960">
         <div class="sift-box-top">
@@ -7,42 +7,53 @@
             <div class="text">
               <div
                 :class="['text-item', top1Index == index ? 'active' : '']"
-                v-for="(item, index) in topiList"
-                @click="chooseTopindex(index)"
+                v-for="(item, index) in productCategory"
+                :key="item.id"
+                @click="chooseTopindex(item, index)"
               >
-                {{ item }}
+                {{ item.name }}
               </div>
             </div>
             <div class="button">
               <div
                 :class="['button-item', worldIndex == index ? 'active' : '']"
-                v-for="(item, index) in worldlist"
+                v-for="(item, index) in list"
                 @click="chooseWorldType(index)"
               >
-                {{ item }}
+                {{ item.name }}
               </div>
             </div>
           </div>
           <div class="bottom">
             <div class="bottom-text-box">
-              <div class="bottom-text-item" v-for="(item, index) in bottomTextArr" :key="index">
+              <!-- @mouseenter.stop="handleSelect(index)"
+                  @mouseleave.stop="parentClick" -->
+              <div class="bottom-text-item" v-for="(item, index) in productChild" :key="index">
                 <div
-                  :class="['text-b', bottomTextItemIndex == index && show ? 'active' : '']"
-                  @mouseenter.stop="handleSelect(index)"
+                  :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
+                  @click="handleSelect(item, index)"
                   @mouseleave.stop="parentClick"
                 >
                   <span>{{ item.name }}</span>
                   <el-image
-                    v-if="bottomTextItemIndex == index"
+                    v-if="bottomTextItemIndex == index && show"
                     :src="getAssetsFile('icon', 'arrowup.png')"
                     :fit="'fill'"
                   />
                   <el-image v-else :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
 
-                  <div class="line" v-show="bottomTextItemIndex == index">
+                  <div
+                    class="line"
+                    v-if="
+                      bottomTextItemIndex == index &&
+                      show &&
+                      item.children &&
+                      item.children.length > 0
+                    "
+                  >
                     <div
                       :class="['line-button', br.isActive ? 'active' : 'none']"
-                      v-for="(br, bri) in item.list"
+                      v-for="(br, bri) in item.children"
                       :key="bri"
                       @click.stop="handleSelectchild(br, bri)"
                     >
@@ -62,17 +73,27 @@
         </van-dropdown-menu>
       </div>
       <div class="product-box--ww-bottom">
-        <div class="product-list">
-          <div class="product-list-item" v-for="item in 8" @click="gotoProductInfo">
+        <div class="product-list" v-if="productList && productList.length > 0">
+          <div
+            class="product-list-item"
+            v-for="(item, index) in productList"
+            :key="index"
+            @click="gotoProductInfo"
+          >
             <div class="ww-box">
               <div class="image">
-                <!-- <el-image :src="getAssetsFile('images', '产品中心产品4.png')" /> -->
-                <img :src="getAssetsFile('images', '产品中心产品4.png')" alt="" />
+                <van-image :src="item.thumb">
+                  <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                  </template>
+                </van-image>
+                <!-- <img :src="item.thumb" alt="" /> -->
               </div>
-              <div class="text">三色唇膏</div>
+              <div class="text">{{ item.name }}</div>
             </div>
           </div>
         </div>
+        <van-empty description="暂无产品数据" v-else />
         <div class="page-control" v-if="PAGEWIDTH > 960">
           <div class="page-number-control">
             <div class="left-icon">
@@ -111,10 +132,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
+import { ref, toRefs, watch, onMounted, computed, nextTick } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { useRouter } from 'vue-router'
-
+import { getProductCategory, getProductList } from '@/api/index'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 
@@ -161,8 +182,10 @@ const chooseWorldType = (index) => {
 
 const topiList = ['彩妆', '洗护', '护肤', '香氛', '其他']
 const top1Index = ref(0)
-const chooseTopindex = (index) => {
+const chooseTopindex = (item, index) => {
   top1Index.value = index
+  getProductListData(item)
+  // console.log(top1Index.value)
 }
 
 const bottomTextItemIndex = ref(-1)
@@ -288,23 +311,30 @@ const bottomTextArr = ref([
   }
 ])
 
-const handleSelect = (index) => {
+const handleSelect = (item, index) => {
   show.value = true
   bottomTextItemIndex.value = index
+  getProductListData(item)
 }
 
+const childIndex = ref(0)
+const chooseItem = ref({})
 const handleSelectchild = (br, brindex) => {
-  bottomTextArr.value.forEach((item, index) => {
-    item.list.forEach((li, liindex) => {
-      li.isActive = false
-    })
+  show.value = false
+  parentList.value[top1Index.value].children.forEach((item, index) => {
+    if (item.children) {
+      item.children.forEach((child, childindex) => {
+        child.isActive = false
+      })
+    }
   })
+  getProductListData(br)
   br.isActive = !br.isActive
 }
 const show = ref(false)
 
 const parentClick = () => {
-  bottomTextItemIndex.value = -1
+  // bottomTextItemIndex.value = -1
   show.value = false
 }
 
@@ -313,12 +343,65 @@ const gotoProductInfo = () => {
     //使用resolve
     path: '/product/product-info'
   })
-  // console.log(href);
-  // console.log(window.location.href);
-  
-  // router.push('/product/product-info')
   window.open(href.href, '_blank')
 }
+
+const list = ref([])
+const parentList = ref([])
+const getProductCategoryData = async () => {
+  let res = await getProductCategory()
+  if (res.status == 1) {
+    list.value = res.data
+    if(list.value.length > 0) {
+      getProductListData(list.value[0].children[0].id)
+    }
+  }
+}
+
+const productList = ref([])
+const getProductListData = async (item) => {
+  let data = {
+    category_id: item.id,
+    offset: 0,
+    limit: 8
+  }
+  let res = await getProductList(data)
+  if (res.status == 1) {
+    productList.value = res.data.list
+    console.log(productList.value)
+  }
+}
+
+onMounted(() => {
+  
+  nextTick(() => {
+ getProductCategoryData()
+  })
+})
+
+const productCategory = computed(() => {
+  if (list.value.length > 0) {
+    parentList.value = list.value[worldIndex.value].children
+      ? list.value[worldIndex.value].children
+      : []
+    return parentList.value
+  }
+})
+
+const productChild = computed(() => {
+  if (parentList.value.length > 0 && parentList.value[top1Index.value].children) {
+    parentList.value[top1Index.value].children.forEach((item, index) => {
+      if (item.children) {
+        item.children.forEach((child, childindex) => {
+          child.isActive = false
+        })
+      }
+    })
+    return parentList.value[top1Index.value].children
+      ? parentList.value[top1Index.value].children
+      : []
+  }
+})
 
 const PAGEWIDTH = ref(window.innerWidth)
 watch(
@@ -443,6 +526,7 @@ watch(
               justify-content: center;
               width: 5vw;
               height: 100%;
+              margin-left: 0.5vh;
               // border: 1px solid red;
 
               white-space: nowrap;

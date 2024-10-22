@@ -167,25 +167,24 @@ function mouseWheel(e) {
 }
 
 function handleTouchMove(event) {
-  // event.preventDefault()
-
-  // console.log('手指滑动')
-  // console.log(mobilecontainer.value.getBoundingClientRect().top)
-
-  if (mobilecontainer.value.getBoundingClientRect().top > -110) {
-    emitter.emit('changHeaderBack', {
-      isDark: true,
-      activeBackgroundColor: 'rgba(0,0,0,.75)',
-      slideChangeBakColor: false
-    })
-  }
-  if (mobilecontainer.value.getBoundingClientRect().top <= -120) {
-    emitter.emit('changHeaderBack', {
-      isDark: true,
-      activeBackgroundColor: 'rgba(0,0,0,.75)',
-      slideChangeBakColor: true
-    })
-  }
+  nextTick(() => {
+    if (mobilecontainer.value && PAGEWIDTH.value <= 960) {
+      if (mobilecontainer.value.getBoundingClientRect().top > -110) {
+        emitter.emit('changHeaderBack', {
+          isDark: true,
+          activeBackgroundColor: 'rgba(0,0,0,.75)',
+          slideChangeBakColor: false
+        })
+      }
+      if (mobilecontainer.value.getBoundingClientRect().top <= -120) {
+        emitter.emit('changHeaderBack', {
+          isDark: true,
+          activeBackgroundColor: 'rgba(0,0,0,.75)',
+          slideChangeBakColor: true
+        })
+      }
+    }
+  })
 }
 
 const handleScrolltoTop = () => {
