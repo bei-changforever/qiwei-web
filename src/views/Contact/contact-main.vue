@@ -85,10 +85,26 @@
                 <el-input v-model="form.delivery" placeholder="请填写您的职位" clearable />
               </div>
             </el-form-item>
-            <el-form-item prop="phonenumber">
+            <el-form-item>
               <div class="row">
-                <el-input v-model="form.Brandname" placeholder="请填写您公司的品牌名称" clearable />
-                <el-input v-model="form.phonenumber" placeholder="请填写您的联系方式" clearable />
+                <div class="row-item">
+                  <el-form-item>
+                    <el-input
+                      v-model="form.Brandname"
+                      placeholder="请填写您公司的品牌名称"
+                      clearable
+                    />
+                  </el-form-item>
+                </div>
+                <div class="row-item">
+                  <el-form-item prop="phonenumber">
+                    <el-input
+                      v-model="form.phonenumber"
+                      placeholder="请填写您的联系方式"
+                      clearable
+                    />
+                  </el-form-item>
+                </div>
               </div>
             </el-form-item>
           </el-form>
@@ -132,6 +148,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { submitMessage } from '@/api/index'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
 // do not use same name with ref
 const ruleFormRef = ref<FormInstance>()
 interface RuleForm {
@@ -156,41 +173,25 @@ const form = reactive<RuleForm>({
 
 const selectOption = [
   {
-    label: '品牌方',
-    value: '品牌方'
+    label: '医疗专业人士',
+    value: 1
   },
 
   {
-    label: 'OEM',
-    value: 'OEM'
+    label: '投资者',
+    value: 2
   },
   {
-    label: 'ODM工厂',
-    value: 'ODM工厂'
+    label: '求职者',
+    value: 3
   },
   {
-    label: '原料商',
-    value: '原料商'
-  },
-  {
-    label: '代理商',
-    value: '代理商'
-  },
-  {
-    label: '电商',
-    value: '电商'
-  },
-  {
-    label: '渠道商',
-    value: '渠道商'
-  },
-  {
-    label: '高校/研究院/协会机构',
-    value: '高校/研究院/协会机构'
+    label: '媒体',
+    value: 4
   },
   {
     label: '其他',
-    value: '其他'
+    value: 5
   }
 ]
 
@@ -219,16 +220,72 @@ const rules = reactive<FormRules<RuleForm>>({
   ],
   delivery: [{ required: false, trigger: 'blur' }],
   Brandname: [{ required: false, trigger: 'blur' }],
-  phonenumber: [{ type: 'number', required: true, trigger: 'blur', message: '请输入您的联系方式' }]
+  phonenumber: [{ required: true, trigger: 'blur', message: '请输入您的联系方式' }]
 })
+
+function validatePhoneNumber(phoneNumber) {
+  // 定义手机号正则表达式
+  const phoneRegex = /^1[34578]\d{9}$/
+
+  // 使用test方法检查手机号是否符合格式
+  if (phoneRegex.test(phoneNumber)) {
+    console.log('手机号格式正确')
+    return true
+  } else {
+    console.log('手机号格式错误')
+    return false
+  }
+}
 
 const onSubmit = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!')
+      // 检查手机号码
+      let flag = validatePhoneNumber(form.phonenumber)
+      if (flag) {
+        let data = {
+          who: form.occupation,
+          problem: form.question,
+          name: form.name,
+          job: form.delivery,
+          company: form.Companyname,
+          brand: form.Brandname,
+          contact: form.phonenumber
+        }
+        const formData = new FormData()
+        formData.append('who', form.occupation)
+        formData.append('problem', form.question)
+        formData.append('name', form.name)
+        formData.append('job', form.delivery)
+        formData.append('company',  form.Companyname)
+        formData.append('brand',form.Brandname)
+        formData.append('contact', form.phonenumber)
+        submitMessage(formData).then((res) => {
+          if (res.status == 1) {
+            ElMessage({
+              message: '提交成功!',
+              type: 'success'
+            })
+            formEl.resetFields()
+          } else {
+            ElMessage({
+              message: '提交失败!',
+              type: 'error'
+            })
+          }
+        })
+      } else {
+        ElMessage({
+          message: '手机号码格式不正确!',
+          type: 'error'
+        })
+      }
     } else {
-      console.log('error submit!', fields)
+      ElMessage({
+        message: '有未填项!',
+        type: 'error'
+      })
     }
   })
 }
@@ -450,6 +507,11 @@ const draw = ({ el, BMap, map }) => {
           width: 100%;
           display: flex;
           gap: 1vw;
+
+          .row-item {
+            width: 50%;
+            // border: 1px solid red;
+          }
         }
 
         .button {

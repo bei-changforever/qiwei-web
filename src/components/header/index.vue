@@ -246,6 +246,7 @@
       </div>
     </div>
   </div>
+
 </template>
 <script setup>
 import { ref, onMounted, watch } from 'vue'
@@ -255,6 +256,7 @@ import emitter from '@/utils/mitt'
 import { ElMessage } from 'element-plus'
 const route = useRoute()
 const router = useRouter()
+const showDialog = ref(false)
 /** props
  * @params
  * activeIndex: 当前选中的菜单索引
@@ -365,6 +367,7 @@ const showSearch = (index) => {
   console.log(index)
   if (index == 0) {
     emitter.emit('SHOWSEARCH', true)
+  
   } else if (index == 1) {
     let url = window.location.href // 当前页面链接
     navigator.clipboard.writeText(url)
@@ -457,8 +460,6 @@ function AddFavorite(sURL, sTitle) {
 }
 
 console.log('mounted===>', route.name)
-
-
 </script>
 <style lang="scss" scoped>
 .header {

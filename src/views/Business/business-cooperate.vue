@@ -29,11 +29,42 @@
         </div>
       </div>
       <div class="business-container-bottom">
-        <img
-          :src="getAssetsFile('images', `${list2[activeIndex]}.png`)"
-          alt=""
-          @click="() => showImagePreview([getAssetsFile('images', `${list2[activeIndex]}.png`)])"
-        />
+        <!-- <swiper
+          @swiper="onSwiper"
+          :grabCursor="true"
+          :effect="'creative'"
+          :creativeEffect="{
+            prev: {
+              shadow: true,
+              translate: [0, 0, -400]
+            },
+            next: {
+              translate: ['100%', 0, 0]
+            }
+          }"
+          :modules="modules"
+          class="mySwiper"
+          @slideChange="slideChange"
+        >
+          <swiper-slide v-for="(item, index) in piclist" :key="index"
+            ><el-image :src="item" :fit="'fill'" />
+          </swiper-slide>
+        </swiper> -->
+        <div class="prev">
+          <el-image :src="getAssetsFile('icon', 'left.png')" :fit="'fill'" @click="prev" />
+        </div>
+
+        <div class="image-box">
+          <img
+            :src="getAssetsFile('images', `${list2[activeIndex]}.png`)"
+            alt=""
+            @click="() => showImagePreview([getAssetsFile('images', `${list2[activeIndex]}.png`)])"
+          />
+        </div>
+
+        <div class="next">
+          <el-image :src="getAssetsFile('icon', 'right.png')" :fit="'fill'" @click="next" />
+        </div>
       </div>
     </div>
   </div>
@@ -43,13 +74,45 @@ import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import emitter from '@/utils/mitt'
 import { showImagePreview } from 'vant'
+
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
+// Import Swiper styles
+import 'swiper/css'
+
+import 'swiper/css/effect-creative'
+// import required modules
+import { EffectCreative } from 'swiper/modules'
+const modules = [EffectCreative]
 const list = ['业务范围', '服务原则', '全球供应链', '合作模式']
 const list2 = ['OEM', 'ODM', 'OBM']
+
+const piclist = ref([
+  getAssetsFile('images', `OEM.png`),
+  getAssetsFile('images', `ODM.png`),
+  getAssetsFile('images', `OBM.png`)
+])
 const activeIndex = ref(0)
 
 const handleSelect = (index) => {
   activeIndex.value = index
   // emitter.emit('change-business-cooperate-index', list2[index])
+}
+
+const prev = () => {
+  if (activeIndex.value == 0) {
+    return
+  } else {
+    activeIndex.value--
+  }
+}
+
+const next = () => {
+  if (activeIndex.value == list.length - 1) {
+    return
+  } else {
+    activeIndex.value++
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -168,14 +231,23 @@ const handleSelect = (index) => {
 
     .business-container-bottom {
       width: 100%;
-      height: 1025px;
-
-      //   padding-bottom: 10vh;
-      //   border: 1px solid red;
+      height: 1400px;
+      // background: pink;
       margin-top: 10vh;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+
+      .image-box {
+        width: 90%;
+        height: 100%;
+        // border: 1px solid red;
+      }
+
+      .prev,
+      .next {
+        cursor: pointer;
+      }
 
       img {
         width: 100%;

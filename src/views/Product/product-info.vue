@@ -1,10 +1,15 @@
 <template>
   <div class="product-info">
-    <div class="product-info-container">
+    <div class="product-info-container" v-if="info">
       <div class="product-content">
         <div class="product-left" v-if="PAGEWIDTH > 960">
           <div class="big-image">
-            <img :src="getAssetsFile('images', '主图1.png')" alt="" />
+            <van-image :src="bigImage" lazy-load>
+              <template v-slot:loading>
+                <van-loading type="spinner" size="20" />
+              </template>
+            </van-image>
+            <!-- <img :src="bigImage" alt="" /> -->
           </div>
           <div class="small-image-control">
             <div class="prev" @click.stop="prev">
@@ -15,11 +20,16 @@
             <div class="small-image">
               <div
                 :class="['small-image-item', activeIndex == index ? 'active' : '']"
-                v-for="(item, index) in 5"
+                v-for="(item, index) in info.thumb2"
                 :key="index"
-                @click.top="handleSelect(index)"
+                @click.top="handleSelect(item, index)"
               >
-                <img :src="getAssetsFile('images', '主图1.png')" alt="" />
+                <van-image :src="item.url" lazy-load>
+                  <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                  </template>
+                </van-image>
+                <!-- <img :src="item.url" alt="" /> -->
               </div>
             </div>
             <div class="next" @click.stop="next">
@@ -32,8 +42,8 @@
 
         <div class="mobile-product-left" v-else>
           <van-swipe :autoplay="3000" lazy-render>
-            <van-swipe-item v-for="item in 5" :key="item">
-              <img :src="getAssetsFile('images', '主图1.png')" alt="" />
+            <van-swipe-item v-for="(item, index) in info.thumb2" :key="index">
+              <img :src="item.url" alt="" />
             </van-swipe-item>
           </van-swipe>
         </div>
@@ -54,43 +64,41 @@
               <span>/</span>
               <div class="history-item">小精灵魅惑唇膏</div>
             </div> -->
-            <div class="history-right">
+            <div class="history-right" @click="goback">
               <img :src="getAssetsFile('icon', 'reback.png')" alt="" />
               返回上一页
             </div>
           </div>
           <div class="info">
-            <div class="topic">小精灵魅惑唇膏</div>
+            <div class="topic">{{ info.name }}</div>
             <div class="desc">
-              小巧精灵的设计风格，携带方便；13色自由选择，多系列自由搭配，尽情释放女性该有的独特魅力；
-              优雅而不失俏丽，打造人气星光唇。巴西棕榈蜡成分凸显时尚立体光感色泽，雪白凡士林具有很好
-              的保湿效果，在皮肤表面形成一层保护膜，满蕴养肤滋润；即现魅色双唇。
+              {{ info.description }}
             </div>
           </div>
           <div class="product-right-bottom">
             <el-button class="liuyan" :icon="ChatLineRound" @click="liuyan">在线留言</el-button>
 
-            <el-dropdown @click="handleClick">
+            <el-dropdown>
               <el-button class="share">
                 <img :src="getAssetsFile('icon', 'share_pink.png')" alt="" /> 分享
               </el-button>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item>
+                  <el-dropdown-item @click="handleClick('微信分享')">
                     <img :src="getAssetsFile('icon', '微信.png')" alt="" />
                     &nbsp; 微信分享
                   </el-dropdown-item>
 
-                  <el-dropdown-item>
+                  <el-dropdown-item @click="handleClick('脸书分享')">
                     <img :src="getAssetsFile('icon', '脸书.png')" alt="" />
                     &nbsp; 脸书分享
                   </el-dropdown-item>
 
-                  <el-dropdown-item>
+                  <el-dropdown-item @click="handleClick('推特分享')">
                     <img :src="getAssetsFile('icon', '推特.png')" alt="" />
                     &nbsp; 推特分享
                   </el-dropdown-item>
-                  <el-dropdown-item>
+                  <el-dropdown-item @click="handleClick('照片墙分享')">
                     <img :src="getAssetsFile('icon', '照片墙.png')" alt="" />
                     &nbsp; 照片墙分享
                   </el-dropdown-item>
@@ -101,52 +109,128 @@
         </div>
       </div>
       <div class="pre-next">
-        <div class="last">上一个：眉线笔</div>
-        <div class="n-next">下一个：散粉</div>
+        <div class="last" v-if="info.prev_product" @click="gotoProductInfobyid(info.prev_product)">
+          上一个：{{ info.prev_product.name }}
+        </div>
+        <div
+          class="n-next"
+          v-if="info.next_product"
+          @click="gotoProductInfobyid(info.next_product)"
+        >
+          下一个：{{ info.next_product.name }}
+        </div>
       </div>
       <div class="product-fk">
         <div class="topic">
           <div class="border">产品详情</div>
         </div>
         <div class="job">
-          <el-image :src="getAssetsFile('images', '详情页.png')" :fit="'fill'" />
+          <el-image v-for="item in info.thumb3" :src="item.url" :fit="'fill'" />
         </div>
       </div>
     </div>
   </div>
+
+  <!-- 圆角弹窗（居中） -->
+  <van-popup v-model:show="showCenter" round :style="{ padding: '5vh' }">
+    <vue-qrcode :value="qrCodeValue" :width="200"></vue-qrcode>
+  </van-popup>
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
 import { ChatLineRound, Share } from '@element-plus/icons-vue'
-import { ref, toRefs, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, toRefs, watch, onMounted } from 'vue'
+import { getProductDetail } from '@/api/index'
+import { useRouter, useRoute } from 'vue-router'
 import { useCounterStore } from '@/stores/screenWidth'
+// import VueSocialSharing from 'vue-social-sharing'
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
-const router  = useRouter()
-const handleClick = () => {}
+const router = useRouter()
+const route = useRoute()
+const showCenter = ref(false)
 
-const handleSelect = (index: number) => {
-  activeIndex.value = index
+const qrCodeValue = ref(window.location.href)
+
+const goback = () => {
+  router.push('/product/product-detail')
 }
+const handleClick = (value) => {
+  console.log(value)
+  if (value == '微信分享') {
+    showCenter.value = true
+  }
+  if (value == '照片墙分享') {
+    const url = encodeURIComponent(window.location.href) // 替换为你的网站URL
+    const shareUrl = `https://www.instagram.com/share?url=${url}`
+    window.open(shareUrl, '_blank', 'width=600,height=400')
+  }
+  if (value == '推特分享') {
+    const url = encodeURIComponent(window.location.href) // 替换为你的网站URL
+    const text = encodeURIComponent('这是一个很棒的网站！') // 分享的文本内容
+    const hashtags = encodeURIComponent('奇伟') // 分享的标签
+    const shareUrl = `https://twitter.com/share?url=${url}&text=${text}&hashtags=${hashtags}`
+    window.open(shareUrl, '_blank', 'width=600,height=400')
+  }
+  if (value == '脸书分享') {
+    const url = encodeURIComponent(window.location.href) // 替换为你的网站URL
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
+    window.open(shareUrl, '_blank', 'width=600,height=400')
+  }
+}
+
+const handleSelect = (item: any, index: number) => {
+  activeIndex.value = index
+  bigImage.value = item.url
+}
+
+const bigImage = ref('')
 const liuyan = () => {
   router.push('/contact')
 }
 const prev = () => {
   if (activeIndex.value == 0) {
-    activeIndex.value = 4
+    activeIndex.value = info.value.thumb2.length
   } else {
     activeIndex.value--
   }
+  bigImage.value = info.value.thumb2[activeIndex.value].url
+}
+
+const gotoProductInfobyid = (item) => {
+  console.log(item)
+
+  const href = router.resolve({
+    //使用resolve
+    path: '/product/product-info',
+    query: {
+      id: item.id
+    }
+  })
+  window.open(href.href, '_blank')
 }
 
 const next = () => {
-  if (activeIndex.value == 4) {
+  if (activeIndex.value == info.value.thumb2.length - 1) {
     activeIndex.value = 0
   } else {
     activeIndex.value++
   }
+  bigImage.value = info.value.thumb2[activeIndex.value].url
 }
+
+const info = ref({})
+
+onMounted(() => {
+  let id = route.query.id
+  getProductDetail(id).then((res) => {
+    // console.log(res)
+    if (res.status == 1) {
+      info.value = res.data
+      bigImage.value = res.data.thumb
+    }
+  })
+})
 
 const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
@@ -186,6 +270,13 @@ watch(
 
           overflow: hidden;
           border: 1px solid #ebebeb;
+
+          :deep(.van-image) {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: fill;
+          }
           img {
             width: 100%;
             height: 100%;
@@ -225,6 +316,13 @@ watch(
 
               &.active {
                 border: 1px solid #f3a7a4;
+              }
+
+              :deep(.van-image) {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+                cursor: pointer;
               }
               img {
                 width: 100%;
@@ -408,6 +506,7 @@ watch(
         margin-top: 5vh;
         width: 100%;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
       }

@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted, watch, nextTick, reactive } from 'vue'
 import { RouterView } from 'vue-router'
 import { useRouter, useRoute } from 'vue-router'
 import emitter from '@/utils/mitt'
+import { showDialog } from 'vant'
 import { Search } from '@element-plus/icons-vue'
 import { useCounterStore } from '@/stores/screenWidth'
 const { setScreenWidth } = useCounterStore()
@@ -162,6 +163,13 @@ const search = () => {
   console.log(form.name)
 
   showSearch.value = false
+
+  showDialog({
+    title: '搜索内容',
+    message: '暂无此收录'
+  }).then(() => {
+    // on close
+  })
 }
 onUnmounted(() => {
   emitter.off('*')
@@ -259,6 +267,7 @@ watch(
       </div>
     </div>
   </van-popup>
+  <!-- <van-dialog v-model:show="showDialog" title="搜索内容" show-cancel-button> </van-dialog> -->
   <router-view v-slot="{ Component }">
     <transition>
       <component :is="Component" />

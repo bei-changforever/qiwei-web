@@ -90,7 +90,7 @@
             class="product-list-item"
             v-for="(item, index) in productList"
             :key="index"
-            @click="gotoProductInfo"
+            @click="gotoProductInfo(item)"
           >
             <div class="ww-box">
               <div class="image">
@@ -299,10 +299,15 @@ const parentClick = () => {
   show.value = false
 }
 
-const gotoProductInfo = () => {
+const gotoProductInfo = (item) => {
+  console.log(item)
+
   const href = router.resolve({
     //使用resolve
-    path: '/product/product-info'
+    path: '/product/product-info',
+    query: {
+      id: item.id
+    }
   })
   window.open(href.href, '_blank')
 }

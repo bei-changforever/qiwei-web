@@ -50,7 +50,7 @@ export const getProductList = (data) => {
 // 获取产品详情
 export const getProductDetail = (id) => {
   return server({
-    url: `/get-product-detail?id=${id}`,
+    url: `/get-product?id=${id}`,
     method: 'GET'
   })
 }

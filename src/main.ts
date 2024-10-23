@@ -18,6 +18,7 @@ import { Lazyload } from 'vant'
 // new Vconsole() // 如所有环境均需开启 则不需要判断
 // 如果您正在使用CDN引入，请删除下面一行。
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import VueQrcode from 'vue-qrcode'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -36,4 +37,5 @@ app.use(BaiduMap, {
 app.use(Lazyload, {
   lazyComponent: true
 })
+app.component('vue-qrcode', VueQrcode)
 app.mount('#app')
