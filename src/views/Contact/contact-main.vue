@@ -18,8 +18,8 @@
             </div>
             <div class="contact-detail">
               <div class="contact-detail-top">
-                <div class="title">汕头市奇伟实业有限公司</div>
-                <div class="right-title">
+                <div class="title">{{ config.web_name }}</div>
+                <div class="right-title" @click="copyAddress">
                   到这里去
                   <img :src="getAssetsFile('images', '定位.png')" alt="" />
                 </div>
@@ -29,12 +29,12 @@
                   <div class="title">
                     <span class="topic">地址：</span>
                     <br />
-                    <span class="info">汕头市潮南区峡山街道 广汕公路308号</span>
+                    <span class="info">{{ config.address }}</span>
                   </div>
                   <div class="title">
                     <span class="topic">电话：</span>
                     <br />
-                    <span class="info">136-4306-1556</span>
+                    <span class="info">{{ config.phone }}</span>
                   </div>
                 </div>
                 <div class="contact-bottom-right">
@@ -144,11 +144,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, toRefs } from 'vue'
+import { useConfig } from '@/stores/config'
 import { getAssetsFile } from '@/utils/tools'
 import { submitMessage } from '@/api/index'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
+const { config } = toRefs(useConfig())
 // do not use same name with ref
 const ruleFormRef = ref<FormInstance>()
 interface RuleForm {
@@ -158,7 +160,7 @@ interface RuleForm {
   Companyname: string
   delivery: string
   Brandname: string
-  phonenumber: number
+  phonenumber: any
 }
 
 const form = reactive<RuleForm>({
@@ -168,7 +170,7 @@ const form = reactive<RuleForm>({
   Companyname: '',
   delivery: '',
   Brandname: '',
-  phonenumber: ''
+  phonenumber: 0
 })
 
 const selectOption = [
@@ -244,22 +246,13 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
       // 检查手机号码
       let flag = validatePhoneNumber(form.phonenumber)
       if (flag) {
-        let data = {
-          who: form.occupation,
-          problem: form.question,
-          name: form.name,
-          job: form.delivery,
-          company: form.Companyname,
-          brand: form.Brandname,
-          contact: form.phonenumber
-        }
         const formData = new FormData()
         formData.append('who', form.occupation)
         formData.append('problem', form.question)
         formData.append('name', form.name)
         formData.append('job', form.delivery)
-        formData.append('company',  form.Companyname)
-        formData.append('brand',form.Brandname)
+        formData.append('company', form.Companyname)
+        formData.append('brand', form.Brandname)
         formData.append('contact', form.phonenumber)
         submitMessage(formData).then((res) => {
           if (res.status == 1) {
@@ -287,6 +280,14 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         type: 'error'
       })
     }
+  })
+}
+
+const copyAddress = () => {
+  navigator.clipboard.writeText(config.value.address)
+  ElMessage({
+    message: '地址复制成功',
+    type: 'success'
   })
 }
 const active = ref(false)

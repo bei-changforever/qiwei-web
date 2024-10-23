@@ -6,7 +6,10 @@ import emitter from '@/utils/mitt'
 import { showDialog } from 'vant'
 import { Search } from '@element-plus/icons-vue'
 import { useCounterStore } from '@/stores/screenWidth'
+import { useConfig } from '@/stores/config'
+import { getBaseInfo } from '@/api/index'
 const { setScreenWidth } = useCounterStore()
+const { setconfig } = useConfig()
 const route = useRoute()
 const router = useRouter()
 const changeBackGroundColor = ref(false)
@@ -30,6 +33,14 @@ const form = reactive({
 
 const onSubmit = () => {
   console.log('submit!')
+}
+
+const initConfig = async () => {
+  let res = await getBaseInfo()
+  if (res.status == 1) {
+    setconfig(res.data)
+    document.title = res.data.web_name
+  }
 }
 const handleResize = () => {
   screenWidth.value =
@@ -77,6 +88,7 @@ const setScreenCompatibility = () => {
 }
 onMounted(() => {
   nextTick(() => {
+    initConfig()
     if (route.name == 'product-detail' || route.name == 'product-info') {
       isProduct.value = true
     }
@@ -185,31 +197,6 @@ watch(
     } else {
       isProduct.value = false
     }
-
-    // if (newVal == '/') {
-    //   router.push('/')
-    //   activeIndex.value = 0
-    // }
-    // if (newVal == '/product/product-detail') {
-    //   router.push('/product/product-detail')
-    //   activeIndex.value = 1
-    // }
-    // if (newVal == '/business') {
-    //   router.push('/business')
-    //   activeIndex.value = 2
-    // }
-    // if (newVal == '/develop') {
-    //   router.push('/develop')
-    //   activeIndex.value = 3
-    // }
-    // if (newVal == '/about') {
-    //   router.push('/about')
-    //   activeIndex.value = 4
-    // }
-    // if (newVal == '/contact') {
-    //   router.push('/contact')
-    //   activeIndex.value = 5
-    // }
   },
   {
     deep: true,
@@ -220,7 +207,7 @@ watch(
 
 <template>
   <!-- 顶部弹出 -->
-  <van-popup v-model:show="showSearch" position="top" :style="{ height: '8%' }">
+  <!-- <van-popup v-model:show="showSearch" position="top" :style="{ height: '8%' }">
     <el-form :model="form" label-width="auto" style="max-width: 100%">
       <el-form-item>
         <div class="search-box">
@@ -233,7 +220,7 @@ watch(
         </div>
       </el-form-item>
     </el-form>
-  </van-popup>
+  </van-popup> -->
   <header id="header">
     <CusHeader
       :slideChangeBakColor="changeBackGroundColor"

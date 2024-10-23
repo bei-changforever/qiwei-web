@@ -364,18 +364,29 @@ const handleMouseenter = (index) => {
 }
 
 const showSearch = (index) => {
-  console.log(index)
-  if (index == 0) {
-    emitter.emit('SHOWSEARCH', true)
+  // console.log(index)
+  // if (index == 0) {
+  //   emitter.emit('SHOWSEARCH', true)
   
-  } else if (index == 1) {
+  // } else if (index == 1) {
+  //   let url = window.location.href // 当前页面链接
+  //   navigator.clipboard.writeText(url)
+  //   ElMessage({
+  //     message: '页面链接复制成功',
+  //     type: 'success'
+  //   })
+  // } else if (index == 2) {
+  //   let url = window.location.href
+  //   AddFavorite('奇伟', url)
+  // }
+    if (index == 0) {
     let url = window.location.href // 当前页面链接
     navigator.clipboard.writeText(url)
     ElMessage({
       message: '页面链接复制成功',
       type: 'success'
     })
-  } else if (index == 2) {
+  } else if (index == 1) {
     let url = window.location.href
     AddFavorite('奇伟', url)
   }
@@ -395,13 +406,13 @@ const changeMobilePhone = () => {
 }
 
 const IconInfo = [
-  getAssetsFile('icon', 'search.png'),
+
   getAssetsFile('icon', 'share.png'),
   getAssetsFile('icon', 'collect.png')
 ]
 
 const blackIconInfo = [
-  getAssetsFile('icon', 'search_black.png'),
+
   getAssetsFile('icon', 'share_black.png'),
   getAssetsFile('icon', 'collect_black.png')
 ]

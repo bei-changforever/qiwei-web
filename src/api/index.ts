@@ -87,3 +87,11 @@ export const submitMessage = (data) => {
     data
   })
 }
+
+// 获取基础信息
+export const getBaseInfo = () => {
+  return server({
+    url: '/get-base-config',
+    method: 'GET'
+  })
+}
