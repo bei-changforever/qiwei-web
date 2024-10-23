@@ -54,3 +54,36 @@ export const getProductDetail = (id) => {
     method: 'GET'
   })
 }
+
+// 获取业务范围分类
+export const getBusinessCategory = () => {
+  return server({
+    url: '/get-business-scope-category',
+    method: 'GET'
+  })
+}
+
+// 获取业务范围
+export const getBusinessScope = (category_id) => {
+  return server({
+    url: `/get-business-scope?category_id=${category_id}`,
+    method: 'GET'
+  })
+}
+
+// 获取公司沿革
+export const getCompanyHistory = () => {
+  return server({
+    url: '/get-company-history',
+    method: 'GET'
+  })
+}
+
+// 提交留言
+export const submitMessage = (data) => {
+  return server({
+    url: '/send-message',
+    method: 'POST',
+    data
+  })
+}

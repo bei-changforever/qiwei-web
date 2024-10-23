@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="shell">
-    <div class="box">
+    <!-- <div class="box">
       <el-image :src="getAssetsFile('images', '高效产能.png')" :fit="'cover'" />
       <div class="title">
         高<br />
@@ -70,13 +70,36 @@
         <br />
         <div class="ab" @click.stop="clickRouter">了解详情 ></div>
       </div>
+    </div> -->
+
+    <div class="box" v-for="(item, i) in list" :key="i">
+      <!-- <el-image :src="item.thumb" :fit="'cover'" /> -->
+      <van-image :src="item.thumb" fit="cover" lazy-load>
+        <template v-slot:loading>
+          <van-loading type="spinner" size="20" />
+        </template>
+      </van-image>
+      <div class="title">
+        {{ item.name }}
+      </div>
+      <div class="detail">
+        <div class="ad">{{ item.description }}</div>
+        <br />
+        <div class="ab" @click.stop="clickRouter">了解详情 ></div>
+      </div>
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { getAssetsFile } from '@/utils/tools'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/mitt'
+const props = defineProps({
+  list: {
+    type: Array,
+    default: () => []
+  }
+})
 const router = useRouter()
 const clickRouter = () => {
   router.push('/business')
@@ -103,6 +126,10 @@ const clickRouter = () => {
       height: 100%;
       object-fit: cover;
     }
+    :deep(.van-image) {
+      width: 200%;
+      height: 100%;
+    }
 
     .title {
       position: absolute;
@@ -116,6 +143,8 @@ const clickRouter = () => {
       color: #ffffff;
       width: 100%;
       height: 100%;
+      writing-mode: vertical-rl;
+      letter-spacing: 2vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -160,6 +189,11 @@ const clickRouter = () => {
         height: 100%;
       }
 
+      :deep(.van-image) {
+        width: 100%;
+        height: 100%;
+      }
+
       .title {
         width: 30%;
       }
@@ -184,7 +218,10 @@ const clickRouter = () => {
       overflow: hidden;
       transition: 0.5s;
       cursor: pointer;
-
+      :deep(.van-image) {
+        width: 200%;
+        height: 100%;
+      }
       :deep(.el-image) {
         width: 200%;
         height: 100%;
@@ -278,7 +315,11 @@ const clickRouter = () => {
         height: 100%;
         object-fit: cover;
       }
-
+      :deep(.van-image) {
+        width: 200%;
+        height: 100%;
+        object-fit: cover;
+      }
       .title {
         position: absolute;
         top: 0;
@@ -363,6 +404,12 @@ const clickRouter = () => {
       cursor: pointer;
 
       :deep(.el-image) {
+        width: 200%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      :deep(.van-image) {
         width: 200%;
         height: 100%;
         object-fit: cover;

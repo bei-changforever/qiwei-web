@@ -26,7 +26,7 @@
         :class="['accordion', showAnimation && 'animate__animated animate__fadeIn']"
         v-if="PAGEWIDTH > 960"
       >
-        <Accordion />
+        <Accordion :list="list"/>
       </div>
       <div class="accordion" v-else>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { reactive, toRef, onBeforeMount, onMounted, ref, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-import { isMobile } from '@/utils/equipment'
+import { getBanner } from '@/api/index'
 import Accordion from '@/components/accordion/index.vue'
 import emitter from '@/utils/mitt'
 import { useRouter } from 'vue-router'
@@ -51,12 +51,21 @@ const { screenWidth } = toRefs(useCounterStore())
 const router = useRouter()
 const changePageShow = ref(false)
 const showAnimation = ref(false)
+const list = ref([])
 const clickRouter = () => {
   router.push('/business')
   emitter.emit('DOMINDEX', 2)
 }
 const advantagedom = ref(null)
+
+const getPic = async () => {
+  let res = await getBanner(2)
+  if (res.status == 1) {
+    list.value = res.data
+  }
+}
 onMounted(() => {
+  getPic()
   useIntersectionObserver(
     advantagedom,
     ([{ isIntersecting }]) => {
@@ -170,16 +179,16 @@ watch(
           }
 
           &:hover {
-              background-color: #f3a7a5;
-              .text {
-                color: white;
-              }
-
-              .about-icon {
-                color: white;
-                font-size: 46px;
-              }
+            background-color: #f3a7a5;
+            .text {
+              color: white;
             }
+
+            .about-icon {
+              color: white;
+              font-size: 46px;
+            }
+          }
         }
       }
     }

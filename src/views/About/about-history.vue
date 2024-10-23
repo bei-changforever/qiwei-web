@@ -30,33 +30,42 @@
       </div>
       <div class="about-history-container-bottom" v-if="PAGEWIDTH > 960">
         <swiper class="mySwiper" @swiper="onSwiper">
-          <swiper-slide>
+          <swiper-slide v-for="(item, index) in data" :key="index">
             <div class="about-history-container-bottom-content">
               <div class="content-background-image"></div>
               <div class="content-text">
                 <div
                   class="text-title"
-                  v-for="(item, index) in list"
-                  :key="index"
+                  v-for="(gh, i) in item"
+                  :key="i"
                   @mouseleave="handleMouseleave(index)"
                 >
                   <div class="block"></div>
 
-                  <div class="time" @mouseenter="handleMouseenter(index)">{{ item.year }}</div>
-                  <div :class="['text-content', activeIndex == index ? '' : 'is-no']">
-                    <div class="content-time">{{ item.content.year }}</div>
-                    <div class="content-detail" v-for="(d, i2) in item.content.detail" :key="i2">
+                  <div class="time" @mouseenter="handleMouseenter(i)">{{ gh.name }}</div>
+                  <div :class="['text-content', activeIndex == i ? '' : 'is-no']">
+                    <div class="content-time">{{ gh.name }}</div>
+                    <!-- <div class="content-detail" v-for="(d, i2) in item.content.detail" :key="i2">
                       <div class="text">{{ d.text }}</div>
+                    </div> -->
+                    <div class="content-detail">
+                      <div class="text">{{ gh.description }}</div>
+                    </div>
+                    <div class="content-detail">
+                      <div class="text">{{ gh.description1 }}</div>
+                    </div>
+                    <div class="content-detail">
+                      <div class="text">{{ gh.description2 }}</div>
                     </div>
                     <div class="image">
-                      <img :src="item.content.src" alt="" />
+                      <img :src="gh.thumb" alt="" />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </swiper-slide>
-          <swiper-slide>
+          <!-- <swiper-slide>
             <div class="about-history-container-bottom-content">
               <div class="content-background-image unback">
                 <div class="content-text reback">
@@ -82,24 +91,25 @@
                 </div>
               </div>
             </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="about-history-container-bottom-content">
-              <div class="content-background-image"></div>
-            </div>
-          </swiper-slide>
+          </swiper-slide> -->
         </swiper>
       </div>
       <div class="mobile-history" v-else>
         <van-swipe :autoplay="3000" lazy-render>
           <van-swipe-item v-for="(item, index) in mobileList" :key="index">
             <div class="text-content">
-              <div class="content-time">{{ item.year }}</div>
-              <div class="content-detail" v-for="(d, i2) in item.detail" :key="i2">
-                <div class="text">{{ d.text }}</div>
+              <div class="content-time">{{ item.name }}</div>
+              <div class="content-detail">
+                <div class="text">{{ item.description }}</div>
+              </div>
+              <div class="content-detail">
+                <div class="text">{{ item.description1 }}</div>
+              </div>
+              <div class="content-detail">
+                <div class="text">{{ item.description2 }}</div>
               </div>
               <div class="image">
-                <img :src="item.src" alt="" />
+                <img :src="item.thumb" alt="" />
               </div>
             </div>
           </van-swipe-item>
@@ -116,7 +126,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 
 // Import Swiper styles
 import 'swiper/css'
-
+import { getCompanyHistory } from '@/api/index'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 
@@ -234,7 +244,7 @@ const list2 = [
   }
 ]
 
-const mobileList = [
+const mobileList = ref([
   {
     year: 'SINCE 1996',
     detail: [
@@ -325,7 +335,7 @@ const mobileList = [
     ],
     src: getAssetsFile('images', '选中时间图片.png')
   }
-]
+])
 
 const activeIndex = ref(-1)
 const handleMouseenter = (index) => {
@@ -346,6 +356,31 @@ const bannerSwiperPrev = () => {
 const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
 }
+
+const data = ref([])
+
+const getHistoryList = async () => {
+  let res = await getCompanyHistory()
+
+  if (res.status == 1) {
+    mobileList.value = res.data
+    // 5条数据一组
+    let newArr = res.data.reduce((acc, cur, index) => {
+      const lastItem = acc[acc.length - 1]
+      if (!lastItem || lastItem.length === 5) {
+        acc.push([cur])
+      } else {
+        lastItem.push(cur)
+      }
+      return acc
+    }, [])
+    data.value = newArr
+  }
+}
+
+onMounted(() => {
+  getHistoryList()
+})
 
 const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开

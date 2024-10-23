@@ -21,20 +21,45 @@
         </div>
       </div>
       <div class="about-base-container-bottom" v-if="PAGEWIDTH > 960">
-        <div class="about-base-container-bottom-content">
+        <div class="about-base-container-bottom-content" v-if="plist.length > 0">
+          <div
+            :class="['about-honor-content-item', activeIndex == index ? 'active' : '']"
+            v-for="(item, index) in plist"
+            :key="index"
+            @click="handleSelect(index)"
+          >
+            <el-image :src="item.thumb" :fit="'fill'" @click="showImagePreview([item.thumb])" />
+            <span>{{ item.name }}</span>
+          </div>
+        </div>
+
+        <div class="about-base-container-bottom-content" v-else>
           <div
             :class="['about-honor-content-item', activeIndex == index ? 'active' : '']"
             v-for="(item, index) in list"
             :key="index"
             @click="handleSelect(index)"
           >
-            <el-image :src="item.imgSrc" :fit="'fill'" @click="showImagePreview([item.imgSrc])"/>
+            <el-image :src="item.imgSrc" :fit="'fill'" @click="showImagePreview([item.imgSrc])" />
             <span>{{ item.title }}</span>
           </div>
         </div>
       </div>
       <div class="mobile-base-container-bottom" v-else>
-        <van-swipe :autoplay="3000" lazy-render>
+        <van-swipe :autoplay="3000" lazy-render v-if="plist.length > 0">
+          <van-swipe-item v-for="(item, index) in plist" :key="index">
+            <div class="about-honor-content-item" @click="showImagePreview([item.thumb])">
+              <div class="image-box">
+                <img :src="item.thumb" alt="" />
+              </div>
+              <div class="text">
+                {{ item.name }}
+              </div>
+            </div>
+          </van-swipe-item>
+        </van-swipe>
+
+        <van-swipe :autoplay="3000" lazy-render v-else>
           <van-swipe-item v-for="(item, index) in list" :key="index">
             <div class="about-honor-content-item" @click="showImagePreview([item.imgSrc])">
               <div class="image-box">
@@ -51,9 +76,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
+import { ref, toRefs, watch, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-import { showImagePreview } from 'vant';
+import { showImagePreview } from 'vant'
+import { getCert } from '@/api/index'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
@@ -91,6 +117,15 @@ const list = [
     imgSrc: getAssetsFile('images', '证书框8.png')
   }
 ]
+const plist = ref([])
+
+const getPic = async () => {
+  let res = await getCert(2)
+  // console.log(res);
+  if (res.status == 1) {
+    plist.value = res.data
+  }
+}
 const prev = () => {
   if (activeIndex.value == 0) {
     return
@@ -109,6 +144,10 @@ const next = () => {
 const handleSelect = (index) => {
   activeIndex.value = index
 }
+
+onMounted(() => {
+  getPic()
+})
 
 const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开

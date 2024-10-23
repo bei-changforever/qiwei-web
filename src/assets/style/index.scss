@@ -59,7 +59,6 @@ body {
   color: transparent;
 }
 
-
-// .animate__animated.animate__bounce {
-//   --animate-duration: 2s;
-// }
+.el-pagination.is-background .el-pager li.is-active {
+  background-color: #f3a7a4 !important;
+}

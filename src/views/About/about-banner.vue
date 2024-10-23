@@ -13,7 +13,14 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { getBanner } from '@/api/index'
+const bannerPic = ref('')
+onMounted(async () => {
+  // let res = await getBanner(4)
+  // console.log('res111', res)
+})
 </script>
 <style lang="scss" scoped>
 .about-banner {

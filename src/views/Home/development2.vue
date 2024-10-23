@@ -870,7 +870,7 @@ watch(
           }
 
           .T-bottom {
-            margin-top: 8.5vh;
+            margin-top: 3vh;
             width: 100%;
 
             .T-bottom-container {

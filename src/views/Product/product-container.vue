@@ -67,9 +67,21 @@
         </div>
       </div>
       <div class="mobile-sift" v-else>
-        <van-dropdown-menu swipe-threshold="4">
-          <van-dropdown-item v-model="value1" :options="option1" @click="onConfirm" />
-          <van-dropdown-item v-model="value2" :options="option2" @click="onConfirm" />
+        <!-- {{ mobileTypeList }} -->
+        <van-dropdown-menu>
+          <van-dropdown-item
+            v-if="mobileTypeList.length !== 0"
+            ref="dropdown1"
+            v-model="value1"
+            :options="mobileTypeList"
+            @click="onConfirm"
+          />
+          <van-dropdown-item
+            ref="dropdown2"
+            v-model="value2"
+            :options="mobileList"
+            @click="onConfirm"
+          />
         </van-dropdown-menu>
       </div>
       <div class="product-box--ww-bottom">
@@ -82,7 +94,7 @@
           >
             <div class="ww-box">
               <div class="image">
-                <van-image :src="item.thumb">
+                <van-image :src="item.thumb" lazy-load>
                   <template v-slot:loading>
                     <van-loading type="spinner" size="20" />
                   </template>
@@ -94,8 +106,8 @@
           </div>
         </div>
         <van-empty description="暂无产品数据" v-else />
-        <div class="page-control" v-if="PAGEWIDTH > 960">
-          <div class="page-number-control">
+        <div class="page-control">
+          <!-- <div class="page-number-control">
             <div class="left-icon">
               <el-icon>
                 <ArrowLeft />
@@ -111,7 +123,17 @@
                 <ArrowRight />
               </el-icon>
             </div>
-          </div>
+          </div> -->
+          <el-pagination
+            v-model:current-page="currentPage"
+            background
+            :page-size="1"
+            :pager-count="5"
+            layout="prev, pager, next"
+            :total="renderToStreamot"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          />
           <div class="block"></div>
           <div class="jumpto">
             <div class="jump-text">跳转至</div>
@@ -121,12 +143,12 @@
             <div class="jump-text">页</div>
           </div>
           <div class="button">
-            <el-button>确定</el-button>
+            <el-button @click="jumpTo">确定</el-button>
           </div>
         </div>
-        <div class="mobile-page-control" v-else>
+        <!-- <div class="mobile-page-control" v-if="PAGEWIDTH <= 960">
           <van-pagination v-model="currentPage" :total-items="24" :items-per-page="5" />
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -140,8 +162,8 @@ import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 
 const router = useRouter()
-const input = ref('')
-const currentPage = ref(1)
+const input = ref()
+// const currentPage = ref(1)
 const option1 = [
   { text: '彩妆', value: 0 },
   { text: '洗护', value: 1 },
@@ -155,170 +177,107 @@ const option1 = [
     value: 4
   }
 ]
-const value1 = ref(0)
+const value1 = ref('3')
 
 const option2 = [
-  { text: '全部', value: 0 },
-  { text: '国内', value: 1 },
-  { text: '国外', value: 2 }
+  { text: '国内', value: 0 },
+  { text: '国外', value: 1 }
 ]
-const value2 = ref(0)
+const value2 = ref('1')
 
-const onConfirm = () => {}
+const onConfirm = () => {
+  console.log('value1:', option1[value1.value])
+  console.log('value2:', value2.value)
+  mobileTypeList.value = []
+  // 切换国内外
+  if (Number(value2.value) == 1) {
+    mobileList.value[0].children.forEach((item, index) => {
+      let obj = {
+        text: item.name,
+        value: item.id
+      }
+      mobileTypeList.value.push(obj)
+    })
+    if (mobileList.value[0].children.length > 0) {
+      selectItemID.value = value1.value
+      getProductListData()
+    } else {
+      selectItemID.value = value2.value
+      getProductListData()
+    }
+
+    // value1.value = mobileTypeList.value[0].value
+  } else {
+    mobileList.value[1].children.forEach((item, index) => {
+      let obj = {
+        text: item.name,
+        value: item.id
+      }
+      mobileTypeList.value.push(obj)
+    })
+
+    // value1.value = mobileTypeList.value[0].value
+
+    if (mobileList.value[1].children.length > 0) {
+      selectItemID.value = value1.value
+      getProductListData()
+    } else {
+      selectItemID.value = value2.value
+      getProductListData()
+    }
+  }
+}
 
 const handleSizeChange = (val: number) => {
   console.log(`${val} items per page`)
 }
 const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`)
+  // 1 - 1 * 8 = 0
+  // 2 - 1 * 8 = 8
+  // 3 - 1 * 8 = 16
+  offset.value = (val - 1) * 8
+  getProductListData()
 }
 
-const worldlist = ['全部', '国内', '国外']
-const worldIndex = ref(0)
+const jumpTo = () => {
+  currentPage.value = Number(input.value)
+  handleCurrentChange(currentPage.value)
+  // console.log(currentPage.value)
+}
 
+const worldIndex = ref(0)
+// 切换国内外产品
 const chooseWorldType = (index) => {
   worldIndex.value = index
+  if (list.value[worldIndex.value].children) {
+    selectItemID.value = list.value[worldIndex.value].children[top1Index.value].id
+    getProductListData()
+  } else {
+    selectItemID.value = list.value[worldIndex.value].id
+    getProductListData()
+  }
 }
 
-const topiList = ['彩妆', '洗护', '护肤', '香氛', '其他']
 const top1Index = ref(0)
+
+// 点击顶部彩妆、洗护.....一栏
 const chooseTopindex = (item, index) => {
   top1Index.value = index
-  getProductListData(item)
-  // console.log(top1Index.value)
+  selectItemID.value = item.id
+  getProductListData()
 }
 
+// 哪一类展示下拉框
 const bottomTextItemIndex = ref(-1)
-const bottomTextArr = ref([
-  {
-    name: '底妆',
-    list: [
-      {
-        isActive: false,
-        name: '口红'
-      },
-      {
-        isActive: false,
-        name: '唇釉'
-      },
-      {
-        isActive: false,
-        name: '固体唇釉'
-      }
-    ]
-  },
-  {
-    name: '眉妆',
-    list: [
-      {
-        isActive: false,
-        name: '口红'
-      },
-      {
-        isActive: false,
-        name: '唇釉'
-      },
-      {
-        isActive: false,
-        name: '固体唇釉'
-      }
-    ]
-  },
-  {
-    name: '眼妆',
-    list: [
-      {
-        isActive: false,
-        name: '口红'
-      },
-      {
-        isActive: false,
-        name: '唇釉'
-      },
-      {
-        isActive: false,
-        name: '固体唇釉'
-      }
-    ]
-  },
-  {
-    name: '唇妆',
-    list: [
-      {
-        isActive: false,
-        name: '口红'
-      },
-      {
-        isActive: false,
-        name: '唇釉'
-      },
-      {
-        isActive: false,
-        name: '固体唇釉'
-      }
-    ]
-  },
-  {
-    name: '定妆',
-    list: [
-      {
-        isActive: false,
-        name: '口红'
-      },
-      {
-        isActive: false,
-        name: '唇釉'
-      },
-      {
-        isActive: false,
-        name: '固体唇釉'
-      }
-    ]
-  },
-  {
-    name: '卸妆',
-    list: [
-      {
-        isActive: false,
-        name: '口红'
-      },
-      {
-        isActive: false,
-        name: '唇釉'
-      },
-      {
-        isActive: false,
-        name: '固体唇釉'
-      }
-    ]
-  },
-  {
-    name: '其他',
-    list: [
-      {
-        isActive: false,
-        name: '口红'
-      },
-      {
-        isActive: false,
-        name: '唇釉'
-      },
-      {
-        isActive: false,
-        name: '固体唇釉'
-      }
-    ]
-  }
-])
 
 const handleSelect = (item, index) => {
   show.value = true
   bottomTextItemIndex.value = index
-  getProductListData(item)
+  selectItemID.value = item.id
+  getProductListData()
 }
 
-const childIndex = ref(0)
-const chooseItem = ref({})
 const handleSelectchild = (br, brindex) => {
   show.value = false
   parentList.value[top1Index.value].children.forEach((item, index) => {
@@ -328,13 +287,15 @@ const handleSelectchild = (br, brindex) => {
       })
     }
   })
-  getProductListData(br)
+  selectItemID.value = br.id
+  getProductListData()
   br.isActive = !br.isActive
 }
+// 是否展示下拉框
 const show = ref(false)
 
+// 关闭下拉框
 const parentClick = () => {
-  // bottomTextItemIndex.value = -1
   show.value = false
 }
 
@@ -348,37 +309,84 @@ const gotoProductInfo = () => {
 
 const list = ref([])
 const parentList = ref([])
+const mobileList = ref([])
+const mobileTypeList = ref([])
+// 获取tab栏以及首页数据
 const getProductCategoryData = async () => {
+  mobileList.value = []
+  mobileTypeList.value = []
   let res = await getProductCategory()
   if (res.status == 1) {
     list.value = res.data
-    if(list.value.length > 0) {
-      getProductListData(list.value[0].children[0].id)
+    // 移动端数据
+    res.data.forEach((item, index) => {
+      let obj = {
+        text: item.name,
+        value: item.id,
+        children: item.children ? item.children : []
+      }
+      mobileList.value.push(obj)
+    })
+    if (value2.value == '1') {
+      mobileList.value[0].children.forEach((item, index) => {
+        let obj = {
+          text: item.name,
+          value: item.id
+        }
+        mobileTypeList.value.push(obj)
+      })
+
+      value1.value = mobileTypeList.value[0].value
+    } else {
+      mobileList.value[1].children.forEach((item, index) => {
+        let obj = {
+          text: item.name,
+          value: item.id
+        }
+        mobileTypeList.value.push(obj)
+      })
+
+      value1.value = mobileTypeList.value[0].value
+    }
+
+    // pc端
+    if (list.value[worldIndex.value].children) {
+      selectItemID.value = list.value[worldIndex.value].children[top1Index.value].id
+      getProductListData()
+    } else {
+      selectItemID.value = list.value[worldIndex.value].id
+      getProductListData()
     }
   }
 }
 
+// 从第X条查起，0代表第一条
+const offset = ref(0)
+const currentPage = ref(1)
+// 查询x条
+const limit = ref(8)
+const totalPage = ref(0)
 const productList = ref([])
-const getProductListData = async (item) => {
+const selectItemID = ref()
+const getProductListData = async () => {
   let data = {
-    category_id: item.id,
-    offset: 0,
-    limit: 8
+    category_id: selectItemID.value,
+    offset: offset.value,
+    limit: limit.value
   }
   let res = await getProductList(data)
   if (res.status == 1) {
     productList.value = res.data.list
-    console.log(productList.value)
+    totalPage.value = res.data.total
   }
 }
 
 onMounted(() => {
-  
   nextTick(() => {
- getProductCategoryData()
+    getProductCategoryData()
   })
 })
-
+// 顶部tab栏的数据
 const productCategory = computed(() => {
   if (list.value.length > 0) {
     parentList.value = list.value[worldIndex.value].children
@@ -387,7 +395,7 @@ const productCategory = computed(() => {
     return parentList.value
   }
 })
-
+// 下拉框的数据
 const productChild = computed(() => {
   if (parentList.value.length > 0 && parentList.value[top1Index.value].children) {
     parentList.value[top1Index.value].children.forEach((item, index) => {
@@ -401,6 +409,20 @@ const productChild = computed(() => {
       ? parentList.value[top1Index.value].children
       : []
   }
+})
+
+// const mobileTypeList = computed(() => {
+//   if (Number(value2.value) == 1) {
+//     return mobileList.value.filter((item) => item.id == '1')
+//   } else {
+//     return mobileList.value.filter((item) => item.id == '2')
+//   }
+// })
+
+// 页数
+const renderToStreamot = computed(() => {
+  // 一页8条数据
+  return totalPage.value ? Number(totalPage.value) / 8 : 0
 })
 
 const PAGEWIDTH = ref(window.innerWidth)

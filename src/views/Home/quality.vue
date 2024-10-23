@@ -373,6 +373,7 @@ import { getAssetsFile } from '@/utils/tools'
 import emitter from '@/utils/mitt'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
+import { getBanner } from '@/api/index'
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
 const changePageShow = ref(false)
@@ -384,7 +385,12 @@ const list = [
   [13, 14, 15, 16, 17, 18],
   [19, 20]
 ]
+const getPic = async () => {
+  let res = await getBanner(3)
+  console.log(res)
+}
 onMounted(() => {
+  getPic()
   useIntersectionObserver(
     qualityContainer,
     ([{ isIntersecting }]) => {
@@ -484,16 +490,16 @@ watch(
             font-size: 46px;
           }
           &:hover {
-              background-color: #f3a7a5;
-              .text {
-                color: white;
-              }
-
-              .about-icon {
-                color: white;
-                font-size: 46px;
-              }
+            background-color: #f3a7a5;
+            .text {
+              color: white;
             }
+
+            .about-icon {
+              color: white;
+              font-size: 46px;
+            }
+          }
         }
       }
     }
@@ -504,7 +510,7 @@ watch(
       display: flex;
       align-items: center;
       justify-content: center;
-        // background-color: orange;
+      // background-color: orange;
 
       .pagenavigation {
         position: absolute;

@@ -74,26 +74,26 @@
               </el-select>
             </el-form-item>
             <el-form-item label="您的具体问题：" prop="question">
-              <el-input v-model="form.question" clearable/>
+              <el-input v-model="form.question" clearable />
             </el-form-item>
             <el-form-item label="您的姓名" prop="name">
-              <el-input v-model="form.name" placeholder="请填写您的姓名" clearable/>
+              <el-input v-model="form.name" placeholder="请填写您的姓名" clearable />
             </el-form-item>
             <el-form-item>
               <div class="row">
-                <el-input v-model="form.Companyname" placeholder="请填写您的公司名称" clearable/>
-                <el-input v-model="form.delivery" placeholder="请填写您的职位" clearable/>
+                <el-input v-model="form.Companyname" placeholder="请填写您的公司名称" clearable />
+                <el-input v-model="form.delivery" placeholder="请填写您的职位" clearable />
               </div>
             </el-form-item>
-            <el-form-item>
+            <el-form-item prop="phonenumber">
               <div class="row">
-                <el-input v-model="form.Brandname" placeholder="请填写您公司的品牌名称" clearable/>
-                <el-input v-model="form.phonenumber" placeholder="请填写您的联系方式" clearable/>
+                <el-input v-model="form.Brandname" placeholder="请填写您公司的品牌名称" clearable />
+                <el-input v-model="form.phonenumber" placeholder="请填写您的联系方式" clearable />
               </div>
             </el-form-item>
           </el-form>
 
-          <div class="button">提交留言</div>
+          <div class="button" @click="onSubmit(ruleFormRef)">提交留言</div>
         </div>
       </div>
       <div class="base-bottom">
@@ -130,6 +130,7 @@
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { submitMessage } from '@/api/index'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
 // do not use same name with ref
 const ruleFormRef = ref<FormInstance>()
@@ -143,7 +144,7 @@ interface RuleForm {
   phonenumber: number
 }
 
-const form = reactive({
+const form = reactive<RuleForm>({
   question: '',
   occupation: '',
   name: '',
@@ -205,7 +206,7 @@ const rules = reactive<FormRules<RuleForm>>({
   occupation: [
     {
       required: true,
-      message: 'Please select Activity count',
+      message: '请选择',
       trigger: 'change'
     }
   ],
@@ -218,11 +219,18 @@ const rules = reactive<FormRules<RuleForm>>({
   ],
   delivery: [{ required: false, trigger: 'blur' }],
   Brandname: [{ required: false, trigger: 'blur' }],
-  phonenumber: [{ type: 'number', required: false, trigger: 'blur' }]
+  phonenumber: [{ type: 'number', required: true, trigger: 'blur', message: '请输入您的联系方式' }]
 })
 
-const onSubmit = () => {
-  console.log('submit!')
+const onSubmit = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      console.log('submit!')
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
 }
 const active = ref(false)
 
@@ -535,272 +543,272 @@ const draw = ({ el, BMap, map }) => {
 }
 @media (min-width: 960px) and (max-width: 1220px) {
   .contact-main {
-  width: 100vw;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
-  box-sizing: border-box;
+    width: 100vw;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    box-sizing: border-box;
 
-  .contact-base-container {
-    margin: 0 auto;
-    width: var(--base-width);
-    transition: all 0.3s ease-in;
-    zoom: 1;
+    .contact-base-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
 
-    .about-base-container-top {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-
-      .T-left {
-        .topic {
-          width: 100%;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          gap: 1vw;
-
-          .text {
-            font-weight: 400;
-            font-size: var(--aside-fontSize);
-            color: #f3a7a5;
-          }
-
-          .block {
-            width: 6px;
-            height: var(--aside-block);
-            border-radius: 1px;
-            background-color: #f3a7a5;
-          }
-        }
-
-        .name {
-          margin-top: 1vh;
-          font-family:
-            Microsoft YaHei,
-            Microsoft YaHei;
-          font-weight: bold;
-          font-size: var(--topic-fontSize);
-          color: #333333;
-        }
-      }
-    }
-
-    .base-top {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5vh;
-
-      .contact-left {
-        // width: 30%;
-        width: 450px;
-
-        .contact-left-content {
-          width: 100%;
-          background-color: white;
-          border-radius: 20px;
-          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-          .image {
-            width: 100%;
-            height: 320px;
-
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: fill;
-            }
-          }
-
-          .contact-detail {
-            margin-top: 2vh;
-            width: 100%;
-
-            .contact-detail-top {
-              width: 100%;
-              padding: 2vh;
-              padding-top: 0;
-              box-sizing: border-box;
-              display: flex;
-              justify-content: space-between;
-
-              .title {
-                font-family:
-                  Microsoft YaHei,
-                  Microsoft YaHei;
-                font-weight: bold;
-                font-size: 24px;
-                color: #333333;
-              }
-
-              .right-title {
-                display: flex;
-                align-items: center;
-                gap: 0.5vw;
-                cursor: pointer;
-
-                img {
-                  width: 14px;
-                  height: 16px;
-                  object-fit: fill;
-                }
-              }
-            }
-
-            .contact-detail-bottom {
-              // margin-top: 5vh;
-              display: flex;
-              width: 100%;
-              padding: 2vh;
-              box-sizing: border-box;
-              justify-content: space-between;
-
-              .contact-bottom-left {
-                width: 60%;
-                display: flex;
-                flex-direction: column;
-                gap: 2vh;
-
-                .title {
-                  .topic {
-                    font-family:
-                      Microsoft YaHei,
-                      Microsoft YaHei;
-                    font-weight: 400;
-                    font-size: 16px;
-                    color: #333333;
-                  }
-
-                  .info {
-                    font-family:
-                      Microsoft YaHei,
-                      Microsoft YaHei;
-                    font-weight: bold;
-                    font-size: 20px;
-                    color: #333333;
-                  }
-                }
-              }
-
-              .contact-bottom-right {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-end;
-              }
-            }
-          }
-        }
-      }
-
-      .contact-right {
-        width: 50%;
-        // background-color: pink;
+      .about-base-container-top {
+        width: 100%;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
 
-        .form-top {
-          width: 100%;
+        .T-left {
+          .topic {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 1vw;
 
-          .title {
+            .text {
+              font-weight: 400;
+              font-size: var(--aside-fontSize);
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 6px;
+              height: var(--aside-block);
+              border-radius: 1px;
+              background-color: #f3a7a5;
+            }
+          }
+
+          .name {
+            margin-top: 1vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
-            font-weight: 400;
-            font-size: 18px;
+            font-weight: bold;
+            font-size: var(--topic-fontSize);
             color: #333333;
           }
+        }
+      }
 
-          .desc {
+      .base-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5vh;
+
+        .contact-left {
+          // width: 30%;
+          width: 450px;
+
+          .contact-left-content {
+            width: 100%;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+            .image {
+              width: 100%;
+              height: 320px;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+              }
+            }
+
+            .contact-detail {
+              margin-top: 2vh;
+              width: 100%;
+
+              .contact-detail-top {
+                width: 100%;
+                padding: 2vh;
+                padding-top: 0;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: space-between;
+
+                .title {
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: 24px;
+                  color: #333333;
+                }
+
+                .right-title {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5vw;
+                  cursor: pointer;
+
+                  img {
+                    width: 14px;
+                    height: 16px;
+                    object-fit: fill;
+                  }
+                }
+              }
+
+              .contact-detail-bottom {
+                // margin-top: 5vh;
+                display: flex;
+                width: 100%;
+                padding: 2vh;
+                box-sizing: border-box;
+                justify-content: space-between;
+
+                .contact-bottom-left {
+                  width: 60%;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2vh;
+
+                  .title {
+                    .topic {
+                      font-family:
+                        Microsoft YaHei,
+                        Microsoft YaHei;
+                      font-weight: 400;
+                      font-size: 16px;
+                      color: #333333;
+                    }
+
+                    .info {
+                      font-family:
+                        Microsoft YaHei,
+                        Microsoft YaHei;
+                      font-weight: bold;
+                      font-size: 20px;
+                      color: #333333;
+                    }
+                  }
+                }
+
+                .contact-bottom-right {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: flex-end;
+                }
+              }
+            }
+          }
+        }
+
+        .contact-right {
+          width: 50%;
+          // background-color: pink;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .form-top {
+            width: 100%;
+
+            .title {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 18px;
+              color: #333333;
+            }
+
+            .desc {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+            }
+          }
+
+          :deep(.el-input) {
+            height: 60px;
+          }
+
+          :deep(.el-select) {
+            height: 60px;
+            //   background-color: orange;
+          }
+
+          :deep(.el-select__wrapper.el-tooltip__trigger) {
+            height: 60px;
+          }
+
+          // :deep(.el-option) {
+          //     height: 60px;
+          // }
+
+          .row {
+            width: 100%;
+            display: flex;
+            gap: 1vw;
+          }
+
+          .button {
+            width: 210px;
+            height: 50px;
+            border-radius: 10px 10px 10px 10px;
+            background-color: #f3a7a5;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
             font-size: 16px;
-            color: #333333;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
           }
         }
-
-        :deep(.el-input) {
-          height: 60px;
-        }
-
-        :deep(.el-select) {
-          height: 60px;
-          //   background-color: orange;
-        }
-
-        :deep(.el-select__wrapper.el-tooltip__trigger) {
-          height: 60px;
-        }
-
-        // :deep(.el-option) {
-        //     height: 60px;
-        // }
-
-        .row {
-          width: 100%;
-          display: flex;
-          gap: 1vw;
-        }
-
-        .button {
-          width: 210px;
-          height: 50px;
-          border-radius: 10px 10px 10px 10px;
-          background-color: #f3a7a5;
-          font-family:
-            Microsoft YaHei,
-            Microsoft YaHei;
-          font-weight: 400;
-          font-size: 16px;
-          color: #ffffff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-        }
       }
-    }
 
-    .base-bottom {
-      margin-top: 5vh;
-      width: 100%;
-      height: 500px;
-
-      .bm-view {
+      .base-bottom {
+        margin-top: 5vh;
         width: 100%;
-        height: 100%;
+        height: 500px;
+
+        .bm-view {
+          width: 100%;
+          height: 100%;
+        }
+
+        //   .info-map {
+        //     position: absolute;
+        //     // width: 120px;
+        //     // height: 40px;
+        //     // line-height: 40px;
+        //     // background: rgba(0, 0, 0, 0.5);
+        //     overflow: hidden;
+        //     // box-shadow: 0 0 5px #000;
+        //     color: #fff;
+        //     text-align: center;
+        //     padding: 10px;
+
+        //     .info-box {
+        //       display: flex;
+
+        //       .text-box {
+        //         display: flex;
+        //         width: 150px;
+        //         height: 30px;
+        //         background-color: rgba(0, 0, 0, 0.5);
+        //         border-radius: 5px 5px 5px 5px;
+        //       }
+        //     }
+        //   }
       }
-
-      //   .info-map {
-      //     position: absolute;
-      //     // width: 120px;
-      //     // height: 40px;
-      //     // line-height: 40px;
-      //     // background: rgba(0, 0, 0, 0.5);
-      //     overflow: hidden;
-      //     // box-shadow: 0 0 5px #000;
-      //     color: #fff;
-      //     text-align: center;
-      //     padding: 10px;
-
-      //     .info-box {
-      //       display: flex;
-
-      //       .text-box {
-      //         display: flex;
-      //         width: 150px;
-      //         height: 30px;
-      //         background-color: rgba(0, 0, 0, 0.5);
-      //         border-radius: 5px 5px 5px 5px;
-      //       }
-      //     }
-      //   }
     }
   }
-}
 }
 @media (max-width: 960px) {
   .contact-main {

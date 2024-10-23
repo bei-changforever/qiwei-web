@@ -29,7 +29,7 @@
               :class="['text', typeIndex == index ? 'active' : '']"
               @click="selfHandleSelect(index)"
             >
-              {{ item }}
+              {{ item.name }}
             </div>
             <div class="line" v-show="index !== list2.length - 1"></div>
           </div>
@@ -37,20 +37,34 @@
       </div>
 
       <div class="business-container-bottom">
-        <div class="business-container-bottom-item" v-for="(item, index) in list3" :key="index">
-          <el-image :src="item" :fit="'fill'" />
+        <div
+          class="business-container-bottom-item"
+          v-for="(item, index) in list3"
+          :key="index"
+          v-if="list3.length > 0"
+        >
+          <!-- <el-image :src="item.thumb" :fit="'fill'" /> -->
+          <van-image :src="item.thumb" lazy-load fit="fill">
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+          </van-image>
+        </div>
+        <div class="empty-box" v-else>
+          <van-empty description="暂无数据" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import emitter from '@/utils/mitt'
+import { getBusinessCategory, getBusinessScope } from '@/api/index'
 const list = ['业务范围', '服务原则', '合作模式', '全球供应链']
-const list2 = ['彩妆产品', '洗护产品', '护肤产品', '香氛产品']
-const list3 = [
+const list2 = ref(['彩妆产品', '洗护产品', '护肤产品', '香氛产品'])
+const list3 = ref([
   getAssetsFile('images', '口红系列.png'),
   getAssetsFile('images', '唇釉系列.png'),
   getAssetsFile('images', '粉底系列.png'),
@@ -64,7 +78,8 @@ const list3 = [
   getAssetsFile('images', '卸妆系列.png'),
   getAssetsFile('images', '眼线笔系列.png'),
   getAssetsFile('images', '睫毛育系列.png')
-]
+])
+
 const activeIndex = ref(0)
 
 const typeIndex = ref(0)
@@ -77,9 +92,28 @@ const handleSelect = (index) => {
   }
 }
 
+const getList = async () => {
+  let id = list2.value[typeIndex.value].id
+  let res = await getBusinessScope(id)
+  if (res.status == 1) {
+    list3.value = res.data
+  }
+}
+const getRange = async () => {
+  let res = await getBusinessCategory()
+  if (res.status == 1) {
+    list2.value = res.data
+    getList()
+  }
+}
 const selfHandleSelect = (index) => {
   typeIndex.value = index
+  getList()
 }
+
+onMounted(() => {
+  getRange()
+})
 </script>
 <style lang="scss" scoped>
 .business-range {
@@ -222,6 +256,13 @@ const selfHandleSelect = (index) => {
       flex-wrap: wrap;
       gap: 0.5vw;
 
+      .empty-box {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       //   padding-left: 4.5vw;
       .business-container-bottom-item {
         width: 24%;
@@ -229,6 +270,11 @@ const selfHandleSelect = (index) => {
         height: auto;
 
         :deep(.el-image) {
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+        :deep(.van-image) {
           width: 100%;
           height: 100%;
           cursor: pointer;
@@ -392,6 +438,11 @@ const selfHandleSelect = (index) => {
           height: auto;
 
           :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+          }
+          :deep(.van-image) {
             width: 100%;
             height: 100%;
             cursor: pointer;

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const server = axios.create({
   baseURL: '/backend/api',
-  timeout: 5000
+  timeout: 600000
 })
 
 // 添加请求拦截器
