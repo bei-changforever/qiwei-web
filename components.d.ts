@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     Accordion: typeof import('./src/components/accordion/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCol: typeof import('element-plus/es')['ElCol']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
@@ -28,7 +27,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     VanCell: typeof import('vant/es')['Cell']
     VanCellGroup: typeof import('vant/es')['CellGroup']
-    VanDialog: typeof import('vant/es')['Dialog']
     VanDropdownItem: typeof import('vant/es')['DropdownItem']
     VanDropdownMenu: typeof import('vant/es')['DropdownMenu']
     VanEmpty: typeof import('vant/es')['Empty']
