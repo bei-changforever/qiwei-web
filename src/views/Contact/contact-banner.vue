@@ -1,6 +1,6 @@
 <template>
   <div class="contact-banner">
-    <div class="contact-banner-bg" :style="{ backgroundImage: 'url(' + getAssetsFile('images', '联系我们海报.png') + ')' }">
+    <div class="contact-banner-bg" :style="{ backgroundImage: `url(${bannerPic})` }">
       <div class="text">
         <div class="big-title">联系我们</div>
         <div class="small-title">您可以通过电话或者留言联系我们，期待您的联系与反馈</div>
@@ -9,7 +9,16 @@
   </div>
 </template>
 <script setup>
+import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
+import { getBanner } from '@/api/index'
+const bannerPic = ref()
+onMounted(async () => {
+  let res = await getBanner(7)
+  if (res.status == 1) {
+    bannerPic.value = res.data[0].thumb
+  }
+})
 </script>
 <style lang="scss" scoped>
 .contact-banner {

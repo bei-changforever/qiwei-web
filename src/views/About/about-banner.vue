@@ -1,8 +1,7 @@
 <template>
   <div class="about-banner" id="about-banner">
     <div
-      class="about-banner-bg" :style="{ backgroundImage: 'url(' + getAssetsFile('images',
-      '关于奇伟.png') + ')' }">
+      class="about-banner-bg" :style="{ backgroundImage: `url(${bannerPic})` }">
       <div class="text">
         <div class="big-title">关于奇伟/我们</div>
         <div class="small-title">
@@ -16,10 +15,12 @@
 import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { getBanner } from '@/api/index'
-const bannerPic = ref('')
+const bannerPic = ref()
 onMounted(async () => {
-  // let res = await getBanner(4)
-  // console.log('res111', res)
+  let res = await getBanner(4)
+  if (res.status == 1) {
+    bannerPic.value = res.data[0].thumb
+  }
 })
 </script>
 <style lang="scss" scoped>
