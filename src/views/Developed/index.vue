@@ -79,7 +79,7 @@ function scrollDown() {
 let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-    // console.log(pageIndex)
+  // console.log(pageIndex)
   if (pageIndex == 0) {
     container.value.style.top = `0%`
   } else if (pageIndex == 1) {
@@ -98,7 +98,7 @@ function scrollToPage(pageIndex) {
     container.value.style.top = `-502%`
   } else if (pageIndex == 8) {
     container.value.style.top = `-525%`
-  } 
+  }
   // else if (pageIndex == 9) {
   //   container.value.style.top = `-462%`
   // } else if (pageIndex == 10) {
@@ -160,8 +160,13 @@ const handleScrolltoTop = () => {
 
 onMounted(() => {
   emitter.on('TOGGLEPAGE', (res) => {
-    pageIndex.value = res + 1
-    scrollToPage(res + 1)
+    if (res == 3) {
+      pageIndex.value = 6
+      scrollToPage(6)
+    } else {
+      pageIndex.value = res + 1
+      scrollToPage(res + 1)
+    }
   })
   emitter.on('tagViewsShowModel', (res) => {
     pageIndex.value = res + 1
@@ -169,8 +174,15 @@ onMounted(() => {
   })
 
   emitter.on('BACKPAGETOP', (res) => {
-    handleScrolltoTop()
-    pageIndex.value = 0
+    if (PAGEWIDTH > 960) {
+      handleScrolltoTop()
+      pageIndex.value = 0
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // 可选，使滚动平滑
+      })
+    }
   })
 
   if (PAGEWIDTH.value > 960) {

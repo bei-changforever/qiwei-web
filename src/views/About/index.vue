@@ -160,8 +160,13 @@ onMounted(() => {
     scrollToPage(res + 1)
   })
   emitter.on('TOGGLEPAGE', (res) => {
-    pageIndex.value = res + 1
-    scrollToPage(res + 1)
+    if (res == 3) {
+      pageIndex.value = 5
+      scrollToPage(5)
+    } else {
+      pageIndex.value = res + 1
+      scrollToPage(res + 1)
+    }
   })
   emitter.on('BACKPAGETOP', (res) => {
     if (PAGEWIDTH.value > 960) {
@@ -175,9 +180,6 @@ onMounted(() => {
     }
   })
 
-
-  
-  
   if (PAGEWIDTH.value > 960) {
     // 添加鼠标滚轮事件
     document.onmousewheel = mouseWheel

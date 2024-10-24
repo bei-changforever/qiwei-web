@@ -85,6 +85,7 @@
         </van-swipe-item>
       </van-swipe>
     </div>
+    <van-empty  description="暂无数据" v-else/>
   </div>
 </template>
 <script setup>

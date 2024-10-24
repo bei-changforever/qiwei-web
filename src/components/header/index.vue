@@ -300,6 +300,9 @@ const show2 = ref(false)
 
 const show3 = ref(false)
 const selfHandleSelect = (str, index) => {
+  selfIndex.value = -1
+  selfIndex2.value = -1
+  selfIndex3.value = -1
   if (str == '业务合作') {
     selfIndex.value = index
     selfIndex2.value = -1
@@ -344,6 +347,9 @@ const selfHandleSelect = (str, index) => {
   }
 }
 const handleMouseenter = (index) => {
+  selfIndex.value = -1
+  selfIndex2.value = -1
+  selfIndex3.value = -1
   if (index == 0) {
     show1.value = true
     show2.value = false
