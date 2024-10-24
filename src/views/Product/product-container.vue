@@ -26,12 +26,14 @@
           </div>
           <div class="bottom">
             <div class="bottom-text-box">
+              <!-- @click="handleSelect(item, index)" -->
               <!-- @mouseenter.stop="handleSelect(index)"
                   @mouseleave.stop="parentClick" -->
               <div class="bottom-text-item" v-for="(item, index) in productChild" :key="index">
                 <div
                   :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
-                  @click="handleSelect(item, index)"
+                  @click.stop="handleSelect(item, index)"
+                  @mouseenter.stop="mouseenterhandleSelect(item, index)"
                   @mouseleave.stop="parentClick"
                 >
                   <span>{{ item.name }}</span>
@@ -271,10 +273,14 @@ const chooseTopindex = (item, index) => {
 // 哪一类展示下拉框
 const bottomTextItemIndex = ref(-1)
 
-const handleSelect = (item, index) => {
+const mouseenterhandleSelect = (item, index) => {
   show.value = true
   bottomTextItemIndex.value = index
   selectItemID.value = item.id
+  // getProductListData()
+}
+
+const handleSelect = () => {
   getProductListData()
 }
 
