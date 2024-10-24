@@ -37,7 +37,7 @@
         class="mySwiper"
       >
         <swiper-slide v-for="(item, index) in list" :key="index">
-          <div class="product-info">
+          <div class="product-info" @click="gotoProductInfobyid(item)">
             <div class="product-info-container">
               <div class="background-detail-box">
                 <div class="background-detail">
@@ -101,6 +101,9 @@ import 'swiper/css/effect-fade'
 // import emitter from '@/utils/mitt'
 import { getHotProductCategory, geTHotProduct } from '@/api/index'
 import { useIntersectionObserver } from '@vueuse/core'
+
+import { useRouter } from 'vue-router'
+const router = useRouter()
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 const modules = [FreeMode, Pagination, EffectFade, Navigation]
@@ -109,21 +112,17 @@ const productType = ref([])
 const aside = ref(null)
 const topic = ref(null)
 const productswiper = ref(null)
-// const list = [
-//   {
-//     title: '修颜柔润持妆粉底液',
-//     src: getAssetsFile('images', '热门产品未选中1.png')
-//   },
-//   {
-//     title: '修颜柔润持妆粉底液',
-//     src: getAssetsFile('images', '产品3@2x.png')
-//   },
-//   {
-//     title: '修颜柔润持妆粉底液',
-//     src: getAssetsFile('images', '热门产品未选中3.png')
-//   }
-// ]
-
+const gotoProductInfobyid = (item) => {
+  // console.log(item)
+  const href = router.resolve({
+    //使用resolve
+    path: '/product/product-info',
+    query: {
+      id: item.id
+    }
+  })
+  window.open(href.href, '_blank')
+}
 const list = ref([])
 
 //阿拉伯数字转中文数字

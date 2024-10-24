@@ -204,7 +204,7 @@ const prev = () => {
 }
 
 const gotoProductInfobyid = (item) => {
-  console.log(item)
+  // console.log(item)
 
   const href = router.resolve({
     //使用resolve

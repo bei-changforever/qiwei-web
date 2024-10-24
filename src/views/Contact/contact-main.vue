@@ -170,7 +170,7 @@ const form = reactive<RuleForm>({
   Companyname: '',
   delivery: '',
   Brandname: '',
-  phonenumber: 0
+  phonenumber: ''
 })
 
 const selectOption = [
@@ -283,12 +283,43 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
   })
 }
 
+// 先给要复制的文本或者按钮加上点击事件后，并将要复制的值传过来
+const copyValue = async (val) => {
+  if (navigator.clipboard && window.isSecureContext) {
+    // navigator clipboard 向剪贴板写文本
+    // this.$message.success('复制成功')
+    ElMessage({
+      message: '地址复制成功',
+      type: 'success'
+    })
+    return navigator.clipboard.writeText(val)
+  } else {
+    // 创建text area
+    const textArea = document.createElement('textarea')
+    textArea.value = val
+    // 使text area不在viewport，同时设置不可见
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    // this.$message.success('复制成功')
+    ElMessage({
+      message: '地址复制成功',
+      type: 'success'
+    })
+    return new Promise((res, rej) => {
+      // 执行复制命令并移除文本框
+      document.execCommand('copy') ? res() : rej()
+      textArea.remove()
+    })
+  }
+}
 const copyAddress = () => {
-  navigator.clipboard.writeText(config.value.address)
-  ElMessage({
-    message: '地址复制成功',
-    type: 'success'
-  })
+  // navigator.clipboard.writeText(config.value.address)
+  // ElMessage({
+  //   message: '地址复制成功',
+  //   type: 'success'
+  // })
+  copyValue(config.value.address)
 }
 const active = ref(false)
 

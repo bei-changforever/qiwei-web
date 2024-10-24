@@ -22,9 +22,9 @@
         <div class="topic">妆点生命新色彩</div>
         <div class="detail">一站式OEM/ODM/OBM助力客户产品孵化</div>
         <div class="business">
-          <el-image :src="getAssetsFile('images', 'HALAL.png')" :fit="'fill'" />
-          <el-image :src="getAssetsFile('images', 'ISO.png')" :fit="'fill'" />
-          <el-image :src="getAssetsFile('images', 'GMPC.png')" :fit="'fill'" />
+          <el-image :src="getAssetsFile('images', 'HALAL.png')" :fit="'fill'" @click="showImagePreview([getAssetsFile('images', 'HALAL.png')])" />
+          <el-image :src="getAssetsFile('images', 'ISO.png')" :fit="'fill'" @click="showImagePreview([getAssetsFile('images', 'ISO.png')])"/>
+          <el-image :src="getAssetsFile('images', 'GMPC.png')" :fit="'fill'" @click="showImagePreview([getAssetsFile('images', 'GMPC.png')])"/>
         </div>
       </div>
       <div class="center">
@@ -47,11 +47,19 @@
         <div class="right-container">
           <div class="left">
             <div class="image-box">
-              <el-image :src="getAssetsFile('images', '企业微信.png')" :fit="'fill'" />
+              <el-image
+                :src="getAssetsFile('images', '企业微信.png')"
+                :fit="'fill'"
+                @click="showImagePreview([getAssetsFile('images', '企业微信.png')])"
+              />
               <div class="topic">企业微信</div>
             </div>
             <div class="image-box">
-              <el-image :src="getAssetsFile('images', '微信公众号.png')" :fit="'fill'" />
+              <el-image
+                :src="getAssetsFile('images', '微信公众号.png')"
+                :fit="'fill'"
+                @click="showImagePreview([getAssetsFile('images', '微信公众号.png')])"
+              />
               <div class="topic">微信公众号</div>
             </div>
           </div>
@@ -68,6 +76,7 @@
 import { ref, defineEmits } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { useRouter, useRoute } from 'vue-router'
+import { showImagePreview } from 'vant'
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
 const route = useRoute()
 const router = useRouter()
@@ -205,6 +214,7 @@ const handelClick = () => {
         :deep(.el-image) {
           width: 80px;
           height: 80px;
+          cursor: pointer;
         }
       }
     }

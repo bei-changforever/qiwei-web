@@ -246,7 +246,6 @@
       </div>
     </div>
   </div>
-
 </template>
 <script setup>
 import { ref, onMounted, watch } from 'vue'
@@ -362,12 +361,41 @@ const handleMouseenter = (index) => {
     show3.value = true
   }
 }
-
+// 先给要复制的文本或者按钮加上点击事件后，并将要复制的值传过来
+const copyValue = async (val) => {
+  if (navigator.clipboard && window.isSecureContext) {
+    // navigator clipboard 向剪贴板写文本
+    // this.$message.success('复制成功')
+    ElMessage({
+      message: '页面链接复制成功',
+      type: 'success'
+    })
+    return navigator.clipboard.writeText(val)
+  } else {
+    // 创建text area
+    const textArea = document.createElement('textarea')
+    textArea.value = val
+    // 使text area不在viewport，同时设置不可见
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    // this.$message.success('复制成功')
+    ElMessage({
+      message: '页面链接复制成功',
+      type: 'success'
+    })
+    return new Promise((res, rej) => {
+      // 执行复制命令并移除文本框
+      document.execCommand('copy') ? res() : rej()
+      textArea.remove()
+    })
+  }
+}
 const showSearch = (index) => {
   // console.log(index)
   // if (index == 0) {
   //   emitter.emit('SHOWSEARCH', true)
-  
+
   // } else if (index == 1) {
   //   let url = window.location.href // 当前页面链接
   //   navigator.clipboard.writeText(url)
@@ -379,13 +407,14 @@ const showSearch = (index) => {
   //   let url = window.location.href
   //   AddFavorite('奇伟', url)
   // }
-    if (index == 0) {
-    let url = window.location.href // 当前页面链接
-    navigator.clipboard.writeText(url)
-    ElMessage({
-      message: '页面链接复制成功',
-      type: 'success'
-    })
+  if (index == 0) {
+    // let url = window.location.href // 当前页面链接
+    // navigator.clipboard.writeText(url)
+    // ElMessage({
+    //   message: '页面链接复制成功',
+    //   type: 'success'
+    // })
+    copyValue(window.location.href)
   } else if (index == 1) {
     let url = window.location.href
     AddFavorite('奇伟', url)
@@ -405,14 +434,9 @@ const changeMobilePhone = () => {
   emitter.emit('TOGGLEMOBILEPHONE', true)
 }
 
-const IconInfo = [
-
-  getAssetsFile('icon', 'share.png'),
-  getAssetsFile('icon', 'collect.png')
-]
+const IconInfo = [getAssetsFile('icon', 'share.png'), getAssetsFile('icon', 'collect.png')]
 
 const blackIconInfo = [
-
   getAssetsFile('icon', 'share_black.png'),
   getAssetsFile('icon', 'collect_black.png')
 ]
@@ -470,7 +494,7 @@ function AddFavorite(sURL, sTitle) {
   return false
 }
 
-console.log('mounted===>', route.name)
+// console.log('mounted===>', route.name)
 </script>
 <style lang="scss" scoped>
 .header {

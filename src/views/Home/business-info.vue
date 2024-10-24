@@ -318,10 +318,12 @@ onMounted(() => {
           position: absolute;
           top: 50%;
           left: 50%;
+         
           transform: translate(-50%, -50%);
           :deep(.el-image) {
             width: 60px;
             height: 60px;
+            cursor: pointer;
           }
         }
       }

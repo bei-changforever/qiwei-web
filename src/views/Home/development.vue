@@ -229,6 +229,7 @@ onMounted(() => {
           :deep(.el-image) {
             width: 60px;
             height: 60px;
+            cursor: pointer;
           }
         }
       }
