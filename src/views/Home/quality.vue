@@ -26,11 +26,10 @@
       >
         <div class="square-box">
           <div class="square-box-left">
-            <!-- <div class="square-box-left-item" v-for="item in 9" :key="item">
-              <div :class="['item-info', `itemIndex${item}`]">
+            <!-- <div class="square-box-left-item" v-for="(item, index) in groupedData[0]" :key="index">
+              <div :class="['item-info', `itemIndex${index + 1}`]" :style="{backgroundColor: item.description1 ? item.description1 : '#fff'}">
                 <div class="image-box">
-               
-          
+                  <el-image :src="item.thumb" :fit="'fill'" />
                 </div>
               </div>
             </div> -->
@@ -105,10 +104,10 @@
           </div>
 
           <div class="square-box-top">
-            <!-- <div class="square-box-top-item" v-for="item in 9" :key="item">
-              <div :class="['item-info', `itemIndex${item}`]">
+            <!-- <div class="square-box-top-item" v-for="(item, index) in groupedData[1]" :key="index">
+              <div :class="['item-info', `itemIndex${index + 1}`]" :style="{backgroundColor: item.description1 ? item.description1 : '#fff'}">
                 <div class="image-box">
-           
+                  <el-image :src="item.thumb" :fit="'fill'" />
                 </div>
               </div>
             </div> -->
@@ -181,12 +180,10 @@
 
           <!-- 标记 -->
           <div class="square-box-bottom">
-            <!-- <div class="square-box-bottom-item" v-for="(item, index) in 9" :key="index">
-              <div :class="['item-info', `itemIndex${item}`]">
+            <!-- <div class="square-box-bottom-item" v-for="(item, index) in groupedData[2]" :key="index">
+              <div :class="['item-info', `itemIndex${index + 1}`]" :style="{backgroundColor: item.description1 ? item.description1 : '#fff'}">
                 <div class="image-box">
-                {{ item }}
-                
-                  
+                  <el-image :src="item.thumb" :fit="'fill'" />
                 </div>
               </div>
             </div> -->
@@ -256,11 +253,10 @@
           </div>
 
           <div class="square-box-right">
-            <!-- <div class="square-box-right-item" v-for="item in 9" :key="item">
-              <div :class="['item-info', `itemIndex${item}`]">
+            <!-- <div class="square-box-right-item" v-for="(item, index) in groupedData[3]" :key="index">
+              <div :class="['item-info', `itemIndex${index + 1}`]" :style="{backgroundColor: item.description1 ? item.description1 : '#fff'}">
                 <div class="image-box">
-              
-           
+                  <el-image :src="item.thumb" :fit="'fill'" />
                 </div>
               </div>
             </div> -->
@@ -355,10 +351,10 @@
       </div>
       <div class="moom-box" v-else>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="skyblue" lazy-render>
-          <van-swipe-item v-for="(item, index) in list">
+          <van-swipe-item v-for="(item, index) in groupeDataMobileData" :key="index">
             <div class="image-box">
-              <div class="image" v-for="(number, i) in item">
-                <img :src="getAssetsFile('images', `合作品牌${number}.png`)" alt="" />
+              <div class="image" v-for="(p, i) in item" :key="i">
+                <img :src="p.thumb" alt="" />
               </div>
             </div>
           </van-swipe-item>
@@ -379,15 +375,42 @@ const activeIndex = ref(0)
 const changePageShow = ref(false)
 const showAnimation = ref(false)
 const qualityContainer = ref(null)
-const list = [
-  [1, 2, 3, 4, 5, 6],
-  [7, 8, 9, 10, 11, 12],
-  [13, 14, 15, 16, 17, 18],
-  [19, 20]
-]
+
+function groupByN(arr: any[], n: number): any[][] {
+  return arr.reduce((acc, _, i, src) => {
+    if (i % n === 0) acc.push(src.slice(i, i + n))
+    return acc
+  }, [])
+}
+
+function groupAndFillData(arr: any[], groupCount: number, groupSize: number): any[][] {
+  // 初始分组
+  const initialGroups = Array.from({ length: groupCount }, (_, i) =>
+    arr.slice(i * groupSize, (i + 1) * groupSize)
+  )
+
+  // 补充数据
+  const allData = [...arr]
+  for (let i = 0; i < initialGroups.length; i++) {
+    while (initialGroups[i].length < groupSize && allData.length > 0) {
+      const randomIndex = Math.floor(Math.random() * allData.length)
+      initialGroups[i].push(allData.splice(randomIndex, 1)[0])
+    }
+  }
+
+  return initialGroups
+}
+const list = ref([])
+const groupedData = ref([])
+const groupeDataMobileData = ref([])
 const getPic = async () => {
   let res = await getBanner(3)
   console.log(res)
+  if (res.status == 1) {
+    // 9条数据为1组
+    groupedData.value = groupAndFillData(res.data, 4, 9)
+    groupeDataMobileData.value = groupByN(res.data, 6)
+  }
 }
 onMounted(() => {
   getPic()
