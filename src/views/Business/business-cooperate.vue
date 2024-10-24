@@ -108,7 +108,7 @@ const prev = () => {
 }
 
 const next = () => {
-  if (activeIndex.value == list.length - 1) {
+  if (activeIndex.value == list2.length - 1) {
     return
   } else {
     activeIndex.value++
