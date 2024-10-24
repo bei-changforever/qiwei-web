@@ -125,7 +125,13 @@
           <div class="border">产品详情</div>
         </div>
         <div class="job">
-          <el-image v-for="item in info.thumb3" :src="item.url" :fit="'fill'" />
+          <van-image v-for="item in info.thumb3" :src="item.url" lazy-load fit="fill">
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+          </van-image>
+
+          <!-- <el-image v-for="item in info.thumb3" :src="item.url" lazy  :fit="'fill'" /> -->
         </div>
       </div>
     </div>
@@ -219,7 +225,7 @@ const next = () => {
   bigImage.value = info.value.thumb2[activeIndex.value].url
 }
 
-const info = ref({})
+const info = ref({}) as any
 
 onMounted(() => {
   let id = route.query.id
