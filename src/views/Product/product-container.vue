@@ -303,6 +303,7 @@ const show = ref(false)
 // 关闭下拉框
 const parentClick = () => {
   show.value = false
+  bottomTextItemIndex.value = -1
 }
 
 const gotoProductInfo = (item) => {
