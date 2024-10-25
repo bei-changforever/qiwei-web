@@ -461,10 +461,13 @@ const handleSelect = (key) => {
     case 1:
       // console.log(cateGory.value)
       if (cateGory.value && cateGory.value[0].children && cateGory.value[0].children.length > 0) {
-        console.log('fesfesfsefsefse');
+        // console.log('fesfesfsefsefse',cateGory.value[0].children[0].id);
         activeIndex.value = 1
         router.push({
-          path: `/product/product-detail?id=${cateGory.value[0].children.id}`
+          path: `/product/product-detail`,
+          query: {
+            id: cateGory.value[0].children[0].id
+          }
         })
         emitter.emit('DOMINDEX', activeIndex.value)
       }
@@ -475,7 +478,10 @@ const handleSelect = (key) => {
       ) {
         activeIndex.value = 1
         router.push({
-          path: `/product/product-detail?id=${cateGory.value[0].id}`
+          path: `/product/product-detail`,
+          query: {
+            id: cateGory.value[0].children[0].id
+          }
         })
         emitter.emit('DOMINDEX', activeIndex.value)
       }
