@@ -62,3 +62,7 @@ body {
 .el-pagination.is-background .el-pager li.is-active {
   background-color: #f3a7a4 !important;
 }
+/* This only changes this particular animation duration */
+.animate__animated.animate__bounce {
+  --animate-duration: 10s;
+}
