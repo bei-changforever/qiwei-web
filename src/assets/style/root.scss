@@ -1,4 +1,8 @@
-
+/* All animations will take twice as long to finish */
+:root {
+  --animate-duration: 3s;
+  --animate-delay: 3s;
+}
 @media (min-width: 1520px) and (max-width: 1920px) {
   :root {
     --base-width: 1440px;
@@ -17,7 +21,7 @@
     --desc-fontSize: 20px;
     --desc-lineHeight: 34px;
     --fu-name-fontSize: 32px;
-    --animate-duration: 2000ms;
+    --animate-duration: 3s;
     --animate-delay: 3s;
   }
 }
@@ -34,7 +38,7 @@
     --fu-name-fontSize: 32px;
     --topic-fontSize: 42px;
     --aside-fontSize: 22px;
-    --animate-duration: 2000ms;
+    --animate-duration: 3s;
     --animate-delay: 3s;
   }
 }
@@ -51,7 +55,7 @@
     --desc-fontSize: 16px;
     --desc-lineHeight: 25px;
     --fu-name-fontSize: 18px;
-    --animate-duration: 2000ms;
+    --animate-duration: 3s;
     --animate-delay: 3s;
   }
 }
@@ -67,7 +71,7 @@
     --desc-fontSize: 16px;
     --desc-lineHeight: 25px;
     --fu-name-fontSize: 18px;
-    --animate-duration: 2000ms;
+    --animate-duration: 3s;
     --animate-delay: 3s;
   }
 }
@@ -77,7 +81,7 @@
     --base-width: 100%;
     --header-height: 65px;
     --footer-height: 460px;
-    --animate-duration: 2000ms;
+    --animate-duration: 3s;
     --animate-delay: 3s;
     --vp-c-bg: black;
   }
