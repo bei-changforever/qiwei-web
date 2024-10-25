@@ -4,22 +4,47 @@
       <div class="development2-content" ref="development2Content">
         <div class="content-left">
           <div class="T-left">
-            <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
+            <div
+              :class="[
+                'topic',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+              ]"
+            >
               <div class="block"></div>
               <div class="text">PROFILE</div>
             </div>
-            <div :class="['name', showAnimation && 'animate__animated animate__jackInTheBox']">
+            <div
+              :class="[
+                'name',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+              ]"
+            >
               荣誉资质
             </div>
-            <div :class="['fu-name', showAnimation && 'animate__animated animate__slideInUp']">
+            <div
+              :class="[
+                'fu-name',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
+              ]"
+            >
               高新技术企业及多项荣誉认证
             </div>
-            <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
+            <div
+              :class="[
+                'desc',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
+              ]"
+            >
               荣获2022年广东省高新技术企业称号；荣获企业贯标、欧盟22716及GMPC双认证、
               ISO9001质量认证；4项广东省名优高新技术产品荣誉证书。
             </div>
           </div>
-          <div :class="['T-bottom', showAnimation && 'animate__animated animate__fadeIn']">
+          <div
+            :class="[
+              'T-bottom',
+              showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__fadeIn' : ''
+            ]"
+          >
             <div class="T-bottom-container">
               <div class="T-bottom-top">
                 <div class="left">
@@ -48,7 +73,7 @@
                 <div
                   :class="[
                     'T-bottom-bottom-item',
-                    showAnimation && 'animate__animated animate__zoomIn'
+                    showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
                   ]"
                 >
                   <el-image
@@ -64,7 +89,10 @@
           </div>
         </div>
         <div
-          :class="['content-right', showAnimation && 'animate__animated animate__zoomIn']"
+          :class="[
+            'content-right',
+            showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
+          ]"
           v-if="PAGEWIDTH > 960"
         >
           <div class="content-right-backfround">
@@ -151,20 +179,12 @@ const onSwiper = (swiper) => {
 }
 const bannerSwiperPrev = () => {
   swiperDom.value.slidePrev()
-  if (activeIndex.value == 0) {
-    return
-  } else {
-    activeIndex.value--
-  }
+  activeIndex.value - 1
 }
 
 const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
-  if (activeIndex.value == list.value.length - 1) {
-    return
-  } else {
-    activeIndex.value++
-  }
+  activeIndex.value + 1
 }
 const selectIndex = (index) => {
   if (activeIndex.value == index) {

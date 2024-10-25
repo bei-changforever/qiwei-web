@@ -4,11 +4,21 @@
       <div class="business-container-top">
         <div class="business-container-left">
           <div class="business-container-left-item" ref="businessLeftDom">
-            <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
+            <div
+              :class="[
+                'topic',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+              ]"
+            >
               <div class="block"></div>
               <div class="text">PROFILE</div>
             </div>
-            <div :class="['name', showAnimation && 'animate__animated animate__jackInTheBox']">
+            <div
+              :class="[
+                'name',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+              ]"
+            >
               <span>汕头市奇伟实业有限公司</span>
               <div class="small-konw-more-about" @click="clickRouter">
                 <div class="text">了解更多</div>
@@ -17,7 +27,12 @@
                 </el-icon>
               </div>
             </div>
-            <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
+            <div
+              :class="[
+                'desc',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
+              ]"
+            >
               公司一贯重视科技创新，重视培养自主的研发力量，目前拥有40
               多项核心专利（其中18项是发明专利）和8份著作权，涵盖产品配
               方、设备、包装等多层次、全方位、宽领域的知识产权矩阵，部分
@@ -26,7 +41,13 @@
               中心”、“市级工程技术研究开发中心”、“省级工程技术研究开
               发中心”、“高新技术企业”、“专精特新中小企业”和“创新型 中小企业”等资质。
             </div>
-            <div :class="['konw-more-about',showAnimation && 'animate__animated animate__zoomInUp']" @click="clickRouter">
+            <div
+              :class="[
+                'konw-more-about',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomInUp' : ''
+              ]"
+              @click="clickRouter"
+            >
               <div class="text">了解更多</div>
               <el-icon class="about-icon">
                 <CirclePlusFilled />
@@ -37,7 +58,7 @@
         <div
           :class="[
             'business-container-right',
-            showAnimation && 'animate__animated animate__zoomIn'
+            showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
           ]"
         >
           <el-image :src="getAssetsFile('images', '图片视频栏.png')" :fit="'fill'" />
@@ -46,7 +67,12 @@
           </div>
         </div>
       </div>
-      <div :class="['business-container-bottom', showAnimation && 'animate__animated animate__flipInX']">
+      <div
+        :class="[
+          'business-container-bottom',
+          showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__flipInX' : ''
+        ]"
+      >
         <div class="business-container-bottom-container" ref="countDom">
           <div class="business-container-bottom-top">
             <div class="bussiness-container-bottom-top-left">
@@ -117,12 +143,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { CountTo } from 'vue3-count-to'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/mitt'
 import { useIntersectionObserver } from '@vueuse/core'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const router = useRouter()
 const countDom = ref(null)
 const cunt0 = ref(null)
@@ -155,6 +183,14 @@ onMounted(() => {
     { threshold: 0.5 }
   )
 })
+
+const PAGEWIDTH = ref(window.innerWidth)
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .business-info {

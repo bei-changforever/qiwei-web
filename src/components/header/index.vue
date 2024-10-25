@@ -248,11 +248,13 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, toRefs } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { useRouter, useRoute } from 'vue-router'
 import emitter from '@/utils/mitt'
 import { ElMessage } from 'element-plus'
+import { useProductData } from '@/stores/productData'
+const { cateGory } = toRefs(useProductData())
 const route = useRoute()
 const router = useRouter()
 const showDialog = ref(false)
@@ -457,9 +459,27 @@ const handleSelect = (key) => {
       emitter.emit('DOMINDEX', activeIndex.value)
       break
     case 1:
-      activeIndex.value = 1
-      router.push('/product/product-detail')
-      emitter.emit('DOMINDEX', activeIndex.value)
+      // console.log(cateGory.value)
+      if (cateGory.value && cateGory.value[0].children && cateGory.value[0].children.length > 0) {
+        console.log('fesfesfsefsefse');
+        activeIndex.value = 1
+        router.push({
+          path: `/product/product-detail?id=${cateGory.value[0].children.id}`
+        })
+        emitter.emit('DOMINDEX', activeIndex.value)
+      }
+
+      if (
+        (cateGory.value && !cateGory.value[0].children) ||
+        cateGory.value[0].children.length == 0
+      ) {
+        activeIndex.value = 1
+        router.push({
+          path: `/product/product-detail?id=${cateGory.value[0].id}`
+        })
+        emitter.emit('DOMINDEX', activeIndex.value)
+      }
+
       break
     case 2:
       activeIndex.value = 2

@@ -158,12 +158,13 @@
 <script setup lang="ts">
 import { ref, toRefs, watch, onMounted, computed, nextTick } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-import { useRouter } from 'vue-router'
+import { useRouter,useRoute } from 'vue-router'
 import { getProductCategory, getProductList } from '@/api/index'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
 
 const router = useRouter()
+const route = useRoute()
 const input = ref()
 // const currentPage = ref(1)
 const option1 = [
@@ -328,6 +329,8 @@ const getProductCategoryData = async () => {
   mobileList.value = []
   mobileTypeList.value = []
   let res = await getProductCategory()
+  console.log(res);
+  
   if (res.status == 1) {
     list.value = res.data
     // 移动端数据

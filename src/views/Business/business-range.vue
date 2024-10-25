@@ -42,6 +42,7 @@
           v-for="(item, index) in list3"
           :key="index"
           v-if="list3.length > 0"
+          @click="gotoProductInfo(item,index)"
         >
           <!-- <el-image :src="item.thumb" :fit="'fill'" /> -->
           <van-image :src="item.thumb" lazy-load fit="fill">
@@ -90,6 +91,10 @@ const handleSelect = (index) => {
     activeIndex.value = index
     emitter.emit('tagViewsShowModel', activeIndex.value)
   }
+}
+
+const gotoProductInfo = (item,index) => {
+  console.log(item);
 }
 
 const getList = async () => {

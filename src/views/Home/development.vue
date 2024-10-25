@@ -5,11 +5,21 @@
         <div class="business-container-left" ref="businessLeftDom">
           <div class="business-container-left-item">
             <div class="top-top">
-              <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
+              <div
+                :class="[
+                  'topic',
+                  showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+                ]"
+              >
                 <div class="block"></div>
                 <div class="text">PROFILE</div>
               </div>
-              <div :class="['name', showAnimation && 'animate__animated animate__jackInTheBox']">
+              <div
+                :class="[
+                  'name',
+                  showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+                ]"
+              >
                 <span>研发实力</span>
                 <div class="small-konw-more-about" @click="clickRouter">
                   <div class="text">了解更多</div>
@@ -18,7 +28,12 @@
                   </el-icon>
                 </div>
               </div>
-              <div :class="['fu-name', showAnimation && 'animate__animated animate__slideInUp']">
+              <div
+                :class="[
+                  'fu-name',
+                  showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
+                ]"
+              >
                 跨学科专家团队
               </div>
               <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
@@ -30,7 +45,10 @@
             </div>
 
             <div
-              :class="['konw-more-about', showAnimation && 'animate__animated animate__zoomInUp']"
+              :class="[
+                'konw-more-about',
+                showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomInUp' : ''
+              ]"
               @click="clickRouter"
             >
               <div class="text">了解更多</div>
@@ -43,7 +61,7 @@
         <div
           :class="[
             'business-container-right',
-            showAnimation && 'animate__animated animate__zoomIn'
+            showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
           ]"
         >
           <el-image :src="getAssetsFile('images', '研发实力.png')" :fit="'fill'" />
@@ -56,11 +74,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/mitt'
 import { useIntersectionObserver } from '@vueuse/core'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const router = useRouter()
 const changePageShow = ref(false)
 const businessLeftDom = ref(null)
@@ -81,6 +101,13 @@ onMounted(() => {
     { threshold: 0.5 }
   )
 })
+const PAGEWIDTH = ref(window.innerWidth)
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .business-info {

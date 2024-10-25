@@ -1,19 +1,33 @@
 <template>
   <div class="home-product">
-    <div
-      class="home-product-container"
-      ref="homeProductDom"
-    >
-      <div :class="['aside', showAnimation && 'animate__animated animate__jackInTheBox']" ref="aside">
+    <div class="home-product-container" ref="homeProductDom">
+      <div
+        :class="[
+          'aside',
+          showAnimation && screenWidth > 960 ? 'animate__animated animate__jackInTheBox' : ''
+        ]"
+        ref="aside"
+      >
         <div class="block"></div>
         <div class="text">PRODUCT</div>
       </div>
       <div class="topic" ref="topic">
-        <div :class="['left', showAnimation && 'animate__animated animate__jackInTheBox']">热门产品</div>
+        <div
+          :class="[
+            'left',
+            showAnimation && screenWidth > 960 ? 'animate__animated animate__jackInTheBox' : ''
+          ]"
+        >
+          热门产品
+        </div>
         <div class="right">
           <div
             v-for="(item, index) in productType"
-            :class="['right-item', productTypeIndex == index ? 'active' : '', showAnimation && 'animate__animated animate__slideInRight']"
+            :class="[
+              'right-item',
+              productTypeIndex == index ? 'active' : '',
+              showAnimation && screenWidth > 960 ? 'animate__animated animate__slideInRight' : ''
+            ]"
             @click="handleSelect(index)"
           >
             <div class="text">{{ item.name }}</div>
@@ -23,7 +37,10 @@
       </div>
     </div>
     <div
-      :class="['home-product-swiper', showAnimation && 'animate__animated animate__zoomIn']"
+      :class="[
+        'home-product-swiper',
+        showAnimation && screenWidth > 960 ? 'animate__animated animate__zoomIn' : ''
+      ]"
       v-if="screenWidth > 960 && list.length > 0"
       ref="productswiper"
     >
@@ -85,7 +102,7 @@
         </van-swipe-item>
       </van-swipe>
     </div>
-    <van-empty  description="暂无数据" v-else/>
+    <van-empty description="暂无数据" v-else />
   </div>
 </template>
 <script setup>

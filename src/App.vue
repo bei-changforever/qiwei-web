@@ -4,11 +4,12 @@ import { RouterView } from 'vue-router'
 import { useRouter, useRoute } from 'vue-router'
 import emitter from '@/utils/mitt'
 import { showDialog } from 'vant'
-import { Search } from '@element-plus/icons-vue'
 import { useCounterStore } from '@/stores/screenWidth'
 import { useConfig } from '@/stores/config'
-import { getBaseInfo } from '@/api/index'
+import { getBaseInfo, getProductCategory } from '@/api/index'
+import { useProductData } from '@/stores/productData'
 const { setScreenWidth } = useCounterStore()
+const { setcateGory } = useProductData()
 const { setconfig } = useConfig()
 const route = useRoute()
 const router = useRouter()
@@ -86,9 +87,20 @@ const setScreenCompatibility = () => {
   document.body.style.MozTransform = `scale(${scale})`
   document.body.style.MozTransformOrigin = '0 0'
 }
+
+const getPorductcate  = () => {
+  getProductCategory().then((res)=> {
+    // console.log(res);
+    if(res.status == 1) {
+      setcateGory(res.data)
+    }
+  })
+}
+
 onMounted(() => {
   nextTick(() => {
     initConfig()
+    getPorductcate()
     if (route.name == 'product-detail' || route.name == 'product-info') {
       isProduct.value = true
     }

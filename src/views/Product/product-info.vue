@@ -4,7 +4,7 @@
       <div class="product-content">
         <div class="product-left" v-if="PAGEWIDTH > 960">
           <div class="big-image">
-            <van-image :src="bigImage" lazy-load>
+            <van-image :src="bigImage" lazy-load @click="showImagePreview([bigImage])">
               <template v-slot:loading>
                 <van-loading type="spinner" size="20" />
               </template>
@@ -150,6 +150,7 @@ import { getProductDetail } from '@/api/index'
 import { useRouter, useRoute } from 'vue-router'
 import { useCounterStore } from '@/stores/screenWidth'
 // import VueSocialSharing from 'vue-social-sharing'
+import { showImagePreview } from 'vant'
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
 const router = useRouter()
@@ -238,6 +239,7 @@ onMounted(() => {
   })
 })
 
+
 const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
 watch(
@@ -276,12 +278,13 @@ watch(
 
           overflow: hidden;
           border: 1px solid #ebebeb;
-
+          cursor: pointer;
           :deep(.van-image) {
             width: 100%;
             height: 100%;
             border-radius: 20px;
             object-fit: fill;
+           
           }
           img {
             width: 100%;
