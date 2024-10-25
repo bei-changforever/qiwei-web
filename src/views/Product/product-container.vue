@@ -158,11 +158,12 @@
 <script setup lang="ts">
 import { ref, toRefs, watch, onMounted, computed, nextTick } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-import { useRouter,useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { getProductCategory, getProductList } from '@/api/index'
+import { useProductData } from '@/stores/productData'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
-
+const { cateGory } = toRefs(useProductData())
 const router = useRouter()
 const route = useRoute()
 const input = ref()
@@ -329,8 +330,8 @@ const getProductCategoryData = async () => {
   mobileList.value = []
   mobileTypeList.value = []
   let res = await getProductCategory()
-  console.log(res);
-  
+  console.log(res)
+
   if (res.status == 1) {
     list.value = res.data
     // 移动端数据
@@ -396,10 +397,16 @@ const getProductListData = async () => {
   }
 }
 
+const renderData = () => {
+  
+}
+
 onMounted(() => {
   nextTick(() => {
     getProductCategoryData()
-  })
+   })
+  console.log(cateGory.value);
+  
 })
 // 顶部tab栏的数据
 const productCategory = computed(() => {
@@ -561,9 +568,9 @@ watch(
               display: flex;
               align-items: center;
               justify-content: center;
-              width: 5vw;
+              width: 4.2vw;
               height: 100%;
-              margin-left: 0.5vh;
+              // margin-left: 0.5vh;
               // border: 1px solid red;
 
               white-space: nowrap;
@@ -665,6 +672,8 @@ watch(
 
           display: flex;
           flex-direction: column;
+
+      
 
           .ww-box {
             width: 100%;
