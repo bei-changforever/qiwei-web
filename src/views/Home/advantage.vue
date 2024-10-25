@@ -1,19 +1,20 @@
 <template>
   <div class="advantage">
     <div class="advantage-box">
-      <div
-        :class="['advantage-container', showAnimation && 'animate__animated animate__backInLeft']"
-        ref="advantagedom"
-      >
+      <div class="advantage-container" ref="advantagedom">
         <div class="T-left">
-          <div class="topic">
+          <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
             <div class="block"></div>
             <div class="text">ADVANTAGE</div>
           </div>
-          <div class="name">核心优势</div>
-          <div class="desc">五大核心赋能，助力品牌共赢未来无限可能</div>
+          <div :class="['name', showAnimation && 'animate__animated animate__jackInTheBox']">
+            核心优势
+          </div>
+          <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
+            五大核心赋能，助力品牌共赢未来无限可能
+          </div>
         </div>
-        <div class="T-right">
+        <div :class="['T-right', showAnimation && 'animate__animated animate__slideInRight']">
           <div class="konw-more-about" @click="clickRouter">
             <div class="text">了解更多</div>
             <el-icon class="about-icon">
@@ -23,10 +24,10 @@
         </div>
       </div>
       <div
-        :class="['accordion', showAnimation && 'animate__animated animate__fadeIn']"
+        :class="['accordion', showAnimation && 'animate__animated animate__zoomIn']"
         v-if="PAGEWIDTH > 960"
       >
-        <Accordion :list="list"/>
+        <Accordion :list="list" />
       </div>
       <div class="accordion" v-else>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">

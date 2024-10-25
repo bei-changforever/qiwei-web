@@ -32,7 +32,8 @@
           </div>
         </div>
         <div class="business-container-right">
-          <el-image :src="getAssetsFile('images', '公司照片.png')" :fit="'fill'" />
+          <!-- <el-image :src="getAssetsFile('images', '公司照片.png')" :fit="'fill'" /> -->
+          <el-image :src="getAssetsFile('images', '图片视频栏.png')" :fit="'fill'" />
         </div>
       </div>
     </div>
@@ -163,8 +164,8 @@ const handleSelect = (index) => {
       }
 
       .business-container-right {
-        width: 640px;
-        height: 560px;
+        width: 800px;
+        height: 450px;
         position: relative;
 
         :deep(.el-image) {

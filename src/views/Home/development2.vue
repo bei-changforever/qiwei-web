@@ -3,14 +3,18 @@
     <div class="development2-container">
       <div class="development2-content" ref="development2Content">
         <div class="content-left">
-          <div :class="['T-left', showAnimation && 'animate__animated animate__backInLeft']">
-            <div class="topic">
+          <div class="T-left">
+            <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
               <div class="block"></div>
               <div class="text">PROFILE</div>
             </div>
-            <div class="name">荣誉资质</div>
-            <div class="fu-name">高新技术企业及多项荣誉认证</div>
-            <div class="desc">
+            <div :class="['name', showAnimation && 'animate__animated animate__jackInTheBox']">
+              荣誉资质
+            </div>
+            <div :class="['fu-name', showAnimation && 'animate__animated animate__slideInUp']">
+              高新技术企业及多项荣誉认证
+            </div>
+            <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
               荣获2022年广东省高新技术企业称号；荣获企业贯标、欧盟22716及GMPC双认证、
               ISO9001质量认证；4项广东省名优高新技术产品荣誉证书。
             </div>
@@ -41,7 +45,12 @@
                 </div>
               </div>
               <div class="T-bottom-bottom">
-                <div class="T-bottom-bottom-item">
+                <div
+                  :class="[
+                    'T-bottom-bottom-item',
+                    showAnimation && 'animate__animated animate__zoomIn'
+                  ]"
+                >
                   <el-image
                     v-for="(item, index) in list"
                     :key="index"
@@ -54,7 +63,10 @@
             </div>
           </div>
         </div>
-        <div class="content-right" v-if="PAGEWIDTH > 960">
+        <div
+          :class="['content-right', showAnimation && 'animate__animated animate__zoomIn']"
+          v-if="PAGEWIDTH > 960"
+        >
           <div class="content-right-backfround">
             <div class="content-right-bg">
               <el-image :src="getAssetsFile('images', '选中证书底.png')" :fit="'fill'" />
@@ -81,13 +93,15 @@
                   </swiper-slide>
                 </swiper>
               </div>
-              <div class="content-right-text" v-if="list.length > 0 && list[activeIndex].name">{{ list[activeIndex].name }}</div>
+              <div class="content-right-text" v-if="list.length > 0 && list[activeIndex].name">
+                {{ list[activeIndex].name }}
+              </div>
             </div>
           </div>
         </div>
         <div class="mom-sw" v-else>
           <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item v-for="(item,index) in list" :key="index">
+            <van-swipe-item v-for="(item, index) in list" :key="index">
               <el-image :src="item.thumb" :fit="'fill'" />
             </van-swipe-item>
           </van-swipe>

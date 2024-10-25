@@ -1,17 +1,15 @@
 <template>
   <div class="quality">
     <div class="quality-container" ref="qualityContainer">
-      <div
-        :class="['advantage-container', showAnimation && 'animate__animated animate__backInLeft']"
-      >
-        <div class="T-left">
+      <div class="advantage-container">
+        <div :class="['T-left', showAnimation && 'animate__animated animate__slideInLeft']">
           <div class="name">从源头把控精选全球原料</div>
           <div class="desc">
             跨越国界，长期与多家原料供应商合作。精选优质原料进行研发生产，
             从源头严格控制产品品质;确保每一份原料都经过严格筛选与科学验证。
           </div>
         </div>
-        <div class="T-right">
+        <div :class="['T-right', showAnimation && 'animate__animated animate__slideInRight']">
           <div class="konw-more-about">
             <div class="text">了解更多</div>
             <el-icon class="about-icon">
@@ -21,7 +19,7 @@
         </div>
       </div>
       <div
-        :class="['position-box', showAnimation && 'animate__animated animate__fadeIn']"
+        :class="['position-box', showAnimation && 'animate__animated animate__zoomIn']"
         v-if="PAGEWIDTH > 960"
       >
         <div class="square-box" v-if="list.length > 0">

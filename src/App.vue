@@ -108,6 +108,7 @@ onMounted(() => {
           isProduct.value = true
         }
         if (data == 2 || data == 3 || data == 4) {
+          isProduct.value = false
           isDarkPage.value = true
           activeColor.value = 'white'
           changeBackGroundColor.value = false

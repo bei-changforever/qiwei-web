@@ -2,20 +2,14 @@
   <div class="business-info">
     <div class="business-container">
       <div class="business-container-top">
-        <div
-          :class="[
-            'business-container-left',
-            showAnimation && 'animate__animated animate__backInLeft'
-          ]"
-          ref="businessLeftDom"
-        >
+        <div class="business-container-left" ref="businessLeftDom">
           <div class="business-container-left-item">
             <div class="top-top">
-              <div class="topic">
+              <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
                 <div class="block"></div>
                 <div class="text">PROFILE</div>
               </div>
-              <div class="name">
+              <div :class="['name', showAnimation && 'animate__animated animate__jackInTheBox']">
                 <span>研发实力</span>
                 <div class="small-konw-more-about" @click="clickRouter">
                   <div class="text">了解更多</div>
@@ -24,8 +18,10 @@
                   </el-icon>
                 </div>
               </div>
-              <div class="fu-name">跨学科专家团队</div>
-              <div class="desc">
+              <div :class="['fu-name', showAnimation && 'animate__animated animate__slideInUp']">
+                跨学科专家团队
+              </div>
+              <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
                 奇伟汇聚了一支跨学科专家团队，持续高投入于前沿技术创新与
                 产品安全性深入研究，精准捕捉市场需求动态，推动定制化产品
                 开发，同时注重环保与可持续发展，累积了5000+成熟配方，
@@ -33,7 +29,10 @@
               </div>
             </div>
 
-            <div class="konw-more-about" @click="clickRouter">
+            <div
+              :class="['konw-more-about', showAnimation && 'animate__animated animate__zoomInUp']"
+              @click="clickRouter"
+            >
               <div class="text">了解更多</div>
               <el-icon class="about-icon">
                 <CirclePlusFilled />
@@ -44,7 +43,7 @@
         <div
           :class="[
             'business-container-right',
-            showAnimation && 'animate__animated animate__lightSpeedInRight'
+            showAnimation && 'animate__animated animate__zoomIn'
           ]"
         >
           <el-image :src="getAssetsFile('images', '研发实力.png')" :fit="'fill'" />

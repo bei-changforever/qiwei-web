@@ -1,19 +1,19 @@
 <template>
   <div class="home-product">
     <div
-      :class="['home-product-container', showAnimation && 'animate__animated animate__backInLeft']"
+      class="home-product-container"
       ref="homeProductDom"
     >
-      <div class="aside" ref="aside">
+      <div :class="['aside', showAnimation && 'animate__animated animate__jackInTheBox']" ref="aside">
         <div class="block"></div>
         <div class="text">PRODUCT</div>
       </div>
       <div class="topic" ref="topic">
-        <div class="left">热门产品</div>
+        <div :class="['left', showAnimation && 'animate__animated animate__jackInTheBox']">热门产品</div>
         <div class="right">
           <div
             v-for="(item, index) in productType"
-            :class="['right-item', productTypeIndex == index ? 'active' : '']"
+            :class="['right-item', productTypeIndex == index ? 'active' : '', showAnimation && 'animate__animated animate__slideInRight']"
             @click="handleSelect(index)"
           >
             <div class="text">{{ item.name }}</div>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div
-      :class="['home-product-swiper', showAnimation && 'animate__animated animate__fadeIn']"
+      :class="['home-product-swiper', showAnimation && 'animate__animated animate__zoomIn']"
       v-if="screenWidth > 960 && list.length > 0"
       ref="productswiper"
     >

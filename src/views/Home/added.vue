@@ -1,19 +1,22 @@
 <template>
   <div class="added">
-    <div
-      :class="['added-container', showAnimation && 'animate__animated animate__backInLeft']"
-      ref="addedDom"
-    >
+    <div class="added-container" ref="addedDom">
       <div class="business-container-left-item">
-        <div class="topic">
+        <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
           <div class="block"></div>
           <div class="text">ADDED</div>
         </div>
-        <div class="name">免费服务</div>
-        <div class="fu-name">12项增值配套服务</div>
-        <div class="desc">我们提供免费一站式全套服务保障，全方位助力客户项目成功落地。</div>
+        <div :class="['name', showAnimation && 'animate__animated animate__jackInTheBox']">
+          免费服务
+        </div>
+        <div :class="['fu-name', showAnimation && 'animate__animated animate__slideInUp']">
+          12项增值配套服务
+        </div>
+        <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
+          我们提供免费一站式全套服务保障，全方位助力客户项目成功落地。
+        </div>
       </div>
-      <div class="added-big-image-box">
+      <div :class="['added-big-image-box', showAnimation && 'animate__animated animate__zoomIn']">
         <el-image :src="getAssetsFile('images', '免费服务.png')" :fit="'fill'" />
         <div class="text-item">
           <div class="text">
