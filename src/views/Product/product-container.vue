@@ -38,7 +38,7 @@
               <!-- @click="handleSelect(item, index)" -->
               <!-- @mouseenter.stop="handleSelect(index)"
                   @mouseleave.stop="parentClick" -->
-              <!-- <div class="bottom-text-item" v-for="(item, index) in productChild" :key="index">
+              <div class="bottom-text-item" v-for="(item, index) in productChild" :key="index">
                 <div
                   :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
                   @click.stop="handleSelect(item, index)"
@@ -72,8 +72,8 @@
                     </div>
                   </div>
                 </div>
-              </div> -->
-              <swiper :slidesPerView="7" :spaceBetween="30" class="mySwiper">
+              </div>
+              <!-- <swiper :slidesPerView="7" :spaceBetween="30" class="mySwiper">
                 <swiper-slide v-for="(item, index) in productChild" :key="index">
                   <div class="bottom-text-item">
                     <div
@@ -115,7 +115,7 @@
                     </div>
                   </div>
                 </swiper-slide>
-              </swiper>
+              </swiper> -->
             </div>
           </div>
         </div>
