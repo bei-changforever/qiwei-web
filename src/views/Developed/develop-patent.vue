@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="about-base-container-bottom" v-if="PAGEWIDTH > 960">
-        <div class="about-base-container-bottom-content" v-if="plist.length > 0">
+        <!-- <div class="about-base-container-bottom-content" v-if="plist.length > 0">
           <div
             :class="['about-honor-content-item', activeIndex == index ? 'active' : '']"
             v-for="(item, index) in plist"
@@ -43,7 +43,24 @@
             <el-image :src="item.imgSrc" :fit="'fill'" @click="showImagePreview([item.imgSrc])" />
             <span>{{ item.title }}</span>
           </div>
-        </div>
+        </div> -->
+
+        <swiper class="mySwiper" @swiper="onSwiper" v-if="plist.length > 0">
+          <swiper-slide v-for="(item, index) in plist" :key="index">
+            <div class="about-base-container-bottom-content">
+              <div
+                :class="['about-honor-content-item', activeIndex == i ? 'active' : '']"
+                v-for="(p, i) in item"
+                :key="i"
+                @click="handleSelect(i)"
+              >
+                <el-image :src="p.imgSrc" :fit="'fill'" @click="showImagePreview([p.imgSrc])" />
+                <span>{{ p.title }}</span>
+              </div>
+            </div></swiper-slide
+          >
+        </swiper>
+        <van-empty description="暂无数据" v-else />
       </div>
       <div class="mobile-base-container-bottom" v-else>
         <van-swipe :autoplay="3000" lazy-render v-if="plist.length > 0">
@@ -58,19 +75,7 @@
             </div>
           </van-swipe-item>
         </van-swipe>
-
-        <van-swipe :autoplay="3000" lazy-render v-else>
-          <van-swipe-item v-for="(item, index) in list" :key="index">
-            <div class="about-honor-content-item" @click="showImagePreview([item.imgSrc])">
-              <div class="image-box">
-                <img :src="item.imgSrc" alt="" />
-              </div>
-              <div class="text">
-                {{ item.title }}
-              </div>
-            </div>
-          </van-swipe-item>
-        </van-swipe>
+        <van-empty description="暂无数据" v-else />
       </div>
     </div>
   </div>
@@ -81,9 +86,46 @@ import { getAssetsFile } from '@/utils/tools'
 import { showImagePreview } from 'vant'
 import { useCounterStore } from '@/stores/screenWidth'
 import { getCert } from '@/api/index'
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+// Import Swiper styles
+import 'swiper/css'
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
-const list = [
+const list = ref([
+  {
+    title: '高新技术企业证书',
+    imgSrc: getAssetsFile('images', '证书框1.png')
+  },
+  {
+    title: '广东省日化商会常务理事单位',
+    imgSrc: getAssetsFile('images', '证书框2.png')
+  },
+  {
+    title: '科技发明成果证明',
+    imgSrc: getAssetsFile('images', '证书框3.png')
+  },
+  {
+    title: '名优高品证书（粉饼）',
+    imgSrc: getAssetsFile('images', '证书框4.png')
+  },
+  {
+    title: '市级企业技术中心',
+    imgSrc: getAssetsFile('images', '证书框5.png')
+  },
+  {
+    title: 'a-GMPC资质证书',
+    imgSrc: getAssetsFile('images', '证书框6.png')
+  },
+  {
+    title: 'c-ISO22716资质证书',
+    imgSrc: getAssetsFile('images', '证书框7.png')
+  },
+  {
+    title: '知识产权认证证书',
+    imgSrc: getAssetsFile('images', '证书框8.png')
+  },
   {
     title: '高新技术企业证书',
     imgSrc: getAssetsFile('images', '证书框1.png')
@@ -116,30 +158,32 @@ const list = [
     title: '知识产权认证证书',
     imgSrc: getAssetsFile('images', '证书框8.png')
   }
-]
+])
 const plist = ref([])
-
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const result: T[][] = []
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size))
+  }
+  return result
+}
 const getPic = async () => {
   let res = await getCert(3)
-  // console.log(res);
   if (res.status == 1) {
-    plist.value = res.data
+    plist.value = chunkArray(res.data, 8)
   }
 }
+
+const swiperDom = ref(null)
+const onSwiper = (swiper) => {
+  swiperDom.value = swiper
+}
 const prev = () => {
-  if (activeIndex.value == 0) {
-    return
-  } else {
-    activeIndex.value--
-  }
+  swiperDom.value.slidePrev()
 }
 
 const next = () => {
-  if (activeIndex.value == list.length - 1) {
-    return
-  } else {
-    activeIndex.value++
-  }
+  swiperDom.value.slideNext()
 }
 const handleSelect = (index) => {
   activeIndex.value = index
@@ -147,6 +191,8 @@ const handleSelect = (index) => {
 
 onMounted(() => {
   getPic()
+  // 数组分成8项一组
+  // list.value = chunkArray(list.value, 8)
 })
 
 const PAGEWIDTH = ref(window.innerWidth)
@@ -161,7 +207,7 @@ watch(
 <style lang="scss" scoped>
 .about-honor {
   width: 100vw;
-  height: 160vh;
+  height: 100vh;
   padding-top: 6vh;
   box-sizing: border-box;
   background-color: white;
@@ -226,18 +272,18 @@ watch(
 
     .about-base-container-bottom {
       width: 100%;
-      margin-top: 5vh;
+      margin-top: 2vh;
       .about-base-container-bottom-content {
         width: 100%;
 
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         flex-wrap: wrap;
         gap: 1vw;
         .about-honor-content-item {
-          width: 24%;
-          height: 500px;
+          width: 23.5%;
+          height: 35vh;
           background-color: #f8f8f8;
           border-radius: 20px 20px 20px 20px;
           display: flex;

@@ -25,8 +25,8 @@
       </div>
       <div class="about-footprint-container-bottom">
         <div class="about-footprint-bg">
-          <img class="map-bg" :src="getAssetsFile('images', '世界地图.png')" alt="" />
-          <div class="point USA">
+          <img class="map-bg" :src="getAssetsFile('images', '全球足迹.png')" alt="" />
+          <!-- <div class="point USA">
             <div class="pos">
               <img :src="getAssetsFile('icon', '地标.png')" alt="" />
             </div>
@@ -113,7 +113,7 @@
                 <el-icon><Right /></el-icon>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

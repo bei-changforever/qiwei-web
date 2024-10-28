@@ -42,7 +42,7 @@
           v-for="(item, index) in list3"
           :key="index"
           v-if="list3.length > 0"
-          @click="gotoProductInfo(item,index)"
+          @click="gotoProductInfo(item, index)"
         >
           <!-- <el-image :src="item.thumb" :fit="'fill'" /> -->
           <van-image :src="item.thumb" lazy-load fit="fill">
@@ -62,6 +62,7 @@
 import { ref, onMounted } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import emitter from '@/utils/mitt'
+import { useRouter } from 'vue-router'
 import { getBusinessCategory, getBusinessScope } from '@/api/index'
 const list = ['业务范围', '服务原则', '合作模式', '全球供应链']
 const list2 = ref(['彩妆产品', '洗护产品', '护肤产品', '香氛产品'])
@@ -80,7 +81,7 @@ const list3 = ref([
   getAssetsFile('images', '眼线笔系列.png'),
   getAssetsFile('images', '睫毛育系列.png')
 ])
-
+const router = useRouter()
 const activeIndex = ref(0)
 
 const typeIndex = ref(0)
@@ -93,8 +94,12 @@ const handleSelect = (index) => {
   }
 }
 
-const gotoProductInfo = (item,index) => {
-  console.log(item);
+const gotoProductInfo = (item, index) => {
+  // console.log(item)
+  router.push({
+    path: '/product/product-detail',
+    query: { id: item.id }
+  })
 }
 
 const getList = async () => {

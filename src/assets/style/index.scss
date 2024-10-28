@@ -22,6 +22,9 @@
   height: var(--footer-height);
   padding: 0;
   background-color: #3a3a3a;
+  // position:absolute;
+  // bottom:0px;
+  // left:0px;
 }
 
 * {
@@ -51,6 +54,7 @@ body {
   margin: 0;
   padding: 0;
   // scale: 0.5;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -59,10 +63,44 @@ body {
   color: transparent;
 }
 
+// 美化滚动条
+// ::-webkit-scrollbar {
+//   width: 10px;
+//   height: 10px;
+// }
+
+// ::-webkit-scrollbar-track {
+//   width: 6px;
+//   background: rgba(#101f1c, 0.1);
+//   -webkit-border-radius: 2em;
+//   -moz-border-radius: 2em;
+//   border-radius: 2em;
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   background-color: rgba(144, 147, 153, 0.5);
+//   background-clip: padding-box;
+//   min-height: 28px;
+//   -webkit-border-radius: 2em;
+//   -moz-border-radius: 2em;
+//   border-radius: 2em;
+//   transition: background-color 0.3s;
+//   cursor: pointer;
+// }
+
+// ::-webkit-scrollbar-thumb:hover {
+//   background-color: rgba(144, 147, 153, 0.3);
+// }
+
 .el-pagination.is-background .el-pager li.is-active {
   background-color: #f3a7a4 !important;
 }
 /* This only changes this particular animation duration */
 .animate__animated.animate__bounce {
   --animate-duration: 10s;
+}
+
+video {
+  border-radius: 20px;
+  object-fit: cover;
 }

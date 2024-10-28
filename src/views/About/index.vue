@@ -9,7 +9,7 @@
         <component :is="comp" />
       </div>
 
-      <div class="boxapi"></div>
+      <!-- <div class="boxapi"></div> -->
       <div class="boxapi">
         <footer id="footer">
           <CusFooter />
@@ -113,11 +113,9 @@ function scrollToPage(pageIndex) {
   } else if (pageIndex == 3) {
     container.value.style.top = `-265%`
   } else if (pageIndex == 4) {
-    container.value.style.top = `-310%`
+    container.value.style.top = `-365%`
   } else if (pageIndex == 5) {
-    container.value.style.top = `-430%`
-  } else if (pageIndex == 6) {
-    container.value.style.top = `-489%`
+    container.value.style.top = `-440%`
   }
 
   pageScroll.value = false
@@ -253,6 +251,12 @@ watch(
     .boxapi {
       overflow: hidden;
     }
+  }
+}
+
+@media (max-width: 960px) {
+  #footer {
+    height: 700px;
   }
 }
 </style>

@@ -7,7 +7,7 @@
   :root {
     --base-width: 1440px;
     --header-height: 76px;
-    --footer-height: 576px;
+    --footer-height: 70vh;
     --vp-c-bg: black;
     --topic-fontSize: 42px;
     --aside-fontSize: 22px;
@@ -21,7 +21,6 @@
     --desc-fontSize: 20px;
     --desc-lineHeight: 34px;
     --fu-name-fontSize: 32px;
-
   }
 }
 
@@ -29,7 +28,7 @@
   :root {
     --base-width: 1220px;
     --header-height: 70px;
-    --footer-height: 550px;
+    --footer-height: 70vh;
     --vp-c-bg: black;
     --aside-block: 16px;
     --desc-fontSize: 20px;
@@ -37,7 +36,6 @@
     --fu-name-fontSize: 32px;
     --topic-fontSize: 42px;
     --aside-fontSize: 22px;
-
   }
 }
 
@@ -45,7 +43,7 @@
   :root {
     --base-width: 1120px;
     --header-height: 65px;
-    --footer-height: 520px;
+    --footer-height: 70vh;
     --vp-c-bg: black;
     --topic-fontSize: 30px;
     --aside-fontSize: 18px;
@@ -53,14 +51,13 @@
     --desc-fontSize: 16px;
     --desc-lineHeight: 25px;
     --fu-name-fontSize: 18px;
-
   }
 }
 @media (min-width: 960px) and (max-width: 1220px) {
   :root {
     --base-width: 960px;
     --header-height: 65px;
-    --footer-height: 490px;
+    --footer-height: 70vh;
     --vp-c-bg: black;
     --topic-fontSize: 30px;
     --aside-fontSize: 18px;
@@ -68,7 +65,6 @@
     --desc-fontSize: 16px;
     --desc-lineHeight: 25px;
     --fu-name-fontSize: 18px;
-
   }
 }
 
@@ -76,7 +72,7 @@
   :root {
     --base-width: 100%;
     --header-height: 65px;
-    --footer-height: 460px;
+    --footer-height: 70vh;
     --vp-c-bg: black;
   }
 }

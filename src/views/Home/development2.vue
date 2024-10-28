@@ -1,5 +1,8 @@
 <template>
-  <div class="development2">
+  <div
+    class="development2"
+    :style="{ 'background-color': config.background_cert ? config.background_cert : '#f7f7f7' }"
+  >
     <div class="development2-container">
       <div class="development2-content" ref="development2Content">
         <div class="content-left">
@@ -76,13 +79,21 @@
                     showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
                   ]"
                 >
-                  <el-image
-                    v-for="(item, index) in list"
-                    :key="index"
-                    :src="item.thumb"
-                    :fit="'fill'"
-                    @click="selectIndex(index)"
-                  />
+                  <swiper
+                    :slidesPerView="4"
+                    :spaceBetween="30"
+                    class="mySwiper"
+                    style="background-color: transparent"
+                    @swiper="onSwiper2"
+                  >
+                    <swiper-slide
+                      v-for="(item, index) in list"
+                      :key="index"
+                      style="background-color: transparent"
+                    >
+                      <el-image :src="item.thumb" :fit="'fill'" @click="selectIndex(index)" />
+                    </swiper-slide>
+                  </swiper>
                 </div>
               </div>
             </div>
@@ -157,7 +168,8 @@ const { screenWidth } = toRefs(useCounterStore())
 const modules = [EffectCreative]
 const showAnimation = ref(false)
 const activeIndex = ref(0)
-
+import { useConfig } from '@/stores/config'
+const { config } = toRefs(useConfig())
 // 小于0补0
 const formatNumber = (value) => {
   return value < 10 ? `0${value}` : `${value}`
@@ -167,6 +179,12 @@ const formatNumber = (value) => {
 //   getAssetsFile('images', '证书1.png'),
 //   getAssetsFile('images', '证书2.png'),
 //   getAssetsFile('images', '证书3.png'),
+//   getAssetsFile('images', '证书4.png'),
+//   getAssetsFile('images', '证书4.png'),
+//   getAssetsFile('images', '证书4.png'),
+//   getAssetsFile('images', '证书4.png'),
+//   getAssetsFile('images', '证书4.png'),
+//   getAssetsFile('images', '证书4.png'),
 //   getAssetsFile('images', '证书4.png')
 // ]
 
@@ -174,17 +192,27 @@ const list = ref([])
 
 const development2Content = ref(null)
 const swiperDom = ref(null)
+const swiperDom2 = ref(null)
+const onSwiper2 = (swiper) => {
+  swiperDom2.value = swiper
+}
 const onSwiper = (swiper) => {
   swiperDom.value = swiper
 }
 const bannerSwiperPrev = () => {
   swiperDom.value.slidePrev()
   activeIndex.value - 1
+  if (activeIndex.value % 4 == 0) {
+    swiperDom.value.slidePrev()
+  }
 }
 
 const bannerSwiperNext = () => {
   swiperDom.value.slideNext()
   activeIndex.value + 1
+  if (activeIndex.value % 4 == 0) {
+    swiperDom2.value.slideNext()
+  }
 }
 const selectIndex = (index) => {
   if (activeIndex.value == index) {
@@ -365,9 +393,14 @@ watch(
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
-                :deep(.el-image) {
+                .swiper-slide {
                   width: 208px;
                   height: 294px;
+                  // border: 1px solid red;
+                }
+                :deep(.el-image) {
+                  width: 100%;
+                  height: 100%;
                   cursor: pointer;
                 }
               }
@@ -568,6 +601,17 @@ watch(
                   display: flex;
                   justify-content: space-between;
                   gap: 1vw;
+
+                  .swiper-slide {
+                    width: 208px;
+                    height: 294px;
+                    // border: 1px solid red;
+                  }
+                  :deep(.el-image) {
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
+                  }
                 }
               }
             }
@@ -638,7 +682,7 @@ watch(
     // align-items: center;
     // justify-content: center;
     background-color: white;
-    // padding-top: 5vh;
+    padding-top: 10vh;
 
     box-sizing: border-box;
     /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
@@ -714,7 +758,7 @@ watch(
           }
 
           .T-bottom {
-            margin-top: 17vh;
+            margin-top: 10vh;
             width: 100%;
 
             .T-bottom-container {
@@ -759,7 +803,14 @@ watch(
                   width: 100%;
                   display: flex;
                   justify-content: space-between;
+                  .swiper-slide {
+                    width: 208px;
+                    height: 294px;
+                    // border: 1px solid red;
+                  }
                   :deep(.el-image) {
+                    width: 100%;
+                    height: 100%;
                     cursor: pointer;
                   }
                 }
@@ -904,7 +955,7 @@ watch(
           }
 
           .T-bottom {
-            margin-top: 3vh;
+            margin-top: 10vh;
             width: 100%;
 
             .T-bottom-container {
@@ -944,12 +995,24 @@ watch(
               }
 
               .T-bottom-bottom {
+          
                 width: 100%;
                 .T-bottom-bottom-item {
                   width: 100%;
                   display: flex;
-                  gap: 1vw;
+                  // gap: 1vw;
                   justify-content: space-between;
+                  // background: pink;
+                  .swiper-slide {
+                    width: 208px;
+                    height: 220px;
+                    // border: 1px solid red;
+                  }
+                  :deep(.el-image) {
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
+                  }
                 }
               }
             }

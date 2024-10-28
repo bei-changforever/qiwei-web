@@ -6,9 +6,9 @@
       </div>
       <!-- <div class="boxapi"></div> -->
       <!-- <div class="boxapi"></div> -->
+      <!-- <div class="boxapi"></div>
       <div class="boxapi"></div>
-      <div class="boxapi"></div>
-      <div class="boxapi"></div>
+      <div class="boxapi"></div> -->
       <div class="boxapi">
         <footer id="footer">
           <CusFooter />
@@ -79,7 +79,7 @@ function scrollDown() {
 let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  // console.log(pageIndex)
+  console.log(pageIndex)
   if (pageIndex == 0) {
     container.value.style.top = `0%`
   } else if (pageIndex == 1) {
@@ -89,21 +89,10 @@ function scrollToPage(pageIndex) {
   } else if (pageIndex == 3) {
     container.value.style.top = `-270%`
   } else if (pageIndex == 4) {
-    container.value.style.top = `-290%`
+    container.value.style.top = `-365%`
   } else if (pageIndex == 5) {
-    container.value.style.top = `-320%`
-  } else if (pageIndex == 6) {
-    container.value.style.top = `-402%`
-  } else if (pageIndex == 7) {
-    container.value.style.top = `-502%`
-  } else if (pageIndex == 8) {
-    container.value.style.top = `-525%`
+    container.value.style.top = `-440%`
   }
-  // else if (pageIndex == 9) {
-  //   container.value.style.top = `-462%`
-  // } else if (pageIndex == 10) {
-  //   container.value.style.top = `-543%`
-  // }
 
   pageScroll.value = false
   scrollTimer()
@@ -259,6 +248,12 @@ watch(
     .boxapi {
       overflow: hidden;
     }
+  }
+}
+
+@media (max-width: 960px) {
+  #footer {
+    height: 700px;
   }
 }
 </style>
