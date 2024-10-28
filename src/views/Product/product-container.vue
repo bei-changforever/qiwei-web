@@ -5,14 +5,23 @@
         <div class="sift-box-top">
           <div class="top">
             <div class="text">
-              <div
+              <!-- <div
                 :class="['text-item', top1Index == index ? 'active' : '']"
                 v-for="(item, index) in productCategory"
                 :key="item.id"
                 @click="chooseTopindex(item, index)"
               >
                 {{ item.name }}
-              </div>
+              </div> -->
+              <swiper :slidesPerView="5" :spaceBetween="30" class="mySwiper">
+                <swiper-slide v-for="(item, index) in productCategory" :key="item.id">
+                  <span
+                    :class="[top1Index == index ? 'active' : '']"
+                    @click="chooseTopindex(item, index)"
+                    >{{ item.name }}</span
+                  >
+                </swiper-slide>
+              </swiper>
             </div>
             <div class="button">
               <div
@@ -29,7 +38,7 @@
               <!-- @click="handleSelect(item, index)" -->
               <!-- @mouseenter.stop="handleSelect(index)"
                   @mouseleave.stop="parentClick" -->
-              <div class="bottom-text-item" v-for="(item, index) in productChild" :key="index">
+              <!-- <div class="bottom-text-item" v-for="(item, index) in productChild" :key="index">
                 <div
                   :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
                   @click.stop="handleSelect(item, index)"
@@ -63,7 +72,50 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
+              <swiper :slidesPerView="7" :spaceBetween="30" class="mySwiper">
+                <swiper-slide v-for="(item, index) in productChild" :key="index">
+                  <div class="bottom-text-item">
+                    <div
+                      :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
+                      @click.stop="handleSelect(item, index)"
+                      @mouseenter.stop="mouseenterhandleSelect(item, index)"
+                      @mouseleave.stop="parentClick"
+                    >
+                      <span>{{ item.name }}</span>
+                      <el-image
+                        v-if="bottomTextItemIndex == index && show"
+                        :src="getAssetsFile('icon', 'arrowup.png')"
+                        :fit="'fill'"
+                      />
+                      <el-image
+                        v-else
+                        :src="getAssetsFile('icon', 'arrowdown.png')"
+                        :fit="'fill'"
+                      />
+
+                      <div
+                        class="line"
+                        v-if="
+                          bottomTextItemIndex == index &&
+                          show &&
+                          item.children &&
+                          item.children.length > 0
+                        "
+                      >
+                        <div
+                          :class="['line-button', br.isActive ? 'active' : 'none']"
+                          v-for="(br, bri) in item.children"
+                          :key="bri"
+                          @click.stop="handleSelectchild(br, bri)"
+                        >
+                          {{ br.name }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </swiper-slide>
+              </swiper>
             </div>
           </div>
         </div>
@@ -162,6 +214,11 @@ import { useRouter, useRoute } from 'vue-router'
 import { getProductCategory, getProductList } from '@/api/index'
 import { useProductData } from '@/stores/productData'
 import { useCounterStore } from '@/stores/screenWidth'
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+// Import Swiper styles
+import 'swiper/css'
 const { setContactProductInfo } = useProductData()
 const { screenWidth } = toRefs(useCounterStore())
 const { cateGory } = toRefs(useProductData())
@@ -283,7 +340,7 @@ const mouseenterhandleSelect = (item, index) => {
   // getProductListData()
 }
 
-const handleSelect = () => {
+const handleSelect = (item, index) => {
   getProductListData()
 }
 
@@ -330,13 +387,16 @@ const mobileTypeList = ref([])
 const getProductCategoryData = async () => {
   mobileList.value = []
   mobileTypeList.value = []
-  let res = await getProductCategory()
-  console.log(res)
+  const res = {
+    status: 1
+  }
+  // let res = await getProductCategory()
+  // console.log(res)
 
   if (res.status == 1) {
-    list.value = res.data
+    list.value = cateGory.value
     // 移动端数据
-    res.data.forEach((item, index) => {
+    cateGory.value.forEach((item, index) => {
       let obj = {
         text: item.name,
         value: item.id,
@@ -398,16 +458,16 @@ const getProductListData = async () => {
   }
 }
 
-const renderData = () => {
-  
-}
+const renderData = () => {}
 
 onMounted(() => {
   nextTick(() => {
     getProductCategoryData()
-   })
-  console.log(cateGory.value);
-  
+    if (route.query.id) {
+      selectItemID.value = route.query.id
+      getProductListData()
+    }
+  })
 })
 // 顶部tab栏的数据
 const productCategory = computed(() => {
@@ -417,6 +477,84 @@ const productCategory = computed(() => {
       : []
     return parentList.value
   }
+  // return [
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   }
+  // ]
 })
 // 下拉框的数据
 const productChild = computed(() => {
@@ -495,8 +633,8 @@ watch(
           border-bottom: 1px solid #e5e5e5;
 
           .text {
-            width: 50%;
-
+            width: 70%;
+            overflow-x: scroll;
             display: flex;
             align-items: center;
             font-family:
@@ -506,7 +644,22 @@ watch(
             font-size: 18px;
             color: #333333;
 
-            gap: 3vw;
+            // gap: 3vw;
+            .swiper-slide {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              white-space: nowrap;
+              cursor: pointer;
+
+              span {
+                &.active {
+                  color: #f3a7a4;
+                }
+              }
+            }
+
+            // background-color: pink;
 
             .text-item {
               width: 5vw;
@@ -558,19 +711,19 @@ watch(
           height: 50%;
 
           .bottom-text-box {
-            width: 100%;
+            width: 85%;
             height: 100%;
             display: flex;
             align-items: center;
-            gap: 1vw;
-
+            // gap: 1vw;
+            // background-color: pink;
             .bottom-text-item {
               position: relative;
               display: flex;
               align-items: center;
               justify-content: center;
               // width: 4.6vw;
-              width: 100px;
+              // width: 100px;
               height: 100%;
               // margin-left: 0.5vh;
               // border: 1px solid red;
@@ -582,7 +735,6 @@ watch(
                 justify-content: center;
                 gap: 0.5vw;
                 cursor: pointer;
-
                 width: 100%;
                 height: 100%;
                 transition: all 0.3s;
@@ -674,8 +826,6 @@ watch(
 
           display: flex;
           flex-direction: column;
-
-      
 
           .ww-box {
             width: 100%;
