@@ -1,5 +1,8 @@
 <template>
-  <div class="business-info" :style="{ 'background-color': config.background_yfsl ? config.background_yfsl : 'white' }">
+  <div
+    class="business-info"
+    :style="{ 'background-color': config.background_yfsl ? config.background_yfsl : 'white' }"
+  >
     <div class="business-container">
       <div class="business-container-top">
         <div class="business-container-left" ref="businessLeftDom">
@@ -36,7 +39,12 @@
               >
                 {{ config.home_yfsl_title }}
               </div>
-              <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
+              <div
+                :class="[
+                  'desc',
+                  showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
+                ]"
+              >
                 {{ config.home_yfsl_description }}
               </div>
             </div>

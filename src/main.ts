@@ -6,7 +6,6 @@ import router from './router'
 import 'vant/lib/index.css'
 import 'element-plus/dist/index.css'
 import './assets/style/index.scss'
-import '@/assets/front-style/pingFang.css'
 import component from './components/component'
 // 引入模块后自动生效
 import '@vant/touch-emulator'

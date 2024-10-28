@@ -8,9 +8,11 @@
             <div class="text">SUPPLY CHAIN</div>
           </div>
           <div class="name">全球供应链</div>
+          <div class="fu-name">全球化高效率供应链</div>
         </div>
         <div class="t-b">
           <div class="title">关键优势</div>
+
           <div class="desc">
             全球布局，接近客户； 本地化产能，确保快速上市时间；
             低库存风险，基于订单的采购和生产方式； 基于全球化采购的高性价比原材料。
@@ -22,7 +24,7 @@
           <img :src="getAssetsFile('images', '生产计划.png')" alt="" />
           <div class="text">
             3-4个月订单确定性，或根据客户提示性预测更长确定性 按订单量安排生产的工作方式;
-            订单的月度管理方法
+            订单的月度管理方法；
           </div>
         </div>
         <div class="business-chain-right-item">
@@ -45,13 +47,15 @@ import { getAssetsFile } from '@/utils/tools'
 <style lang="scss" scoped>
 .business-chain {
   width: 100vw;
-  height: 430px;
-  padding-top: 5vh;
-  background-image: url('../../assets/images/全球供应链底.png');
+  height: 100vh;
+  padding-top: 15vh;
+  background-image: url('../../assets/images/全球供应链.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   .business-chain-base-container {
     margin: 0 auto;
     width: var(--base-width);
@@ -62,8 +66,9 @@ import { getAssetsFile } from '@/utils/tools'
     align-items: center;
 
     .business-chain-left {
-      width: 40%;
-
+      width: 30%;
+      margin-right: 2vw;
+      // background-color: orange;
       .T-left {
         .topic {
           width: 100%;
@@ -95,10 +100,18 @@ import { getAssetsFile } from '@/utils/tools'
           font-size: var(--topic-fontSize);
           color: #333333;
         }
+        .fu-name {
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: 35px;
+          color: #303030;
+        }
       }
 
       .t-b {
-        margin-top: 5vh;
+        margin-top: 20vh;
 
         .title {
           font-family:
@@ -122,11 +135,12 @@ import { getAssetsFile } from '@/utils/tools'
     }
 
     .business-chain-right {
+      margin-top: 20vh;
       width: 50%;
       display: flex;
       flex-direction: column;
       gap: 1vw;
-
+      // background-color: pink;
       .business-chain-right-item {
         width: 100%;
         display: flex;
@@ -165,7 +179,7 @@ import { getAssetsFile } from '@/utils/tools'
 
         .T-left {
           // display: none;
-
+          padding: 0;
           .topic {
             width: 100%;
             height: 40px;
@@ -199,6 +213,7 @@ import { getAssetsFile } from '@/utils/tools'
         }
 
         .t-b {
+          padding: 0;
           margin-top: 5vh;
           display: none;
           .title {

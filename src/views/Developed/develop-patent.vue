@@ -63,8 +63,8 @@
         <van-empty description="暂无数据" v-else />
       </div>
       <div class="mobile-base-container-bottom" v-else>
-        <van-swipe :autoplay="3000" lazy-render v-if="plist.length > 0">
-          <van-swipe-item v-for="(item, index) in plist" :key="index">
+        <van-swipe :autoplay="3000" lazy-render v-if="mobileList.length > 0">
+          <van-swipe-item v-for="(item, index) in mobileList" :key="index">
             <div class="about-honor-content-item" @click="showImagePreview([item.thumb])">
               <div class="image-box">
                 <img :src="item.thumb" alt="" />
@@ -160,6 +160,7 @@ const list = ref([
   }
 ])
 const plist = ref([])
+const mobileList = ref([])
 function chunkArray<T>(array: T[], size: number): T[][] {
   const result: T[][] = []
   for (let i = 0; i < array.length; i += size) {
@@ -171,6 +172,7 @@ const getPic = async () => {
   let res = await getCert(3)
   if (res.status == 1) {
     plist.value = chunkArray(res.data, 8)
+    mobileList.value = res.data
   }
 }
 

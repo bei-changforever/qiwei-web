@@ -118,15 +118,7 @@ function scrollToPage(pageIndex) {
     container.value.style.top = `-700%`
   } else if (pageIndex == 8) {
     // showAnimation.value = true
-
-    // @media (min-width: 1220px) and (max-width: 1440px)
-    if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
-      container.value.style.top = `-770%`
-    } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-770%`
-    } else {
-      container.value.style.top = `-770%`
-    }
+    container.value.style.top = `-780%`
   }
   // else if (pageIndex == 9) {
   //   if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {

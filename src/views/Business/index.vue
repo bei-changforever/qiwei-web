@@ -11,8 +11,8 @@
       >
         <component :is="comp" />
       </div>
-      <div class="boxapi"></div>
-      <div class="boxapi"></div>
+      <!-- <div class="boxapi"></div>
+      <div class="boxapi"></div> -->
       <div class="boxapi">
         <footer id="footer">
           <CusFooter />
@@ -112,7 +112,7 @@ function scrollDown() {
 let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  // console.log(pageIndex)
+  console.log(pageIndex)
 
   if (pageIndex == 0) {
     container.value.style.top = `0%`
@@ -123,21 +123,11 @@ function scrollToPage(pageIndex) {
   } else if (pageIndex == 3) {
     container.value.style.top = `-270%`
   } else if (pageIndex == 4) {
-    container.value.style.top = `-360%`
+    container.value.style.top = `-370%`
   } else if (pageIndex == 5) {
-    container.value.style.top = `-410%`
+    container.value.style.top = `-470%`
   } else if (pageIndex == 6) {
-    container.value.style.top = `-450%`
-  } else if (pageIndex == 7) {
     container.value.style.top = `-550%`
-  } else if (pageIndex == 8) {
-    if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
-      container.value.style.top = `-575%`
-    } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-560%`
-    } else {
-      container.value.style.top = `-570%`
-    }
   }
 
   pageScroll.value = false

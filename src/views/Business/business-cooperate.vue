@@ -29,6 +29,11 @@
         </div>
       </div>
       <div class="business-container-bottom">
+        <swiper class="mySwiper" @swiper="onSwiper" @slideChange="slideChange">
+          <swiper-slide v-for="(item, index) in piclist" :key="index"
+            ><el-image :src="item" :fit="'fill'"
+          /></swiper-slide>
+        </swiper>
         <!-- <swiper
           @swiper="onSwiper"
           :grabCursor="true"
@@ -50,7 +55,7 @@
             ><el-image :src="item" :fit="'fill'" />
           </swiper-slide>
         </swiper> -->
-        <div class="prev">
+        <!-- <div class="prev">
           <el-image :src="getAssetsFile('icon', 'left.png')" :fit="'fill'" @click="prev" />
         </div>
 
@@ -64,7 +69,7 @@
 
         <div class="next">
           <el-image :src="getAssetsFile('icon', 'right.png')" :fit="'fill'" @click="next" />
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -93,10 +98,20 @@ const piclist = ref([
   getAssetsFile('images', `OBM.png`)
 ])
 const activeIndex = ref(0)
+const swiperDom = ref(null)
 
+const onSwiper = (swiper) => {
+  // console.log(swiper)
+  swiperDom.value = swiper
+}
 const handleSelect = (index) => {
   activeIndex.value = index
+  swiperDom.value.slideTo(index)
   // emitter.emit('change-business-cooperate-index', list2[index])
+}
+
+const slideChange = () => {
+  activeIndex.value = swiperDom.value.realIndex
 }
 
 const prev = () => {
@@ -118,8 +133,8 @@ const next = () => {
 <style lang="scss" scoped>
 .business-cooperate {
   width: 100vw;
-  height: 200vh;
-  padding-top: 10vh;
+  height: 100vh;
+  padding-top: 15vh;
   //   padding-bottom: 10vh;
   background-color: white;
   box-sizing: border-box;
@@ -231,9 +246,9 @@ const next = () => {
 
     .business-container-bottom {
       width: 100%;
-      height: 1400px;
+      // height: 1400px;
       // background: pink;
-      margin-top: 10vh;
+      margin-top: 5vh;
       display: flex;
       align-items: center;
       justify-content: space-between;
