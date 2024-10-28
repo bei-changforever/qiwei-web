@@ -1,5 +1,5 @@
 <template>
-  <div class="quality">
+  <div class="quality" :style="{'background-color': config.background_brand ? config.background_brand : 'white'}">
     <div class="quality-container" ref="qualityContainer">
       <div class="advantage-container">
         <div
@@ -8,10 +8,9 @@
             showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInLeft' : ''
           ]"
         >
-          <div class="name">从源头把控精选全球原料</div>
+          <div class="name">{{ config.home_brand_title }}</div>
           <div class="desc">
-            跨越国界，长期与多家原料供应商合作。精选优质原料进行研发生产，
-            从源头严格控制产品品质;确保每一份原料都经过严格筛选与科学验证。
+            {{ config.home_brand_description }}
           </div>
         </div>
         <div
@@ -397,12 +396,12 @@
           </div>
           <div class="textdetail"></div>
         </div>
-        <div class="pagenavigation">
+        <!-- <div class="pagenavigation" v-show="false">
           <div
             :class="['pagenavigation-item', activeIndex == index ? 'active' : '']"
             v-for="(item, index) in 1"
           ></div>
-        </div>
+        </div> -->
       </div>
       <div class="moom-box" v-else>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="skyblue" lazy-render>
@@ -425,6 +424,8 @@ import emitter from '@/utils/mitt'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
 import { getBanner } from '@/api/index'
+import { useConfig } from '@/stores/config'
+const { config } = toRefs(useConfig())
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
 const changePageShow = ref(false)

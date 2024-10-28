@@ -121,11 +121,11 @@ function scrollToPage(pageIndex) {
 
     // @media (min-width: 1220px) and (max-width: 1440px)
     if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {
-      container.value.style.top = `-760%`
+      container.value.style.top = `-770%`
     } else if (PAGEWIDTH.value >= 960 && PAGEWIDTH.value <= 1220) {
-      container.value.style.top = `-759%`
+      container.value.style.top = `-770%`
     } else {
-      container.value.style.top = `-759%`
+      container.value.style.top = `-770%`
     }
   }
   // else if (pageIndex == 9) {
@@ -284,5 +284,11 @@ watch(
   // .router_animate-leave-active {
   //   animation: fadeOut 1s;
   // }
+}
+
+@media (max-width: 960px) {
+  #footer {
+    height: 700px;
+  }
 }
 </style>

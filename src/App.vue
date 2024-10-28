@@ -9,7 +9,7 @@ import { useConfig } from '@/stores/config'
 import { getBaseInfo, getProductCategory } from '@/api/index'
 import { useProductData } from '@/stores/productData'
 const { setScreenWidth } = useCounterStore()
-const { setcateGory } = useProductData()
+const { setcateGory, setContactProductInfo } = useProductData()
 const { setconfig } = useConfig()
 const route = useRoute()
 const router = useRouter()
@@ -88,10 +88,10 @@ const setScreenCompatibility = () => {
   document.body.style.MozTransformOrigin = '0 0'
 }
 
-const getPorductcate  = () => {
-  getProductCategory().then((res)=> {
+const getPorductcate = () => {
+  getProductCategory().then((res) => {
     // console.log(res);
-    if(res.status == 1) {
+    if (res.status == 1) {
       setcateGory(res.data)
     }
   })
@@ -198,7 +198,13 @@ const search = () => {
 }
 onUnmounted(() => {
   emitter.off('*')
+  console.log('刷新')
+  setContactProductInfo({})
 })
+// onbeforeunload = () => {
+//   window.scrollTo(0, 0)
+//   console.log("刷新");
+// }
 
 watch(
   () => route.path,
@@ -209,6 +215,10 @@ watch(
       isProduct.value = true
     } else {
       isProduct.value = false
+    }
+
+    if (newVal !== '/contact') {
+      setContactProductInfo({})
     }
   },
   {

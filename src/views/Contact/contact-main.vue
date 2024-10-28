@@ -76,8 +76,25 @@
             <el-form-item label="您的具体问题：" prop="question">
               <el-input v-model="form.question" clearable />
             </el-form-item>
+            <el-form-item
+              label="索要样品"
+              prop="product"
+              style="width: 100%"
+              v-if="contactProductInfo && contactProductInfo.name"
+            >
+              <van-card
+                style="width: 100%"
+                :title="contactProductInfo.name"
+                :thumb="contactProductInfo.thumb"
+                num="1"
+                @click="routerGoBack"
+              />
+            </el-form-item>
             <el-form-item label="您的姓名" prop="name">
               <el-input v-model="form.name" placeholder="请填写您的姓名" clearable />
+            </el-form-item>
+            <el-form-item label="从哪个渠道了解/添加到我们" prop="channel">
+              <el-input v-model="form.channel" placeholder="请填写您的姓名" clearable />
             </el-form-item>
             <el-form-item>
               <div class="row">
@@ -150,6 +167,11 @@ import { getAssetsFile } from '@/utils/tools'
 import { submitMessage } from '@/api/index'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
+import { useProductData } from '@/stores/productData'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const { contactProductInfo } = useProductData()
+
 const { config } = toRefs(useConfig())
 // do not use same name with ref
 const ruleFormRef = ref<FormInstance>()
@@ -161,6 +183,8 @@ interface RuleForm {
   delivery: string
   Brandname: string
   phonenumber: any
+  product: string
+  channel: string
 }
 
 const form = reactive<RuleForm>({
@@ -170,30 +194,48 @@ const form = reactive<RuleForm>({
   Companyname: '',
   delivery: '',
   Brandname: '',
-  phonenumber: ''
+  phonenumber: '',
+  product: '',
+  channel: ''
 })
 
 const selectOption = [
   {
-    label: '医疗专业人士',
+    label: '品牌方',
     value: 1
   },
 
   {
-    label: '投资者',
+    label: 'OEM',
     value: 2
   },
   {
-    label: '求职者',
+    label: 'ODM工厂',
     value: 3
   },
   {
-    label: '媒体',
+    label: '原料商',
     value: 4
   },
   {
-    label: '其他',
+    label: '代理商',
     value: 5
+  },
+  {
+    label: '电商',
+    value: 6
+  },
+  {
+    label: '渠道商',
+    value: 7
+  },
+  {
+    label: '高校/研究院/协会机构',
+    value: 8
+  },
+  {
+    label: '其他',
+    value: 9
   }
 ]
 
@@ -222,7 +264,19 @@ const rules = reactive<FormRules<RuleForm>>({
   ],
   delivery: [{ required: false, trigger: 'blur' }],
   Brandname: [{ required: false, trigger: 'blur' }],
-  phonenumber: [{ required: true, trigger: 'blur', message: '请输入您的联系方式' }]
+  phonenumber: [{ required: true, trigger: 'blur', message: '请输入您的联系方式' }],
+  product: [
+    {
+      required: false
+    }
+  ],
+  channel: [
+    {
+      required: true,
+      trigger: 'blur',
+      message: '请填写从哪个渠道了解/添加到我们'
+    }
+  ]
 })
 
 function validatePhoneNumber(phoneNumber) {
@@ -328,6 +382,10 @@ const draw = ({ el, BMap, map }) => {
   el.style.left = pixel.x - 20 + 'px' // 最终坐标 = 覆盖物坐标 - 覆盖物宽度/2。 // 居中显示
   el.style.top = pixel.y - 50 + 'px'
 }
+
+const routerGoBack = () => {
+  router.go(-1)
+}
 </script>
 <style lang="scss" scoped>
 .contact-main {
@@ -385,8 +443,9 @@ const draw = ({ el, BMap, map }) => {
       width: 100%;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-top: 5vh;
-
+      // background-color: pink;
       .contact-left {
         // width: 30%;
         width: 560px;
@@ -414,7 +473,7 @@ const draw = ({ el, BMap, map }) => {
 
             .contact-detail-top {
               width: 100%;
-              padding: 2vh;
+              padding: 3vh;
               padding-top: 0;
               box-sizing: border-box;
               display: flex;
@@ -447,7 +506,8 @@ const draw = ({ el, BMap, map }) => {
               // margin-top: 5vh;
               display: flex;
               width: 100%;
-              padding: 2vh;
+              padding: 3vh;
+              padding-top: 0;
               box-sizing: border-box;
               justify-content: space-between;
 
@@ -638,277 +698,278 @@ const draw = ({ el, BMap, map }) => {
 
 @media (min-width: 1220px) and (max-width: 1440px) {
   .contact-main {
-  width: 100vw;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
-  box-sizing: border-box;
+    width: 100vw;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    box-sizing: border-box;
 
-  .contact-base-container {
-    margin: 0 auto;
-    width: var(--base-width);
-    transition: all 0.3s ease-in;
-    zoom: 1;
+    .contact-base-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
 
-    .about-base-container-top {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-
-      .T-left {
-        .topic {
-          width: 100%;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          gap: 1vw;
-
-          .text {
-            font-weight: 400;
-            font-size: var(--aside-fontSize);
-            color: #f3a7a5;
-          }
-
-          .block {
-            width: 6px;
-            height: var(--aside-block);
-            border-radius: 1px;
-            background-color: #f3a7a5;
-          }
-        }
-
-        .name {
-          margin-top: 1vh;
-          font-family:
-            Microsoft YaHei,
-            Microsoft YaHei;
-          font-weight: bold;
-          font-size: var(--topic-fontSize);
-          color: #333333;
-        }
-      }
-    }
-
-    .base-top {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5vh;
-
-      .contact-left {
-        // width: 30%;
-        width: 460px;
-
-        .contact-left-content {
-          width: 100%;
-          background-color: white;
-          border-radius: 20px;
-          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-          .image {
-            width: 100%;
-            height: 360px;
-
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: fill;
-            }
-          }
-
-          .contact-detail {
-            margin-top: 2vh;
-            width: 100%;
-
-            .contact-detail-top {
-              width: 100%;
-              padding: 2vh;
-              padding-top: 0;
-              box-sizing: border-box;
-              display: flex;
-              justify-content: space-between;
-
-              .title {
-                font-family:
-                  Microsoft YaHei,
-                  Microsoft YaHei;
-                font-weight: bold;
-                font-size: 24px;
-                color: #333333;
-              }
-
-              .right-title {
-                display: flex;
-                align-items: center;
-                gap: 0.5vw;
-                cursor: pointer;
-
-                img {
-                  width: 14px;
-                  height: 16px;
-                  object-fit: fill;
-                }
-              }
-            }
-
-            .contact-detail-bottom {
-              // margin-top: 5vh;
-              display: flex;
-              width: 100%;
-              padding: 2vh;
-              box-sizing: border-box;
-              justify-content: space-between;
-
-              .contact-bottom-left {
-                width: 60%;
-                display: flex;
-                flex-direction: column;
-                gap: 2vh;
-
-                .title {
-                  .topic {
-                    font-family:
-                      Microsoft YaHei,
-                      Microsoft YaHei;
-                    font-weight: 400;
-                    font-size: 16px;
-                    color: #333333;
-                  }
-
-                  .info {
-                    font-family:
-                      Microsoft YaHei,
-                      Microsoft YaHei;
-                    font-weight: bold;
-                    font-size: 20px;
-                    color: #333333;
-                  }
-                }
-              }
-
-              .contact-bottom-right {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-end;
-              }
-            }
-          }
-        }
-      }
-
-      .contact-right {
-        width: 50%;
-        // background-color: pink;
+      .about-base-container-top {
+        width: 100%;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
 
-        .form-top {
-          width: 100%;
+        .T-left {
+          .topic {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 1vw;
 
-          .title {
+            .text {
+              font-weight: 400;
+              font-size: var(--aside-fontSize);
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 6px;
+              height: var(--aside-block);
+              border-radius: 1px;
+              background-color: #f3a7a5;
+            }
+          }
+
+          .name {
+            margin-top: 1vh;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
-            font-weight: 400;
-            font-size: 18px;
+            font-weight: bold;
+            font-size: var(--topic-fontSize);
             color: #333333;
           }
+        }
+      }
 
-          .desc {
+      .base-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5vh;
+
+        .contact-left {
+          // width: 30%;
+          width: 460px;
+
+          .contact-left-content {
+            width: 100%;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+            .image {
+              width: 100%;
+              height: 360px;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+              }
+            }
+
+            .contact-detail {
+              margin-top: 2vh;
+              width: 100%;
+
+              .contact-detail-top {
+                width: 100%;
+                padding: 3vh;
+                padding-top: 0;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: space-between;
+
+                .title {
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: 24px;
+                  color: #333333;
+                }
+
+                .right-title {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5vw;
+                  cursor: pointer;
+
+                  img {
+                    width: 14px;
+                    height: 16px;
+                    object-fit: fill;
+                  }
+                }
+              }
+
+              .contact-detail-bottom {
+                // margin-top: 5vh;
+                display: flex;
+                width: 100%;
+                padding: 3vh;
+                padding-top: 0;
+                box-sizing: border-box;
+                justify-content: space-between;
+
+                .contact-bottom-left {
+                  width: 60%;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2vh;
+
+                  .title {
+                    .topic {
+                      font-family:
+                        Microsoft YaHei,
+                        Microsoft YaHei;
+                      font-weight: 400;
+                      font-size: 16px;
+                      color: #333333;
+                    }
+
+                    .info {
+                      font-family:
+                        Microsoft YaHei,
+                        Microsoft YaHei;
+                      font-weight: bold;
+                      font-size: 20px;
+                      color: #333333;
+                    }
+                  }
+                }
+
+                .contact-bottom-right {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: flex-end;
+                }
+              }
+            }
+          }
+        }
+
+        .contact-right {
+          width: 50%;
+          // background-color: pink;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .form-top {
+            width: 100%;
+
+            .title {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 18px;
+              color: #333333;
+            }
+
+            .desc {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+            }
+          }
+
+          :deep(.el-input) {
+            height: 60px;
+          }
+
+          :deep(.el-select) {
+            height: 60px;
+            //   background-color: orange;
+          }
+
+          :deep(.el-select__wrapper.el-tooltip__trigger) {
+            height: 60px;
+          }
+
+          // :deep(.el-option) {
+          //     height: 60px;
+          // }
+
+          .row {
+            width: 100%;
+            display: flex;
+            gap: 1vw;
+
+            .row-item {
+              width: 50%;
+              // border: 1px solid red;
+            }
+          }
+
+          .button {
+            width: 210px;
+            height: 50px;
+            border-radius: 10px 10px 10px 10px;
+            background-color: #f3a7a5;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
             font-size: 16px;
-            color: #333333;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
           }
-        }
-
-        :deep(.el-input) {
-          height: 60px;
-        }
-
-        :deep(.el-select) {
-          height: 60px;
-          //   background-color: orange;
-        }
-
-        :deep(.el-select__wrapper.el-tooltip__trigger) {
-          height: 60px;
-        }
-
-        // :deep(.el-option) {
-        //     height: 60px;
-        // }
-
-        .row {
-          width: 100%;
-          display: flex;
-          gap: 1vw;
-
-          .row-item {
-            width: 50%;
-            // border: 1px solid red;
-          }
-        }
-
-        .button {
-          width: 210px;
-          height: 50px;
-          border-radius: 10px 10px 10px 10px;
-          background-color: #f3a7a5;
-          font-family:
-            Microsoft YaHei,
-            Microsoft YaHei;
-          font-weight: 400;
-          font-size: 16px;
-          color: #ffffff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
         }
       }
-    }
 
-    .base-bottom {
-      margin-top: 5vh;
-      width: 100%;
-      height: 500px;
-
-      .bm-view {
+      .base-bottom {
+        margin-top: 5vh;
         width: 100%;
-        height: 100%;
+        height: 500px;
+
+        .bm-view {
+          width: 100%;
+          height: 100%;
+        }
+
+        //   .info-map {
+        //     position: absolute;
+        //     // width: 120px;
+        //     // height: 40px;
+        //     // line-height: 40px;
+        //     // background: rgba(0, 0, 0, 0.5);
+        //     overflow: hidden;
+        //     // box-shadow: 0 0 5px #000;
+        //     color: #fff;
+        //     text-align: center;
+        //     padding: 10px;
+
+        //     .info-box {
+        //       display: flex;
+
+        //       .text-box {
+        //         display: flex;
+        //         width: 150px;
+        //         height: 30px;
+        //         background-color: rgba(0, 0, 0, 0.5);
+        //         border-radius: 5px 5px 5px 5px;
+        //       }
+        //     }
+        //   }
       }
-
-      //   .info-map {
-      //     position: absolute;
-      //     // width: 120px;
-      //     // height: 40px;
-      //     // line-height: 40px;
-      //     // background: rgba(0, 0, 0, 0.5);
-      //     overflow: hidden;
-      //     // box-shadow: 0 0 5px #000;
-      //     color: #fff;
-      //     text-align: center;
-      //     padding: 10px;
-
-      //     .info-box {
-      //       display: flex;
-
-      //       .text-box {
-      //         display: flex;
-      //         width: 150px;
-      //         height: 30px;
-      //         background-color: rgba(0, 0, 0, 0.5);
-      //         border-radius: 5px 5px 5px 5px;
-      //       }
-      //     }
-      //   }
     }
   }
-}
 }
 @media (min-width: 960px) and (max-width: 1220px) {
   .contact-main {

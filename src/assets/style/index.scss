@@ -22,6 +22,9 @@
   height: var(--footer-height);
   padding: 0;
   background-color: #3a3a3a;
+  // position:absolute;
+  // bottom:0px;
+  // left:0px;
 }
 
 * {
@@ -65,4 +68,9 @@ body {
 /* This only changes this particular animation duration */
 .animate__animated.animate__bounce {
   --animate-duration: 10s;
+}
+
+video {
+  border-radius: 20px;
+  object-fit: cover;
 }

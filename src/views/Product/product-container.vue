@@ -162,6 +162,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { getProductCategory, getProductList } from '@/api/index'
 import { useProductData } from '@/stores/productData'
 import { useCounterStore } from '@/stores/screenWidth'
+const { setContactProductInfo } = useProductData()
 const { screenWidth } = toRefs(useCounterStore())
 const { cateGory } = toRefs(useProductData())
 const router = useRouter()
@@ -561,14 +562,15 @@ watch(
             height: 100%;
             display: flex;
             align-items: center;
-            gap: 3vw;
+            gap: 1vw;
 
             .bottom-text-item {
               position: relative;
               display: flex;
               align-items: center;
               justify-content: center;
-              width: 4.2vw;
+              // width: 4.6vw;
+              width: 100px;
               height: 100%;
               // margin-left: 0.5vh;
               // border: 1px solid red;

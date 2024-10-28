@@ -1,5 +1,5 @@
 <template>
-  <div class="advantage">
+  <div class="advantage" :style="{ 'background-color': config.background_hxys ? config.background_hxys : 'white' }">
     <div class="advantage-box">
       <div class="advantage-container" ref="advantagedom">
         <div class="T-left">
@@ -49,6 +49,8 @@ import { useRouter } from 'vue-router'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
+import { useConfig } from '@/stores/config'
+const { config } = toRefs(useConfig())
 const router = useRouter()
 const changePageShow = ref(false)
 const showAnimation = ref(false)

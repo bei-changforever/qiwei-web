@@ -1,5 +1,5 @@
 <template>
-  <div class="home-product">
+  <div class="home-product" :style="{'background-color': config.background_hot_product ? config.background_hot_product : 'white'}">
     <div class="home-product-container" ref="homeProductDom">
       <div
         :class="[
@@ -124,6 +124,8 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 import { useCounterStore } from '@/stores/screenWidth'
 const { screenWidth } = toRefs(useCounterStore())
+import { useConfig } from '@/stores/config'
+const { config } = toRefs(useConfig())
 const modules = [FreeMode, Pagination, EffectFade, Navigation]
 const homeProductDom = ref(null)
 const productType = ref([])
@@ -257,7 +259,7 @@ watch(
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    // background-color: pink;
+    background-color: white;
     .aside {
       width: 100%;
       height: 50px;

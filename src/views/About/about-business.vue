@@ -66,14 +66,14 @@ const handleSelect = (index) => {
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
   // background-color: pink;
-  padding-top: 12vh;
+  padding-top: 17vh;
 
   .business-container {
     margin: 0 auto;
     width: var(--base-width);
     transition: all 0.3s ease-in;
     zoom: 1;
-
+   
     .control-button {
       width: 100%;
       display: flex;

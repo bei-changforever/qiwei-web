@@ -1,5 +1,5 @@
 <template>
-  <div class="added">
+  <div class="added" :style="{ 'background-color': config.background_free ? config.background_free : 'white' }">
     <div class="added-container" ref="addedDom">
       <div class="business-container-left-item">
         <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
@@ -54,8 +54,10 @@
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRefs } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import { useConfig } from '@/stores/config'
+const { config } = toRefs(useConfig())
 const showAnimation = ref(false)
 const addedDom = ref(null)
 onMounted(() => {
@@ -218,7 +220,7 @@ onMounted(() => {
           }
 
           &:nth-child(8) {
-            top: 46%;
+            top: 48%;
             left: 64.5%;
           }
 
@@ -234,7 +236,7 @@ onMounted(() => {
 
           &:nth-child(11) {
             top: 88%;
-            left: 50%;
+            left: 49%;
           }
 
           &:nth-child(12) {

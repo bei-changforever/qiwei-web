@@ -68,5 +68,9 @@ onBeforeUnmount(() => {
   .main-okj-container-nofull {
     width: 100%;
   }
+
+  #footer {
+    height: 700px !important;
+  }
 }
 </style>

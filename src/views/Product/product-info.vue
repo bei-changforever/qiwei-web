@@ -76,7 +76,9 @@
             </div>
           </div>
           <div class="product-right-bottom">
-            <el-button class="liuyan" :icon="ChatLineRound" @click="liuyan">在线留言</el-button>
+            <el-button class="liuyan" :icon="ChatLineRound" @click="liuyan(info)"
+              >在线留言</el-button
+            >
 
             <el-dropdown>
               <el-button class="share">
@@ -151,6 +153,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { useCounterStore } from '@/stores/screenWidth'
 // import VueSocialSharing from 'vue-social-sharing'
 import { showImagePreview } from 'vant'
+import { useProductData } from '@/stores/productData'
+const { setContactProductInfo } = useProductData()
 const { screenWidth } = toRefs(useCounterStore())
 const activeIndex = ref(0)
 const router = useRouter()
@@ -192,7 +196,8 @@ const handleSelect = (item: any, index: number) => {
 }
 
 const bigImage = ref('')
-const liuyan = () => {
+const liuyan = (item) => {
+  setContactProductInfo(item)
   router.push('/contact')
 }
 const prev = () => {
@@ -239,7 +244,6 @@ onMounted(() => {
   })
 })
 
-
 const PAGEWIDTH = ref(window.innerWidth)
 //watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
 watch(
@@ -284,7 +288,6 @@ watch(
             height: 100%;
             border-radius: 20px;
             object-fit: fill;
-           
           }
           img {
             width: 100%;

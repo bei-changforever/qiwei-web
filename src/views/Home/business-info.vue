@@ -1,5 +1,5 @@
 <template>
-  <div class="business-info">
+  <div class="business-info" :style="{ 'background-color': config.background_company ? config.background_company : 'white' }">
     <div class="business-container">
       <div class="business-container-top">
         <div class="business-container-left">
@@ -19,7 +19,7 @@
                 showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
               ]"
             >
-              <span>汕头市奇伟实业有限公司</span>
+              <span>{{ config.description }}</span>
               <div class="small-konw-more-about" @click="clickRouter">
                 <div class="text">了解更多</div>
                 <el-icon class="about-icon">
@@ -33,13 +33,7 @@
                 showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
               ]"
             >
-              公司一贯重视科技创新，重视培养自主的研发力量，目前拥有40
-              多项核心专利（其中18项是发明专利）和8份著作权，涵盖产品配
-              方、设备、包装等多层次、全方位、宽领域的知识产权矩阵，部分
-              填补了国内、外空白，极大的提高了我司产品在市场的竞争力。
-              公司通过ISO22716和GMPC认证，先后被认定为“市级企业技术
-              中心”、“市级工程技术研究开发中心”、“省级工程技术研究开
-              发中心”、“高新技术企业”、“专精特新中小企业”和“创新型 中小企业”等资质。
+              {{ config.home_comany_description }}
             </div>
             <div
               :class="[
@@ -61,9 +55,29 @@
             showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
           ]"
         >
-          <el-image :src="getAssetsFile('images', '图片视频栏.png')" :fit="'fill'" />
+          <video
+            class="video"
+            muted
+            :src="config.home_company_video"
+            :poster="config.home_company_video_img"
+            ref="videoDom"
+
+          ></video>
+          <!-- <el-image :src="getAssetsFile('images', '图片视频栏.png')" :fit="'fill'" /> -->
           <div class="play-btn">
-            <el-image :src="getAssetsFile('icon', 'play.png')" :fit="'fill'" />
+            <el-image
+              :src="getAssetsFile('icon', 'play.png')"
+              :fit="'fill'"
+              @click="playVideo"
+              v-if="!isPlay"
+            />
+            <el-image
+              class="is-active"
+              :src="getAssetsFile('icon', '暂停.png')"
+              :fit="'fill'"
+              @click="stopVideo"
+              v-else
+            />
           </div>
         </div>
       </div>
@@ -73,13 +87,13 @@
           showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__flipInX' : ''
         ]"
       >
-        <div class="business-container-bottom-container" ref="countDom">
+        <div class="business-container-bottom-container" ref="countDom" v-if="config">
           <div class="business-container-bottom-top">
             <div class="bussiness-container-bottom-top-left">
               <count-to
                 ref="cunt0"
                 :startVal="0"
-                :endVal="28"
+                :endVal="Number(config.home_comany_1)"
                 :duration="4000"
                 :separator="null"
                 :autoplay="false"
@@ -96,7 +110,7 @@
               <count-to
                 ref="cunt1"
                 :startVal="0"
-                :endVal="10"
+                :endVal="Number(config.home_comany_2)"
                 :duration="4000"
                 :separator="null"
                 :autoplay="false"
@@ -112,7 +126,7 @@
               <count-to
                 ref="cunt2"
                 :startVal="0"
-                :endVal="60"
+                :endVal="Number(config.home_comany_3)"
                 :duration="4000"
                 :separator="null"
                 :autoplay="false"
@@ -128,7 +142,7 @@
               <count-to
                 ref="cunt3"
                 :startVal="0"
-                :endVal="1000"
+                :endVal="Number(config.home_comany_4)"
                 :duration="4000"
                 :separator="null"
                 :autoplay="false"
@@ -150,6 +164,8 @@ import { useRouter } from 'vue-router'
 import emitter from '@/utils/mitt'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
+import { useConfig } from '@/stores/config'
+const { config } = toRefs(useConfig())
 const { screenWidth } = toRefs(useCounterStore())
 const router = useRouter()
 const countDom = ref(null)
@@ -158,6 +174,7 @@ const cunt1 = ref(null)
 const cunt2 = ref(null)
 const cunt3 = ref(null)
 const businessLeftDom = ref(null)
+const isPlay = ref(false)
 const showCount = () => {
   cunt0.value.start()
   cunt1.value.start()
@@ -168,9 +185,19 @@ const clickRouter = () => {
   router.push('/about')
   emitter.emit('DOMINDEX', 4)
 }
-
+const videoDom = ref(null)
 const showAnimation = ref(false)
+const playVideo = () => {
+  if (!isPlay.value) {
+    isPlay.value = true
+    videoDom.value.play()
+  }
+}
 
+const stopVideo = () => {
+  isPlay.value = false
+  videoDom.value.pause()
+}
 onMounted(() => {
   useIntersectionObserver(
     countDom,
@@ -199,7 +226,7 @@ watch(
   display: flex;
   // align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: #f9f9f9;
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
   padding-top: 15vh;
@@ -338,7 +365,14 @@ watch(
         width: 800px;
         height: 450px;
         position: relative;
-
+        border-radius: 20px;
+        overflow: hidden;
+        // border: 1px solid red;
+        .video {
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+        }
         :deep(.el-image) {
           width: 100%;
           height: 100%;
@@ -348,12 +382,28 @@ watch(
           position: absolute;
           top: 50%;
           left: 50%;
-
+          cursor: pointer;
           transform: translate(-50%, -50%);
+          .is-active {
+            display: none;
+          }
           :deep(.el-image) {
             width: 60px;
             height: 60px;
-            cursor: pointer;
+          }
+
+          &:hover {
+            :deep(.el-image) {
+              filter: brightness(0.5);
+            }
+          }
+        }
+
+        &:hover {
+          .play-btn {
+            .is-active {
+              display: block;
+            }
           }
         }
       }
@@ -554,7 +604,10 @@ watch(
           width: 800px;
           height: 450px;
           position: relative;
-
+          .video {
+            width: 100%;
+            height: 100%;
+          }
           :deep(.el-image) {
             width: 100%;
             height: 100%;
@@ -773,7 +826,10 @@ watch(
           width: 800px;
           height: 450px;
           position: relative;
-
+          .video {
+            width: 100%;
+            height: 100%;
+          }
           :deep(.el-image) {
             width: 100%;
             height: 100%;
@@ -963,7 +1019,10 @@ watch(
           width: 100%;
           height: 320px;
           position: relative;
-
+          .video {
+            width: 100%;
+            height: 100%;
+          }
           :deep(.el-image) {
             width: 100%;
             height: 100%;

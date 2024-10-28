@@ -1,5 +1,5 @@
 <template>
-  <div class="business-info">
+  <div class="business-info" :style="{ 'background-color': config.background_yfsl ? config.background_yfsl : 'white' }">
     <div class="business-container">
       <div class="business-container-top">
         <div class="business-container-left" ref="businessLeftDom">
@@ -34,13 +34,10 @@
                   showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
                 ]"
               >
-                跨学科专家团队
+                {{ config.home_yfsl_title }}
               </div>
               <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
-                奇伟汇聚了一支跨学科专家团队，持续高投入于前沿技术创新与
-                产品安全性深入研究，精准捕捉市场需求动态，推动定制化产品
-                开发，同时注重环保与可持续发展，累积了5000+成熟配方，
-                确保每一款化妆品都拥有卓越品质。
+                {{ config.home_yfsl_description }}
               </div>
             </div>
 
@@ -64,9 +61,28 @@
             showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
           ]"
         >
-          <el-image :src="getAssetsFile('images', '研发实力.png')" :fit="'fill'" />
+          <video
+            class="video"
+            muted
+            :src="config.home_yfsl_video"
+            :poster="config.home_yfsl_video_img"
+            ref="videoDom"
+          ></video>
+          <!-- <el-image :src="getAssetsFile('images', '研发实力.png')" :fit="'fill'" /> -->
           <div class="play-btn">
-            <el-image :src="getAssetsFile('icon', 'play.png')" :fit="'fill'" />
+            <el-image
+              :src="getAssetsFile('icon', 'play.png')"
+              :fit="'fill'"
+              @click="playVideo"
+              v-if="!isPlay"
+            />
+            <el-image
+              class="is-active"
+              :src="getAssetsFile('icon', '暂停.png')"
+              :fit="'fill'"
+              @click="stopVideo"
+              v-else
+            />
           </div>
         </div>
       </div>
@@ -80,16 +96,31 @@ import { useRouter } from 'vue-router'
 import emitter from '@/utils/mitt'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useCounterStore } from '@/stores/screenWidth'
+import { useConfig } from '@/stores/config'
+const { config } = toRefs(useConfig())
 const { screenWidth } = toRefs(useCounterStore())
 const router = useRouter()
 const changePageShow = ref(false)
 const businessLeftDom = ref(null)
+const isPlay = ref(false)
 const clickRouter = () => {
   router.push('/develop')
   emitter.emit('DOMINDEX', 3)
 }
 
+const videoDom = ref(null)
 const showAnimation = ref(false)
+const playVideo = () => {
+  if (!isPlay.value) {
+    isPlay.value = true
+    videoDom.value.play()
+  }
+}
+
+const stopVideo = () => {
+  isPlay.value = false
+  videoDom.value.pause()
+}
 onMounted(() => {
   useIntersectionObserver(
     businessLeftDom,
@@ -116,7 +147,7 @@ watch(
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: #fafafa;
 
   /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
   scroll-snap-align: start;
@@ -242,6 +273,11 @@ watch(
         height: 450px;
         position: relative;
 
+        .video {
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+        }
         :deep(.el-image) {
           width: 100%;
           height: 100%;
@@ -251,11 +287,28 @@ watch(
           position: absolute;
           top: 50%;
           left: 50%;
+          cursor: pointer;
           transform: translate(-50%, -50%);
+          .is-active {
+            display: none;
+          }
           :deep(.el-image) {
             width: 60px;
             height: 60px;
-            cursor: pointer;
+          }
+
+          &:hover {
+            :deep(.el-image) {
+              filter: brightness(0.5);
+            }
+          }
+        }
+
+        &:hover {
+          .play-btn {
+            .is-active {
+              display: block;
+            }
           }
         }
       }

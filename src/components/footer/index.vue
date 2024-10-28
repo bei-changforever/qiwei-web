@@ -22,9 +22,21 @@
         <div class="topic">妆点生命新色彩</div>
         <div class="detail">一站式OEM/ODM/OBM助力客户产品孵化</div>
         <div class="business">
-          <el-image :src="getAssetsFile('images', 'HALAL.png')" :fit="'fill'" @click="showImagePreview([getAssetsFile('images', 'HALAL.png')])" />
-          <el-image :src="getAssetsFile('images', 'ISO.png')" :fit="'fill'" @click="showImagePreview([getAssetsFile('images', 'ISO.png')])"/>
-          <el-image :src="getAssetsFile('images', 'GMPC.png')" :fit="'fill'" @click="showImagePreview([getAssetsFile('images', 'GMPC.png')])"/>
+          <el-image
+            :src="getAssetsFile('images', 'HALAL.png')"
+            :fit="'fill'"
+            @click="showImagePreview([getAssetsFile('images', 'HALAL.png')])"
+          />
+          <el-image
+            :src="getAssetsFile('images', 'ISO.png')"
+            :fit="'fill'"
+            @click="showImagePreview([getAssetsFile('images', 'ISO.png')])"
+          />
+          <el-image
+            :src="getAssetsFile('images', 'GMPC.png')"
+            :fit="'fill'"
+            @click="showImagePreview([getAssetsFile('images', 'GMPC.png')])"
+          />
         </div>
       </div>
       <div class="center">
@@ -70,13 +82,21 @@
         </div>
       </div>
     </div>
+    <div class="footer-copyright">
+      <span
+        >Copyright © {{ config.copy_right }} {{ config.description }} All Rights Reserved |
+        粤ICP备07540754号</span
+      >
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits, toRefs } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
 import { useRouter, useRoute } from 'vue-router'
 import { showImagePreview } from 'vant'
+import { useConfig } from '@/stores/config'
+const { config } = toRefs(useConfig())
 const HeaderInfo = ['首页', '产品中心', '业务合作', '研发中心', '关于奇伟', '联系我们']
 const route = useRoute()
 const router = useRouter()
@@ -179,7 +199,9 @@ const handelClick = () => {
 
   .footer-container {
     width: 100%;
-    height: calc(100% - 208px);
+    height: 350px;
+    // height: calc(100% - 208px);
+    border-bottom: 1px dashed #707070;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -307,6 +329,20 @@ const handelClick = () => {
         }
       }
     }
+  }
+
+  .footer-copyright {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:
+      Microsoft YaHei,
+      Microsoft YaHei;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ffffff;
   }
 }
 
@@ -734,149 +770,9 @@ const handelClick = () => {
   .footer {
     padding: 2vh;
     box-sizing: border-box;
-    .footer-navbar {
-      .block {
-        .logo {
-          width: 30%;
-        }
-
-        .text {
-          width: 70%;
-        }
-      }
-    }
-
-    .footer-container {
-      .left-left {
-        width: 35%;
-        height: 60%;
-        display: flex;
-        flex-direction: column;
-        gap: 10%;
-
-        .topic {
-          height: 52px;
-          font-weight: 400;
-          font-size: 24px;
-          color: #ffffff;
-        }
-
-        .detail {
-          height: 31px;
-          font-weight: 400;
-          font-size: 16px;
-          color: #ffffff;
-        }
-
-        .business {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          gap: 10%;
-
-          :deep(.el-image) {
-            width: 65px;
-            height: 65px;
-          }
-        }
-      }
-
-      .center {
-        width: 30%;
-        height: 60%;
-
-        .center-container {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          flex-wrap: wrap;
-
-          .container-item {
-            margin-bottom: 15px;
-
-            .title {
-              font-weight: 400;
-              font-size: 14px;
-              color: #999999;
-            }
-
-            .detail {
-              font-weight: bold;
-              font-size: 18px;
-              color: #ffffff;
-            }
-          }
-        }
-      }
-
-      .right {
-        width: 25%;
-        height: 60%;
-
-        .right-container {
-          width: 100%;
-          display: flex;
-
-          .left {
-            width: 80%;
-            display: flex;
-            gap: 5%;
-
-            .image-box {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              font-weight: 400;
-              font-size: 14px;
-              color: #ffffff;
-
-              :deep(.el-image) {
-                width: 90px;
-                height: 90px;
-                cursor: pointer;
-              }
-
-              .topic {
-                margin-top: 10px;
-                cursor: pointer;
-              }
-            }
-          }
-
-          .right {
-            width: 20%;
-            display: flex;
-            align-items: flex-end;
-            flex-direction: column;
-
-            .btn {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 40px;
-              height: 40px;
-              background-color: #f3a7a4;
-              border-radius: 4px;
-              font-weight: 400;
-              font-size: 12px;
-              color: #ffffff;
-              margin-bottom: 10px;
-              cursor: pointer;
-              white-space: nowrap;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 375px) and (max-width: 960px) {
-  .footer {
-    padding: 2vh;
-    box-sizing: border-box;
-
+    // height: 60vh;
+    // background-color: #3a3a3a;
+    // border: 1px solid red;
     .footer-navbar {
       display: none !important;
 
@@ -894,7 +790,8 @@ const handelClick = () => {
     .footer-container {
       display: flex;
       flex-direction: column;
-
+      border-bottom: none;
+      // border: 1px solid red;
       .left-left {
         width: 100%;
         height: 60%;
@@ -1018,6 +915,11 @@ const handelClick = () => {
           }
         }
       }
+    }
+
+    .footer-copyright {
+      height: 300px;
+      text-align: center;
     }
   }
 }
