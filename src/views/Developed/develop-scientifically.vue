@@ -14,6 +14,7 @@
       </div>
       <div class="develop-container-bottom">
         <div
+          v-if="PAGEWIDTH > 960"
           v-for="(item, index) in list"
           class="develop-container-bottom-item"
           @click="handleSelect(index)"
@@ -22,14 +23,27 @@
         >
           <el-image :src="activeIndex == index ? item.src : item.unactive" :fit="'fill'" />
         </div>
+
+        <van-swipe v-else class="my-swipe" :autoplay="3000" indicator-color="white">
+          <van-swipe-item>
+            <el-image :src="getAssetsFile('images', '创新选中.png')" :fit="'fill'" />
+          </van-swipe-item>
+          <van-swipe-item>
+            <el-image :src="getAssetsFile('images', '专注选中.png')" :fit="'fill'" />
+          </van-swipe-item>
+          <van-swipe-item>
+            <el-image :src="getAssetsFile('images', '平衡选中.png')" :fit="'fill'" />
+          </van-swipe-item>
+        </van-swipe>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const list = [
   {
     name: '创新',
@@ -59,6 +73,15 @@ const leave = (index) => {
 const handleSelect = (index) => {
   activeIndex.value = index
 }
+
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .develop-scientificall {
@@ -182,6 +205,11 @@ const handleSelect = (index) => {
         }
       }
     }
+  }
+  .van-swipe-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

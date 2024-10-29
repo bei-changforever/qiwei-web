@@ -62,7 +62,6 @@
         >
           <video
             class="video"
-            muted
             :src="config.home_company_video"
             :poster="config.home_company_video_img"
             ref="videoDom"
@@ -195,12 +194,14 @@ const playVideo = () => {
   if (!isPlay.value) {
     isPlay.value = true
     videoDom.value.play()
+    videoDom.value.volume = 1
   }
 }
 
 const stopVideo = () => {
   isPlay.value = false
   videoDom.value.pause()
+  videoDom.value.volume = 0
 }
 onMounted(() => {
   useIntersectionObserver(
@@ -209,6 +210,12 @@ onMounted(() => {
       if (isIntersecting) {
         showCount()
         showAnimation.value = true
+      } else {
+        videoDom.value.pause()
+        // videoDom.value.currentTime = 0
+        videoDom.value.currentTime = 0
+        isPlay.value = false
+        videoDom.value.volume = 0
       }
     },
     { threshold: 0.5 }

@@ -64,7 +64,7 @@
             </div>
           </div>
         </div>
-        <div class="new-right">
+        <div class="new-right" v-if="PAGEWIDTH > 960">
           <div class="home-product-swiper-pagination">
             <div class="left-btn">
               <el-image
@@ -109,20 +109,16 @@
 
           <van-empty description="暂无数据" v-else />
         </div>
-        <!-- <div class="develop-infomation-container-bottom">
-        <div class="develop-infomation-container-bottom-item">
-          <el-image :src="getAssetsFile('images', '新质生产力.png')" :fit="'fill'" />
-          <div class="text">新质生产力</div>
+        <div class="mobile-right" v-else>
+          <van-swipe :autoplay="3000" lazy-render>
+            <van-swipe-item v-for="(item, index) in list" :key="index">
+              <div class="develop-infomation-container-bottom-item">
+                <el-image :src="item.thumb" :fit="'fill'" />
+                <div class="text">{{ item.name }}</div>
+              </div>
+            </van-swipe-item>
+          </van-swipe>
         </div>
-        <div class="develop-infomation-container-bottom-item">
-          <el-image :src="getAssetsFile('images', '可持续发展.png')" :fit="'fill'" />
-          <div class="text">可持续发展</div>
-        </div>
-        <div class="develop-infomation-container-bottom-item">
-          <el-image :src="getAssetsFile('images', '新质设备.png')" :fit="'fill'" />
-          <div class="text">新质设备</div>
-        </div>
-      </div> -->
       </div>
     </div>
   </div>
@@ -140,7 +136,8 @@ import 'swiper/css'
 import 'swiper/css/effect-creative'
 // import required modules
 import { EffectCreative } from 'swiper/modules'
-
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const modules = [EffectCreative]
 
 const swiperDom = ref(null)
@@ -161,6 +158,15 @@ onMounted(async () => {
     list.value = res.data
   }
 })
+
+const PAGEWIDTH = ref(window.innerWidth)
+//watch监听屏幕宽度的变化，进行侧边栏的收缩和展开
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .develop-infomation {
@@ -1688,6 +1694,46 @@ onMounted(async () => {
             font-size: 24px;
             color: #ffffff;
           }
+        }
+      }
+    }
+
+    .mobile-right {
+      margin-top: 2vh;
+      // border: 1px solid red;
+      .develop-infomation-container-bottom-item {
+        width: 100%;
+        height: 500px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        :deep(.el-image) {
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+        }
+
+        .text {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 25%;
+          font-family:
+            Microsoft YaHei,
+            Microsoft YaHei;
+          font-weight: 400;
+          font-size: 24px;
+          display: flex;
+          align-items: center;
+          color: #ffffff;
+
+          background-image: url('../../assets/images/黑色渐变1.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          text-indent: 1em;
+          border-radius: 0 0 20px 20px;
         }
       }
     }
