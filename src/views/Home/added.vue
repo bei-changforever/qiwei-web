@@ -1,22 +1,50 @@
 <template>
-  <div class="added" :style="{ 'background-color': config.background_free ? config.background_free : 'white' }">
+  <div
+    class="added"
+    :style="{ 'background-color': config.background_free ? config.background_free : 'white' }"
+  >
     <div class="added-container" ref="addedDom">
       <div class="business-container-left-item">
-        <div :class="['topic', showAnimation && 'animate__animated animate__jackInTheBox']">
+        <div
+          :class="[
+            'topic',
+            showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+          ]"
+        >
           <div class="block"></div>
           <div class="text">ADDED</div>
         </div>
-        <div :class="['name', showAnimation && 'animate__animated animate__jackInTheBox']">
+        <div
+          :class="[
+            'name',
+            showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+          ]"
+        >
           免费服务
         </div>
-        <div :class="['fu-name', showAnimation && 'animate__animated animate__slideInUp']">
+        <div
+          :class="[
+            'fu-name',
+            showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
+          ]"
+        >
           12项增值配套服务
         </div>
-        <div :class="['desc', showAnimation && 'animate__animated animate__slideInUp']">
+        <div
+          :class="[
+            'desc',
+            showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
+          ]"
+        >
           我们提供免费一站式全套服务保障，全方位助力客户项目成功落地。
         </div>
       </div>
-      <div :class="['added-big-image-box', showAnimation && 'animate__animated animate__zoomIn']">
+      <div
+        :class="[
+          'added-big-image-box',
+          showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
+        ]"
+      >
         <el-image :src="getAssetsFile('images', '免费服务.png')" :fit="'fill'" />
         <div class="text-item">
           <div class="text">
@@ -54,9 +82,11 @@
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
-import { ref, onMounted, toRefs } from 'vue'
+import { ref, onMounted, toRefs, watch } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import { useConfig } from '@/stores/config'
+import { useCounterStore } from '@/stores/screenWidth'
+const { screenWidth } = toRefs(useCounterStore())
 const { config } = toRefs(useConfig())
 const showAnimation = ref(false)
 const addedDom = ref(null)
@@ -71,6 +101,14 @@ onMounted(() => {
     { threshold: 0.5 }
   )
 })
+
+const PAGEWIDTH = ref(window.innerWidth)
+watch(
+  () => screenWidth.value,
+  (newVal, oldVal) => {
+    PAGEWIDTH.value = newVal
+  }
+)
 </script>
 <style lang="scss" scoped>
 .added {
@@ -517,7 +555,7 @@ onMounted(() => {
         position: relative;
         margin-top: 2vh;
         width: 100%;
-        height: 55%;
+        height: 62%;
 
         :deep(.el-image) {
           width: 100%;

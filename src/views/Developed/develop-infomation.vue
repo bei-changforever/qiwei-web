@@ -21,8 +21,14 @@
             <div class="title">三库建设</div>
             <div class="desc">
               三库建设是为了更好的实现奇伟研产中心核心竞争力，即四大标准：技术标准、制造标准、品牌标准和服务标准的实现。
+              <br />
+              <div style="height: 10px"></div>
               三库建设是公司科研和工作人员进行技术研究、产品开发、业务拓展和学习提升的理想场所三库建设是为奇伟客户提供增
               值服务、为同行提供优质供应链的化妆品行业信息沙龙。
+              <br />
+              <div style="height: 10px"></div>
+              作用是研发中心、市场部、业务部在市场竞争中快速反应，统一想法、明确方法、落实做法，优先把握市场机会，各项工
+              作化被动为主动。
             </div>
 
             <div class="right">
@@ -276,7 +282,7 @@ const modules = [EffectCards]
               display: flex;
               justify-content: flex-end;
               width: 100%;
-              height: 100%;
+              height: 150px;
               cursor: pointer;
               // border: 1px solid red;
               border-radius: 10px;
@@ -367,8 +373,9 @@ const modules = [EffectCards]
 
         .swiper {
           width: 450px;
-          height: 500px;
+          height: 720px;
           // border: 1px solid red;
+          background-color: transparent !important;
         }
 
         .swiper-slide {
@@ -407,6 +414,310 @@ const modules = [EffectCards]
             background-position: center;
             text-indent: 1em;
             border-radius: 0 0 20px 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1220px) and (max-width: 1440px) {
+  .develop-infomation {
+    width: 100vw;
+    height: 100vh;
+
+    padding-top: 10vh;
+    box-sizing: border-box;
+    background-color: white;
+
+    .develop-infomation-base-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      .develop-infomation-container-top {
+        width: 100%;
+        display: flex;
+        // background-color: pink;
+        justify-content: space-between;
+
+        .left {
+          width: 50%;
+
+          .develop-container-top {
+            width: 100%;
+            display: flex;
+
+            .develop-container-left {
+              width: 100%;
+
+              .develop-container-left-item {
+                .topic {
+                  width: 100%;
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+
+                  .text {
+                    font-weight: 400;
+                    font-size: var(--aside-fontSize);
+                    color: #f3a7a5;
+                  }
+
+                  .block {
+                    width: 6px;
+                    height: var(--aside-block);
+                    border-radius: 1px;
+                    background-color: #f3a7a5;
+                  }
+                }
+
+                .name {
+                  margin-top: 1vh;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: var(--topic-fontSize);
+                  color: #333333;
+                }
+
+                .desc {
+                  margin-top: 2vh;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 16px;
+                  color: #333333;
+                }
+              }
+            }
+
+            .business-container-right {
+              width: 50%;
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              gap: 1vw;
+
+              .business-container-right-item {
+                margin-top: 4vh;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 1vw;
+                cursor: pointer;
+
+                .text {
+                  width: 80px;
+                  height: 32px;
+
+                  border-radius: 18px 18px 18px 18px;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 14px;
+                  color: #333333;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  // background-color: pink;
+                  &.active {
+                    background-color: #2d2d2d;
+                  }
+                }
+
+                .line {
+                  width: 18px;
+                  height: 1px;
+                  background: #e0e0e0;
+                  border-radius: 0px 0px 0px 0px;
+                }
+              }
+            }
+          }
+
+          .develop-container-bottom {
+            margin-top: 3vh;
+
+            .title {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 32px;
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 2vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+              line-height: 24px;
+              text-align: left;
+            }
+
+            .right {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              gap: 1vh;
+              // background-color: pink;
+              margin-top: 3vh;
+              .right-top {
+                display: flex;
+                gap: 1vh;
+                .right-item {
+                  height: 130px;
+                }
+              }
+
+              .right-item {
+                position: relative;
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                height: 130px;
+                cursor: pointer;
+                // border: 1px solid red;
+                border-radius: 10px;
+                overflow: hidden;
+
+                :deep(.el-image) {
+                  width: 100%;
+                  height: 100%;
+                  // border-radius: 10px;
+                }
+
+                .kl-txt {
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  left: 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 24px;
+                  color: #ffffff;
+
+                  background-image: url('../../assets/images/黑色渐变1.png');
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-position: center;
+                }
+
+                .kl-dec {
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  left: 0;
+                  background-color: rgba(0, 0, 0, 0.5);
+                  display: none;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 16px;
+                  color: #ffffff;
+                  padding: 20px;
+                  box-sizing: border-box;
+                  text-align: center;
+                  border-radius: 10px;
+
+                  span {
+                    &:nth-child(1) {
+                      font-family:
+                        Microsoft YaHei,
+                        Microsoft YaHei;
+                      font-weight: 400;
+                      font-size: 24px;
+                      color: #ffffff;
+                    }
+                  }
+                }
+
+                &:hover {
+                  .kl-txt {
+                    display: none;
+                  }
+
+                  .kl-dec {
+                    display: flex;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .new-right {
+          width: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          // background-color: pink;
+
+          .swiper {
+            width: 450px;
+            height: 720px;
+            // border: 1px solid red;
+            background-color: transparent !important;
+          }
+
+          .swiper-slide {
+            background-color: transparent !important;
+          }
+
+          .develop-infomation-container-bottom-item {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            :deep(.el-image) {
+              width: 100%;
+              height: 100%;
+            }
+
+            .text {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 25%;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 24px;
+              display: flex;
+              align-items: center;
+              color: #ffffff;
+
+              background-image: url('../../assets/images/黑色渐变1.png');
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center;
+              text-indent: 1em;
+              border-radius: 0 0 20px 20px;
+            }
           }
         }
       }

@@ -158,7 +158,7 @@
             <span :class="route.name == 'home' ? 'active' : ''" @click="handleSelect(0)">首页</span>
           </div>
           <div class="text-item">
-            <span :class="route.name == 'product-detail' ? 'active' : ''" @click="handleSelect(1)"
+            <span :class="route.name == 'product-detail' || 'product-info' ? 'active' : ''" @click="handleSelect(1)"
               >产品中心</span
             >
           </div>
