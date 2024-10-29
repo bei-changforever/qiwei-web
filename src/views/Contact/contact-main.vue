@@ -17,14 +17,14 @@
               <img :src="getAssetsFile('images', '公司图片.png')" alt="" />
             </div>
             <div class="contact-detail">
-              <div class="contact-detail-top">
+              <div class="contact-detail-top" v-if="config">
                 <div class="title">{{ config.web_name }}</div>
                 <div class="right-title" @click="copyAddress">
                   到这里去
                   <img :src="getAssetsFile('images', '定位.png')" alt="" />
                 </div>
               </div>
-              <div class="contact-detail-bottom">
+              <div class="contact-detail-bottom" v-if="config">
                 <div class="contact-bottom-left">
                   <div class="title">
                     <span class="topic">地址：</span>
@@ -76,7 +76,7 @@
             <el-form-item label="您的具体问题：" prop="question">
               <el-input v-model="form.question" clearable />
             </el-form-item>
-            <el-form-item
+            <!-- <el-form-item
               label="索要样品"
               prop="product"
               style="width: 100%"
@@ -89,19 +89,20 @@
                 num="1"
                 @click="routerGoBack"
               />
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="您的姓名" prop="name">
               <el-input v-model="form.name" placeholder="请填写您的姓名" clearable />
             </el-form-item>
-            <el-form-item label="从哪个渠道了解/添加到我们" prop="channel">
+            <!-- <el-form-item label="从哪个渠道了解/添加到我们" prop="channel">
               <el-input v-model="form.channel" placeholder="请填写您的姓名" clearable />
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
               <div class="row">
                 <el-input v-model="form.Companyname" placeholder="请填写您的公司名称" clearable />
                 <el-input v-model="form.delivery" placeholder="请填写您的职位" clearable />
               </div>
             </el-form-item>
+
             <el-form-item>
               <div class="row">
                 <div class="row-item">
@@ -120,6 +121,21 @@
                       placeholder="请填写您的联系方式"
                       clearable
                     />
+                  </el-form-item>
+                </div>
+              </div>
+            </el-form-item>
+
+            <el-form-item>
+              <div class="row">
+                <div class="row-item">
+                  <el-form-item prop="channel" label="从哪个渠道了解/添加到我们">
+                    <el-input v-model="form.channel" placeholder="请填写哪个渠道" clearable />
+                  </el-form-item>
+                </div>
+                <div class="row-item">
+                  <el-form-item label="索样产品" prop="product">
+                    <el-input v-model="form.product" placeholder="请填写索样产品" clearable />
                   </el-form-item>
                 </div>
               </div>
@@ -159,19 +175,37 @@
       </div>
     </div>
   </div>
+  <!-- 圆角弹窗（居中） -->
+  <!-- <van-popup v-model:show="show" round :style="{ padding: '2vh', width: '80%' }">
+    <div class="pop-title">索样产品</div>
+    <div class="list">
+      <div class="list-container" v-if="productList && productList.length > 0">
+        <div
+          class="list-item"
+          v-for="(item, index) in productList"
+          :key="index"
+          @click="selectPopOPtions(item)"
+        >
+          <van-card :title="item.name" :thumb="item.thumb" />
+        </div>
+      </div>
+      <van-empty description="暂无数据" v-else />
+    </div>
+  </van-popup> -->
 </template>
 <script setup lang="ts">
-import { ref, onMounted, reactive, toRefs } from 'vue'
+import { ref, onMounted, reactive, toRefs, computed, watch } from 'vue'
 import { useConfig } from '@/stores/config'
 import { getAssetsFile } from '@/utils/tools'
 import { submitMessage } from '@/api/index'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
+import { ArrowRight } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { useProductData } from '@/stores/productData'
 import { useRouter } from 'vue-router'
+import { getProductList } from '@/api/index'
+const { cateGory, contactProductInfo } = toRefs(useProductData())
 const router = useRouter()
-const { contactProductInfo } = useProductData()
-
 const { config } = toRefs(useConfig())
 // do not use same name with ref
 const ruleFormRef = ref<FormInstance>()
@@ -198,6 +232,12 @@ const form = reactive<RuleForm>({
   product: '',
   channel: ''
 })
+
+const optionProps = {
+  value: 'id',
+  label: 'name',
+  children: 'children'
+}
 
 const selectOption = [
   {
@@ -308,6 +348,8 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         formData.append('company', form.Companyname)
         formData.append('brand', form.Brandname)
         formData.append('contact', form.phonenumber)
+        formData.append('product', form.product)
+        formData.append('channel', form.channel)
         submitMessage(formData).then((res) => {
           if (res.status == 1) {
             ElMessage({
@@ -368,11 +410,6 @@ const copyValue = async (val) => {
   }
 }
 const copyAddress = () => {
-  // navigator.clipboard.writeText(config.value.address)
-  // ElMessage({
-  //   message: '地址复制成功',
-  //   type: 'success'
-  // })
   copyValue(config.value.address)
 }
 const active = ref(false)
@@ -382,10 +419,9 @@ const draw = ({ el, BMap, map }) => {
   el.style.left = pixel.x - 20 + 'px' // 最终坐标 = 覆盖物坐标 - 覆盖物宽度/2。 // 居中显示
   el.style.top = pixel.y - 50 + 'px'
 }
-
-const routerGoBack = () => {
-  router.go(-1)
-}
+onMounted(() => {
+  form.product = contactProductInfo.value.name ? contactProductInfo.value.name : ''
+})
 </script>
 <style lang="scss" scoped>
 .contact-main {
@@ -659,6 +695,36 @@ const routerGoBack = () => {
       //       }
       //     }
       //   }
+    }
+  }
+}
+.pop-title {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.list {
+  width: 100%;
+  max-height: 70vh;
+  // border: 1px solid red;
+  padding: 2vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  overflow-y: scroll;
+  .list-container {
+    width: 100%;
+    display: flex;
+    gap: 1vh;
+    flex-wrap: wrap;
+    .list-item {
+      width: 16.119999999%;
+      height: 100%;
+      cursor: pointer;
     }
   }
 }

@@ -1,5 +1,8 @@
 <template>
-  <div class="quality" :style="{'background-color': config.background_brand ? config.background_brand : 'white'}">
+  <div
+    class="quality"
+    :style="{ 'background-color': config.background_brand ? config.background_brand : 'white' }"
+  >
     <div class="quality-container" ref="qualityContainer">
       <div class="advantage-container">
         <div
@@ -34,374 +37,378 @@
         ]"
         v-if="PAGEWIDTH > 960"
       >
-        <div class="square-box" v-if="list.length > 0">
-          <div class="square-box-left">
-            <!-- <div class="square-box-left-item" v-for="(item, index) in 9" :key="index">
-              <div :class="['item-info', `itemIndex${index + 1}`]">
-                <div class="image-box">
-                  <el-image :src="item.thumb" :fit="'fill'" />
-             
-                </div>
-              </div>
-            </div> -->
+        <template v-for="(item, index) in list" :key="index" v-show="list.length > 0">
+          <div class="square-box" v-if="bigActiveIndex === index">
+            <div class="square-box-left">
+              <!-- <div class="square-box-left-item" v-for="(item, index) in 9" :key="index">
+    <div :class="['item-info', `itemIndex${index + 1}`]">
+      <div class="image-box">
+        <el-image :src="item.thumb" :fit="'fill'" />
+   
+      </div>
+    </div>
+  </div> -->
 
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${1}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${1}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${2}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${9}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${3}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${4}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${9}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${5}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${6}`]">
+                  <div class="image-box">
+                    <el-image :src="item[10].thumb" :fit="'fill'" />
+                    <!-- 10 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${7}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${8}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[9].thumb" :fit="'fill'" />
+                    <!-- 9 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-left-item">
+                <div :class="['item-info', `itemIndex${9}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${2}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${9}.png`)" :fit="'fill'" /> -->
+            <div class="square-box-top">
+              <!-- <div class="square-box-top-item" v-for="(item, index) in 9" :key="index">
+    <div :class="['item-info', `itemIndex${index + 1}`]">
+      <div class="image-box">
+
+        {{ index }}
+      </div>
+    </div>
+  </div> -->
+
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${1}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${10}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[19].thumb" :fit="'fill'" />
+                    <!-- 20 -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${2}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${17}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[18].thumb" :fit="'fill'" />
+                    <!-- 19 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${3}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${11}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[17].thumb" :fit="'fill'" />
+                    <!-- 18 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${4}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${16}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[16].thumb" :fit="'fill'" />
+                    <!-- 17 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${5}`]" style="background-color: #ccefe7">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${18}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[15].thumb" :fit="'fill'" />
+                    <!-- 16 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${6}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${20}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[14].thumb" :fit="'fill'" />
+                    <!-- 15 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${7}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${7}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${8}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${7}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[12].thumb" :fit="'fill'" />
+                    <!-- 13 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-top-item">
+                <div :class="['item-info', `itemIndex${9}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${19}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[13].thumb" :fit="'fill'" />
+                    <!-- 14 -->
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${3}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
+            <!-- 标记 -->
+            <div class="square-box-bottom">
+              <!-- <div class="square-box-bottom-item" v-for="(item, index) in 9" :key="index">
+    <div :class="['item-info', `itemIndex${index + 1}`]">
+      <div class="image-box">
+        <el-image :src="item.thumb" :fit="'fill'" />
+
+        
+      </div>
+    </div>
+  </div> -->
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${1}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${1}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[0].thumb" :fit="'fill'" />
+                    <!-- 1 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${2}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${12}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[1].thumb" :fit="'fill'" />
+                    <!-- 2 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${3}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${12}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${4}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${8}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[2].thumb" :fit="'fill'" />
+                    <!-- 3 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${5}`]" style="background-color: #024997">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${3}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[3].thumb" :fit="'fill'" />
+                    <!-- 4 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${6}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${5}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[4].thumb" :fit="'fill'" />
+                    <!-- 5 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${7}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${6}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[5].thumb" :fit="'fill'" />
+                    <!-- 6 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${8}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${13}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[6].thumb" :fit="'fill'" />
+                    <!-- 7 -->
+                  </div>
+                </div>
+              </div>
+              <div class="square-box-bottom-item">
+                <div :class="['item-info', `itemIndex${9}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${14}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[7].thumb" :fit="'fill'" />
+                    <!-- 8 -->
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${4}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${9}.png`)" :fit="'fill'" /> -->
+            <div class="square-box-right">
+              <!-- <div class="square-box-right-item" v-for="(item, index) in 9" :key="index">
+    <div :class="['item-info', `itemIndex${index + 1}`]">
+      <div class="image-box">
+        <el-image :src="item.thumb" :fit="'fill'" />
+
+      </div>
+    </div>
+  </div> -->
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${1}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${5}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${2}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[11].thumb" :fit="'fill'" />
+                    <!-- 12 -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${3}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${4}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${2}.png`)" :fit="'fill'" /> -->
+                    <el-image :src="item[10].thumb" :fit="'fill'" />
+                    <!-- 11 -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${5}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${6}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${7}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${8}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="square-box-right-item">
+                <div :class="['item-info', `itemIndex${9}`]">
+                  <div class="image-box">
+                    <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${5}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
+            <div class="square-box-center"></div>
+
+            <div class="texttopic">
+              <span class="topic">品牌保障</span><br />
+              <span class="detail">Quality Assurance</span>
             </div>
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${6}`]">
-                <div class="image-box">
-                  <el-image :src="list[10].thumb" :fit="'fill'" />
-                  <!-- 10 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${7}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${8}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[9].thumb" :fit="'fill'" />
-                  <!-- 9 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-left-item">
-              <div :class="['item-info', `itemIndex${9}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${4}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
+            <div class="textdetail"></div>
           </div>
+        </template>
 
-          <div class="square-box-top">
-            <!-- <div class="square-box-top-item" v-for="(item, index) in 9" :key="index">
-              <div :class="['item-info', `itemIndex${index + 1}`]">
-                <div class="image-box">
-
-                  {{ index }}
-                </div>
-              </div>
-            </div> -->
-
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${1}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${10}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[19].thumb" :fit="'fill'" />
-                  <!-- 20 -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${2}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${17}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[18].thumb" :fit="'fill'" />
-                  <!-- 19 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${3}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${11}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[17].thumb" :fit="'fill'" />
-                  <!-- 18 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${4}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${16}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[16].thumb" :fit="'fill'" />
-                  <!-- 17 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${5}`]" style="background-color: #ccefe7">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${18}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[15].thumb" :fit="'fill'" />
-                  <!-- 16 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${6}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${20}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[14].thumb" :fit="'fill'" />
-                  <!-- 15 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${7}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${7}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${8}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${7}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[12].thumb" :fit="'fill'" />
-                  <!-- 13 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-top-item">
-              <div :class="['item-info', `itemIndex${9}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${19}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[13].thumb" :fit="'fill'" />
-                  <!-- 14 -->
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 标记 -->
-          <div class="square-box-bottom">
-            <!-- <div class="square-box-bottom-item" v-for="(item, index) in 9" :key="index">
-              <div :class="['item-info', `itemIndex${index + 1}`]">
-                <div class="image-box">
-                  <el-image :src="item.thumb" :fit="'fill'" />
-
-                  
-                </div>
-              </div>
-            </div> -->
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${1}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${1}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[0].thumb" :fit="'fill'" />
-                  <!-- 1 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${2}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${12}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[1].thumb" :fit="'fill'" />
-                  <!-- 2 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${3}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${12}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${4}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${8}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[2].thumb" :fit="'fill'" />
-                  <!-- 3 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${5}`]" style="background-color: #024997">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${3}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[3].thumb" :fit="'fill'" />
-                  <!-- 4 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${6}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${5}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[4].thumb" :fit="'fill'" />
-                  <!-- 5 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${7}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${6}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[5].thumb" :fit="'fill'" />
-                  <!-- 6 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${8}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${13}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[6].thumb" :fit="'fill'" />
-                  <!-- 7 -->
-                </div>
-              </div>
-            </div>
-            <div class="square-box-bottom-item">
-              <div :class="['item-info', `itemIndex${9}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${14}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[7].thumb" :fit="'fill'" />
-                  <!-- 8 -->
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="square-box-right">
-            <!-- <div class="square-box-right-item" v-for="(item, index) in 9" :key="index">
-              <div :class="['item-info', `itemIndex${index + 1}`]">
-                <div class="image-box">
-                  <el-image :src="item.thumb" :fit="'fill'" />
-         
-                </div>
-              </div>
-            </div> -->
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${1}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${5}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${2}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[11].thumb" :fit="'fill'" />
-                  <!-- 12 -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${3}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${4}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${2}.png`)" :fit="'fill'" /> -->
-                  <el-image :src="list[10].thumb" :fit="'fill'" />
-                  <!-- 11 -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${5}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${6}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${7}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${8}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-
-            <div class="square-box-right-item">
-              <div :class="['item-info', `itemIndex${9}`]">
-                <div class="image-box">
-                  <!-- <el-image :src="getAssetsFile('images', `合作品牌${15}.png`)" :fit="'fill'" /> -->
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="square-box-center"></div>
-
-          <div class="texttopic">
-            <span class="topic">品牌保障</span><br />
-            <span class="detail">Quality Assurance</span>
-          </div>
-          <div class="textdetail"></div>
-        </div>
-        <!-- <div class="pagenavigation" v-show="false">
+        <div class="pagenavigation">
           <div
-            :class="['pagenavigation-item', activeIndex == index ? 'active' : '']"
-            v-for="(item, index) in 1"
+            :class="['pagenavigation-item', bigActiveIndex == index ? 'active' : '']"
+            v-for="(item, index) in list"
+            @click="handleSelect(index)"
           ></div>
-        </div> -->
+        </div>
       </div>
       <div class="moom-box" v-else>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="skyblue" lazy-render>
@@ -431,7 +438,7 @@ const activeIndex = ref(0)
 const changePageShow = ref(false)
 const showAnimation = ref(false)
 const qualityContainer = ref(null)
-
+const bigActiveIndex = ref(0)
 function groupByN(arr: any[], n: number): any[][] {
   return arr.reduce((acc, _, i, src) => {
     if (i % n === 0) acc.push(src.slice(i, i + n))
@@ -456,6 +463,18 @@ function groupAndFillData(arr: any[], groupCount: number, groupSize: number): an
 
   return initialGroups
 }
+
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const result: T[][] = []
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size))
+  }
+  return result
+}
+
+const handleSelect = (index: number) => {
+  bigActiveIndex.value = index
+}
 const list = ref([])
 const groupedData = ref([])
 const groupeDataMobileData = ref([])
@@ -465,6 +484,11 @@ const getPic = async () => {
   if (res.status == 1) {
     // 9条数据为1组
     list.value = res.data
+    // list.value.push(...res.data)
+    list.value = chunkArray(list.value, 20)
+    // list.value = res.data
+    // console.log(list.value);
+
     groupedData.value = groupAndFillData(res.data, 4, 9)
     groupeDataMobileData.value = groupByN(res.data, 6)
   }
@@ -594,7 +618,7 @@ watch(
 
       .pagenavigation {
         position: absolute;
-        bottom: 5vh;
+        bottom: 8vh;
         // width: 30%;
         padding: 20px;
         display: flex;

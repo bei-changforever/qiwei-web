@@ -69,13 +69,13 @@
               返回上一页
             </div>
           </div>
-          <div class="info">
+          <div class="info" v-if="info">
             <div class="topic">{{ info.name }}</div>
             <div class="desc">
               {{ info.description }}
             </div>
           </div>
-          <div class="product-right-bottom">
+          <div class="product-right-bottom" v-if="info">
             <el-button class="liuyan" :icon="ChatLineRound" @click="liuyan(info)"
               >在线留言</el-button
             >
