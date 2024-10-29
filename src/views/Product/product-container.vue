@@ -38,84 +38,54 @@
               <!-- @click="handleSelect(item, index)" -->
               <!-- @mouseenter.stop="handleSelect(index)"
                   @mouseleave.stop="parentClick" -->
-              <!-- <div class="bottom-text-item" v-for="(item, index) in productChild" :key="index">
-                <div
-                  :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
-                  @click.stop="handleSelect(item, index)"
-                  @mouseenter.stop="mouseenterhandleSelect(item, index)"
-                  @mouseleave.stop="parentClick"
-                >
-                  <span>{{ item.name }}</span>
-                  <el-image
-                    v-if="bottomTextItemIndex == index && show"
-                    :src="getAssetsFile('icon', 'arrowup.png')"
-                    :fit="'fill'"
-                  />
-                  <el-image v-else :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
-
+              <div
+                class="temp-box"
+                v-for="(item, index) in productChild"
+                :key="index"
+                v-show="erjicaidanindex == index"
+              >
+                <div class="bottom-text-item" v-for="(p, i) in item" :key="i">
                   <div
-                    class="line"
-                    v-if="
-                      bottomTextItemIndex == index &&
-                      show &&
-                      item.children &&
-                      item.children.length > 0
-                    "
+                    :class="['text-b', bottomTextItemIndex == i ? 'active' : '']"
+                    @click.stop="handleSelect(p, i)"
+                    @mouseenter.stop="mouseenterhandleSelect(p, i)"
+                    @mouseleave.stop="parentClick"
                   >
-                    <div
-                      :class="['line-button', br.isActive ? 'active' : 'none']"
-                      v-for="(br, bri) in item.children"
-                      :key="bri"
-                      @click.stop="handleSelectchild(br, bri)"
-                    >
-                      {{ br.name }}
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-              <swiper :slidesPerView="7" :spaceBetween="30" class="mySwiper">
-                <swiper-slide v-for="(item, index) in productChild" :key="index">
-                  <div class="bottom-text-item">
-                    <div
-                      :class="['text-b', bottomTextItemIndex == index ? 'active' : '']"
-                      @click.stop="handleSelect(item, index)"
-                      @mouseenter.stop="mouseenterhandleSelect(item, index)"
-                      @mouseleave.stop="parentClick"
-                    >
-                      <span>{{ item.name }}</span>
-                      <el-image
-                        v-if="bottomTextItemIndex == index && show"
-                        :src="getAssetsFile('icon', 'arrowup.png')"
-                        :fit="'fill'"
-                      />
-                      <el-image
-                        v-else
-                        :src="getAssetsFile('icon', 'arrowdown.png')"
-                        :fit="'fill'"
-                      />
+                    <span>{{ p.name }}</span>
+                    <el-image
+                      v-if="bottomTextItemIndex == i && show"
+                      :src="getAssetsFile('icon', 'arrowup.png')"
+                      :fit="'fill'"
+                    />
+                    <el-image v-else :src="getAssetsFile('icon', 'arrowdown.png')" :fit="'fill'" />
 
+                    <div
+                      class="line"
+                      v-if="bottomTextItemIndex == i && show && p.children && p.children.length > 0"
+                    >
                       <div
-                        class="line"
-                        v-if="
-                          bottomTextItemIndex == index &&
-                          show &&
-                          item.children &&
-                          item.children.length > 0
-                        "
+                        :class="['line-button', br.isActive ? 'active' : 'none']"
+                        v-for="(br, bri) in p.children"
+                        :key="bri"
+                        @click.stop="handleSelectchild(br, bri)"
                       >
-                        <div
-                          :class="['line-button', br.isActive ? 'active' : 'none']"
-                          v-for="(br, bri) in item.children"
-                          :key="bri"
-                          @click.stop="handleSelectchild(br, bri)"
-                        >
-                          {{ br.name }}
-                        </div>
+                        {{ br.name }}
                       </div>
                     </div>
                   </div>
-                </swiper-slide>
-              </swiper>
+                </div>
+              </div>
+            </div>
+            <div class="right-box-bootm" v-if="productChild && productChild.length > 1">
+              <div class="left-text">
+                {{ erjicaidanindex + 1 }}/{{ productChild && productChild.length }}
+              </div>
+              <div class="left-btn">
+                <el-image :src="getAssetsFile('icon', 'left.png')" :fit="'fill'" @click="prev" />
+              </div>
+              <div class="right-btn">
+                <el-image :src="getAssetsFile('icon', 'right.png')" :fit="'fill'" @click="next" />
+              </div>
             </div>
           </div>
         </div>
@@ -245,6 +215,24 @@ const option2 = [
   { text: '国内', value: 0 },
   { text: '国外', value: 1 }
 ]
+
+const erjicaidanindex = ref(0)
+
+const prev = () => {
+  if (erjicaidanindex.value <= 0) {
+    return
+  } else {
+    erjicaidanindex.value--
+  }
+}
+
+const next = () => {
+  if (erjicaidanindex.value >= productChild.value.length - 1) {
+    return
+  } else {
+    erjicaidanindex.value++
+  }
+}
 const value2 = ref('1')
 
 const onConfirm = () => {
@@ -556,6 +544,15 @@ const productCategory = computed(() => {
   //   }
   // ]
 })
+
+function groupBySeven(data: any[]): any[][] {
+  return data.reduce((acc: any[][], item: any, index: number) => {
+    const chunkIndex = Math.floor(index / 7)
+    if (!acc[chunkIndex]) acc[chunkIndex] = []
+    acc[chunkIndex].push(item)
+    return acc
+  }, [])
+}
 // 下拉框的数据
 const productChild = computed(() => {
   if (parentList.value.length > 0 && parentList.value[top1Index.value].children) {
@@ -566,10 +563,94 @@ const productChild = computed(() => {
         })
       }
     })
-    return parentList.value[top1Index.value].children
-      ? parentList.value[top1Index.value].children
+
+    let arr = groupBySeven(parentList.value[top1Index.value].children)
+      ? groupBySeven(parentList.value[top1Index.value].children)
       : []
+
+    return arr
   }
+  // let arr = [
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   },
+  //   {
+  //     name: '全部',
+  //     id: 1
+  //   }
+  // ]
+  // console.log(groupBySeven(arr))
+
+  // return groupBySeven(arr)
 })
 
 // const mobileTypeList = computed(() => {
@@ -709,20 +790,27 @@ watch(
         .bottom {
           width: 100%;
           height: 50%;
-
+          display: flex;
+          // align-items: center;
+          // justify-content: center;
           .bottom-text-box {
             width: 85%;
             height: 100%;
             display: flex;
-            align-items: center;
+            // align-items: center;
             // gap: 1vw;
             // background-color: pink;
+            .temp-box {
+              width: 100%;
+              display: flex;
+              // background-color: orange;
+            }
             .bottom-text-item {
               position: relative;
               display: flex;
               align-items: center;
               justify-content: center;
-              // width: 4.6vw;
+              width: 7.25vw;
               // width: 100px;
               height: 100%;
               // margin-left: 0.5vh;
@@ -802,6 +890,19 @@ watch(
                   color: #f3a7a4;
                 }
               }
+            }
+          }
+          .right-box-bootm {
+            width: 15%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1vw;
+            // background-color: orange;
+            :deep(.el-image) {
+              width: 30px;
+              height: 30px;
+              cursor: pointer;
             }
           }
         }

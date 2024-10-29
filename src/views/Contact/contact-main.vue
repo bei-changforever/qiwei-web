@@ -76,7 +76,7 @@
             <el-form-item label="您的具体问题：" prop="question">
               <el-input v-model="form.question" clearable />
             </el-form-item>
-            <el-form-item
+            <!-- <el-form-item
               label="索要样品"
               prop="product"
               style="width: 100%"
@@ -89,19 +89,20 @@
                 num="1"
                 @click="routerGoBack"
               />
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="您的姓名" prop="name">
               <el-input v-model="form.name" placeholder="请填写您的姓名" clearable />
             </el-form-item>
-            <el-form-item label="从哪个渠道了解/添加到我们" prop="channel">
+            <!-- <el-form-item label="从哪个渠道了解/添加到我们" prop="channel">
               <el-input v-model="form.channel" placeholder="请填写您的姓名" clearable />
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item>
               <div class="row">
                 <el-input v-model="form.Companyname" placeholder="请填写您的公司名称" clearable />
                 <el-input v-model="form.delivery" placeholder="请填写您的职位" clearable />
               </div>
             </el-form-item>
+
             <el-form-item>
               <div class="row">
                 <div class="row-item">
@@ -119,6 +120,37 @@
                       v-model="form.phonenumber"
                       placeholder="请填写您的联系方式"
                       clearable
+                    />
+                  </el-form-item>
+                </div>
+              </div>
+            </el-form-item>
+
+            <el-form-item>
+              <div class="row">
+                <div class="row-item">
+                  <el-form-item prop="channel" label="从哪个渠道了解/添加到我们">
+                    <el-input v-model="form.channel" placeholder="请填写哪个渠道" clearable />
+                  </el-form-item>
+                </div>
+                <div class="row-item">
+                  <el-form-item label="索样产品" @click="dianjishijian('s')" v-if="!elinputChange">
+                    <el-cascader
+                      style="width: 100%"
+                      :options="tempCateGory"
+                      :show-all-levels="false"
+                      :props="optionProps"
+                      clearable
+                      placeholder="请选择"
+                      @change="handleChange"
+                    />
+                  </el-form-item>
+                  <el-form-item label="索样产品" @click="dianjishijian('c')" v-else>
+                    <el-input
+                      v-model="form.product"
+                      placeholder="请填写索样产品"
+                      clearable
+                      :suffix-icon="ArrowRight"
                     />
                   </el-form-item>
                 </div>
@@ -159,20 +191,42 @@
       </div>
     </div>
   </div>
+  <!-- 圆角弹窗（居中） -->
+  <van-popup v-model:show="show" round :style="{ padding: '2vh', width: '80%' }">
+    <div class="pop-title">索样产品</div>
+    <div class="list">
+      <div class="list-container" v-if="productList && productList.length > 0">
+        <div
+          class="list-item"
+          v-for="(item, index) in productList"
+          :key="index"
+          @click="selectPopOPtions(item)"
+        >
+          <van-card :title="item.name" :thumb="item.thumb" />
+        </div>
+      </div>
+      <van-empty description="暂无数据" v-else />
+    </div>
+  </van-popup>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, reactive, toRefs } from 'vue'
+import { ref, onMounted, reactive, toRefs, computed } from 'vue'
 import { useConfig } from '@/stores/config'
 import { getAssetsFile } from '@/utils/tools'
 import { submitMessage } from '@/api/index'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
+import { ArrowRight } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { useProductData } from '@/stores/productData'
 import { useRouter } from 'vue-router'
+import { getProductList } from '@/api/index'
+const { cateGory } = toRefs(useProductData())
 const router = useRouter()
 const { contactProductInfo } = useProductData()
 
 const { config } = toRefs(useConfig())
+
+const show = ref(false)
 // do not use same name with ref
 const ruleFormRef = ref<FormInstance>()
 interface RuleForm {
@@ -199,6 +253,50 @@ const form = reactive<RuleForm>({
   channel: ''
 })
 
+const optionProps = {
+  value: 'id',
+  label: 'name',
+  children: 'children'
+}
+
+const selectPopOPtions = (item) => {
+  form.product = item.name
+  show.value = false
+  elinputChange.value = true
+}
+
+const tempCateGory = ref(cateGory.value)
+const elinputChange = ref(false)
+const dianjishijian = (str) => {
+  elinputChange.value = false
+
+}
+// 从第X条查起，0代表第一条
+const offset = ref(0)
+// 查询x条
+const limit = ref(999999)
+const productList = ref([])
+
+const getProductListData = async (id, index) => {
+  let data = {
+    category_id: id,
+    offset: offset.value,
+    limit: limit.value
+  }
+  let res = await getProductList(data)
+  if (res.status == 1) {
+    productList.value = res.data.list
+    productList.value.push(...res.data.list)
+    // tempCateGory.value = list
+    // console.log(tempCateGory.value)
+    show.value = true
+  }
+}
+
+const handleChange = async (val) => {
+  let id = val[val.length - 1]
+  getProductListData(id, val.length)
+}
 const selectOption = [
   {
     label: '品牌方',
@@ -659,6 +757,36 @@ const routerGoBack = () => {
       //       }
       //     }
       //   }
+    }
+  }
+}
+.pop-title {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.list {
+  width: 100%;
+  max-height: 70vh;
+  // border: 1px solid red;
+  padding: 2vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  overflow-y: scroll;
+  .list-container {
+    width: 100%;
+    display: flex;
+    gap: 1vh;
+    flex-wrap: wrap;
+    .list-item {
+      width: 16.119999999%;
+      height: 100%;
+      cursor: pointer;
     }
   }
 }

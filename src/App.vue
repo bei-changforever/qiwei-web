@@ -6,7 +6,7 @@ import emitter from '@/utils/mitt'
 import { showDialog } from 'vant'
 import { useCounterStore } from '@/stores/screenWidth'
 import { useConfig } from '@/stores/config'
-import { getBaseInfo, getProductCategory } from '@/api/index'
+import { getBaseInfo, getProductCategory, getProductList } from '@/api/index'
 import { useProductData } from '@/stores/productData'
 const { setScreenWidth } = useCounterStore()
 const { setcateGory, setContactProductInfo } = useProductData()
@@ -87,15 +87,42 @@ const setScreenCompatibility = () => {
   document.body.style.MozTransform = `scale(${scale})`
   document.body.style.MozTransformOrigin = '0 0'
 }
+// 从第X条查起，0代表第一条
+const offset = ref(0)
+const limit = ref(999999)
+
+const fetchChildren = async (id) => {
+  let data = {
+    category_id: id,
+    offset: offset.value,
+    limit: limit.value
+  }
+  let res = await getProductList(data)
+  if (res.status == 1) {
+    return res.data.list
+  }
+}
+
+const mergeChildrenRecursively = async (categories) => {
+  for (const category of categories) {
+    try {
+      const children = await fetchChildren(category.id)
+      category.children = await mergeChildrenRecursively(children)
+    } catch (error) {
+      console.error(`Failed to fetch children for category ${category.id}:`, error)
+    }
+  }
+  return categories
+}
 
 const getPorductcate = () => {
   getProductCategory().then((res) => {
-    // console.log(res);
     if (res.status == 1) {
       setcateGory(res.data)
     }
   })
 }
+
 
 onMounted(() => {
   nextTick(() => {
