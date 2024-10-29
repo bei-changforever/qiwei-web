@@ -17,14 +17,14 @@
               <img :src="getAssetsFile('images', '公司图片.png')" alt="" />
             </div>
             <div class="contact-detail">
-              <div class="contact-detail-top">
+              <div class="contact-detail-top" v-if="config">
                 <div class="title">{{ config.web_name }}</div>
                 <div class="right-title" @click="copyAddress">
                   到这里去
                   <img :src="getAssetsFile('images', '定位.png')" alt="" />
                 </div>
               </div>
-              <div class="contact-detail-bottom">
+              <div class="contact-detail-bottom" v-if="config">
                 <div class="contact-bottom-left">
                   <div class="title">
                     <span class="topic">地址：</span>
@@ -269,7 +269,6 @@ const tempCateGory = ref(cateGory.value)
 const elinputChange = ref(false)
 const dianjishijian = (str) => {
   elinputChange.value = false
-
 }
 // 从第X条查起，0代表第一条
 const offset = ref(0)
