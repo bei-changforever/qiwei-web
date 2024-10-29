@@ -65,26 +65,49 @@
           </div>
         </div>
         <div class="new-right">
-          <swiper :effect="'cards'" :grabCursor="true" :modules="modules" class="mySwiper">
-            <swiper-slide>
+          <div class="home-product-swiper-pagination">
+            <div class="left-btn">
+              <el-image
+                :src="getAssetsFile('icon', 'left.png')"
+                :fit="'fill'"
+                @click="bannerSwiperPrev"
+              />
+            </div>
+            <div class="right-btn">
+              <el-image
+                :src="getAssetsFile('icon', 'right.png')"
+                :fit="'fill'"
+                @click="bannerSwiperNext"
+              />
+            </div>
+          </div>
+
+          <swiper
+            v-if="list.length > 0"
+            @swiper="onSwiper"
+            :grabCursor="true"
+            :effect="'creative'"
+            :creativeEffect="{
+              prev: {
+                shadow: true,
+                translate: [0, 0, -400]
+              },
+              next: {
+                translate: ['100%', 0, 0]
+              }
+            }"
+            :modules="modules"
+            class="mySwiper"
+          >
+            <swiper-slide v-for="(item, index) in list" :key="index">
               <div class="develop-infomation-container-bottom-item">
-                <el-image :src="getAssetsFile('images', '新质生产力.png')" :fit="'fill'" />
-                <div class="text">新质生产力</div>
-              </div></swiper-slide
-            >
-            <swiper-slide>
-              <div class="develop-infomation-container-bottom-item">
-                <el-image :src="getAssetsFile('images', '可持续发展.png')" :fit="'fill'" />
-                <div class="text">可持续发展</div>
-              </div></swiper-slide
-            >
-            <swiper-slide>
-              <div class="develop-infomation-container-bottom-item">
-                <el-image :src="getAssetsFile('images', '新质设备.png')" :fit="'fill'" />
-                <div class="text">新质设备</div>
-              </div></swiper-slide
-            >
+                <el-image :src="item.thumb" :fit="'fill'" />
+                <div class="text">{{ item.name }}</div>
+              </div>
+            </swiper-slide>
           </swiper>
+
+          <van-empty description="暂无数据" v-else />
         </div>
         <!-- <div class="develop-infomation-container-bottom">
         <div class="develop-infomation-container-bottom-item">
@@ -105,6 +128,8 @@
   </div>
 </template>
 <script setup>
+import { ref, reactive, toRefs, watch, onMounted, nextTick } from 'vue'
+import { getBanner } from '@/api/index'
 import { getAssetsFile } from '@/utils/tools'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -112,11 +137,30 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 // Import Swiper styles
 import 'swiper/css'
 
-import 'swiper/css/effect-cards'
+import 'swiper/css/effect-creative'
 // import required modules
-import { EffectCards } from 'swiper/modules'
+import { EffectCreative } from 'swiper/modules'
 
-const modules = [EffectCards]
+const modules = [EffectCreative]
+
+const swiperDom = ref(null)
+const onSwiper = (swiper) => {
+  swiperDom.value = swiper
+}
+const bannerSwiperPrev = () => {
+  swiperDom.value.slidePrev()
+}
+
+const bannerSwiperNext = () => {
+  swiperDom.value.slideNext()
+}
+const list = ref([])
+onMounted(async () => {
+  let res = await getBanner(9)
+  if (res.status == 1) {
+    list.value = res.data
+  }
+})
 </script>
 <style lang="scss" scoped>
 .develop-infomation {
@@ -367,18 +411,26 @@ const modules = [EffectCards]
       .new-right {
         width: 40%;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
         // background-color: pink;
 
-        .swiper {
-          width: 450px;
-          height: 720px;
-          // border: 1px solid red;
-          background-color: transparent !important;
+        .home-product-swiper-pagination {
+          margin-top: 5vh;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 1vw;
+          :deep(.el-image) {
+            cursor: pointer;
+          }
         }
-
-        .swiper-slide {
+        .mySwiper {
+          width: 552px;
+          height: 520px;
+          // border: 1px solid red;
           background-color: transparent !important;
         }
 
@@ -387,7 +439,9 @@ const modules = [EffectCards]
           height: 100%;
           cursor: pointer;
           position: relative;
+          border-radius: 20px;
           overflow: hidden;
+
           :deep(.el-image) {
             width: 100%;
             height: 100%;
@@ -414,6 +468,328 @@ const modules = [EffectCards]
             background-position: center;
             text-indent: 1em;
             border-radius: 0 0 20px 20px;
+          }
+        }
+      }
+    }
+  }
+}
+.swiper-slide {
+  background-color: transparent !important;
+}
+.swiper-slide-fully-visible {
+  background-color: transparent !important;
+}
+.swiper-slide-next {
+  background-color: transparent !important;
+}
+
+@media (min-width: 1440px) and (max-width: 1520px) {
+  .develop-infomation {
+    width: 100vw;
+    height: 100vh;
+
+    padding-top: 10vh;
+    box-sizing: border-box;
+    background-color: white;
+
+    .develop-infomation-base-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      .develop-infomation-container-top {
+        width: 100%;
+        display: flex;
+        // background-color: pink;
+        justify-content: space-between;
+
+        .left {
+          width: 50%;
+
+          .develop-container-top {
+            width: 100%;
+            display: flex;
+
+            .develop-container-left {
+              width: 100%;
+
+              .develop-container-left-item {
+                .topic {
+                  width: 100%;
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+
+                  .text {
+                    font-weight: 400;
+                    font-size: var(--aside-fontSize);
+                    color: #f3a7a5;
+                  }
+
+                  .block {
+                    width: 6px;
+                    height: var(--aside-block);
+                    border-radius: 1px;
+                    background-color: #f3a7a5;
+                  }
+                }
+
+                .name {
+                  margin-top: 1vh;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: var(--topic-fontSize);
+                  color: #333333;
+                }
+
+                .desc {
+                  margin-top: 2vh;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 16px;
+                  color: #333333;
+                }
+              }
+            }
+
+            .business-container-right {
+              width: 50%;
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              gap: 1vw;
+
+              .business-container-right-item {
+                margin-top: 4vh;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 1vw;
+                cursor: pointer;
+
+                .text {
+                  width: 80px;
+                  height: 32px;
+
+                  border-radius: 18px 18px 18px 18px;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 14px;
+                  color: #333333;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  // background-color: pink;
+                  &.active {
+                    background-color: #2d2d2d;
+                  }
+                }
+
+                .line {
+                  width: 18px;
+                  height: 1px;
+                  background: #e0e0e0;
+                  border-radius: 0px 0px 0px 0px;
+                }
+              }
+            }
+          }
+
+          .develop-container-bottom {
+            margin-top: 3vh;
+
+            .title {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 32px;
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 2vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+              line-height: 24px;
+              text-align: left;
+            }
+
+            .right {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              gap: 1vh;
+              // background-color: pink;
+              margin-top: 3vh;
+              .right-top {
+                display: flex;
+                gap: 1vh;
+                .right-item {
+                  height: 130px;
+                }
+              }
+
+              .right-item {
+                position: relative;
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                height: 130px;
+                cursor: pointer;
+                // border: 1px solid red;
+                border-radius: 10px;
+                overflow: hidden;
+
+                :deep(.el-image) {
+                  width: 100%;
+                  height: 100%;
+                  // border-radius: 10px;
+                }
+
+                .kl-txt {
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  left: 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 24px;
+                  color: #ffffff;
+
+                  background-image: url('../../assets/images/黑色渐变1.png');
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-position: center;
+                }
+
+                .kl-dec {
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  left: 0;
+                  background-color: rgba(0, 0, 0, 0.5);
+                  display: none;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 16px;
+                  color: #ffffff;
+                  padding: 20px;
+                  box-sizing: border-box;
+                  text-align: center;
+                  border-radius: 10px;
+
+                  span {
+                    &:nth-child(1) {
+                      font-family:
+                        Microsoft YaHei,
+                        Microsoft YaHei;
+                      font-weight: 400;
+                      font-size: 24px;
+                      color: #ffffff;
+                    }
+                  }
+                }
+
+                &:hover {
+                  .kl-txt {
+                    display: none;
+                  }
+
+                  .kl-dec {
+                    display: flex;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .new-right {
+          width: 40%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: space-between;
+          // background-color: pink;
+
+          .home-product-swiper-pagination {
+            margin-top: 5vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1vw;
+          }
+          .mySwiper {
+            width: 450px;
+            height: 520px;
+            // border: 1px solid red;
+            background-color: transparent !important;
+          }
+
+          .swiper-slide {
+            background-color: transparent !important;
+          }
+
+          .develop-infomation-container-bottom-item {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            :deep(.el-image) {
+              width: 100%;
+              height: 100%;
+            }
+
+            .text {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 25%;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 24px;
+              display: flex;
+              align-items: center;
+              color: #ffffff;
+
+              background-image: url('../../assets/images/黑色渐变1.png');
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center;
+              text-indent: 1em;
+              border-radius: 0 0 20px 20px;
+            }
           }
         }
       }
@@ -671,12 +1047,21 @@ const modules = [EffectCards]
           width: 40%;
           display: flex;
           align-items: center;
-          justify-content: flex-end;
+          flex-direction: column;
+          justify-content: space-between;
           // background-color: pink;
 
-          .swiper {
+          .home-product-swiper-pagination {
+            margin-top: 5vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1vw;
+          }
+          .mySwiper {
             width: 450px;
-            height: 720px;
+            height: 520px;
             // border: 1px solid red;
             background-color: transparent !important;
           }
@@ -724,7 +1109,318 @@ const modules = [EffectCards]
     }
   }
 }
+@media (min-width: 960px) and (max-width: 1220px) {
+  .develop-infomation {
+    width: 100vw;
+    height: 100vh;
 
+    padding-top: 10vh;
+    box-sizing: border-box;
+    background-color: white;
+
+    .develop-infomation-base-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      .develop-infomation-container-top {
+        width: 100%;
+        display: flex;
+        // background-color: pink;
+        justify-content: space-between;
+
+        .left {
+          width: 50%;
+
+          .develop-container-top {
+            width: 100%;
+            display: flex;
+
+            .develop-container-left {
+              width: 100%;
+
+              .develop-container-left-item {
+                .topic {
+                  width: 100%;
+                  height: 40px;
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+
+                  .text {
+                    font-weight: 400;
+                    font-size: var(--aside-fontSize);
+                    color: #f3a7a5;
+                  }
+
+                  .block {
+                    width: 6px;
+                    height: var(--aside-block);
+                    border-radius: 1px;
+                    background-color: #f3a7a5;
+                  }
+                }
+
+                .name {
+                  margin-top: 1vh;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: var(--topic-fontSize);
+                  color: #333333;
+                }
+
+                .desc {
+                  margin-top: 2vh;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 16px;
+                  color: #333333;
+                }
+              }
+            }
+
+            .business-container-right {
+              width: 50%;
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              gap: 1vw;
+
+              .business-container-right-item {
+                margin-top: 4vh;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 1vw;
+                cursor: pointer;
+
+                .text {
+                  width: 80px;
+                  height: 32px;
+
+                  border-radius: 18px 18px 18px 18px;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 14px;
+                  color: #333333;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  // background-color: pink;
+                  &.active {
+                    background-color: #2d2d2d;
+                  }
+                }
+
+                .line {
+                  width: 18px;
+                  height: 1px;
+                  background: #e0e0e0;
+                  border-radius: 0px 0px 0px 0px;
+                }
+              }
+            }
+          }
+
+          .develop-container-bottom {
+            margin-top: 3vh;
+
+            .title {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 32px;
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 2vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 16px;
+              color: #333333;
+              line-height: 24px;
+              text-align: left;
+            }
+
+            .right {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              gap: 1vh;
+              // background-color: pink;
+              margin-top: 3vh;
+              .right-top {
+                display: flex;
+                gap: 1vh;
+                .right-item {
+                  height: 130px;
+                }
+              }
+
+              .right-item {
+                position: relative;
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                height: 130px;
+                cursor: pointer;
+                // border: 1px solid red;
+                border-radius: 10px;
+                overflow: hidden;
+
+                :deep(.el-image) {
+                  width: 100%;
+                  height: 100%;
+                  // border-radius: 10px;
+                }
+
+                .kl-txt {
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  left: 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 24px;
+                  color: #ffffff;
+
+                  background-image: url('../../assets/images/黑色渐变1.png');
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-position: center;
+                }
+
+                .kl-dec {
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  top: 0;
+                  left: 0;
+                  background-color: rgba(0, 0, 0, 0.5);
+                  display: none;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 16px;
+                  color: #ffffff;
+                  padding: 20px;
+                  box-sizing: border-box;
+                  text-align: center;
+                  border-radius: 10px;
+
+                  span {
+                    &:nth-child(1) {
+                      font-family:
+                        Microsoft YaHei,
+                        Microsoft YaHei;
+                      font-weight: 400;
+                      font-size: 24px;
+                      color: #ffffff;
+                    }
+                  }
+                }
+
+                &:hover {
+                  .kl-txt {
+                    display: none;
+                  }
+
+                  .kl-dec {
+                    display: flex;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .new-right {
+          width: 40%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: space-between;
+          // background-color: pink;
+
+          .home-product-swiper-pagination {
+            margin-top: 5vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1vw;
+          }
+          .mySwiper {
+            width: 380px;
+            height: 500px;
+            // border: 1px solid red;
+            background-color: transparent !important;
+          }
+
+          .swiper-slide {
+            background-color: transparent !important;
+          }
+
+          .develop-infomation-container-bottom-item {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            :deep(.el-image) {
+              width: 100%;
+              height: 100%;
+            }
+
+            .text {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 25%;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 24px;
+              display: flex;
+              align-items: center;
+              color: #ffffff;
+
+              background-image: url('../../assets/images/黑色渐变1.png');
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center;
+              text-indent: 1em;
+              border-radius: 0 0 20px 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 @media (max-width: 960px) {
   .develop-infomation {
     width: 100vw;

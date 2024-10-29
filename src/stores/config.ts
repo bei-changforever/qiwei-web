@@ -35,7 +35,11 @@ export const useConfig = defineStore('useConfig', () => {
     home_company_video:
       'http://101.35.179.19:8066/uploads/Temp/2024-10-27/16c860958fcc7a881e15d408a4d6fbd7.mp4',
     home_company_video_img:
-      'http://101.35.179.19:8066/uploads/Temp/2024-10-27/e333c76bb6d1f38a546ec40b11f81ed9.png'
+      'http://101.35.179.19:8066/uploads/Temp/2024-10-27/e333c76bb6d1f38a546ec40b11f81ed9.png',
+    about_img:
+      'http://101.35.179.19:8066/uploads/Temp/2024-10-29/e5e14a585b3977450d836e08788b7ee6.png ',
+    about_description:
+      ' 汕头市奇伟实业有限公司成立于1996年，深耕化妆品行业28年，专注于彩妆产品的设计、 研发、制造的专业化妆品OEM、ODM、OBM生产企业，致力服务电商、微商、跨境、 私域、专业线、商超链锁为一体的专业化、国际化的综合性化妆品企业。 <br/> 奇伟的研发团队与营销中心紧密联系、协同合作。营销中心通过多渠道数据系统和分析 团队支持，充分做好研发的“眼睛”，及时将“前线”信息反馈到研发实验室。双方发 挥各自的优势，让研发走出实验室，更快转化成市场成果，从而提升奇伟的行业领先地位。 奇伟目前已获得 “国家高新技术企业”'
   })
   const setconfig = (val) => {
     config.value = val
