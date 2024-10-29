@@ -1,7 +1,9 @@
 <template>
   <div
     class="business-info"
-    :style="{ 'background-color': config.background_yfsl ? config.background_yfsl : 'white' }"
+    :style="{
+      'background-color': config && config.background_yfsl ? config.background_yfsl : 'white'
+    }"
   >
     <div class="business-container">
       <div class="business-container-top">

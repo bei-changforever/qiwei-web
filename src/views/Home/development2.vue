@@ -1,7 +1,9 @@
 <template>
   <div
     class="development2"
-    :style="{ 'background-color': config.background_cert ? config.background_cert : '#f7f7f7' }"
+    :style="{
+      'background-color': config && config.background_cert ? config.background_cert : '#f7f7f7'
+    }"
   >
     <div class="development2-container">
       <div class="development2-content" ref="development2Content">
@@ -995,7 +997,6 @@ watch(
               }
 
               .T-bottom-bottom {
-          
                 width: 100%;
                 .T-bottom-bottom-item {
                   width: 100%;

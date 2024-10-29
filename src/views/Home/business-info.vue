@@ -1,5 +1,10 @@
 <template>
-  <div class="business-info" :style="{ 'background-color': config.background_company ? config.background_company : 'white' }">
+  <div
+    class="business-info"
+    :style="{
+      'background-color': config && config.background_company ? config.background_company : 'white'
+    }"
+  >
     <div class="business-container">
       <div class="business-container-top">
         <div class="business-container-left">
@@ -61,7 +66,6 @@
             :src="config.home_company_video"
             :poster="config.home_company_video_img"
             ref="videoDom"
-
           ></video>
           <!-- <el-image :src="getAssetsFile('images', '图片视频栏.png')" :fit="'fill'" /> -->
           <div class="play-btn">

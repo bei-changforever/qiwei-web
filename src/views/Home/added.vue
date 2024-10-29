@@ -1,7 +1,9 @@
 <template>
   <div
     class="added"
-    :style="{ 'background-color': config.background_free ? config.background_free : 'white' }"
+    :style="{
+      'background-color': config && config.background_free ? config.background_free : 'white'
+    }"
   >
     <div class="added-container" ref="addedDom">
       <div class="business-container-left-item">

@@ -1,20 +1,45 @@
 <template>
-  <div class="advantage" :style="{ 'background-color': config.background_hxys ? config.background_hxys : 'white' }">
+  <div
+    class="advantage"
+    :style="{
+      'background-color': config && config.background_hxys ? config.background_hxys : 'white'
+    }"
+  >
     <div class="advantage-box">
       <div class="advantage-container" ref="advantagedom">
         <div class="T-left">
-          <div :class="['topic', showAnimation &&  PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox': '']">
+          <div
+            :class="[
+              'topic',
+              showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+            ]"
+          >
             <div class="block"></div>
             <div class="text">ADVANTAGE</div>
           </div>
-          <div :class="['name', showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : '']">
+          <div
+            :class="[
+              'name',
+              showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__jackInTheBox' : ''
+            ]"
+          >
             核心优势
           </div>
-          <div :class="['desc', showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp': '']">
+          <div
+            :class="[
+              'desc',
+              showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
+            ]"
+          >
             五大核心赋能，助力品牌共赢未来无限可能
           </div>
         </div>
-        <div :class="['T-right', showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInRight': '']">
+        <div
+          :class="[
+            'T-right',
+            showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInRight' : ''
+          ]"
+        >
           <div class="konw-more-about" @click="clickRouter">
             <div class="text">了解更多</div>
             <el-icon class="about-icon">
@@ -24,7 +49,10 @@
         </div>
       </div>
       <div
-        :class="['accordion', showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn': '']"
+        :class="[
+          'accordion',
+          showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__zoomIn' : ''
+        ]"
         v-if="PAGEWIDTH > 960"
       >
         <Accordion :list="list" />

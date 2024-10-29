@@ -1,5 +1,11 @@
 <template>
-  <div class="home-product" :style="{'background-color': config.background_hot_product ? config.background_hot_product : 'white'}">
+  <div
+    class="home-product"
+    :style="{
+      'background-color':
+        config && config.background_hot_product ? config.background_hot_product : 'white'
+    }"
+  >
     <div class="home-product-container" ref="homeProductDom">
       <div
         :class="[

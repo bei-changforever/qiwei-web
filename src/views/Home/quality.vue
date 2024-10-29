@@ -1,7 +1,9 @@
 <template>
   <div
     class="quality"
-    :style="{ 'background-color': config.background_brand ? config.background_brand : 'white' }"
+    :style="{
+      'background-color': config && config.background_brand ? config.background_brand : 'white'
+    }"
   >
     <div class="quality-container" ref="qualityContainer">
       <div class="advantage-container">
