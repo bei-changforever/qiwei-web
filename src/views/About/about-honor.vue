@@ -5,9 +5,9 @@
         <div class="T-left">
           <div class="topic">
             <div class="block"></div>
-            <div class="text">PATENT</div>
+            <div class="text">HONOR</div>
           </div>
-          <div class="name">专利技术</div>
+          <div class="name">荣誉资质</div>
         </div>
         <div class="T-right">
           <div class="swiper-btn">
@@ -54,7 +54,7 @@
                 :key="i"
                 @click="handleSelect(i)"
               >
-                <el-image :src="p.imgSrc" :fit="'fill'" @click="showImagePreview([p.imgSrc])" />
+                <el-image :src="p.thumb" :fit="'fill'" @click="showImagePreview([p.imgSrc])" />
                 <span>{{ p.title }}</span>
               </div>
             </div></swiper-slide
@@ -312,6 +312,11 @@ watch(
         }
       }
     }
+  }
+
+  .swiper-slide {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
   }
 }
 

@@ -54,9 +54,10 @@
                 :key="i"
                 @click="handleSelect(i)"
               >
-                <el-image :src="p.imgSrc" :fit="'fill'" @click="showImagePreview([p.imgSrc])" />
+                <el-image :src="p.thumb" :fit="'fill'" @click="showImagePreview([p.imgSrc])" />
                 <span>{{ p.title }}</span>
               </div>
+              <!-- {{ item }} -->
             </div></swiper-slide
           >
         </swiper>
@@ -172,6 +173,8 @@ const getPic = async () => {
   let res = await getCert(3)
   if (res.status == 1) {
     plist.value = chunkArray(res.data, 8)
+    console.log('plist', plist.value)
+
     mobileList.value = res.data
   }
 }
@@ -283,6 +286,7 @@ watch(
         align-items: center;
         flex-wrap: wrap;
         gap: 1vw;
+
         .about-honor-content-item {
           width: 23.5%;
           height: 35vh;
@@ -312,6 +316,11 @@ watch(
         }
       }
     }
+  }
+
+  .swiper-slide {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
   }
 }
 

@@ -39,7 +39,7 @@
               <!-- @mouseenter.stop="handleSelect(index)"
                   @mouseleave.stop="parentClick" -->
               <div
-                class="temp-box"
+                class="temp-box" 
                 v-for="(item, index) in productChild"
                 :key="index"
                 v-show="erjicaidanindex == index"

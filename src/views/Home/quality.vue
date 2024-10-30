@@ -94,6 +94,7 @@
                 <div :class="['item-info', `itemIndex${6}`]">
                   <div class="image-box">
                     <el-image :src="item[10].thumb" :fit="'fill'" />
+           
                     <!-- 10 -->
                   </div>
                 </div>
