@@ -150,8 +150,8 @@ const handleScrolltoTop = () => {
 onMounted(() => {
   emitter.on('TOGGLEPAGE', (res) => {
     if (res == 3) {
-      pageIndex.value = 6
-      scrollToPage(6)
+      pageIndex.value = 4
+      scrollToPage(4)
     } else {
       pageIndex.value = res + 1
       scrollToPage(res + 1)

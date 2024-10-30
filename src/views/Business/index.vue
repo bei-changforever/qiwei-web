@@ -112,7 +112,7 @@ function scrollDown() {
 let bigSizeIndex = ref(0)
 // 滚动到指定页面
 function scrollToPage(pageIndex) {
-  console.log(pageIndex)
+  // console.log(pageIndex)
 
   if (pageIndex == 0) {
     container.value.style.top = `0%`
@@ -183,12 +183,12 @@ onMounted(() => {
       scrollToPage(1)
     }
     if (res == 1) {
-      pageIndex.value = 2
-      scrollToPage(2)
-    }
-    if (res == 2) {
       pageIndex.value = 3
       scrollToPage(3)
+    }
+    if (res == 2) {
+      pageIndex.value = 4
+      scrollToPage(4)
     }
 
     if (res == 3) {

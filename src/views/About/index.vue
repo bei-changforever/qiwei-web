@@ -159,8 +159,8 @@ onMounted(() => {
   })
   emitter.on('TOGGLEPAGE', (res) => {
     if (res == 3) {
-      pageIndex.value = 5
-      scrollToPage(5)
+      pageIndex.value = 4
+      scrollToPage(4)
     } else {
       pageIndex.value = res + 1
       scrollToPage(res + 1)
