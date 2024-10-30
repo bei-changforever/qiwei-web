@@ -14,8 +14,7 @@
           <div class="title">关键优势</div>
 
           <div class="desc">
-            全球布局，接近客户； 本地化产能，确保快速上市时间；
-            低库存风险，基于订单的采购和生产方式； 基于全球化采购的高性价比原材料。
+            我们全球布局，供应链稳定灵活，弹性生产，快速上市。基于订单采购与生产，精准控库存，降物料风险。精选高性价比原料，为品牌客户创造更大价值，助力市场竞争。
           </div>
         </div>
       </div>
@@ -23,19 +22,18 @@
         <div class="business-chain-right-item">
           <img :src="getAssetsFile('images', '生产计划.png')" alt="" />
           <div class="text">
-            3-4个月订单确定性，或根据客户提示性预测更长确定性 按订单量安排生产的工作方式;
-            订单的月度管理方法；
+            具备3-4个月的订单确定性，或根据客户预测性提示提供更长的确定性；采用按订单量安排生产的工作方式；实施订单的月度管理方法。
           </div>
         </div>
         <div class="business-chain-right-item">
           <img :src="getAssetsFile('images', '采购.png')" alt="" />
           <div class="text">
-            采购：采购原材料及其他产品组件(比如包装材料) 基于订单量确定采购数量和时间最小化库存风险
+            采购原材料及其他产品组件（如包材材料）；根据订单量确定采购数量和时间，最小化库存风险。
           </div>
         </div>
         <div class="business-chain-right-item">
           <img :src="getAssetsFile('images', '生产安排.png')" alt="" />
-          <div class="text">生产的每日管理 得益于本地产能的快速产品 快速上市时间</div>
+          <div class="text">进行生产的每日管理；落实新质生产力实现快速生产；确保快速上市时间。</div>
         </div>
       </div>
     </div>
@@ -63,11 +61,12 @@ import { getAssetsFile } from '@/utils/tools'
     zoom: 1;
 
     display: flex;
-    align-items: center;
-
+    flex-direction: column;
+    align-items: flex-start;
+    
     .business-chain-left {
-      width: 30%;
-      margin-right: 2vw;
+      width: 80%;
+      // margin-right: 2vw;
       // background-color: orange;
       .T-left {
         .topic {
@@ -111,7 +110,8 @@ import { getAssetsFile } from '@/utils/tools'
       }
 
       .t-b {
-        margin-top: 20vh;
+        // margin-top: 20vh;
+        margin-top: 5vh;
 
         .title {
           font-family:
@@ -135,9 +135,11 @@ import { getAssetsFile } from '@/utils/tools'
     }
 
     .business-chain-right {
-      margin-top: 20vh;
-      width: 50%;
+      // margin-top: 20vh;
+      margin-top: 5vh;
+      width: 100%;
       display: flex;
+      align-items: center;
       flex-direction: column;
       gap: 1vw;
       // background-color: pink;
@@ -145,6 +147,7 @@ import { getAssetsFile } from '@/utils/tools'
         width: 100%;
         display: flex;
         align-items: center;
+        // justify-content: flex-start;
         gap: 1vw;
       }
     }
