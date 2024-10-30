@@ -64,7 +64,7 @@ import { getAssetsFile } from '@/utils/tools'
 import emitter from '@/utils/mitt'
 import { useRouter } from 'vue-router'
 import { getBusinessCategory, getBusinessScope } from '@/api/index'
-const list = ['业务范围', '服务原则', '合作模式', '全球供应链']
+const list = ['业务范围', '服务原则', '全球供应链', '合作模式']
 const list2 = ref(['彩妆产品', '洗护产品', '护肤产品', '香氛产品'])
 const list3 = ref([
   getAssetsFile('images', '口红系列.png'),

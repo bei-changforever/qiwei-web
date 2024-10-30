@@ -173,8 +173,23 @@ onMounted(() => {
   //   })
   // })
   emitter.on('tagViewsShowModel', (res) => {
-    pageIndex.value = res + 1
-    scrollToPage(res + 1)
+    if (res == 0) {
+      pageIndex.value = 1
+      scrollToPage(1)
+    }
+    if (res == 1) {
+      pageIndex.value = 3
+      scrollToPage(3)
+    }
+    if (res == 2) {
+      pageIndex.value = 4
+      scrollToPage(4)
+    }
+
+    if (res == 3) {
+      pageIndex.value = 5
+      scrollToPage(5)
+    }
   })
 
   emitter.on('TOGGLEPAGE', (res) => {

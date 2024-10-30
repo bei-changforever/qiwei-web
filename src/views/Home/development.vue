@@ -73,11 +73,17 @@
         >
           <video
             class="video"
-            :src="config.home_yfsl_video"
-            :poster="config.home_yfsl_video_img"
+            :src="config && config.home_yfsl_video"
+            :poster="config && config.home_yfsl_video_img"
+            controls
             ref="videoDom"
           ></video>
-          <!-- <el-image :src="getAssetsFile('images', '研发实力.png')" :fit="'fill'" /> -->
+          <el-image
+            v-if="!isPlay"
+            class="mark"
+            :src="config && config.home_yfsl_video_img"
+            :fit="'fill'"
+          />
           <div class="play-btn">
             <el-image
               :src="getAssetsFile('icon', 'play.png')"
@@ -300,7 +306,18 @@ watch(
           width: 100%;
           height: 100%;
         }
+        .mark {
+          position: absolute;
+          top: 0;
+          left: 0;
 
+          width: 100%;
+          height: 100%;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         .play-btn {
           position: absolute;
           top: 50%;
