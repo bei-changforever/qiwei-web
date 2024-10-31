@@ -500,7 +500,7 @@ watch(
   }
 }
 
-@media (min-width: 2014px) {
+@media (min-width: 2133px) {
   .business-info {
     width: 100vw;
     height: 100vh;
@@ -531,7 +531,7 @@ watch(
 
             .topic {
               width: 100%;
-              height: 40px;
+              height: 1rem;
               display: flex;
               align-items: center;
               gap: 1vw;
@@ -543,7 +543,7 @@ watch(
               }
 
               .block {
-                width: 40px;
+                width: 1rem;
                 height: var(--aside-block);
                 border-radius: 1px;
                 background-color: #f3a7a5;
@@ -616,7 +616,7 @@ watch(
                   Microsoft YaHei,
                   Microsoft YaHei;
                 font-weight: 400;
-                font-size: 70px;
+                font-size: 1.2rem;
                 color: #f3a7a5;
                 text-align: center;
                 text-indent: 0.5em;
@@ -624,7 +624,7 @@ watch(
 
               .about-icon {
                 color: #f3a7a5;
-                font-size: 200px;
+                font-size: 3rem;
               }
 
               &:hover {
@@ -635,7 +635,7 @@ watch(
 
                 .about-icon {
                   color: white;
-                  font-size: 200px;
+                  font-size: 3rem;
                 }
               }
             }
@@ -681,8 +681,8 @@ watch(
               display: none;
             }
             :deep(.el-image) {
-              width: 250px;
-              height: 250px;
+              width: 5rem;
+              height: 5rem;
             }
 
             &:hover {
@@ -724,7 +724,7 @@ watch(
                 Microsoft YaHei,
                 Microsoft YaHei;
               font-weight: bold;
-              font-size: 20rem;
+              font-size: 5rem;
               color: #f3a7a5;
               line-height: 0px;
 
@@ -732,9 +732,9 @@ watch(
                 &::after {
                   content: '+';
                   position: absolute;
-                  top: -10rem;
-                  right: -10rem;
-                  font-size: 10rem;
+                  top: -2rem;
+                  right: -2rem;
+                  font-size: 2rem;
                 }
               }
             }
@@ -744,7 +744,7 @@ watch(
                 Microsoft YaHei,
                 Microsoft YaHei;
               font-weight: 400;
-              font-size: 5rem;
+              font-size: 2rem;
               color: #333333;
               margin-left: 10px;
             }
@@ -756,7 +756,7 @@ watch(
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
-            font-size: 5rem;
+            font-size: 2rem;
             color: #333333;
           }
         }

@@ -251,7 +251,7 @@ watch(
   }
 }
 
-@media (min-width: 2014px) {
+@media (min-width: 2133px) {
   .advantage {
     width: 100vw;
     height: 100vh;
@@ -276,7 +276,7 @@ watch(
         .T-left {
           .topic {
             width: 100%;
-            height: 40px;
+            height: 1rem;
             display: flex;
             align-items: center;
             gap: 1vw;
@@ -288,7 +288,7 @@ watch(
             }
 
             .block {
-              width: 40px;
+              width: 1rem;
               height: var(--aside-block);
               border-radius: 1px;
               background-color: #f3a7a5;
@@ -335,7 +335,7 @@ watch(
                 Microsoft YaHei,
                 Microsoft YaHei;
               font-weight: 400;
-              font-size: 70px;
+              font-size: 1.2rem;
               color: #f3a7a5;
               text-align: center;
               text-indent: 0.5em;
@@ -343,7 +343,7 @@ watch(
 
             .about-icon {
               color: #f3a7a5;
-              font-size: 200px;
+              font-size: 3rem;
             }
 
             &:hover {
@@ -354,7 +354,7 @@ watch(
 
               .about-icon {
                 color: white;
-                font-size: 200px;
+                font-size: 3rem;
               }
             }
           }

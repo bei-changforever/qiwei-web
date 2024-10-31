@@ -717,7 +717,7 @@ function AddFavorite(sURL, sTitle) {
   }
 }
 
-@media (min-width: 2014px) {
+@media (min-width: 2133px) {
   .header {
   position: relative;
   width: 100%;
@@ -772,7 +772,7 @@ function AddFavorite(sURL, sTitle) {
           position: relative;
           white-space: nowrap;
           font-weight: 400;
-          font-size: 56px;
+          font-size: 1rem;
           cursor: pointer;
           height: 100%;
           display: flex;
@@ -843,8 +843,8 @@ function AddFavorite(sURL, sTitle) {
         height: 100%;
 
         :deep(.el-image) {
-          width: 80px;
-          height: 80px;
+          width: 2rem;
+          height: 2rem;
         }
 
         cursor: pointer;

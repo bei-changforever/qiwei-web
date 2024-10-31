@@ -954,7 +954,7 @@ watch(
     }
   }
 }
-@media (min-width: 2014px) {
+@media (min-width: 2133px) {
   .quality {
     position: relative;
     width: 100vw;
@@ -990,7 +990,7 @@ watch(
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: bold;
-            font-size: 150px;
+            font-size: 3rem;
             color: #333333;
           }
 
@@ -1008,45 +1008,45 @@ watch(
 
         .T-right {
           .konw-more-about {
-            margin-top: 1vh;
-            width: 8vw;
-            height: 5vh;
-            border-radius: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid #f3a7a5;
-            cursor: pointer;
+              margin-top: 5vh;
+              width: 8vw;
+              height: 5vh;
+              border-radius: 100px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              border: 1px solid #f3a7a5;
+              cursor: pointer;
 
-            .text {
-              width: 80%;
-              font-family:
-                Microsoft YaHei,
-                Microsoft YaHei;
-              font-weight: 400;
-              font-size: 70px;
-              color: #f3a7a5;
-              text-align: center;
-              text-indent: 0.5em;
-            }
-
-            .about-icon {
-              color: #f3a7a5;
-              font-size: 200px;
-            }
-
-            &:hover {
-              background-color: #f3a7a5;
               .text {
-                color: white;
+                width: 80%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 1.2rem;
+                color: #f3a7a5;
+                text-align: center;
+                text-indent: 0.5em;
               }
 
               .about-icon {
-                color: white;
-                font-size: 200px;
+                color: #f3a7a5;
+                font-size: 3rem;
+              }
+
+              &:hover {
+                background-color: #f3a7a5;
+                .text {
+                  color: white;
+                }
+
+                .about-icon {
+                  color: white;
+                  font-size: 3rem;
+                }
               }
             }
-          }
         }
       }
 
@@ -1068,8 +1068,8 @@ watch(
           // height: 50px;
           // background-color: orange;
           .pagenavigation-item {
-            width: 70px;
-            height: 70px;
+            width: 2rem;
+            height: 2rem;
             border-radius: 50%;
             background-color: transparent;
             border: 1px solid #e1e1e1;
@@ -1125,7 +1125,7 @@ watch(
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: bold;
-            font-size: 120px;
+            font-size: 3rem;
             color: #ffffff;
           }
 
@@ -1134,7 +1134,7 @@ watch(
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
-            font-size: 100px;
+            font-size: 2rem;
             color: #ffffff;
           }
         }

@@ -410,7 +410,7 @@ watch(
     }
   }
 }
-@media (min-width: 2014px) {
+@media (min-width: 2133px) {
   .business-info {
     width: 100vw;
     height: 100vh;
@@ -442,7 +442,7 @@ watch(
 
             .topic {
               width: 100%;
-              height: 40px;
+              height: 1rem;
               display: flex;
               align-items: center;
               gap: 1vw;
@@ -454,7 +454,7 @@ watch(
               }
 
               .block {
-                width: 40px;
+                width: 1rem;
                 height: var(--aside-block);
                 border-radius: 1px;
                 background-color: #f3a7a5;
@@ -469,9 +469,33 @@ watch(
               font-weight: bold;
               font-size: var(--topic-fontSize);
               color: #333333;
+
               .small-konw-more-about {
+                // margin-top: 5vh;
+                width: 150px;
+                height: 40px;
+                border-radius: 50px;
                 display: none;
-                cursor: pointer;
+                align-items: center;
+                justify-content: space-between;
+                border: 1px solid #f3a7a5;
+
+                .text {
+                  width: 80%;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 18px;
+                  color: #f3a7a5;
+                  text-align: center;
+                  text-indent: 0.5em;
+                }
+
+                .about-icon {
+                  color: #f3a7a5;
+                  font-size: 40px;
+                }
               }
             }
 
@@ -497,7 +521,7 @@ watch(
             }
 
             .konw-more-about {
-              margin-top: 15vh;
+              margin-top: 5vh;
               width: 8vw;
               height: 5vh;
               border-radius: 100px;
@@ -513,7 +537,7 @@ watch(
                   Microsoft YaHei,
                   Microsoft YaHei;
                 font-weight: 400;
-                font-size: 70px;
+                font-size: 1.2rem;
                 color: #f3a7a5;
                 text-align: center;
                 text-indent: 0.5em;
@@ -521,7 +545,7 @@ watch(
 
               .about-icon {
                 color: #f3a7a5;
-                font-size: 200px;
+                font-size: 3rem;
               }
 
               &:hover {
@@ -532,7 +556,7 @@ watch(
 
                 .about-icon {
                   color: white;
-                  font-size: 200px;
+                  font-size: 3rem;
                 }
               }
             }
@@ -578,8 +602,8 @@ watch(
               display: none;
             }
             :deep(.el-image) {
-              width: 250px;
-              height: 250px;
+              width: 5rem;
+              height: 5rem;
             }
 
             &:hover {
@@ -598,8 +622,6 @@ watch(
           }
         }
       }
-
-    
     }
   }
 }

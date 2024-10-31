@@ -206,7 +206,7 @@ const clickRouter = () => {
   }
 }
 
-@media (min-width: 2014px) {
+@media (min-width: 2133px) {
   .shell {
   width: 100%;
   height: 60vh;
@@ -239,7 +239,7 @@ const clickRouter = () => {
         Microsoft YaHei,
         Microsoft YaHei;
       font-weight: 400;
-      font-size: 120px;
+      font-size: 3rem;
       color: #ffffff;
       width: 100%;
       height: 100%;
@@ -263,7 +263,7 @@ const clickRouter = () => {
         Microsoft YaHei,
         Microsoft YaHei;
       font-weight: 400;
-      font-size: 70px;
+      font-size: 1.2rem;
       color: #ffffff;
       background-image: url('../../assets/images/黑色渐变.png');
       background-repeat: no-repeat;

@@ -546,7 +546,7 @@ watch(
   }
 }
 
-@media (min-width: 2014px) {
+@media (min-width: 2133px) {
   .home-product {
     box-sizing: border-box;
     width: 100vw;
@@ -585,7 +585,7 @@ watch(
         }
 
         .block {
-          width: 40px;
+          width: 1rem;
           height: var(--aside-block);
           border-radius: 1px;
           background-color: #f3a7a5;
@@ -621,7 +621,7 @@ watch(
               Microsoft YaHei,
               Microsoft YaHei;
             font-weight: 400;
-            font-size: 80px;
+            font-size: 2rem;
             color: #333333;
             cursor: pointer;
             white-space: nowrap;
@@ -641,7 +641,7 @@ watch(
 
             .block {
               width: 0px;
-              height: 60px;
+              height: 1rem;
               border: 1px solid #999999;
             }
           }
@@ -700,7 +700,7 @@ watch(
                     Microsoft YaHei,
                     Microsoft YaHei;
                   font-weight: 400;
-                  font-size: 70px;
+                  font-size: 2rem;
                   color: #000000;
 
                   &:first-child {
@@ -709,7 +709,7 @@ watch(
                       Microsoft YaHei,
                       Microsoft YaHei;
                     font-weight: 400;
-                    font-size: 80px;
+                    font-size: 2.5rem;
                     color: #000000;
                   }
                 }
@@ -760,7 +760,7 @@ watch(
                   Microsoft YaHei,
                   Microsoft YaHei;
                 font-weight: 400;
-                font-size: 80px;
+                font-size: 2rem;
                 color: #333333;
                 transition: all 0.3s ease-in;
                 border-radius: 0px 0px 4vh 4vh;
@@ -809,13 +809,13 @@ watch(
         align-items: center;
         justify-content: center;
         gap: 2vw;
-// background-color: pink;
+        // background-color: pink;
         .left-btn {
           cursor: pointer;
 
           :deep(.el-image) {
-            width: 150px;
-            height: 150px;
+            width: 3rem;
+            height: 3rem;
           }
         }
 
@@ -823,8 +823,8 @@ watch(
           cursor: pointer;
 
           :deep(.el-image) {
-            width: 150px;
-            height: 150px;
+            width: 3rem;
+            height: 3rem;
           }
         }
       }
