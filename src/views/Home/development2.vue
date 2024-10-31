@@ -32,7 +32,7 @@
                 showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
               ]"
             >
-              高新技术企业及多项荣誉认证
+              {{ config && config.home_cert_title }}
             </div>
             <div
               :class="[
@@ -40,8 +40,7 @@
                 showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
               ]"
             >
-              荣获2022年广东省高新技术企业称号；荣获企业贯标、欧盟22716及GMPC双认证、
-              ISO9001质量认证；4项广东省名优高新技术产品荣誉证书。
+            {{ config && config.home_cert_description }}
             </div>
           </div>
           <div

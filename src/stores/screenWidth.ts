@@ -8,5 +8,9 @@ export const useCounterStore = defineStore('screenWidth', () => {
     // console.log(screenWidth.value)
   }
 
+  // window.onresize = async () => {
+  //   const devicePixelRatio = window.devicePixelRatio
+  // }
+
   return { screenWidth, setScreenWidth }
 })

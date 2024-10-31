@@ -76,3 +76,25 @@
     --vp-c-bg: black;
   }
 }
+
+// 无敌浏览器分辨率
+@media (min-width: 2014px) {
+  :root {
+    --base-width: 1920px;
+    --header-height: 76px;
+    --footer-height: 80vh;
+    --vp-c-bg: black;
+    --topic-fontSize: 42px;
+    --aside-fontSize: 22px;
+    --van-rolling-text-background: #1989fa;
+    --van-rolling-text-color: white;
+    --van-rolling-text-font-size: 24px;
+    --van-rolling-text-gap: 6px;
+    --van-rolling-text-item-border-radius: 5px;
+    --van-rolling-text-item-width: 40px;
+    --aside-block: 16px;
+    --desc-fontSize: 20px;
+    --desc-lineHeight: 34px;
+    --fu-name-fontSize: 32px;
+  }
+}
