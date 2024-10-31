@@ -24,9 +24,9 @@
         <div class="business-container-bottom-item">
           <div class="item-bottom">
             <div class="bttom-title">来样加工</div>
-            <div class="bottom-desc">
+            <div class="bottom-desc" style="white-space: nowrap;">
               定制客户提供样品，<br />
-              我司为您研发、定制， <br />
+              我司为您研发定制， <br />
               让您轻松拥有大牌产品。
             </div>
           </div>
