@@ -12,9 +12,8 @@
           </div>
         </div>
       </div>
-      <div class="develop-container-bottom">
+      <div class="develop-container-bottom" v-if="PAGEWIDTH > 960">
         <div
-          v-if="PAGEWIDTH > 960"
           v-for="(item, index) in list"
           class="develop-container-bottom-item"
           @click="handleSelect(index)"
@@ -23,16 +22,12 @@
         >
           <el-image :src="activeIndex == index ? item.src : item.unactive" :fit="'fill'" />
         </div>
+      </div>
 
-        <van-swipe v-else class="my-swipe" :autoplay="3000" indicator-color="white">
-          <van-swipe-item>
-            <el-image :src="getAssetsFile('images', '创新选中.png')" :fit="'fill'" />
-          </van-swipe-item>
-          <van-swipe-item>
-            <el-image :src="getAssetsFile('images', '专注选中.png')" :fit="'fill'" />
-          </van-swipe-item>
-          <van-swipe-item>
-            <el-image :src="getAssetsFile('images', '平衡选中.png')" :fit="'fill'" />
+      <div class="mobile-bottom" v-else>
+        <van-swipe class="my-swipe" :autoplay="3000" lazy-render>
+          <van-swipe-item v-for="(item, index) in list" :key="index">
+            <el-image :src="item.src" :fit="'fill'" />
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -204,6 +199,10 @@ watch(
           }
         }
       }
+    }
+
+    .mobile-bottom {
+      margin-top: 1vh;
     }
   }
   .van-swipe-item {

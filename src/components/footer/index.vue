@@ -84,9 +84,8 @@
     </div>
     <div class="footer-copyright" v-if="config">
       <span
-        >Copyright © {{ config.copy_right }} {{ config.description }} All Rights Reserved |
-        粤ICP备07540754号</span
-      >
+        >{{ config.copy_right }}
+      </span>
     </div>
   </div>
 </template>

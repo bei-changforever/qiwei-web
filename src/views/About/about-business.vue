@@ -28,14 +28,20 @@
               团队支持，充分做好研发的“眼睛”，及时将“前线”信息反馈到研发实验室。双方发
               挥各自的优势，让研发走出实验室，更快转化成市场成果，从而提升奇伟的行业领先地位。
               奇伟目前已获得 “国家高新技术企业” -->
-              {{ config &&  config.about_description }}
+              <p v-for="item in renderDesc(config && config.about_description)">
+                {{ item }}
+              </p>
             </div>
           </div>
         </div>
         <div class="business-container-right">
           <!-- <el-image :src="getAssetsFile('images', '公司照片.png')" :fit="'fill'" /> -->
           <el-image
-            :src="config && config.about_img ? config.about_img : getAssetsFile('images', '图片视频栏.png')"
+            :src="
+              config && config.about_img
+                ? config.about_img
+                : getAssetsFile('images', '图片视频栏.png')
+            "
             :fit="'fill'"
           />
         </div>
@@ -58,6 +64,11 @@ const handleSelect = (index) => {
     activeIndex.value = index
     emitter.emit('tagViewsShowModel', activeIndex.value)
   }
+}
+
+const renderDesc = (text) => {
+  const lines = text.split('<br/>')
+  return lines
 }
 </script>
 <style lang="scss" scoped>
