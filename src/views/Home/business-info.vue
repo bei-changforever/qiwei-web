@@ -67,7 +67,12 @@
             :poster="config.home_company_video_img"
             ref="videoDom"
           ></video>
-          <el-image  v-if="!isPlay" class="mark" :src="config.home_company_video_img" :fit="'fill'" />
+          <el-image
+            v-if="!isPlay"
+            class="mark"
+            :src="config.home_company_video_img"
+            :fit="'fill'"
+          />
           <div class="play-btn">
             <el-image
               :src="getAssetsFile('icon', 'play.png')"
@@ -489,6 +494,271 @@ watch(
           font-weight: 400;
           font-size: 20px;
           color: #333333;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 2014px) {
+  .business-info {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding-top: 15vh;
+    .business-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      .business-container-top {
+        width: 100%;
+        gap: 5%;
+        display: flex;
+
+        .business-container-left {
+          width: 50%;
+          height: auto;
+
+          .business-container-left-item {
+            width: 100%;
+
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: var(--aside-fontSize);
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 40px;
+                height: var(--aside-block);
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
+            }
+
+            .name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: var(--topic-fontSize);
+              color: #333333;
+
+              .small-konw-more-about {
+                // margin-top: 5vh;
+                width: 150px;
+                height: 40px;
+                border-radius: 50px;
+                display: none;
+                align-items: center;
+                justify-content: space-between;
+                border: 1px solid #f3a7a5;
+
+                .text {
+                  width: 80%;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: 400;
+                  font-size: 18px;
+                  color: #f3a7a5;
+                  text-align: center;
+                  text-indent: 0.5em;
+                }
+
+                .about-icon {
+                  color: #f3a7a5;
+                  font-size: 40px;
+                }
+              }
+            }
+
+            .desc {
+              margin-top: 3vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--desc-fontSize);
+              color: #666666;
+              line-height: var(--desc-lineHeight);
+            }
+
+            .konw-more-about {
+              margin-top: 5vh;
+              width: 8vw;
+              height: 5vh;
+              border-radius: 100px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              border: 1px solid #f3a7a5;
+              cursor: pointer;
+
+              .text {
+                width: 80%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 70px;
+                color: #f3a7a5;
+                text-align: center;
+                text-indent: 0.5em;
+              }
+
+              .about-icon {
+                color: #f3a7a5;
+                font-size: 200px;
+              }
+
+              &:hover {
+                background-color: #f3a7a5;
+                .text {
+                  color: white;
+                }
+
+                .about-icon {
+                  color: white;
+                  font-size: 200px;
+                }
+              }
+            }
+          }
+        }
+
+        .business-container-right {
+          width: 45vw;
+          height: 45vh;
+          position: relative;
+          border-radius: 4vh !important;
+          overflow: hidden;
+          // border: 1px solid red;
+          .video {
+            width: 100%;
+            height: 100%;
+            border-radius: 4vh;
+          }
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+          }
+
+          .mark {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            .is-active {
+              display: none;
+            }
+            :deep(.el-image) {
+              width: 250px;
+              height: 250px;
+            }
+
+            &:hover {
+              :deep(.el-image) {
+                filter: brightness(0.5);
+              }
+            }
+          }
+
+          &:hover {
+            .play-btn {
+              .is-active {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+
+      .business-container-bottom {
+        margin-top: 10vh;
+        width: 100%;
+        height: 20vh;
+        display: flex;
+        gap: 4%;
+        justify-content: center;
+        align-items: center;
+        // background-color: orange;
+        .business-container-bottom-container {
+          width: 20%;
+
+          .business-container-bottom-top {
+            width: 100%;
+            display: flex;
+
+            .bussiness-container-bottom-top-left {
+              position: relative;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: 20rem;
+              color: #f3a7a5;
+              line-height: 0px;
+
+              &.plus {
+                &::after {
+                  content: '+';
+                  position: absolute;
+                  top: -10rem;
+                  right: -10rem;
+                  font-size: 10rem;
+                }
+              }
+            }
+
+            .bussiness-container-bottom-top-right {
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 5rem;
+              color: #333333;
+              margin-left: 10px;
+            }
+          }
+
+          .business-container-bottom-bottom {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: 5rem;
+            color: #333333;
+          }
         }
       }
     }

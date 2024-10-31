@@ -40,7 +40,10 @@
                 showAnimation && PAGEWIDTH > 960 ? 'animate__animated animate__slideInUp' : ''
               ]"
             >
-            {{ config && config.home_cert_description }}
+              <!-- {{ config && config.home_cert_description }} -->
+              <p v-for="item in renderDesc(config && config.home_cert_description)">
+                {{ item }}
+              </p>
             </div>
           </div>
           <div
@@ -233,7 +236,10 @@ const getCertData = async () => {
     list.value = res.data
   }
 }
-
+const renderDesc = (text) => {
+  const lines = text.split('<br/>')
+  return lines
+}
 onMounted(() => {
   getCertData()
   useIntersectionObserver(
@@ -474,7 +480,246 @@ watch(
   //   z-index: 0 !important;
   // }
 }
+@media (min-width: 2014px) {
+  .development2 {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    background-color: white;
+    // background-image: url('../../assets/images/test.jpg');
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // background-position: center;
+    padding-top: 15vh;
 
+    box-sizing: border-box;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    .development2-container {
+      // position: absolute;
+      // top: 15vh;
+      // left: 50%;
+      // transform: translateX(-50%);
+      width: var(--base-width);
+      margin: 0 auto;
+      height: 100%;
+      z-index: 2;
+      // display: flex;
+      // align-items: center;
+      // justify-content: center;
+      // background-color: pink;
+      .development2-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        // background-color: pink;
+        .content-left {
+          width: 60%;
+          .T-left {
+            width: 100%;
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: var(--aside-fontSize);
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 40px;
+                height: var(--aside-block);
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
+            }
+
+            .name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: var(--topic-fontSize);
+              color: #333333;
+              .small-konw-more-about {
+                display: none;
+                cursor: pointer;
+              }
+            }
+
+            .fu-name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--fu-name-fontSize);
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 3vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--desc-fontSize);
+              color: #666666;
+              line-height: var(--desc-lineHeight);
+            }
+          }
+
+          .T-bottom {
+            margin-top: 10vh;
+            width: 100%;
+            z-index: 2;
+            .T-bottom-container {
+              width: 100%;
+
+              .T-bottom-top {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 6%;
+                .left {
+                  width: 50%;
+                  font-family:
+                    Microsoft YaHei,
+                    Microsoft YaHei;
+                  font-weight: bold;
+                  font-size: 14rem;
+                  color: #999999;
+                  .active-number {
+                    color: #f3a7a5;
+                    font-size: 14rem;
+                  }
+                }
+
+                .right {
+                  width: 50%;
+                  display: flex;
+                  justify-content: flex-end;
+                  gap: 2vw;
+                  :deep(.el-image) {
+                    width: 150px;
+                    height: 150px;
+                    cursor: pointer;
+                  }
+                }
+              }
+
+              .T-bottom-bottom {
+          
+                width: 100%;
+                .T-bottom-bottom-item {
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  .swiper-slide {
+                    width: 10vw;
+                    height: 30vh;
+                    // border: 1px solid red;
+                  }
+                  :deep(.el-image) {
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .content-right {
+          width: 40%;
+          height: 100%;
+
+          .content-right-backfround {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .content-right-bg {
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 90%;
+              height: 90%;
+              // background-size: cover;
+              // background-color: pink;
+              :deep(.el-image) {
+                width: 100%;
+                height: 100%;
+                // object-fit: cover;
+              }
+              .content-right-img {
+                position: absolute;
+                top: 10%;
+
+                .swiper {
+                  // margin: 100px auto;
+                  // width: 30vw;
+                  // height: 50vh;
+                  // width: 100%;
+                  // height: 100%;
+                  width: 20vw;
+                  height: 50vh;
+                }
+
+                .swiper-slide {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  // width: 100%;
+                  // height: 100%;
+
+                  :deep(.el-image) {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                  }
+                }
+              }
+
+              .content-right-text {
+                position: absolute;
+                bottom: 12%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 100px;
+                color: #333333;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // .color-bg {
+    //   position: absolute;
+    //   bottom: 5vh;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 360px;
+    //   background-color: #f0f0f0;
+    //   z-index: 0 !important;
+    // }
+  }
+}
 @media (min-width: 1520px) and (max-width: 1920px) {
   .development2 {
     width: 100vw;

@@ -80,21 +80,56 @@
 // 无敌浏览器分辨率
 @media (min-width: 2014px) {
   :root {
-    --base-width: 1920px;
-    --header-height: 76px;
+    --base-width: 80vw;
+    --header-height: 7vh;
     --footer-height: 80vh;
     --vp-c-bg: black;
-    --topic-fontSize: 42px;
-    --aside-fontSize: 22px;
-    --van-rolling-text-background: #1989fa;
-    --van-rolling-text-color: white;
-    --van-rolling-text-font-size: 24px;
-    --van-rolling-text-gap: 6px;
-    --van-rolling-text-item-border-radius: 5px;
-    --van-rolling-text-item-width: 40px;
-    --aside-block: 16px;
-    --desc-fontSize: 20px;
-    --desc-lineHeight: 34px;
-    --fu-name-fontSize: 32px;
+    --topic-fontSize: 150px;
+    --aside-fontSize: 100px;
+    --aside-block: 80px;
+    --desc-fontSize: 70px;
+    --desc-lineHeight: 100px;
+    --fu-name-fontSize: 120px;
+  }
+
+  .konw-more-about {
+    margin-top: 5vh;
+    width: 8vw;
+    height: 5vh;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #f3a7a5;
+    cursor: pointer;
+
+    .text {
+      width: 80%;
+      font-family:
+        Microsoft YaHei,
+        Microsoft YaHei;
+      font-weight: 400;
+      font-size: 70px;
+      color: #f3a7a5;
+      text-align: center;
+      text-indent: 0.5em;
+    }
+
+    .about-icon {
+      color: #f3a7a5;
+      font-size: 200px;
+    }
+
+    &:hover {
+      background-color: #f3a7a5;
+      .text {
+        color: white;
+      }
+
+      .about-icon {
+        color: white;
+        font-size: 200px;
+      }
+    }
   }
 }

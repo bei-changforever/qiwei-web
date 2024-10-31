@@ -410,7 +410,199 @@ watch(
     }
   }
 }
+@media (min-width: 2014px) {
+  .business-info {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fafafa;
 
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    // padding-top: 15vh;
+    .business-container {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      .business-container-top {
+        width: 100%;
+        gap: 5%;
+        display: flex;
+
+        .business-container-left {
+          width: 50%;
+          height: auto;
+
+          .business-container-left-item {
+            width: 100%;
+
+            .topic {
+              width: 100%;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              gap: 1vw;
+
+              .text {
+                font-weight: 400;
+                font-size: var(--aside-fontSize);
+                color: #f3a7a5;
+              }
+
+              .block {
+                width: 40px;
+                height: var(--aside-block);
+                border-radius: 1px;
+                background-color: #f3a7a5;
+              }
+            }
+
+            .name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: bold;
+              font-size: var(--topic-fontSize);
+              color: #333333;
+              .small-konw-more-about {
+                display: none;
+                cursor: pointer;
+              }
+            }
+
+            .fu-name {
+              margin-top: 1vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--fu-name-fontSize);
+              color: #333333;
+            }
+
+            .desc {
+              margin-top: 3vh;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: var(--desc-fontSize);
+              color: #666666;
+              line-height: var(--desc-lineHeight);
+            }
+
+            .konw-more-about {
+              margin-top: 15vh;
+              width: 8vw;
+              height: 5vh;
+              border-radius: 100px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              border: 1px solid #f3a7a5;
+              cursor: pointer;
+
+              .text {
+                width: 80%;
+                font-family:
+                  Microsoft YaHei,
+                  Microsoft YaHei;
+                font-weight: 400;
+                font-size: 70px;
+                color: #f3a7a5;
+                text-align: center;
+                text-indent: 0.5em;
+              }
+
+              .about-icon {
+                color: #f3a7a5;
+                font-size: 200px;
+              }
+
+              &:hover {
+                background-color: #f3a7a5;
+                .text {
+                  color: white;
+                }
+
+                .about-icon {
+                  color: white;
+                  font-size: 200px;
+                }
+              }
+            }
+          }
+        }
+
+        .business-container-right {
+          width: 45vw;
+          height: 45vh;
+          position: relative;
+          border-radius: 4vh !important;
+          overflow: hidden;
+          // border: 1px solid red;
+          .video {
+            width: 100%;
+            height: 100%;
+            border-radius: 4vh;
+          }
+          :deep(.el-image) {
+            width: 100%;
+            height: 100%;
+          }
+
+          .mark {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            .is-active {
+              display: none;
+            }
+            :deep(.el-image) {
+              width: 250px;
+              height: 250px;
+            }
+
+            &:hover {
+              :deep(.el-image) {
+                filter: brightness(0.5);
+              }
+            }
+          }
+
+          &:hover {
+            .play-btn {
+              .is-active {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+
+    
+    }
+  }
+}
 @media (min-width: 1220px) and (max-width: 1440px) {
   .business-info {
     width: 100vw;

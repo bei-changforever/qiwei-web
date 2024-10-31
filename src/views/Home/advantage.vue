@@ -250,6 +250,124 @@ watch(
     justify-content: center;
   }
 }
+
+@media (min-width: 2014px) {
+  .advantage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
+    scroll-snap-align: start;
+    padding-top: 15vh;
+    .advantage-box {
+      margin: 0 auto;
+      width: var(--base-width);
+      transition: all 0.3s ease-in;
+      zoom: 1;
+
+      .advantage-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .T-left {
+          .topic {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+
+            .text {
+              font-weight: 400;
+              font-size: var(--aside-fontSize);
+              color: #f3a7a5;
+            }
+
+            .block {
+              width: 40px;
+              height: var(--aside-block);
+              border-radius: 1px;
+              background-color: #f3a7a5;
+            }
+          }
+
+          .name {
+            margin-top: 1vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: bold;
+            font-size: var(--topic-fontSize);
+            color: #333333;
+          }
+
+          .desc {
+            margin-top: 3vh;
+            font-family:
+              Microsoft YaHei,
+              Microsoft YaHei;
+            font-weight: 400;
+            font-size: var(--desc-fontSize);
+            color: #666666;
+            line-height: var(--desc-lineHeight);
+          }
+        }
+
+        .T-right {
+          .konw-more-about {
+            margin-top: 5vh;
+            width: 8vw;
+            height: 5vh;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #f3a7a5;
+            cursor: pointer;
+
+            .text {
+              width: 80%;
+              font-family:
+                Microsoft YaHei,
+                Microsoft YaHei;
+              font-weight: 400;
+              font-size: 70px;
+              color: #f3a7a5;
+              text-align: center;
+              text-indent: 0.5em;
+            }
+
+            .about-icon {
+              color: #f3a7a5;
+              font-size: 200px;
+            }
+
+            &:hover {
+              background-color: #f3a7a5;
+              .text {
+                color: white;
+              }
+
+              .about-icon {
+                color: white;
+                font-size: 200px;
+              }
+            }
+          }
+        }
+      }
+
+      .accordion {
+        margin-top: 2vh;
+      }
+    }
+  }
+}
+
 @media (min-width: 960px) and (max-width: 1220px) {
   .advantage {
     width: 100vw;
