@@ -59,8 +59,11 @@
       </div>
       <div class="accordion" v-else>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-          <van-swipe-item v-for="(item, index) in 5" :key="index">
-            <img :src="getAssetsFile('images', '核心优势选中1.png')" alt="" />
+          <van-swipe-item v-for="(item, index) in list" :key="index">
+            <div class="box">
+              <img :src="item.thumb" alt="" />
+              <div class="text">{{ item.name }}</div>
+            </div>
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -227,6 +230,24 @@ watch(
     .accordion {
       margin-top: 2vh;
     }
+  }
+}
+
+.box {
+  width: 100%;
+  position: relative;
+  .text {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 @media (min-width: 960px) and (max-width: 1220px) {

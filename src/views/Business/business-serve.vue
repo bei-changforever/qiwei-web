@@ -18,16 +18,16 @@
           </div>
           <div class="item-bottom">
             <div class="bttom-title">OEM/ODM/OBM</div>
-            <div class="bottom-desc">
-              为品牌客户提供化妆品 研发、设计、生产一站式定制 加工服务。
-            </div>
+            <div class="bottom-desc">为品牌客户提供化妆品研发、设计、生产一站式定制加工服务。</div>
           </div>
         </div>
         <div class="business-container-bottom-item">
           <div class="item-bottom">
             <div class="bttom-title">来样加工</div>
             <div class="bottom-desc">
-              定制客户提供样品， 我司为您研发、定制， 让您轻松拥有大牌产品。
+              定制客户提供样品，<br />
+              我司为您研发、定制， <br />
+              让您轻松拥有大牌产品。
             </div>
           </div>
           <div class="item-top">
@@ -53,7 +53,7 @@
           <div class="item-bottom">
             <div class="bttom-title">半成品加工</div>
             <div class="bottom-desc">
-              为具有灌装和包装资源 的客户提供产品研发及半成品 加工生产服务。
+              为具有灌装和包装资源的客户提供产品研发及半成品 加工生产服务。
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@
               <div class="item-bottom">
                 <div class="bttom-title">OEM/ODM/OBM</div>
                 <div class="bottom-desc">
-                  为品牌客户提供化妆品 研发、设计、生产一站式定制 加工服务。
+                  为品牌客户提供化妆品研发、设计、生产一站式定制加工服务。
                 </div>
               </div>
             </div>
@@ -142,7 +142,7 @@
               <div class="item-bottom">
                 <div class="bttom-title">半成品加工</div>
                 <div class="bottom-desc">
-                  为具有灌装和包装资源 的客户提供产品研发及半成品 加工生产服务。
+                  为具有灌装和包装资源的客户提供产品研发及半成品加工生产服务。
                 </div>
               </div>
             </div>

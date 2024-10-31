@@ -15,7 +15,7 @@
         >
           <div class="name">{{ config.home_brand_title }}</div>
           <div class="desc">
-            {{ config.home_brand_description }}
+            <p v-for="item in renderDesc(config && config.home_brand_description)">{{ item }}</p>
           </div>
         </div>
         <div
@@ -94,7 +94,7 @@
                 <div :class="['item-info', `itemIndex${6}`]">
                   <div class="image-box">
                     <el-image :src="item[10].thumb" :fit="'fill'" />
-           
+
                     <!-- 10 -->
                   </div>
                 </div>
@@ -447,6 +447,11 @@ function groupByN(arr: any[], n: number): any[][] {
     if (i % n === 0) acc.push(src.slice(i, i + n))
     return acc
   }, [])
+}
+
+const renderDesc = (text) => {
+  const lines = text.split('<br/>')
+  return lines
 }
 
 function groupAndFillData(arr: any[], groupCount: number, groupSize: number): any[][] {
