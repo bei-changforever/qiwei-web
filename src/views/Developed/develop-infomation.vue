@@ -42,7 +42,7 @@
                   <div class="kl-txt">产品库</div>
                   <div class="kl-dec">
                     <span>产品库</span>
-                    <span>推广目录内料简，推广目录成品简</span>
+                    <span>推广目录内料篇，推广目录成品篇</span>
                   </div>
                 </div>
                 <div class="right-item">
