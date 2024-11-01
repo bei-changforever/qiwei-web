@@ -50,31 +50,31 @@
         <el-image :src="getAssetsFile('images', '免费服务.png')" :fit="'fill'" />
         <div class="text-item">
           <div class="text">
-            <span>公司注册</span>
+            <span v-if="PAGEWIDTH > 960">公司注册</span>
             <span>品牌注册</span>
           </div>
           <div class="text">
             <span>品牌策划</span>
-            <span>产品定位</span>
-            <span>包装设计</span>
+            <span v-if="PAGEWIDTH > 960">产品定位</span>
+            <span v-if="PAGEWIDTH > 960">包装设计</span>
           </div>
           <div class="text">加工方案定制</div>
           <div class="text">来料检验</div>
           <div class="text">产品送检</div>
           <div class="text">双方产品备案</div>
-          <div class="text">包材半成品及检验质量跟踪服务</div>
+          <div class="text"><span v-if="PAGEWIDTH > 960">包材半成品及检验</span>质量跟踪服务</div>
           <div class="text">
-            <span>仓库贮存</span>
+            <span v-if="PAGEWIDTH > 960">仓库贮存</span>
             <span>物流配送服务</span>
           </div>
           <div class="text">
-            <span>品牌营销方案指导</span>
+            <span v-if="PAGEWIDTH > 960">品牌营销方案指导</span>
             <span>网络运营推广技术支持</span>
           </div>
           <div class="text">生产视频及图片拍摄</div>
           <div class="text">
             <span>产品拍摄</span>
-            <span>详情页制作</span>
+            <span v-if="PAGEWIDTH > 960">详情页制作</span>
           </div>
           <div class="text">提供商品条码服务</div>
         </div>
@@ -399,8 +399,6 @@ watch(
           font-size: var(--fu-name-fontSize);
           color: #333333;
         }
-
-       
       }
 
       .added-big-image-box {
@@ -783,17 +781,17 @@ watch(
             position: absolute;
             width: 24%;
             height: 33%;
-            display: none;
+            display: flex;
             align-items: center;
             flex-direction: column;
             font-size: 12px;
             justify-content: center;
-            //   border: 1px solid red;
+            transform: scale(0.8);
             color: #666666;
             font-family:
               Microsoft YaHei,
               Microsoft YaHei;
-
+            // white-space: nowrap;
             &:nth-child(1) {
               top: 10%;
               left: 0;
@@ -815,42 +813,42 @@ watch(
             }
 
             &:nth-child(5) {
-              top: 46%;
+              top: 48%;
               left: 0.5%;
             }
 
             &:nth-child(6) {
-              top: 46%;
+              top: 48%;
               left: 22%;
             }
 
             &:nth-child(7) {
-              top: 46%;
+              top: 48%;
               left: 43%;
             }
 
             &:nth-child(8) {
-              top: 46%;
+              top: 48%;
               left: 64.5%;
             }
 
             &:nth-child(9) {
-              top: 88%;
+              top: 93%;
               left: 0%;
             }
 
             &:nth-child(10) {
-              top: 88%;
+              top: 93%;
               left: 25%;
             }
 
             &:nth-child(11) {
-              top: 88%;
+              top: 93%;
               left: 50%;
             }
 
             &:nth-child(12) {
-              top: 88%;
+              top: 93%;
               left: 74%;
             }
           }

@@ -49,7 +49,11 @@
   <div v-else class="banner-mobile">
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="(item, index) in slide" :key="index">
-        <img :src="item.thumb" alt="" />
+        <van-image :src="item.thumb" lazy-load>
+          <template v-slot:loading>
+            <van-loading type="spinner" size="20" />
+          </template>
+        </van-image>
       </van-swipe-item>
     </van-swipe>
   </div>
@@ -264,7 +268,23 @@ watch(
 @media (max-width: 960px) {
   .banner-mobile {
     width: 100vw;
-    height: auto;
+    height: 300px;
+
+    :deep(.van-swipe) {
+      width: 100%;
+      height: 100%;
+    }
+
+    :deep(.van-swipe-item) {
+      width: 100%;
+      height: 100%;
+    }
+
+    :deep(.van-image) {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
   }
 }
 </style>

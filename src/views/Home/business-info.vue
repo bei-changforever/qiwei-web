@@ -1216,6 +1216,7 @@ watch(
     /* 在需要滚动的容器上使用 scroll-snap-align 属性 */
     scroll-snap-align: start;
     padding-top: 0;
+    // background-color: pink;
     .business-container {
       margin: 0 auto;
       width: var(--base-width);

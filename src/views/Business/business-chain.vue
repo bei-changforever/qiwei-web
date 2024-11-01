@@ -213,6 +213,9 @@ import { getAssetsFile } from '@/utils/tools'
             font-size: 18px;
             color: #333333;
           }
+          .fu-name {
+            font-size: 18px;
+          }
         }
 
         .t-b {

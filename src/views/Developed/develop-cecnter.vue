@@ -96,6 +96,20 @@
               </div>
             </div>
           </van-swipe-item>
+
+          <van-swipe-item>
+            <div class="box">
+              <el-image :src="getAssetsFile('images', '研发图片2.png')" :fit="'fill'" alt="" />
+              <div class="text">专业性研发团队</div>
+              <div class="desc">
+                <span>专业性研发团队</span>
+                <span
+                  >拥有深厚的专业知识与广泛的实践经验，更具备敏锐的市场洞察力，能够精准捕捉潮流趋势与消费者需求。</span
+                >
+              </div>
+            </div>
+          </van-swipe-item>
+
           <van-swipe-item>
             <div class="box">
               <el-image :src="getAssetsFile('images', '研发图片2.png')" :fit="'fill'" alt="" />
@@ -336,7 +350,7 @@ watch(
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
-            border-radius:  0 0 10px 10px;
+            border-radius: 0 0 10px 10px;
           }
 
           .desc {

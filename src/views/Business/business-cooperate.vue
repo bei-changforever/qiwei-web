@@ -30,8 +30,8 @@
       <div class="business-container-bottom">
         <swiper class="mySwiper" @swiper="onSwiper" @slideChange="slideChange">
           <swiper-slide v-for="(item, index) in piclist" :key="index"
-            ><el-image :src="item" :fit="'fill'"
-          /></swiper-slide>
+            ><el-image :src="item" :fit="'fill'" @click="showImagePreview([item])" />
+         </swiper-slide>
         </swiper>
         <!-- <swiper
           @swiper="onSwiper"
@@ -76,7 +76,7 @@
 <script setup>
 import { ref } from 'vue'
 import { getAssetsFile } from '@/utils/tools'
-import emitter from '@/utils/mitt'
+
 import { showImagePreview } from 'vant'
 
 // Import Swiper Vue.js components
@@ -87,7 +87,7 @@ import 'swiper/css'
 import 'swiper/css/effect-creative'
 // import required modules
 import { EffectCreative } from 'swiper/modules'
-const modules = [EffectCreative]
+
 const list = ['业务范围', '服务原则', '全球供应链', '合作模式']
 const list2 = ['OEM', 'ODM', 'OBM']
 
@@ -393,7 +393,7 @@ const next = () => {
 
       .business-container-bottom {
         width: 100%;
-        height: 500px;
+        height: auto;
         margin-top: 1vh;
         display: flex;
         align-items: center;

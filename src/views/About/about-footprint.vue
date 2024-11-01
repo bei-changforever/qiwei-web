@@ -25,7 +25,7 @@
       </div>
       <div class="about-footprint-container-bottom">
         <div class="about-footprint-bg">
-          <img class="map-bg" :src="getAssetsFile('images', '全球足迹.png')" alt="" />
+          <img class="map-bg" :src="getAssetsFile('images', '全球足迹.png')" alt="全球足迹" @click="showImagePreview([getAssetsFile('images', '全球足迹.png')])"/>
           <!-- <div class="point USA">
             <div class="pos">
               <img :src="getAssetsFile('icon', '地标.png')" alt="" />
@@ -121,6 +121,7 @@
 </template>
 <script setup lang="ts">
 import { getAssetsFile } from '@/utils/tools'
+import { showImagePreview } from 'vant';
 </script>
 <style lang="scss" scoped>
 .about-footprint {

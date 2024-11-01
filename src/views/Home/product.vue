@@ -102,10 +102,14 @@
       </div>
     </div>
     <div class="home-product-swiper" v-if="screenWidth <= 960">
-      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" v-if="list.length > 0">
+      <van-swipe class="my-swipe" :autoplay="3000" v-if="list.length > 0">
         <van-swipe-item v-for="(item, index) in list" :key="index">
           <div class="background-image">
-            <img :src="item.thumb" />
+            <van-image :src="item.thumb" lazy-load>
+              <template v-slot:loading>
+                <van-loading type="spinner" size="20" />
+              </template>
+            </van-image>
           </div>
         </van-swipe-item>
       </van-swipe>
@@ -1799,19 +1803,30 @@ watch(
 
       .my-swipe {
         width: 100%;
+        height: 40vh;
       }
 
       :deep(.van-swipe-item) {
         width: 100%;
+        height: 100%;
         // border: 1px solid red;
       }
       .background-image {
         width: 100%;
+        height: 100%;
         border-radius: 20px;
         overflow: hidden;
 
         img {
           width: 100%;
+          height: 100%;
+          object-fit: fill;
+        }
+
+        :deep(.van-image) {
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
         }
       }
     }

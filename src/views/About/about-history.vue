@@ -48,16 +48,16 @@
                     <!-- <div class="content-detail" v-for="(d, i2) in item.content.detail" :key="i2">
                       <div class="text">{{ d.text }}</div>
                     </div> -->
-                    <div class="content-detail">
+                    <div class="content-detail" v-if="gh.description">
                       <div class="text">{{ gh.description }}</div>
                     </div>
-                    <div class="content-detail">
+                    <div class="content-detail" v-if="gh.description1">
                       <div class="text">{{ gh.description1 }}</div>
                     </div>
-                    <div class="content-detail">
+                    <div class="content-detail" v-if="gh.description2">
                       <div class="text">{{ gh.description2 }}</div>
                     </div>
-                    <div class="image">
+                    <div class="image" v-if="gh.thumb">
                       <img :src="gh.thumb" alt="" />
                     </div>
                   </div>
@@ -99,13 +99,13 @@
           <van-swipe-item v-for="(item, index) in mobileList" :key="index">
             <div class="text-content">
               <div class="content-time">{{ item.name }}</div>
-              <div class="content-detail">
+              <div class="content-detail" v-if="item.description">
                 <div class="text">{{ item.description }}</div>
               </div>
-              <div class="content-detail">
+              <div class="content-detail" v-if="item.description1">
                 <div class="text">{{ item.description1 }}</div>
               </div>
-              <div class="content-detail">
+              <div class="content-detail" v-if="item.description2">
                 <div class="text">{{ item.description2 }}</div>
               </div>
               <div class="image">
