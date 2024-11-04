@@ -106,7 +106,7 @@
             <swiper-slide v-for="(item, index) in list" :key="index">
               <div class="develop-infomation-container-bottom-item">
                 <el-image :src="item.thumb" :fit="'fill'" />
-                <div class="text">{{ item.name }}</div>
+                <div class="text">{{ item.name ? item.name : item.description }}</div>
               </div>
             </swiper-slide>
           </swiper>
@@ -118,7 +118,7 @@
             <van-swipe-item v-for="(item, index) in list" :key="index">
               <div class="develop-infomation-container-bottom-item">
                 <el-image :src="item.thumb" :fit="'fill'" />
-                <div class="text">{{ item.name }}</div>
+                <div class="text">{{ item.name ? item.name : item.description }}</div>
               </div>
             </van-swipe-item>
           </van-swipe>

@@ -1803,7 +1803,7 @@ watch(
 
       .my-swipe {
         width: 100%;
-        height: 40vh;
+        height: 65vh;
       }
 
       :deep(.van-swipe-item) {
