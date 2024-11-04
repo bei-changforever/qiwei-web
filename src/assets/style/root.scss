@@ -2,6 +2,7 @@
 :root {
   --animate-duration: 1.5s !important;
   --animate-delay: 1s !important;
+  --van-image-preview-overlay-background: rgba(255,255,255,255) !important;
 }
 @media (min-width: 1520px) and (max-width: 1920px) {
   :root {

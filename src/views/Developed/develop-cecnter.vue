@@ -112,7 +112,7 @@
 
           <van-swipe-item>
             <div class="box">
-              <el-image :src="getAssetsFile('images', '研发图片2.png')" :fit="'fill'" alt="" />
+              <el-image :src="getAssetsFile('images', '研发图片5.png')" :fit="'fill'" alt="" />
               <div class="desc">
                 <span>完善实验室支持</span>
                 <span
