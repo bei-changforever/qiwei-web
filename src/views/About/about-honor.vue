@@ -55,7 +55,7 @@
                 @click="handleSelect(i)"
               >
                 <el-image :src="p.thumb" :fit="'fill'" @click="showImagePreview([p.imgSrc])" />
-                <span>{{ p.title }}</span>
+                <span style="text-align: center;">{{ p.title }}</span>
               </div>
             </div></swiper-slide
           >
@@ -69,7 +69,7 @@
               <div class="image-box">
                 <img :src="item.thumb" alt="" />
               </div>
-              <div class="text">
+              <div class="text" style="text-align: center;">
                 {{ item.name }}
               </div>
             </div>
