@@ -19,7 +19,6 @@ const isProduct = ref(false)
 const isDarkPage = ref(true)
 const showTop = ref(false)
 const screenWidth = ref(window.innerWidth)
-
 // do not use same name with ref
 const form = reactive({
   name: '',
@@ -31,10 +30,6 @@ const form = reactive({
   resource: '',
   desc: ''
 })
-
-const onSubmit = () => {
-  console.log('submit!')
-}
 
 const initConfig = async () => {
   let res = await getBaseInfo()
