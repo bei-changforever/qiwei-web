@@ -744,7 +744,7 @@ watch(
     // }
   }
 }
-@media (min-width: 1520px) and (max-width: 1920px) {
+@media (min-width: 1520px) and (max-width: 1950px) {
   .development2 {
     width: 100vw;
     height: 100vh;
