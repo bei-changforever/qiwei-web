@@ -83,7 +83,7 @@
       </div>
     </div>
     <div class="footer-copyright" v-if="config">
-      <span>{{ config.copy_right }} </span>
+      <span v-html="config.copy_right"></span>
     </div>
   </div>
 </template>

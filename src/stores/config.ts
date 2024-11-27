@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useConfig = defineStore('useConfig', () => {
   const config = ref({
-    copy_right: 'Copyright © 2024 汕头市奇伟实业有限公司 All Rights Reserved | 粤ICP备07540754号',
+    copy_right: 'Copyright © 2024 汕头市奇伟实业有限公司 All Rights Reserved | <a href="#">粤ICP备07540754号</a>',
     web_name: '汕头市奇伟实业有限公司',
     description: '汕头市奇伟实业有限公司',
     keyword: '汕头市奇伟实业有限公司',
