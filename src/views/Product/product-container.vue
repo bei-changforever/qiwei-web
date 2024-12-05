@@ -2,17 +2,9 @@
   <div class="product-container">
     <div class="product-container-content">
       <div class="sift" v-if="PAGEWIDTH > 960">
-        <div class="sift-box-top">
+        <div class="sift-box-top" v-if="productCategory && productCategory.length > 0">
           <div class="top">
             <div class="text">
-              <!-- <div
-                :class="['text-item', top1Index == index ? 'active' : '']"
-                v-for="(item, index) in productCategory"
-                :key="item.id"
-                @click="chooseTopindex(item, index)"
-              >
-                {{ item.name }}
-              </div> -->
               <swiper :slidesPerView="5" :spaceBetween="30" class="mySwiper">
                 <swiper-slide v-for="(item, index) in productCategory" :key="item.id">
                   <span
@@ -33,13 +25,10 @@
               </div>
             </div>
           </div>
-          <div class="bottom">
+          <div class="bottom" v-if="productChild && productChild.length > 0">
             <div class="bottom-text-box">
-              <!-- @click="handleSelect(item, index)" -->
-              <!-- @mouseenter.stop="handleSelect(index)"
-                  @mouseleave.stop="parentClick" -->
               <div
-                class="temp-box" 
+                class="temp-box"
                 v-for="(item, index) in productChild"
                 :key="index"
                 v-show="erjicaidanindex == index"
@@ -91,7 +80,6 @@
         </div>
       </div>
       <div class="mobile-sift" v-else>
-        <!-- {{ mobileTypeList }} -->
         <van-dropdown-menu>
           <van-dropdown-item
             v-if="mobileTypeList.length !== 0"
@@ -131,23 +119,6 @@
         </div>
         <van-empty description="暂无产品数据" v-else />
         <div class="page-control">
-          <!-- <div class="page-number-control">
-            <div class="left-icon">
-              <el-icon>
-                <ArrowLeft />
-              </el-icon>
-            </div>
-
-            <div class="number-block">
-              <div class="number-item" v-for="(item, index) in 5" :key="index">{{ index + 1 }}</div>
-            </div>
-
-            <div class="right-icon">
-              <el-icon>
-                <ArrowRight />
-              </el-icon>
-            </div>
-          </div> -->
           <el-pagination
             v-model:current-page="currentPage"
             background
@@ -170,9 +141,6 @@
             <el-button @click="jumpTo">确定</el-button>
           </div>
         </div>
-        <!-- <div class="mobile-page-control" v-if="PAGEWIDTH <= 960">
-          <van-pagination v-model="currentPage" :total-items="24" :items-per-page="5" />
-        </div> -->
       </div>
     </div>
   </div>
@@ -937,8 +905,10 @@ watch(
             .image {
               width: 100%;
               height: calc(100% - 60px);
-
+              border-radius: 20px 20px 0 0;
+              overflow: hidden;
               img {
+                border-radius: 20px 20px 0 0;
                 width: 100%;
                 height: 100%;
                 object-fit: fill;
@@ -1108,8 +1078,11 @@ watch(
               .image {
                 width: 100%;
                 height: calc(100% - 60px);
-
+                border-radius: 20px 20px 0 0;
+                overflow: hidden;
                 img {
+                  border-radius: 20px 20px 0 0;
+
                   width: 100%;
                   height: 100%;
                   object-fit: fill;

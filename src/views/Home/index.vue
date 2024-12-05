@@ -118,7 +118,7 @@ function scrollToPage(pageIndex) {
     container.value.style.top = `-700%`
   } else if (pageIndex == 8) {
     // showAnimation.value = true
-    container.value.style.top = `-780%`
+    container.value.style.top = `-770%`
   }
   // else if (pageIndex == 9) {
   //   if (PAGEWIDTH.value >= 1220 && PAGEWIDTH.value <= 1440) {

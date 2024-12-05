@@ -110,7 +110,7 @@ watch(
   }
 
   #footer {
-    height: 700px !important;
+    height: 680px !important;
   }
 }
 </style>

@@ -50,8 +50,8 @@
         <el-image :src="getAssetsFile('images', '免费服务.png')" :fit="'fill'" />
         <div class="text-item">
           <div class="text">
-            <span v-if="PAGEWIDTH > 960">公司注册</span>
-            <span>品牌注册</span>
+            <span v-if="PAGEWIDTH > 960">协助客户产品知识产权注册</span>
+            <span>登记申请</span>
           </div>
           <div class="text">
             <span>品牌策划</span>
@@ -255,7 +255,7 @@ watch(
           }
 
           &:nth-child(7) {
-            top: 46%;
+            top: 48%;
             left: 43%;
           }
 
@@ -465,7 +465,7 @@ watch(
             }
 
             &:nth-child(7) {
-              top: 46%;
+              top: 48%;
               left: 43%;
             }
 
@@ -643,7 +643,7 @@ watch(
             }
 
             &:nth-child(7) {
-              top: 46%;
+              top: 48%;
               left: 43%;
             }
 
