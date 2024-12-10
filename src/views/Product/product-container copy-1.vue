@@ -1,7 +1,7 @@
 <template>
   <div class="product-container">
     <div class="product-container-content">
-      <div class="sift" v-if="PAGEWIDTH > 960">
+      <!-- <div class="sift" v-if="PAGEWIDTH > 960">
         <div class="sift-box-top" v-if="productCategory && productCategory.length > 0">
           <div class="top">
             <div class="text">
@@ -78,8 +78,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="mobile-sift" v-else>
+      </div> -->
+      <!-- <div class="mobile-sift" v-else>
         <van-dropdown-menu>
           <van-dropdown-item
             v-if="mobileTypeList.length !== 0"
@@ -95,50 +95,21 @@
             @click="onConfirm"
           />
         </van-dropdown-menu>
-      </div>
+      </div> -->
       <div class="product-box--ww-bottom">
-        <div class="product-list" v-if="productList && productList.length > 0">
-          <div
-            class="product-list-item"
-            v-for="(item, index) in productList"
-            :key="index"
-            @click="gotoProductInfo(item)"
-          >
+        <div class="product-list">
+          <div class="product-list-item" v-for="(item, index) in 10" :key="index">
             <div class="ww-box">
               <div class="image">
-                <van-image :src="item.thumb" lazy-load>
+                <van-image :src="getAssetsFile('images', '产品中心产品1.png')" lazy-load>
                   <template v-slot:loading>
                     <van-loading type="spinner" size="20" />
                   </template>
                 </van-image>
                 <!-- <img :src="item.thumb" alt="" /> -->
               </div>
-              <div class="text">{{ item.name }}</div>
+              <div class="text">21312313</div>
             </div>
-          </div>
-        </div>
-        <van-empty description="暂无产品数据" v-else />
-        <div class="page-control">
-          <el-pagination
-            v-model:current-page="currentPage"
-            background
-            :page-size="1"
-            :pager-count="5"
-            layout="prev, pager, next"
-            :total="renderToStreamot"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-          />
-          <div class="block"></div>
-          <div class="jumpto">
-            <div class="jump-text">跳转至</div>
-            <div class="jump-input">
-              <el-input v-model="input" />
-            </div>
-            <div class="jump-text">页</div>
-          </div>
-          <div class="button">
-            <el-button @click="jumpTo">确定</el-button>
           </div>
         </div>
       </div>
@@ -417,13 +388,13 @@ const getProductListData = async () => {
 const renderData = () => {}
 
 onMounted(() => {
-  nextTick(() => {
-    getProductCategoryData()
-    if (route.query.id) {
-      selectItemID.value = route.query.id
-      getProductListData()
-    }
-  })
+  // nextTick(() => {
+  //   getProductCategoryData()
+  //   if (route.query.id) {
+  //     selectItemID.value = route.query.id
+  //     getProductListData()
+  //   }
+  // })
 })
 // 顶部tab栏的数据
 const productCategory = computed(() => {
@@ -891,11 +862,10 @@ watch(
 
         .product-list-item {
           width: 24%;
-          height: 49%;
-
           display: flex;
           flex-direction: column;
 
+          // border: 1px solid red;
           .ww-box {
             width: 100%;
             height: 100%;
@@ -1073,27 +1043,26 @@ watch(
           .product-list-item {
             margin: 0 auto;
             width: 47%;
-            // height: 47%;
             display: flex;
             flex-direction: column;
             margin-bottom: 1vh;
 
             .ww-box {
               width: 100%;
-              height: 100%;
+              height: auto;
               display: flex;
               flex-direction: column;
               cursor: pointer;
+              // border: 1px solid red;
               .image {
                 width: 100%;
                 height: 344px;
                 border-radius: 20px;
                 overflow: hidden;
-                // border: 1px solid orange;
                 img {
                   border-radius: 20px;
                   width: 100%;
-                  height: 100%;
+                  height: 344px !important;
                   object-fit: fill;
                 }
 
@@ -1106,7 +1075,6 @@ watch(
               }
 
               .text {
-                margin-top: 5px;
                 width: 100%;
                 height: 60px;
                 display: flex;
@@ -1120,7 +1088,6 @@ watch(
                 color: #333333;
                 background-color: #f8f8f8;
                 border-radius: 20px;
-                // border: 1px solid skyblue;
               }
             }
           }
